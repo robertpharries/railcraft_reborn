@@ -5,6 +5,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.jetbrains.annotations.Nullable;
 import mods.railcraft.api.carts.ItemTransferHandler;
 import mods.railcraft.api.carts.RollingStock;
+import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.api.track.TrackUtil;
 import mods.railcraft.network.RailcraftDataSerializers;
 import mods.railcraft.season.Season;
@@ -96,13 +97,13 @@ public abstract class RailcraftMinecart extends AbstractMinecartContainer
   @Override
   protected void addAdditionalSaveData(CompoundTag tag) {
     super.addAdditionalSaveData(tag);
-    tag.putString("season", this.getSeason().getSerializedName());
+    tag.putString(CompoundTagKeys.SEASON, this.getSeason().getSerializedName());
   }
 
   @Override
   protected void readAdditionalSaveData(CompoundTag tag) {
     super.readAdditionalSaveData(tag);
-    this.setSeason(Season.fromName(tag.getString("season")));
+    this.setSeason(Season.fromName(tag.getString(CompoundTagKeys.SEASON)));
   }
 
   @Override

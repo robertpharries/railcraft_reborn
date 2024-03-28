@@ -1,6 +1,7 @@
 package mods.railcraft.integrations.jade;
 
 import mods.railcraft.Translations;
+import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.world.item.RailcraftItems;
 import mods.railcraft.world.item.TicketItem;
@@ -24,9 +25,9 @@ class RoutingTrackComponent implements IBlockComponentProvider,
   public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
     if (accessor.getBlock() instanceof RoutingTrackBlock) {
       var tag = accessor.getServerData();
-      if (tag.contains("destination")) {
+      if (tag.contains(CompoundTagKeys.DESTINATION)) {
         tooltip.add(Component.translatable(Translations.Tips.ROUTING_TICKET_DEST)
-            .append(" ").append(tag.getString("destination")));
+            .append(" ").append(tag.getString(CompoundTagKeys.DESTINATION)));
       }
       tooltip.remove(Identifiers.UNIVERSAL_ITEM_STORAGE);
     }
@@ -38,7 +39,7 @@ class RoutingTrackComponent implements IBlockComponentProvider,
       var item = routingTrack.container().getItem(0);
       if (item.is(RailcraftItems.GOLDEN_TICKET.get())) {
         var dest = TicketItem.getDestination(item);
-        tag.putString("destination", dest);
+        tag.putString(CompoundTagKeys.DESTINATION, dest);
       }
     }
   }

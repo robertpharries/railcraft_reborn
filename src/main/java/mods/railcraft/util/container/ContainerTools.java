@@ -3,6 +3,7 @@ package mods.railcraft.util.container;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
 import org.jetbrains.annotations.Nullable;
+import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.api.item.Filter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -64,7 +65,7 @@ public abstract class ContainerTools {
       var itemStack = container.getItem(i);
       if (!itemStack.isEmpty()) {
         var slotTag = new CompoundTag();
-        slotTag.putByte("index", i);
+        slotTag.putByte(CompoundTagKeys.INDEX, i);
         itemStack.save(slotTag);
         tag.add(slotTag);
       }
@@ -75,7 +76,7 @@ public abstract class ContainerTools {
   public static void readContainer(Container container, ListTag tag) {
     for (byte i = 0; i < tag.size(); i++) {
       var slotTag = tag.getCompound(i);
-      int slot = slotTag.getByte("index");
+      int slot = slotTag.getByte(CompoundTagKeys.INDEX);
       if (slot >= 0 && slot < container.getContainerSize()) {
         var itemStack = ItemStack.of(slotTag);
         container.setItem(slot, itemStack);

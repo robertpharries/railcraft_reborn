@@ -3,6 +3,7 @@ package mods.railcraft.world.item;
 import java.util.List;
 import org.jetbrains.annotations.Nullable;
 import mods.railcraft.Translations;
+import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.api.util.EnumUtil;
 import mods.railcraft.network.NetworkChannel;
 import mods.railcraft.network.play.UpdateAuraByKeyMessage;
@@ -27,11 +28,9 @@ public class GogglesItem extends ArmorItem {
   }
 
   public static Aura getAura(ItemStack itemStack) {
-    if (itemStack.hasTag()) {
-      var tag = itemStack.getTag();
-      if (tag.contains("aura")) {
-        return Aura.values()[tag.getInt("aura")];
-      }
+    var tag = itemStack.getTag();
+    if (tag != null && tag.contains(CompoundTagKeys.AURA)) {
+      return Aura.values()[tag.getInt(CompoundTagKeys.AURA)];
     }
     return Aura.NONE;
   }
@@ -41,7 +40,7 @@ public class GogglesItem extends ArmorItem {
     if (aura == Aura.TRACKING) {
       aura.getNext();
     }
-    itemStack.getOrCreateTag().putInt("aura", aura.ordinal());
+    itemStack.getOrCreateTag().putInt(CompoundTagKeys.AURA, aura.ordinal());
     return aura;
   }
 

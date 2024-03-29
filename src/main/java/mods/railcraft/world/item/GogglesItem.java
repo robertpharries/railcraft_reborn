@@ -89,29 +89,27 @@ public class GogglesItem extends ArmorItem {
 
   public enum Aura implements StringRepresentable {
 
-    NONE("none"),
-    TRACKING("tracking"),
-    TUNING("tuning"),
-    SHUNTING("shunting"),
-    SIGNALLING("signalling"),
-    SURVEYING("surveying"),
-    WORLDSPIKE("worldspike");
+    NONE(Translations.Tips.GOGGLES_AURA_NONE),
+    TRACKING(Translations.Tips.GOGGLES_AURA_TRACKING),
+    TUNING(Translations.Tips.GOGGLES_AURA_TUNING),
+    SHUNTING(Translations.Tips.GOGGLES_AURA_SHUNTING),
+    SIGNALLING(Translations.Tips.GOGGLES_AURA_SIGNALLING),
+    SURVEYING(Translations.Tips.GOGGLES_AURA_SURVEYING),
+    WORLDSPIKE(Translations.Tips.GOGGLES_AURA_WORLDSPIKE);
 
     private static final StringRepresentable.EnumCodec<Aura> CODEC =
         StringRepresentable.fromEnum(Aura::values);
 
     private final String name;
+    private final String translationKey;
 
-    Aura(String name) {
-      this.name = name;
+    Aura(String translationKey) {
+      this.translationKey = translationKey;
+      this.name = translationKey.substring(translationKey.lastIndexOf('.') + 1);
     }
 
     public MutableComponent getDisplayName() {
-      return Component.translatable(this.getTranslationKey());
-    }
-
-    private String getTranslationKey() {
-      return Translations.makeKey("tips", "goggles.aura." + this.name);
+      return Component.translatable(this.translationKey);
     }
 
     @Override

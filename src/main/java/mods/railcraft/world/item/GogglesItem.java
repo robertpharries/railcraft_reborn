@@ -61,7 +61,7 @@ public class GogglesItem extends ArmorItem {
   }
 
   private static Component getDescriptionText(MutableComponent value, boolean tooltip) {
-    var title = Component.translatable(Translations.Tips.GOOGLES_AURA);
+    var title = Component.translatable(Translations.Tips.GOGGLES_AURA);
     if (tooltip) {
       title.withStyle(ChatFormatting.GRAY);
     }
@@ -82,7 +82,7 @@ public class GogglesItem extends ArmorItem {
   public void appendHoverText(ItemStack itemStack, @Nullable Level level,
       List<Component> lines, TooltipFlag adv) {
     lines.add(getDescriptionText(getAura(itemStack).getDisplayName(), true));
-    lines.add(Component.translatable(Translations.Tips.GOOGLES_DESC)
+    lines.add(Component.translatable(Translations.Tips.GOGGLES_DESC)
         .withStyle(ChatFormatting.GRAY));
   }
 
@@ -90,12 +90,12 @@ public class GogglesItem extends ArmorItem {
     // TODO: 1.20.4+ use CODECS
 
     NONE(Translations.Tips.NONE),
-    TRACKING(Translations.Tips.GOOGLES_AURA_TRACKING),
-    TUNING(Translations.Tips.GOOGLES_AURA_TUNING),
-    SHUNTING(Translations.Tips.GOOGLES_AURA_SHUNTING),
-    SIGNALLING(Translations.Tips.GOOGLES_AURA_SIGNALLING),
-    SURVEYING(Translations.Tips.GOOGLES_AURA_SURVEYING),
-    WORLDSPIKE(Translations.Tips.GOOGLES_AURA_WORLDSPIKE);
+    TRACKING(Translations.Tips.GOGGLES_AURA_TRACKING),
+    TUNING(Translations.Tips.GOGGLES_AURA_TUNING),
+    SHUNTING(Translations.Tips.GOGGLES_AURA_SHUNTING),
+    SIGNALLING(Translations.Tips.GOGGLES_AURA_SIGNALLING),
+    SURVEYING(Translations.Tips.GOGGLES_AURA_SURVEYING),
+    WORLDSPIKE(Translations.Tips.GOGGLES_AURA_WORLDSPIKE);
 
     private final String translationKey;
 

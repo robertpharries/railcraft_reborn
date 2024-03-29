@@ -181,16 +181,16 @@ public class Translations {
     public static final String SPIKE_MAUL = makeKey("tips", "spike_maul");
     public static final String OVERALLS = makeKey("tips", "overalls");
     public static final String NONE = makeKey("tips", "none");
-    public static final String GOOGLES_DESC = makeKey("tips", "googles.desc");
-    public static final String GOOGLES_AURA = makeKey("tips", "googles.aura");
-    public static final String GOOGLES_AURA_SHUNTING = makeKey("tips", "googles.aura.shunting");
-    public static final String GOOGLES_AURA_SIGNALLING =
-        makeKey("tips", "googles.aura.signalling");
-    public static final String GOOGLES_AURA_SURVEYING = makeKey("tips", "googles.aura.surveying");
-    public static final String GOOGLES_AURA_TRACKING = makeKey("tips", "googles.aura.tracking");
-    public static final String GOOGLES_AURA_TUNING = makeKey("tips", "googles.aura.tuning");
-    public static final String GOOGLES_AURA_WORLDSPIKE =
-        makeKey("tips", "googles.aura.worldspike");
+    public static final String GOGGLES_DESC = makeKey("tips", "goggles.desc");
+    public static final String GOGGLES_AURA = makeKey("tips", "goggles.aura");
+    public static final String GOGGLES_AURA_SHUNTING = makeKey("tips", "goggles.aura.shunting");
+    public static final String GOGGLES_AURA_SIGNALLING =
+        makeKey("tips", "goggles.aura.signalling");
+    public static final String GOGGLES_AURA_SURVEYING = makeKey("tips", "goggles.aura.surveying");
+    public static final String GOGGLES_AURA_TRACKING = makeKey("tips", "goggles.aura.tracking");
+    public static final String GOGGLES_AURA_TUNING = makeKey("tips", "goggles.aura.tuning");
+    public static final String GOGGLES_AURA_WORLDSPIKE =
+        makeKey("tips", "goggles.aura.worldspike");
     public static final String CROWBAR_DESC = makeKey("tips", "crowbar.desc");
     public static final String CROWBAR_LINK_BROKEN = makeKey("tips", "crowbar.link.broken");
     public static final String CROWBAR_LINK_CREATED = makeKey("tips", "crowbar.link.created");

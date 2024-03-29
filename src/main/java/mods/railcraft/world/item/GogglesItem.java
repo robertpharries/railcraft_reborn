@@ -62,7 +62,7 @@ public class GogglesItem extends ArmorItem {
   }
 
   private static Component getDescriptionText(MutableComponent value, boolean tooltip) {
-    var title = Component.translatable(Translations.Tips.GOOGLES_AURA);
+    var title = Component.translatable(Translations.Tips.GOGGLES_AURA);
     if (tooltip) {
       title.withStyle(ChatFormatting.GRAY);
     }
@@ -83,7 +83,7 @@ public class GogglesItem extends ArmorItem {
   public void appendHoverText(ItemStack itemStack, @Nullable Level level,
       List<Component> lines, TooltipFlag adv) {
     lines.add(getDescriptionText(getAura(itemStack).getDisplayName(), true));
-    lines.add(Component.translatable(Translations.Tips.GOOGLES_DESC)
+    lines.add(Component.translatable(Translations.Tips.GOGGLES_DESC)
         .withStyle(ChatFormatting.GRAY));
   }
 
@@ -111,7 +111,7 @@ public class GogglesItem extends ArmorItem {
     }
 
     private String getTranslationKey() {
-      return Translations.makeKey("tips", "googles.aura." + this.name);
+      return Translations.makeKey("tips", "goggles.aura." + this.name);
     }
 
     @Override

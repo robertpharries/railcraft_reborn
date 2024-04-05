@@ -21,7 +21,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluids;
-import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
@@ -104,7 +103,7 @@ public class SteamLocomotive extends BaseSteamLocomotive implements WorldlyConta
     if (water.isEmpty() || water.getAmount() < this.waterTank.getCapacity() / 3) {
       return true;
     }
-    int numItems = this.allFuelContainer.countItems(item -> CommonHooks.getBurnTime(item, null) > 0);
+    int numItems = this.allFuelContainer.countItems(item -> item.getBurnTime(null) > 0);
     if (numItems == 0) {
       return true;
     }
@@ -141,7 +140,7 @@ public class SteamLocomotive extends BaseSteamLocomotive implements WorldlyConta
   public boolean canPlaceItem(int slot, ItemStack stack) {
     return switch (slot) {
       case FUEL_SLOT, EXTRA_FUEL_SLOT_A, EXTRA_FUEL_SLOT_B, EXTRA_FUEL_SLOT_C ->
-          CommonHooks.getBurnTime(stack, null) > 0;
+          stack.getBurnTime(null) > 0;
       case SLOT_WATER_INPUT ->
           // if (FluidItemHelper.getFluidStackInContainer(stack)
           // .filter(fluidStack -> fluidStack.getAmount() > FluidTools.BUCKET_VOLUME).isPresent()) {
@@ -155,7 +154,7 @@ public class SteamLocomotive extends BaseSteamLocomotive implements WorldlyConta
 
   @Override
   public boolean canAcceptPushedItem(RollingStock requester, ItemStack stack) {
-    return CommonHooks.getBurnTime(stack, null) > 0;
+    return stack.getBurnTime(null) > 0;
   }
 
   @Override

@@ -40,7 +40,7 @@ public abstract class MinecartFurnaceMixin extends AbstractMinecart {
       return ret;
     }
     ItemStack itemstack = player.getItemInHand(hand);
-    var burnTime = CommonHooks.getBurnTime(itemstack, null);
+    var burnTime = itemstack.getBurnTime(null);
     if (burnTime > 0 && this.fuel + burnTime <= 32000) {
       if (!player.getAbilities().instabuild) {
         itemstack.shrink(1);

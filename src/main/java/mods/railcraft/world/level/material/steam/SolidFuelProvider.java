@@ -5,7 +5,6 @@ import mods.railcraft.world.item.RefinedFirestoneItem;
 import mods.railcraft.world.level.material.FuelProvider;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.common.CommonHooks;
 
 public class SolidFuelProvider implements FuelProvider {
 
@@ -28,7 +27,7 @@ public class SolidFuelProvider implements FuelProvider {
   @Override
   public float consumeFuel() {
     var fuel = this.container.getItem(this.slot);
-    int burn = CommonHooks.getBurnTime(fuel, null);
+    int burn = fuel.getBurnTime(null);
     if (burn > 0) {
       this.lastItem = fuel.getItem();
       this.container.setItem(this.slot, ContainerTools.depleteItem(fuel));

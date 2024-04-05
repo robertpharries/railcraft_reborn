@@ -12,7 +12,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.CommonHooks;
 
 public class CoalCokeBlock extends Block {
 
@@ -46,7 +45,7 @@ public class CoalCokeBlock extends Block {
   public void appendHoverText(ItemStack stack, @Nullable BlockGetter level, List<Component> tooltip,
       TooltipFlag flag) {
     super.appendHoverText(stack, level, tooltip, flag);
-    var burnTime = CommonHooks.getBurnTime(stack, null);
+    var burnTime = stack.getBurnTime(null);
     tooltip.add(Component.translatable(Translations.Tips.COAL_COKE_BLOCK, burnTime)
         .withStyle(ChatFormatting.GRAY));
   }

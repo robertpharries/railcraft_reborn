@@ -20,7 +20,6 @@ import net.minecraft.world.item.MinecartItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.StemBlock;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.common.Tags;
 
 /**
@@ -28,7 +27,7 @@ import net.neoforged.neoforge.common.Tags;
  */
 public enum StackFilter implements Predicate<ItemStack> {
 
-  FUEL(itemStack -> CommonHooks.getBurnTime(itemStack, null) > 0),
+  FUEL(itemStack -> itemStack.getBurnTime(null) > 0),
   TRACK(TrackUtil::isRail),
   MINECART(itemStack -> {
     var item = itemStack.getItem();

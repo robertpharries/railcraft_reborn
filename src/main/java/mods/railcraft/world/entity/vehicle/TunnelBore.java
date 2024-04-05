@@ -57,7 +57,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.entity.PartEntity;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -912,7 +911,7 @@ public class TunnelBore extends RailcraftMinecart implements Linkable {
     for (int slot = 0; slot < this.fuelContainer.getContainerSize(); slot++) {
       var stack = this.fuelContainer.getItem(slot);
       if (!stack.isEmpty()) {
-        burn = CommonHooks.getBurnTime(stack, null);
+        burn = stack.getBurnTime(null);
         if (burn > 0) {
           if (stack.getItem().hasCraftingRemainingItem(stack)) {
             this.fuelContainer.setItem(slot, stack.getItem().getCraftingRemainingItem(stack));

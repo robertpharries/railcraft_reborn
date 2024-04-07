@@ -4,7 +4,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import mods.railcraft.Translations;
 import mods.railcraft.api.core.RailcraftConstants;
-import mods.railcraft.season.Season;
 import mods.railcraft.util.VariantRegistrar;
 import mods.railcraft.world.effect.RailcraftMobEffects;
 import mods.railcraft.world.entity.RailcraftEntityTypes;
@@ -438,10 +437,10 @@ public class RailcraftLanguageProvider extends LanguageProvider {
     this.add(Translations.Tips.CROWBAR_LINK_STARTED, "Started Linking Carts");
     this.add(Translations.Tips.CROWBAR_SEASON_DESC, "Current season:");
 
-    this.add(Season.NONE.getTranslationKey(), "None");
-    this.add(Season.DEFAULT.getTranslationKey(), "Default");
-    this.add(Season.CHRISTMAS.getTranslationKey(), "Christmas");
-    this.add(Season.HALLOWEEN.getTranslationKey(), "Halloween");
+    this.add(Translations.Season.NONE, "None");
+    this.add(Translations.Season.DEFAULT, "Default");
+    this.add(Translations.Season.CHRISTMAS, "Christmas");
+    this.add(Translations.Season.HALLOWEEN, "Halloween");
 
     this.add(Translations.Tips.SIGNAL_LABEL_DESC1, "- Rename in Anvil -");
     this.add(Translations.Tips.SIGNAL_LABEL_DESC2,

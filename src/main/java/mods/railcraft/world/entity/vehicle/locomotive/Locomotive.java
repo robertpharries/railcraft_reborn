@@ -800,17 +800,19 @@ public abstract class Locomotive extends RailcraftMinecart implements
    */
   public enum Mode implements StringRepresentable {
 
-    SHUTDOWN("shutdown"),
-    IDLE("idle"),
-    RUNNING("running");
+    SHUTDOWN(Translations.Screen.LOCOMOTIVE_MODE_SHUTDOWN),
+    IDLE(Translations.Screen.LOCOMOTIVE_MODE_IDLE),
+    RUNNING(Translations.Screen.LOCOMOTIVE_MODE_RUNNING);
 
     private static final StringRepresentable.EnumCodec<Mode> CODEC =
         StringRepresentable.fromEnum(Mode::values);
 
     private final String name;
+    private final String translationKey;
 
-    Mode(String name) {
-      this.name = name;
+    Mode(String translationKey) {
+      this.translationKey = translationKey;
+      this.name = translationKey.substring(translationKey.lastIndexOf('.') + 1);
     }
 
     public Mode next() {
@@ -827,11 +829,7 @@ public abstract class Locomotive extends RailcraftMinecart implements
     }
 
     public Component getDisplayName() {
-      return Component.translatable(this.getTranslationKey());
-    }
-
-    public String getTranslationKey() {
-      return Translations.makeKey("screen", "locomotive.mode." + this.name);
+      return Component.translatable(this.translationKey);
     }
 
     public static Mode fromName(String name) {

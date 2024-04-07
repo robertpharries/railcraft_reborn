@@ -557,6 +557,13 @@ public class Translations {
     public static final String MACHINE_ZAP = makeKey("subtitle", "machine.zap");
   }
 
+  public static class Season {
+    public static final String DEFAULT = makeKey("season", "default");
+    public static final String HALLOWEEN = makeKey("season", "halloween");
+    public static final String CHRISTMAS = makeKey("season", "christmas");
+    public static final String NONE = makeKey("season", "none");
+  }
+
   public static class DamageSource {
     public static final List<String> BORE = IntStream.rangeClosed(1, 6)
         .mapToObj(i -> makeKey("death", "bore." + i)).toList();

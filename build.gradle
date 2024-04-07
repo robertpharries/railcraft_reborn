@@ -118,7 +118,7 @@ dependencies {
     runtimeOnly "mezz.jei:jei-$minecraft_version-neoforge:$jei_version"
 
     compileOnly "dev.emi:emi-neoforge:$emi_version+$minecraft_version:api"
-    runtimeOnly "dev.emi:emi-neoforge:$emi_version+$minecraft_version"
+    //runtimeOnly "dev.emi:emi-neoforge:$emi_version+$minecraft_version"
 
     compileOnly "vazkii.patchouli:Patchouli:$patchouli_version:api"
     runtimeOnly "vazkii.patchouli:Patchouli:$patchouli_version"

@@ -26,19 +26,17 @@ jobs:
       - name: Validate wrapper
         uses: gradle/actions/wrapper-validation@v3
 
-      - name: Build
+      - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: wrapper
           cache-read-only: false
-          arguments: build
+
+      - name: Build
+        run: ./gradlew build
 
       - name: Test
-        uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-version: wrapper
-          cache-read-only: false
-          arguments: runGameTestServer
+        run: ./gradlew runGameTestServer
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4

@@ -2,7 +2,7 @@ package mods.railcraft.world.damagesource;
 
 import mods.railcraft.api.core.RailcraftConstants;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageType;
 
@@ -16,7 +16,7 @@ public class RailcraftDamageType {
   public static final ResourceKey<DamageType> TRAIN = createKey("train");
   public static final ResourceKey<DamageType> CREOSOTE = createKey("creosote");
 
-  public static void bootstrap(BootstapContext<DamageType> context) {
+  public static void bootstrap(BootstrapContext<DamageType> context) {
     context.register(BORE, new DamageType("bore", 0));
     context.register(CRUSHER, new DamageType("crusher", 0.1f));
     context.register(ELECTRIC, new DamageType("electric", 0));

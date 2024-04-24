@@ -6,6 +6,7 @@
  -----------------------------------------------------------------------------*/
 package mods.railcraft.api.charge;
 
+import org.apache.commons.lang3.NotImplementedException;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -36,11 +37,13 @@ public interface ChargeProtectionItem {
    */
   default ZapResult zap(ItemStack stack, LivingEntity owner, float attackDamage) {
     var resultStack = stack;
-    if (owner.getRandom().nextInt(150) == 0 && stack.hurt(1, owner.getRandom(),
+    //FIXME
+    throw new NotImplementedException();
+    /*if (owner.getRandom().nextInt(150) == 0 && stack.hurt(1, owner.getRandom(),
           owner instanceof ServerPlayer serverPlayer ? serverPlayer : null)) {
       resultStack = ItemStack.EMPTY;
     }
-    return new ZapResult(resultStack, attackDamage);
+    return new ZapResult(resultStack, attackDamage);*/
   }
 
   record ZapResult(ItemStack stack, float damagePrevented) {}

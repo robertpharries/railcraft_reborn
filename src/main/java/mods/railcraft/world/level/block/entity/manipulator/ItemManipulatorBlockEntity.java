@@ -20,7 +20,7 @@ import mods.railcraft.world.inventory.ItemManipulatorMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -243,13 +243,13 @@ public abstract class ItemManipulatorBlockEntity extends ManipulatorBlockEntity
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf data) {
+  public void writeToBuf(RegistryFriendlyByteBuf data) {
     super.writeToBuf(data);
     data.writeEnum(this.transferMode);
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf data) {
+  public void readFromBuf(RegistryFriendlyByteBuf data) {
     super.readFromBuf(data);
     this.transferMode = data.readEnum(TransferMode.class);
   }

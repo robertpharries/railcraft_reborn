@@ -6,7 +6,7 @@ import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.data.worldgen.features.RailcraftOreFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.OrePlacements;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
@@ -52,7 +52,7 @@ public class RailcraftOrePlacements {
   public static final ResourceKey<PlacedFeature> SALTPETER = createKey("saltpeter");
   public static final ResourceKey<PlacedFeature> FIRESTONE = createKey("firestone");
 
-  public static void bootstrap(BootstapContext<PlacedFeature> context) {
+  public static void bootstrap(BootstrapContext<PlacedFeature> context) {
     context.register(LEAD_ORE,
         new PlacedFeature(getConfiguredFeature(context, RailcraftOreFeatures.LEAD_ORE),
             OrePlacements.commonOrePlacement(LEAD_VEIN_PER_CHUNK,
@@ -138,7 +138,7 @@ public class RailcraftOrePlacements {
 
   @NotNull
   private static Holder.Reference<ConfiguredFeature<?, ?>> getConfiguredFeature(
-      @NotNull BootstapContext<PlacedFeature> context,
+      @NotNull BootstrapContext<PlacedFeature> context,
       ResourceKey<ConfiguredFeature<?, ?>> resourceKey) {
     return context.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(resourceKey);
   }

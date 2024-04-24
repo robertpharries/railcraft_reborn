@@ -4,7 +4,7 @@ import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.data.worldgen.placements.RailcraftOrePlacements;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
@@ -36,7 +36,7 @@ public class RailcraftBiomeModifiers {
   private static final ResourceKey<BiomeModifier> SALTPETER = createKey("add_saltpeter");
   private static final ResourceKey<BiomeModifier> FIRESTONE = createKey("add_firestone");
 
-  public static void bootstrap(BootstapContext<BiomeModifier> context) {
+  public static void bootstrap(BootstrapContext<BiomeModifier> context) {
     var overworldTag = context.lookup(Registries.BIOME).getOrThrow(BiomeTags.IS_OVERWORLD);
     var netherTag = context.lookup(Registries.BIOME).getOrThrow(BiomeTags.IS_NETHER);
     var forestTag = context.lookup(Registries.BIOME).getOrThrow(BiomeTags.IS_FOREST);

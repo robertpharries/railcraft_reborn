@@ -7,10 +7,11 @@ import com.mojang.logging.LogUtils;
 import mods.railcraft.api.core.NetworkSerializable;
 import mods.railcraft.api.signal.entity.SignalControllerEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 
@@ -65,24 +66,23 @@ public class SingleSignalReceiver
   }
 
   @Override
-  public CompoundTag serializeNBT() {
+  public CompoundTag serializeNBT(HolderLookup.Provider provider) {
     CompoundTag tag = new CompoundTag();
-    tag.put("primarySignalClient", this.primarySignalClient.serializeNBT());
-    return tag;
+    tag.put("primarySignalClient", this.primarySignalClient.serializeNBT(provider));
+    return tag;  }
+
+  @Override
+  public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
+    this.primarySignalClient.deserializeNBT(provider, tag.getCompound("primarySignalClient"));
   }
 
   @Override
-  public void deserializeNBT(CompoundTag tag) {
-    this.primarySignalClient.deserializeNBT(tag.getCompound("primarySignalClient"));
-  }
-
-  @Override
-  public void writeToBuf(FriendlyByteBuf data) {
+  public void writeToBuf(RegistryFriendlyByteBuf data) {
     data.writeEnum(this.primarySignalClient.getSignalAspect());
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf data) {
+  public void readFromBuf(RegistryFriendlyByteBuf data) {
     this.primarySignalClient.setSignalAspect(data.readEnum(SignalAspect.class));
   }
 
@@ -172,7 +172,7 @@ public class SingleSignalReceiver
     }
 
     @Override
-    public CompoundTag serializeNBT() {
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
       var tag = new CompoundTag();
       if (this.signalControllerPos != null) {
         tag.put("signalControllerPos", NbtUtils.writeBlockPos(this.signalControllerPos));
@@ -181,9 +181,9 @@ public class SingleSignalReceiver
     }
 
     @Override
-    public void deserializeNBT(CompoundTag tag) {
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
       if (tag.contains("signalControllerPos", Tag.TAG_COMPOUND)) {
-        this.signalControllerPos = NbtUtils.readBlockPos(tag.getCompound("signalControllerPos"));
+        this.signalControllerPos = NbtUtils.readBlockPos(tag,"signalControllerPos").orElse(null);
       }
     }
   }

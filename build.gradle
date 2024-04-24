@@ -26,7 +26,7 @@ base {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
         if (System.getProperty('idea.active')) {
             vendor = JvmVendorSpec.JETBRAINS
         }
@@ -113,18 +113,18 @@ dependencies {
     testImplementation platform("org.junit:junit-bom:$jupiter_version")
     testImplementation 'org.junit.jupiter:junit-jupiter'
 
-    compileOnly "mezz.jei:jei-$minecraft_version-common-api:$jei_version"
-    compileOnly "mezz.jei:jei-$minecraft_version-neoforge-api:$jei_version"
-    runtimeOnly "mezz.jei:jei-$minecraft_version-neoforge:$jei_version"
+    //compileOnly "mezz.jei:jei-$minecraft_version-common-api:$jei_version"
+    //compileOnly "mezz.jei:jei-$minecraft_version-neoforge-api:$jei_version"
+    //runtimeOnly "mezz.jei:jei-$minecraft_version-neoforge:$jei_version"
 
-    compileOnly "dev.emi:emi-neoforge:$emi_version+$minecraft_version:api"
+    //compileOnly "dev.emi:emi-neoforge:$emi_version+$minecraft_version:api"
     //runtimeOnly "dev.emi:emi-neoforge:$emi_version+$minecraft_version"
 
     compileOnly "vazkii.patchouli:Patchouli:$patchouli_version:api"
-    runtimeOnly "vazkii.patchouli:Patchouli:$patchouli_version"
+    //runtimeOnly "vazkii.patchouli:Patchouli:$patchouli_version"
 
     compileOnly "curse.maven:jade-api-324717:$jade_id_api"
-    runtimeOnly "curse.maven:jade-324717:$jade_id"
+    //runtimeOnly "curse.maven:jade-324717:$jade_id"
 
 }
 
@@ -171,7 +171,7 @@ tasks.withType(ProcessResources).configureEach {
     inputs.properties replaceProperties
 
     filesMatching(['META-INF/mods.toml']) {
-        expand replaceProperties + [project: project]
+        expand replaceProperties
     }
 }
 

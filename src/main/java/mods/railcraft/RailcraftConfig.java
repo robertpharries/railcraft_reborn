@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.common.collect.ImmutableList;
 import mods.railcraft.api.core.RailcraftConstants;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.ModConfigSpec;
@@ -34,10 +35,10 @@ public class RailcraftConfig {
     SERVER = serverPair.getLeft();
   }
 
-  public static void registerConfig(ModLoadingContext context) {
-    context.registerConfig(ModConfig.Type.CLIENT, RailcraftConfig.CLIENT_SPEC);
-    context.registerConfig(ModConfig.Type.COMMON, RailcraftConfig.COMMON_SPEC);
-    context.registerConfig(ModConfig.Type.SERVER, RailcraftConfig.SERVER_SPEC);
+  public static void registerConfig(ModContainer container) {
+    container.registerConfig(ModConfig.Type.CLIENT, RailcraftConfig.CLIENT_SPEC);
+    container.registerConfig(ModConfig.Type.COMMON, RailcraftConfig.COMMON_SPEC);
+    container.registerConfig(ModConfig.Type.SERVER, RailcraftConfig.SERVER_SPEC);
   }
 
   public static class Server {

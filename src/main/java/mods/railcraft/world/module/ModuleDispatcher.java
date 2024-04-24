@@ -6,6 +6,7 @@ import java.util.Optional;
 import mods.railcraft.api.core.NetworkSerializable;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 
 public class ModuleDispatcher implements NetworkSerializable, INBTSerializable<CompoundTag> {
@@ -41,13 +42,13 @@ public class ModuleDispatcher implements NetworkSerializable, INBTSerializable<C
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf out) {
+  public void writeToBuf(RegistryFriendlyByteBuf out) {
     out.writeMap(this.moduleByName,
         FriendlyByteBuf::writeUtf, (buf, module) -> module.writeToBuf(buf));
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf in) {
+  public void readFromBuf(RegistryFriendlyByteBuf in) {
     var size = in.readVarInt();
     for (int i = 0; i < size; i++) {
       var name = in.readUtf();

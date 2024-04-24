@@ -18,7 +18,7 @@ import mods.railcraft.world.level.block.entity.multiblock.MultiblockPattern;
 import mods.railcraft.world.module.SteamTurbineModule;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Inventory;
@@ -123,13 +123,13 @@ public class SteamTurbineBlockEntity extends MultiblockBlockEntity<SteamTurbineB
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf out) {
+  public void writeToBuf(RegistryFriendlyByteBuf out) {
     super.writeToBuf(out);
     out.writeFloat(this.masterOperatingRatio);
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf in) {
+  public void readFromBuf(RegistryFriendlyByteBuf in) {
     super.readFromBuf(in);
     this.masterOperatingRatio = in.readFloat();
   }

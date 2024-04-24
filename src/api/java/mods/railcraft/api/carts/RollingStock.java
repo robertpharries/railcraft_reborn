@@ -513,7 +513,7 @@ public interface RollingStock {
     for (int i = 0; i < handler.getTanks(); i++) {
       if (handler.getTankCapacity(i) >= MAX_BLOCKING_TANK_CAPACITY) {
         var tankFluid = handler.getFluidInTank(i);
-        if (tankFluid.isEmpty() || tankFluid.isFluidEqual(fluid)) {
+        if (tankFluid.isEmpty() || FluidStack.isSameFluidSameComponents(tankFluid, fluid)) {
           return true;
         }
       }

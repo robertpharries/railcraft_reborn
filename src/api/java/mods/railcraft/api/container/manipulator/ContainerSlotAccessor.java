@@ -59,7 +59,7 @@ public class ContainerSlotAccessor<T extends Container> implements ModifiableSlo
         return stack;
       }
 
-      if (!ItemHandlerHelper.canItemStacksStack(stack, currentItem)) {
+      if (!ItemStack.isSameItemSameComponents(stack, currentItem)) {
         return stack;
       }
     }

@@ -10,7 +10,7 @@ import mods.railcraft.client.gui.widget.button.TexturePosition;
 import mods.railcraft.gui.button.ButtonState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -57,13 +57,13 @@ public class LockableSwitchTrackActuatorBlockEntity extends RailcraftBlockEntity
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf data) {
+  public void writeToBuf(RegistryFriendlyByteBuf data) {
     super.writeToBuf(data);
     data.writeEnum(this.lock);
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf data) {
+  public void readFromBuf(RegistryFriendlyByteBuf data) {
     super.readFromBuf(data);
     this.lock = data.readEnum(Lock.class);
   }

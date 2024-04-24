@@ -8,7 +8,7 @@ import mods.railcraft.api.signal.entity.SignalReceiverEntity;
 import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class DualTokenSignalBlockEntity extends TokenSignalBlockEntity
@@ -64,13 +64,13 @@ public class DualTokenSignalBlockEntity extends TokenSignalBlockEntity
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf data) {
+  public void writeToBuf(RegistryFriendlyByteBuf data) {
     super.writeToBuf(data);
     this.signalReceiver.writeToBuf(data);
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf data) {
+  public void readFromBuf(RegistryFriendlyByteBuf data) {
     super.readFromBuf(data);
     this.signalReceiver.readFromBuf(data);
   }

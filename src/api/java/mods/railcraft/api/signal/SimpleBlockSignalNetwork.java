@@ -17,7 +17,7 @@ import com.mojang.logging.LogUtils;
 import mods.railcraft.api.track.TrackScanUtil;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
@@ -299,13 +299,13 @@ public class SimpleBlockSignalNetwork extends BlockEntitySignalNetwork<BlockSign
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf data) {
+  public void writeToBuf(RegistryFriendlyByteBuf data) {
     super.writeToBuf(data);
     data.writeEnum(this.signalAspect);
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf data) {
+  public void readFromBuf(RegistryFriendlyByteBuf data) {
     super.readFromBuf(data);
     this.signalAspect = data.readEnum(SignalAspect.class);
   }

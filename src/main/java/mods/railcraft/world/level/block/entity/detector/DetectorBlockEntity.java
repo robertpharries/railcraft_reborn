@@ -8,7 +8,7 @@ import mods.railcraft.world.level.block.detector.DetectorBlock;
 import mods.railcraft.world.level.block.entity.RailcraftBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -85,14 +85,14 @@ public abstract class DetectorBlockEntity extends RailcraftBlockEntity {
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf out) {
+  public void writeToBuf(RegistryFriendlyByteBuf out) {
     super.writeToBuf(out);
     out.writeVarInt(this.powerState);
     out.writeVarInt(this.powerDelay);
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf in) {
+  public void readFromBuf(RegistryFriendlyByteBuf in) {
     super.readFromBuf(in);
     this.powerState = in.readVarInt();
     this.powerDelay = in.readVarInt();

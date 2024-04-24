@@ -8,7 +8,7 @@ import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import mods.railcraft.world.level.block.track.outfitted.PoweredOutfittedTrackBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
@@ -66,13 +66,13 @@ public class LauncherTrackBlockEntity extends RailcraftBlockEntity {
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf out) {
+  public void writeToBuf(RegistryFriendlyByteBuf out) {
     super.writeToBuf(out);
     out.writeByte(this.launchForce);
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf in) {
+  public void readFromBuf(RegistryFriendlyByteBuf in) {
     super.readFromBuf(in);
     this.launchForce = in.readByte();
   }

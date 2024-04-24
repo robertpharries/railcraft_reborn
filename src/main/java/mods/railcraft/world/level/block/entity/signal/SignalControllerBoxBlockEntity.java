@@ -10,7 +10,7 @@ import mods.railcraft.world.level.block.signal.SignalBoxBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -128,7 +128,7 @@ public class SignalControllerBoxBlockEntity extends AbstractSignalBoxBlockEntity
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf data) {
+  public void writeToBuf(RegistryFriendlyByteBuf data) {
     super.writeToBuf(data);
     data.writeEnum(this.defaultAspect);
     data.writeEnum(this.poweredAspect);
@@ -136,7 +136,7 @@ public class SignalControllerBoxBlockEntity extends AbstractSignalBoxBlockEntity
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf data) {
+  public void readFromBuf(RegistryFriendlyByteBuf data) {
     super.readFromBuf(data);
     this.defaultAspect = data.readEnum(SignalAspect.class);
     this.poweredAspect = data.readEnum(SignalAspect.class);

@@ -13,15 +13,17 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 import java.util.Optional;
+import org.apache.commons.lang3.NotImplementedException;
 import org.jetbrains.annotations.Nullable;
 import mods.railcraft.api.core.BlockEntityLike;
 import mods.railcraft.api.core.NetworkSerializable;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.util.INBTSerializable;
@@ -137,7 +139,7 @@ public abstract class AbstractSignalNetwork<T extends BlockEntityLike>
   }
 
   @Override
-  public CompoundTag serializeNBT() {
+  public CompoundTag serializeNBT(HolderLookup.Provider provider) {
     var tag = new CompoundTag();
     var peersTag = new ListTag();
     for (var peer : this.peers) {
@@ -148,24 +150,26 @@ public abstract class AbstractSignalNetwork<T extends BlockEntityLike>
   }
 
   @Override
-  public void deserializeNBT(CompoundTag tag) {
+  public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
     var peersTag = tag.getList("peers", Tag.TAG_COMPOUND);
     for (var peerTag : peersTag) {
-      this.peers.add(NbtUtils.readBlockPos((CompoundTag) peerTag));
+      throw new NotImplementedException();
+      //FIXME
+      //this.peers.add(NbtUtils.readBlockPos((CompoundTag) peerTag));
     }
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf data) {
+  public void writeToBuf(RegistryFriendlyByteBuf data) {
     data.writeBoolean(this.linking);
-    data.writeCollection(this.peers, FriendlyByteBuf::writeBlockPos);
+    data.writeCollection(this.peers, RegistryFriendlyByteBuf::writeBlockPos);
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf data) {
+  public void readFromBuf(RegistryFriendlyByteBuf data) {
     this.linking = data.readBoolean();
     this.peers.clear();
-    this.peers.addAll(data.readList(FriendlyByteBuf::readBlockPos));
+    this.peers.addAll(data.readList(RegistryFriendlyByteBuf::readBlockPos));
   }
 
   public void syncToClient() {

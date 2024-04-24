@@ -16,6 +16,7 @@ import mods.railcraft.world.signal.TokenRingManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -108,7 +109,7 @@ public class TokenSignalBlockEntity extends AbstractSignalBlockEntity
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf data) {
+  public void writeToBuf(RegistryFriendlyByteBuf data) {
     super.writeToBuf(data);
     this.signalController.writeToBuf(data);
     data.writeNullable(this.ringCentroidPos, FriendlyByteBuf::writeVec3);
@@ -116,7 +117,7 @@ public class TokenSignalBlockEntity extends AbstractSignalBlockEntity
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf data) {
+  public void readFromBuf(RegistryFriendlyByteBuf data) {
     super.readFromBuf(data);
     this.signalController.readFromBuf(data);
     this.ringCentroidPos = data.readNullable(FriendlyByteBuf::readVec3);

@@ -3,7 +3,7 @@ package mods.railcraft.data.worldgen;
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.world.level.levelgen.structure.GeodeStructure;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Structures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
@@ -16,7 +16,7 @@ public class RailcraftStructures {
   public static final ResourceKey<Structure> GEODE = ResourceKey
       .create(Registries.STRUCTURE, RailcraftConstants.rl("geode"));
 
-  public static void bootstrap(BootstapContext<Structure> context) {
+  public static void bootstrap(BootstrapContext<Structure> context) {
     var holdergetter = context.lookup(Registries.BIOME);
 
     context.register(GEODE, new GeodeStructure(Structures

@@ -1,5 +1,7 @@
 package mods.railcraft.api.item;
 
+import org.apache.commons.lang3.NotImplementedException;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
@@ -15,15 +17,19 @@ public interface PrototypedItem {
   }
 
   default ItemStack setPrototype(ItemStack filter, ItemStack prototype) {
+    //FIXME
     filter = filter.copy();
-    CompoundTag tag = new CompoundTag();
+    /*CompoundTag tag = new CompoundTag();
     prototype.save(tag);
-    filter.addTagElement("prototype", tag);
-    return filter;
+    filter.addTagElement("prototype", tag);*/
+    throw new NotImplementedException();
+    //return filter;
   }
 
   default ItemStack getPrototype(ItemStack stack) {
-    CompoundTag tag = stack.getTagElement("prototype");
-    return tag == null ? ItemStack.EMPTY : ItemStack.of(tag);
+    //FIXME
+    throw new NotImplementedException();
+    /*CompoundTag tag = stack.getTagElement("prototype");
+    return tag == null ? ItemStack.EMPTY : ItemStack.of(tag);*/
   }
 }

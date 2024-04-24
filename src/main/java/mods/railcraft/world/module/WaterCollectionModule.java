@@ -10,7 +10,7 @@ import mods.railcraft.world.level.material.StandardTank;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -114,14 +114,14 @@ public class WaterCollectionModule extends ContainerModule<BlockModuleProvider> 
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf out) {
+  public void writeToBuf(RegistryFriendlyByteBuf out) {
     super.writeToBuf(out);
     out.writeVarInt(this.tank.getCapacity());
     out.writeFluidStack(this.tank.getFluid());
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf in) {
+  public void readFromBuf(RegistryFriendlyByteBuf in) {
     super.readFromBuf(in);
     this.tank.setCapacity(in.readVarInt());
     this.tank.setFluid(in.readFluidStack());

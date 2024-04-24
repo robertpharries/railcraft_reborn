@@ -6,7 +6,7 @@ import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.redstone.Redstone;
@@ -46,13 +46,13 @@ public class TrainDetectorBlockEntity extends DetectorBlockEntity {
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf out) {
+  public void writeToBuf(RegistryFriendlyByteBuf out) {
     super.writeToBuf(out);
     out.writeVarInt(this.trainSize);
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf in) {
+  public void readFromBuf(RegistryFriendlyByteBuf in) {
     super.readFromBuf(in);
     this.trainSize = in.readVarInt();
   }

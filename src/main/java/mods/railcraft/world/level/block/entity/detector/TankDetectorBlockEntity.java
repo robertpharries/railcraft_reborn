@@ -14,7 +14,7 @@ import mods.railcraft.world.inventory.detector.TankDetectorMenu;
 import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.player.Inventory;
@@ -114,13 +114,13 @@ public class TankDetectorBlockEntity extends FilterDetectorBlockEntity {
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf data) {
+  public void writeToBuf(RegistryFriendlyByteBuf data) {
     super.writeToBuf(data);
     data.writeEnum(this.mode);
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf data) {
+  public void readFromBuf(RegistryFriendlyByteBuf data) {
     super.readFromBuf(data);
     this.mode = data.readEnum(Mode.class);
   }

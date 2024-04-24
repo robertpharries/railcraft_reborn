@@ -6,7 +6,7 @@ import com.google.common.base.Suppliers;
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.world.level.block.RailcraftBlocks;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -96,7 +96,7 @@ public class RailcraftOreFeatures {
   public static final ResourceKey<ConfiguredFeature<?, ?>> SALTPETER = createKey("saltpeter");
   public static final ResourceKey<ConfiguredFeature<?, ?>> FIRESTONE = createKey("firestone");
 
-  public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+  public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
     context.register(LEAD_ORE, new ConfiguredFeature<>(Feature.ORE,
         new OreConfiguration(LEAD_ORE_TARGET_LIST.get(), LEAD_VEIN_DIMENSION)));
     context.register(TIN_ORE_SMALL, new ConfiguredFeature<>(Feature.ORE,

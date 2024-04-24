@@ -19,6 +19,7 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -71,14 +72,14 @@ public abstract class RailcraftBlockEntity extends BlockEntity
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf out) {
+  public void writeToBuf(RegistryFriendlyByteBuf out) {
     out.writeNullable(this.owner, FriendlyByteBuf::writeGameProfile);
     out.writeNullable(this.customName, FriendlyByteBuf::writeComponent);
     this.moduleDispatcher.writeToBuf(out);
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf in) {
+  public void readFromBuf(RegistryFriendlyByteBuf in) {
     this.owner = in.readNullable(FriendlyByteBuf::readGameProfile);
     this.customName = in.readNullable(FriendlyByteBuf::readComponent);
     this.moduleDispatcher.readFromBuf(in);

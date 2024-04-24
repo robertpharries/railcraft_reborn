@@ -16,7 +16,7 @@ import mods.railcraft.world.level.block.track.actuator.SwitchTrackActuatorBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -73,14 +73,14 @@ public class SwitchTrackRouterBlockEntity extends LockableSwitchTrackActuatorBlo
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf data) {
+  public void writeToBuf(RegistryFriendlyByteBuf data) {
     super.writeToBuf(data);
     data.writeEnum(this.railway);
     data.writeBoolean(this.powered);
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf data) {
+  public void readFromBuf(RegistryFriendlyByteBuf data) {
     super.readFromBuf(data);
     this.railway = data.readEnum(Railway.class);
     this.powered = data.readBoolean();

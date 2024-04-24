@@ -138,7 +138,7 @@ public class Railcraft {
   public Railcraft(ModContainer modContainer, Dist dist) {
     NeoForge.EVENT_BUS.register(this);
 
-    RailcraftConfig.registerConfig(ModLoadingContext.get());
+    RailcraftConfig.registerConfig(modContainer);
 
     var modEventBus = modContainer.getEventBus();
     modEventBus.addListener(this::handleCommonSetup);

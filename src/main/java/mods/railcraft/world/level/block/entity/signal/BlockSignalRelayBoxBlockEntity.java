@@ -11,7 +11,7 @@ import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.redstone.Redstone;
@@ -70,14 +70,14 @@ public class BlockSignalRelayBoxBlockEntity extends ActionSignalBoxBlockEntity
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf data) {
+  public void writeToBuf(RegistryFriendlyByteBuf data) {
     super.writeToBuf(data);
     this.blockSignal.writeToBuf(data);
     this.signalController.writeToBuf(data);
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf data) {
+  public void readFromBuf(RegistryFriendlyByteBuf data) {
     super.readFromBuf(data);
     this.blockSignal.readFromBuf(data);
     this.signalController.readFromBuf(data);

@@ -9,6 +9,7 @@ import mods.railcraft.world.level.block.entity.WaterTankSidingBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -47,7 +48,7 @@ public class WaterTankSiding extends MultiblockBlock {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable BlockGetter level,
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context,
       List<Component> tooltip, TooltipFlag flag) {
     tooltip.add(Component.translatable(Translations.Tips.WATER_TANK_SIDING)
         .withStyle(ChatFormatting.GRAY));

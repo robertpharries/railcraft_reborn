@@ -36,7 +36,7 @@ public class TicketItem extends Item {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list,
+  public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list,
       TooltipFlag flag) {
     if (!stack.hasTag()) {
       list.add(Component.translatable(Translations.Tips.ROUTING_TICKET_BLANK)

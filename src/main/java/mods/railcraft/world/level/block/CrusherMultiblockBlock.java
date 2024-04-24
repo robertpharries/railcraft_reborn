@@ -16,6 +16,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -79,7 +80,7 @@ public class CrusherMultiblockBlock extends MultiblockBlock implements ChargeBlo
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable BlockGetter level,
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context,
       List<Component> lines, TooltipFlag flag) {
     lines.add(Component.translatable(Translations.Tips.MULTIBLOCK3X2X2).withStyle(ChatFormatting.GRAY));
   }

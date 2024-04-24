@@ -14,6 +14,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -70,9 +71,9 @@ public class ManualRollingMachineBlock extends BaseEntityBlock implements JeiSea
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable BlockGetter level, List<Component> tooltip,
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip,
       TooltipFlag flag) {
-    super.appendHoverText(stack, level, tooltip, flag);
+    super.appendHoverText(stack, context, tooltip, flag);
     tooltip.add(Component.translatable(Translations.Tips.ROLLING_MACHINE).withStyle(ChatFormatting.GRAY));
   }
 

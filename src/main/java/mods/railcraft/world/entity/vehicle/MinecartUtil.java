@@ -11,6 +11,7 @@ import mods.railcraft.world.item.CartItem;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -239,7 +240,7 @@ public final class MinecartUtil {
         return null;
       }
 
-      if (cartStack.hasCustomHoverName())
+      if (cartStack.has(DataComponents.CUSTOM_NAME))
         cart.setCustomName(cartStack.getDisplayName());
       level.addFreshEntity(cart);
       return cart;

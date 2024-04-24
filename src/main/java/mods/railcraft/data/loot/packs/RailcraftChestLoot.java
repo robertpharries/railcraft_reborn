@@ -4,7 +4,9 @@ import java.util.function.BiConsumer;
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.tags.RailcraftTags;
 import mods.railcraft.world.item.RailcraftItems;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.LootTableSubProvider;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -26,7 +28,8 @@ public class RailcraftChestLoot implements LootTableSubProvider {
   public static final ResourceLocation SIMPLE_DUNGEON = RailcraftConstants.rl("chests/simple_dungeon");
 
   @Override
-  public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
+  public void generate(HolderLookup.Provider provider,
+      BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
     consumer.accept(COMPONENT_WORKSHOP, LootTable.lootTable()
         .withPool(LootPool.lootPool()
             .name("railcraft_tools")

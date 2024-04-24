@@ -18,7 +18,6 @@ class SimpleLineRenderer implements LineRenderer {
       float x0, float y0, float z0, float x1, float y1, float z1) {
     poseStack.pushPose();
     var matrix = poseStack.last().pose();
-    var normal = poseStack.last().normal();
 
     // Draw a copy with each UV value to make the line visible from all angles.
     for (int i = 0; i < 3; i++) {
@@ -28,12 +27,12 @@ class SimpleLineRenderer implements LineRenderer {
       this.consumer
           .vertex(matrix, x0, y0, z0)
           .color(red, green, blue, alpha)
-          .normal(normal, nx, ny, nz)
+          .normal(poseStack.last(), nx, ny, nz)
           .endVertex();
       this.consumer
           .vertex(matrix, x1, y1, z1)
           .color(red, green, blue, alpha)
-          .normal(normal, nx, ny, nz)
+          .normal(poseStack.last(), nx, ny, nz)
           .endVertex();
     }
     poseStack.popPose();

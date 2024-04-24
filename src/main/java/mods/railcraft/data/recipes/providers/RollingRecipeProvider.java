@@ -1,10 +1,12 @@
 package mods.railcraft.data.recipes.providers;
 
+import java.util.concurrent.CompletableFuture;
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.data.recipes.builders.RollingRecipeBuilder;
 import mods.railcraft.data.recipes.patterns.RollingRecipePattern;
 import mods.railcraft.tags.RailcraftTags;
 import mods.railcraft.world.item.RailcraftItems;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -16,8 +18,9 @@ import net.neoforged.neoforge.common.Tags;
 
 public class RollingRecipeProvider extends RecipeProvider {
 
-  private RollingRecipeProvider(PackOutput packOutput) {
-    super(packOutput);
+  private RollingRecipeProvider(PackOutput packOutput,
+      CompletableFuture<HolderLookup.Provider> provider) {
+    super(packOutput, provider);
   }
 
   @Override

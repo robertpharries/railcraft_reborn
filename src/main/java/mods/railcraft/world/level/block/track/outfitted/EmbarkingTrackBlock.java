@@ -25,6 +25,7 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -151,7 +152,7 @@ public class EmbarkingTrackBlock extends PoweredOutfittedTrackBlock {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, BlockGetter level, List<Component> lines,
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> lines,
       TooltipFlag flag) {
     lines.add(Component.translatable(Translations.Tips.EMBARKING_TRACK)
         .withStyle(ChatFormatting.GRAY));

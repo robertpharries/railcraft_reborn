@@ -62,7 +62,6 @@ public class CuboidModelRenderer {
     float[] zBounds = getBlockBounds(zDelta, minZ, maxZ);
     PoseStack.Pose lastMatrix = matrix.last();
     Matrix4f matrix4f = lastMatrix.pose();
-    Matrix3f normalMatrix = lastMatrix.normal();
     Vector3f normal = fakeDisableDiffuse ? NORMAL : YP;
     Vector3f from = new Vector3f();
     Vector3f to = new Vector3f();
@@ -83,17 +82,17 @@ public class CuboidModelRenderer {
           // Set bounds
           from.x = xBounds[x];
           to.x = xBounds[x + 1];
-          putTexturedQuad(buffer, matrix4f, normalMatrix, westSprite, from, to, Direction.WEST,
+          putTexturedQuad(buffer, matrix4f, lastMatrix, westSprite, from, to, Direction.WEST,
               colors, faceDisplay, normal);
-          putTexturedQuad(buffer, matrix4f, normalMatrix, eastSprite, from, to, Direction.EAST,
+          putTexturedQuad(buffer, matrix4f, lastMatrix, eastSprite, from, to, Direction.EAST,
               colors, faceDisplay, normal);
-          putTexturedQuad(buffer, matrix4f, normalMatrix, northSprite, from, to, Direction.NORTH,
+          putTexturedQuad(buffer, matrix4f, lastMatrix, northSprite, from, to, Direction.NORTH,
               colors, faceDisplay, normal);
-          putTexturedQuad(buffer, matrix4f, normalMatrix, southSprite, from, to, Direction.SOUTH,
+          putTexturedQuad(buffer, matrix4f, lastMatrix, southSprite, from, to, Direction.SOUTH,
               colors, faceDisplay, normal);
-          putTexturedQuad(buffer, matrix4f, normalMatrix, upSprite, from, to, Direction.UP, colors,
+          putTexturedQuad(buffer, matrix4f, lastMatrix, upSprite, from, to, Direction.UP, colors,
               faceDisplay, normal);
-          putTexturedQuad(buffer, matrix4f, normalMatrix, downSprite, from, to, Direction.DOWN,
+          putTexturedQuad(buffer, matrix4f, lastMatrix, downSprite, from, to, Direction.DOWN,
               colors, faceDisplay, normal);
         }
       }
@@ -139,7 +138,7 @@ public class CuboidModelRenderer {
   /**
    * @implNote From Mantle with some adjustments
    */
-  private static void putTexturedQuad(VertexConsumer buffer, Matrix4f matrix, Matrix3f normalMatrix,
+  private static void putTexturedQuad(VertexConsumer buffer, Matrix4f matrix, PoseStack.Pose pose,
       @Nullable Face spriteInfo, Vector3f from, Vector3f to,
       Direction face, int[] colors, FaceDisplay faceDisplay,
       Vector3f normal) {
@@ -215,7 +214,7 @@ public class CuboidModelRenderer {
     // add quads
     switch (face) {
       case DOWN:
-        drawFace(buffer, matrix, normalMatrix, red, green, blue, alpha, minU, maxU, minV, maxV,
+        drawFace(buffer, matrix, pose, red, green, blue, alpha, minU, maxU, minV, maxV,
             spriteInfo.getPackedLight(), spriteInfo.getPackedOverlay(), faceDisplay, normal,
             x1, y1, z2,
             x1, y1, z1,
@@ -223,7 +222,7 @@ public class CuboidModelRenderer {
             x2, y1, z2);
         break;
       case UP:
-        drawFace(buffer, matrix, normalMatrix, red, green, blue, alpha, minU, maxU, minV, maxV,
+        drawFace(buffer, matrix, pose, red, green, blue, alpha, minU, maxU, minV, maxV,
             spriteInfo.getPackedLight(), spriteInfo.getPackedOverlay(), faceDisplay, normal,
             x1, y2, z1,
             x1, y2, z2,
@@ -231,7 +230,7 @@ public class CuboidModelRenderer {
             x2, y2, z1);
         break;
       case NORTH:
-        drawFace(buffer, matrix, normalMatrix, red, green, blue, alpha, minU, maxU, minV, maxV,
+        drawFace(buffer, matrix, pose, red, green, blue, alpha, minU, maxU, minV, maxV,
             spriteInfo.getPackedLight(), spriteInfo.getPackedOverlay(), faceDisplay, normal,
             x1, y1, z1,
             x1, y2, z1,
@@ -239,7 +238,7 @@ public class CuboidModelRenderer {
             x2, y1, z1);
         break;
       case SOUTH:
-        drawFace(buffer, matrix, normalMatrix, red, green, blue, alpha, minU, maxU, minV, maxV,
+        drawFace(buffer, matrix, pose, red, green, blue, alpha, minU, maxU, minV, maxV,
             spriteInfo.getPackedLight(), spriteInfo.getPackedOverlay(), faceDisplay, normal,
             x2, y1, z2,
             x2, y2, z2,
@@ -247,7 +246,7 @@ public class CuboidModelRenderer {
             x1, y1, z2);
         break;
       case WEST:
-        drawFace(buffer, matrix, normalMatrix, red, green, blue, alpha, minU, maxU, minV, maxV,
+        drawFace(buffer, matrix, pose, red, green, blue, alpha, minU, maxU, minV, maxV,
             spriteInfo.getPackedLight(), spriteInfo.getPackedOverlay(), faceDisplay, normal,
             x1, y1, z2,
             x1, y2, z2,
@@ -255,7 +254,7 @@ public class CuboidModelRenderer {
             x1, y1, z1);
         break;
       case EAST:
-        drawFace(buffer, matrix, normalMatrix, red, green, blue, alpha, minU, maxU, minV, maxV,
+        drawFace(buffer, matrix, pose, red, green, blue, alpha, minU, maxU, minV, maxV,
             spriteInfo.getPackedLight(), spriteInfo.getPackedOverlay(), faceDisplay, normal,
             x2, y1, z1,
             x2, y2, z1,
@@ -265,7 +264,7 @@ public class CuboidModelRenderer {
     }
   }
 
-  private static void drawFace(VertexConsumer buffer, Matrix4f matrix, Matrix3f normalMatrix,
+  private static void drawFace(VertexConsumer buffer, Matrix4f matrix, PoseStack.Pose pose,
       int red, int green, int blue, int alpha, float minU, float maxU,
       float minV, float maxV, int light, int overlay, FaceDisplay faceDisplay, Vector3f normal,
       float x1, float y1, float z1,
@@ -275,30 +274,30 @@ public class CuboidModelRenderer {
     if (faceDisplay.front) {
       buffer.vertex(matrix, x1, y1, z1).color(red, green, blue, alpha).uv(minU, maxV)
           .overlayCoords(overlay).uv2(light)
-          .normal(normalMatrix, normal.x(), normal.y(), normal.z()).endVertex();
+          .normal(pose, normal.x(), normal.y(), normal.z()).endVertex();
       buffer.vertex(matrix, x2, y2, z2).color(red, green, blue, alpha).uv(minU, minV)
           .overlayCoords(overlay).uv2(light)
-          .normal(normalMatrix, normal.x(), normal.y(), normal.z()).endVertex();
+          .normal(pose, normal.x(), normal.y(), normal.z()).endVertex();
       buffer.vertex(matrix, x3, y3, z3).color(red, green, blue, alpha).uv(maxU, minV)
           .overlayCoords(overlay).uv2(light)
-          .normal(normalMatrix, normal.x(), normal.y(), normal.z()).endVertex();
+          .normal(pose, normal.x(), normal.y(), normal.z()).endVertex();
       buffer.vertex(matrix, x4, y4, z4).color(red, green, blue, alpha).uv(maxU, maxV)
           .overlayCoords(overlay).uv2(light)
-          .normal(normalMatrix, normal.x(), normal.y(), normal.z()).endVertex();
+          .normal(pose, normal.x(), normal.y(), normal.z()).endVertex();
     }
     if (faceDisplay.back) {
       buffer.vertex(matrix, x4, y4, z4).color(red, green, blue, alpha).uv(maxU, maxV)
           .overlayCoords(overlay).uv2(light)
-          .normal(normalMatrix, 0, -1, 0).endVertex();
+          .normal(pose, 0, -1, 0).endVertex();
       buffer.vertex(matrix, x3, y3, z3).color(red, green, blue, alpha).uv(maxU, minV)
           .overlayCoords(overlay).uv2(light)
-          .normal(normalMatrix, 0, -1, 0).endVertex();
+          .normal(pose, 0, -1, 0).endVertex();
       buffer.vertex(matrix, x2, y2, z2).color(red, green, blue, alpha).uv(minU, minV)
           .overlayCoords(overlay).uv2(light)
-          .normal(normalMatrix, 0, -1, 0).endVertex();
+          .normal(pose, 0, -1, 0).endVertex();
       buffer.vertex(matrix, x1, y1, z1).color(red, green, blue, alpha).uv(minU, maxV)
           .overlayCoords(overlay).uv2(light)
-          .normal(normalMatrix, 0, -1, 0).endVertex();
+          .normal(pose, 0, -1, 0).endVertex();
     }
   }
 

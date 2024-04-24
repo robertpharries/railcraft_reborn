@@ -113,11 +113,11 @@ dependencies {
     testImplementation platform("org.junit:junit-bom:$jupiter_version")
     testImplementation 'org.junit.jupiter:junit-jupiter'
 
-    //compileOnly "mezz.jei:jei-$minecraft_version-common-api:$jei_version"
-    //compileOnly "mezz.jei:jei-$minecraft_version-neoforge-api:$jei_version"
+    compileOnly "mezz.jei:jei-1.20.4-common-api:$jei_version"
+    compileOnly "mezz.jei:jei-1.20.4-neoforge-api:$jei_version"
     //runtimeOnly "mezz.jei:jei-$minecraft_version-neoforge:$jei_version"
 
-    //compileOnly "dev.emi:emi-neoforge:$emi_version+$minecraft_version:api"
+    compileOnly "dev.emi:emi-neoforge:$emi_version+1.20.4:api"
     //runtimeOnly "dev.emi:emi-neoforge:$emi_version+$minecraft_version"
 
     compileOnly "vazkii.patchouli:Patchouli:$patchouli_version:api"

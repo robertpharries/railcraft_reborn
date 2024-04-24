@@ -13,6 +13,7 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -36,7 +37,7 @@ public class LocomotiveItem extends CartItem implements Filter {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip,
+  public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip,
       TooltipFlag adv) {
     var owner = getOwner(stack);
     if (owner != null && StringUtils.isNotBlank(owner.getName())) {

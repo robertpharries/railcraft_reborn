@@ -10,6 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -39,7 +40,7 @@ public class SwitchTrackLeverBlock extends SwitchTrackActuatorBlock implements E
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable BlockGetter level,
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context,
       List<Component> tooltip, TooltipFlag flag) {
     tooltip.add(Component.translatable(Translations.Tips.SWITCH_TRACKS)
         .withStyle(ChatFormatting.GRAY));

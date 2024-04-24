@@ -1,7 +1,9 @@
 package mods.railcraft.data.recipes.providers;
 
+import java.util.concurrent.CompletableFuture;
 import mods.railcraft.data.recipes.builders.CokeOvenRecipeBuilder;
 import mods.railcraft.world.item.RailcraftItems;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -11,8 +13,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 public class CokeOvenRecipeProvider extends RecipeProvider {
 
-  private CokeOvenRecipeProvider(PackOutput packOutput) {
-    super(packOutput);
+  private CokeOvenRecipeProvider(PackOutput packOutput,
+      CompletableFuture<HolderLookup.Provider> provider) {
+    super(packOutput, provider);
   }
 
   @Override

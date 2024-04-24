@@ -7,6 +7,7 @@ import mods.railcraft.api.charge.ChargeProtectionItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -18,9 +19,9 @@ public class OverallsItem extends ArmorItem implements ChargeProtectionItem {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level level,
+  public void appendHoverText(ItemStack stack, TooltipContext context,
       List<Component> tooltipComponents, TooltipFlag isAdvanced) {
-    super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
+    super.appendHoverText(stack, context, tooltipComponents, isAdvanced);
     tooltipComponents.add(Component.translatable(Tips.OVERALLS).withStyle(ChatFormatting.GRAY));
   }
 }

@@ -11,6 +11,7 @@ import mods.railcraft.network.RailcraftDataSerializers;
 import mods.railcraft.season.Season;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -61,7 +62,7 @@ public abstract class RailcraftMinecart extends AbstractMinecartContainer
   }
 
   private void loadCustomName(ItemStack itemStack) {
-    if (itemStack.hasCustomHoverName()) {
+    if (itemStack.has(DataComponents.CUSTOM_NAME)) {
       this.setCustomName(itemStack.getHoverName());
     }
   }

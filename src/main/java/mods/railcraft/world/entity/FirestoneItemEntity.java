@@ -7,6 +7,7 @@ import mods.railcraft.world.item.FirestoneItem;
 import mods.railcraft.world.level.block.RailcraftBlocks;
 import mods.railcraft.world.level.block.RitualBlock;
 import mods.railcraft.world.level.block.entity.RitualBlockEntity;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.EntityType;
@@ -75,7 +76,7 @@ public class FirestoneItemEntity extends ItemEntity {
         if (blockEntity instanceof RitualBlockEntity fireEntity) {
           var firestone = getItem();
           fireEntity.setCharge(firestone.getMaxDamage() - firestone.getDamageValue());
-          if (firestone.hasCustomHoverName())
+          if (firestone.has(DataComponents.CUSTOM_NAME))
             fireEntity.setItemName(firestone.getDisplayName());
           this.kill();
           return;

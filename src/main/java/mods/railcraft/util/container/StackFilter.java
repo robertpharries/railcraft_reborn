@@ -11,6 +11,7 @@ import mods.railcraft.api.track.TrackUtil;
 import mods.railcraft.tags.RailcraftTags;
 import mods.railcraft.util.fluids.FluidTools;
 import mods.railcraft.world.item.CartItem;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.item.Item;
@@ -166,7 +167,7 @@ public enum StackFilter implements Predicate<ItemStack> {
       var cartItem = cart.getPickResult();
       boolean matches = ItemStack.isSameItem(cartItem, itemStack);
 
-      if (itemStack.hasCustomHoverName()) {
+      if (itemStack.has(DataComponents.CUSTOM_NAME)) {
         return matches && itemStack.getDisplayName().getContents()
             .equals(cartItem.getDisplayName().getContents());
       }

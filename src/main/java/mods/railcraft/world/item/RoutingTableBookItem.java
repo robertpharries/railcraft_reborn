@@ -38,7 +38,7 @@ public class RoutingTableBookItem extends Item {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list,
+  public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list,
       TooltipFlag flag) {
     var tag = stack.getTag();
     if (tag != null && tag.contains("author")) {

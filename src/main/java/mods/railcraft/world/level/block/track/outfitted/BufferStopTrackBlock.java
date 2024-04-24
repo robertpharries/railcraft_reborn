@@ -7,6 +7,7 @@ import mods.railcraft.api.track.TrackType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -37,7 +38,7 @@ public class BufferStopTrackBlock extends ReversibleOutfittedTrackBlock {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, BlockGetter level, List<Component> lines,
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> lines,
       TooltipFlag flag) {
     lines.add(Component.translatable(Translations.Tips.BUFFER_STOP_TRACK)
         .withStyle(ChatFormatting.GRAY));

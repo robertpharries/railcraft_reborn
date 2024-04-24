@@ -6,6 +6,7 @@ import mods.railcraft.Translations;
 import mods.railcraft.api.signal.entity.MonitoringSignalEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -19,8 +20,8 @@ public class SignalBlockSurveyorItem
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents,
-      TooltipFlag isAdvanced) {
+  public void appendHoverText(ItemStack stack, TooltipContext context,
+      List<Component> tooltipComponents, TooltipFlag isAdvanced) {
     tooltipComponents.add(Component
         .translatable(Translations.Tips.SIGNAL_BLOCK_SURVEYOR)
         .withStyle(ChatFormatting.GRAY));

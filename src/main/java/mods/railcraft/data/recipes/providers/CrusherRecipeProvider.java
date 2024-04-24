@@ -1,8 +1,10 @@
 package mods.railcraft.data.recipes.providers;
 
+import java.util.concurrent.CompletableFuture;
 import mods.railcraft.data.recipes.builders.CrusherRecipeBuilder;
 import mods.railcraft.tags.RailcraftTags;
 import mods.railcraft.world.item.RailcraftItems;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -13,8 +15,9 @@ import net.neoforged.neoforge.common.Tags;
 
 public class CrusherRecipeProvider extends RecipeProvider {
 
-  private CrusherRecipeProvider(PackOutput packOutput) {
-    super(packOutput);
+  private CrusherRecipeProvider(PackOutput packOutput,
+      CompletableFuture<HolderLookup.Provider> provider) {
+    super(packOutput, provider);
   }
 
   @Override
@@ -45,10 +48,10 @@ public class CrusherRecipeProvider extends RecipeProvider {
         .addResult(Items.GOLD_NUGGET, 1, 0.001)
         .addResult(Items.DIAMOND, 1, 0.00005)
         .save(recipeOutput);
-    CrusherRecipeBuilder.crush(Tags.Items.STONE)
+    CrusherRecipeBuilder.crush(Tags.Items.STONES)
         .addResult(Items.COBBLESTONE, 1, 1)
         .save(recipeOutput);
-    CrusherRecipeBuilder.crush(Tags.Items.SANDSTONE)
+    CrusherRecipeBuilder.crush(Tags.Items.SANDSTONE_BLOCKS)
         .addResult(Items.SAND, 4, 1)
         .save(recipeOutput);
     CrusherRecipeBuilder.crush(Items.BRICKS)

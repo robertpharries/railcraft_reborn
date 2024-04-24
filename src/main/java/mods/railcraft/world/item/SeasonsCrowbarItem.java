@@ -10,6 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.TooltipFlag;
@@ -38,7 +39,7 @@ public class SeasonsCrowbarItem extends CrowbarItem {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list,
+  public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list,
       TooltipFlag adv) {
     var season = getSeason(stack);
     list.add(getDescriptionText(season, true));

@@ -13,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -93,7 +94,7 @@ public class LockingTrackBlock extends PoweredOutfittedTrackBlock implements Ent
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, BlockGetter level, List<Component> lines,
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> lines,
       TooltipFlag flag) {
     lines.add(Component.translatable(Translations.Tips.LOCKING_TRACK)
         .withStyle(ChatFormatting.GRAY));

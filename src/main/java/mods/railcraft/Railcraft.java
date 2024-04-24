@@ -314,7 +314,8 @@ public class Railcraft {
     generator.addProvider(event.includeServer(), new RailcraftRecipeProvider(packOutput));
     generator.addProvider(event.includeServer(),
         new RailcraftPoiTypeTagsProvider(packOutput, lookupProvider, fileHelper));
-    generator.addProvider(event.includeServer(), new RailcraftLootModifierProvider(packOutput));
+    generator.addProvider(event.includeServer(),
+        new RailcraftLootModifierProvider(packOutput, lookupProvider));
     generator.addProvider(event.includeServer(),
         new RailcraftDamageTypeTagsProvider(packOutput, lookupProvider, fileHelper));
     generator.addProvider(event.includeServer(),

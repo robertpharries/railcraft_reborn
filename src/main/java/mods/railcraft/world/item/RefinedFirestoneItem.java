@@ -7,6 +7,7 @@ import mods.railcraft.Translations.Tips;
 import mods.railcraft.util.container.ContainerTools;
 import mods.railcraft.world.entity.FirestoneItemEntity;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
@@ -67,8 +69,8 @@ public class RefinedFirestoneItem extends FirestoneItem {
     double damageLevel = (double) itemStack.getDamageValue() / (double) itemStack.getMaxDamage();
     if (random.nextDouble() < damageLevel * 0.0001) {
       newStack = CrackedFirestoneItem.getItemEmpty();
-      if (itemStack.hasCustomHoverName())
-        newStack.setHoverName(itemStack.getHoverName());
+      if (itemStack.has(DataComponents.CUSTOM_NAME))
+        newStack.set(DataComponents.CUSTOM_NAME, itemStack.getHoverName());
     } else
       newStack = itemStack.copy();
     newStack.setCount(1);
@@ -81,7 +83,7 @@ public class RefinedFirestoneItem extends FirestoneItem {
   }
 
   @Override
-  public void appendHoverText(ItemStack itemStack, @Nullable Level level,
+  public void appendHoverText(ItemStack itemStack, TooltipContext context,
       List<Component> lines, TooltipFlag adv) {
     MutableComponent component;
     if (itemStack.getDamageValue() >= itemStack.getMaxDamage() - 5) {

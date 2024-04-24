@@ -99,31 +99,17 @@ public final class PacketHandler {
   }
 
   public static void sendToServer(RailcraftCustomPacketPayload packet) {
-    PacketDistributor.SERVER.noArg().send(packet);
+    PacketDistributor.sendToServer(packet);
   }
 
   public static void sendTo(ServerPlayer player, RailcraftCustomPacketPayload packet) {
-    PacketDistributor.PLAYER.with(player).send(packet);
+    PacketDistributor.sendToPlayer(player, packet);
   }
 
   @SuppressWarnings("deprecation")
   public static void sendToTrackingChunk(Packet<?> packet, ServerLevel level, BlockPos blockPos) {
     if (level.hasChunkAt(blockPos)) {
-      PacketDistributor.TRACKING_CHUNK.with(level.getChunkAt(blockPos)).send(packet);
+      PacketDistributor.sendToPlayersTrackingChunk(level, level.getChunkAt(blockPos).getPos(), packet);
     }
-  }
-
-  public static void sendToAll(RailcraftCustomPacketPayload packet) {
-    PacketDistributor.ALL.noArg().send(packet);
-  }
-
-  public static void sendToAllAround(RailcraftCustomPacketPayload packet,
-      PacketDistributor.TargetPoint zone) {
-    PacketDistributor.NEAR.with(zone).send(packet);
-  }
-
-  public static void sendToDimension(RailcraftCustomPacketPayload packet,
-      ResourceKey<Level> dimensionId) {
-    PacketDistributor.DIMENSION.with(dimensionId).send(packet);
   }
 }

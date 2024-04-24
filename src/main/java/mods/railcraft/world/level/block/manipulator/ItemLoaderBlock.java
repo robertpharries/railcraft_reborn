@@ -11,6 +11,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -55,9 +56,9 @@ public class ItemLoaderBlock extends ManipulatorBlock<ItemLoaderBlockEntity> {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable BlockGetter level, List<Component> tooltip,
-      TooltipFlag flag) {
-    super.appendHoverText(stack, level, tooltip, flag);
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context,
+      List<Component> tooltip, TooltipFlag flag) {
+    super.appendHoverText(stack, context, tooltip, flag);
     tooltip.add(Component.translatable(Translations.Tips.ITEM_LOADER)
         .withStyle(ChatFormatting.GRAY));
     tooltip.add(Component.translatable(Translations.Tips.PLACE_OVER_TRACK)

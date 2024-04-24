@@ -113,7 +113,7 @@ public class FirestoneItem extends Item {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents,
+  public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents,
       TooltipFlag isAdvanced) {
     if (stack.is(RailcraftItems.RAW_FIRESTONE.get())) {
       tooltipComponents

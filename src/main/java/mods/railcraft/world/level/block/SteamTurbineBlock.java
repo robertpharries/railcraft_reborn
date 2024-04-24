@@ -17,6 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -129,9 +130,9 @@ public class SteamTurbineBlock extends MultiblockBlock implements ChargeBlock {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable BlockGetter level,
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context,
       List<Component> tooltip, TooltipFlag flag) {
-    super.appendHoverText(stack, level, tooltip, flag);
+    super.appendHoverText(stack, context, tooltip, flag);
     tooltip.add(Component.translatable(Translations.Tips.MULTIBLOCK3X2X2)
         .withStyle(ChatFormatting.GRAY));
     tooltip.add(Component.translatable(Translations.Tips.STEAM_TURBINE_DESC_1)

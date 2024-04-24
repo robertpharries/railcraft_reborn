@@ -18,6 +18,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -80,7 +81,7 @@ public class GogglesItem extends ArmorItem {
   }
 
   @Override
-  public void appendHoverText(ItemStack itemStack, @Nullable Level level,
+  public void appendHoverText(ItemStack itemStack, TooltipContext context,
       List<Component> lines, TooltipFlag adv) {
     lines.add(getDescriptionText(getAura(itemStack).getDisplayName(), true));
     lines.add(Component.translatable(Translations.Tips.GOGGLES_DESC)

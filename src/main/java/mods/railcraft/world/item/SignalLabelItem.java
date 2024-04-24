@@ -5,11 +5,13 @@ import org.jetbrains.annotations.Nullable;
 import mods.railcraft.Translations.Tips;
 import mods.railcraft.api.signal.entity.SignalEntity;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipProvider;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
@@ -23,7 +25,7 @@ public class SignalLabelItem extends Item {
   public InteractionResult onItemUseFirst(ItemStack itemStack, UseOnContext context) {
     var level = context.getLevel();
     var player = context.getPlayer();
-    if (player.isShiftKeyDown() && itemStack.hasCustomHoverName()
+    if (player.isShiftKeyDown() && itemStack.has(DataComponents.CUSTOM_NAME)
         && level.getBlockEntity(context.getClickedPos()) instanceof SignalEntity signal) {
       if (!level.isClientSide()) {
         signal.setCustomName(itemStack.getHoverName());
@@ -37,8 +39,8 @@ public class SignalLabelItem extends Item {
   }
 
   @Override
-  public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> lines,
-      TooltipFlag tooltipFlag) {
+  public void appendHoverText(ItemStack itemStack, TooltipContext context,
+      List<Component> lines, TooltipFlag tooltipFlag) {
     lines.add(Component.translatable(Tips.SIGNAL_LABEL_DESC1).withStyle(ChatFormatting.BLUE));
     lines.add(Component.translatable(Tips.SIGNAL_LABEL_DESC2)
         .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));

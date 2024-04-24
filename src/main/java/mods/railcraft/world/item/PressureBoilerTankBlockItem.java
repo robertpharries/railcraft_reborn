@@ -5,6 +5,7 @@ import mods.railcraft.Translations.Tips;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -17,8 +18,8 @@ public class PressureBoilerTankBlockItem extends BlockItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents,
-        TooltipFlag isAdvanced) {
+    public void appendHoverText(ItemStack stack, TooltipContext context,
+        List<Component> tooltipComponents, TooltipFlag isAdvanced) {
         tooltipComponents.add(Component.translatable(Tips.PRESSURE_BOILER_TANK).withStyle(ChatFormatting.GRAY));
         var dimensions = String.join(", ",List.of(
             "1x1x1",

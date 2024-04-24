@@ -1,8 +1,10 @@
 package mods.railcraft.data.loot;
 
+import java.util.concurrent.CompletableFuture;
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.data.loot.packs.RailcraftChestLoot;
 import mods.railcraft.loot.DungeonLootModifier;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -12,8 +14,9 @@ import net.neoforged.neoforge.common.loot.LootTableIdCondition;
 
 public class RailcraftLootModifierProvider extends GlobalLootModifierProvider {
 
-  public RailcraftLootModifierProvider(PackOutput output) {
-    super(output, RailcraftConstants.ID);
+  public RailcraftLootModifierProvider(PackOutput output,
+      CompletableFuture<HolderLookup.Provider> provider) {
+    super(output, provider, RailcraftConstants.ID);
   }
 
   private void add(ResourceLocation targetLootTable, ResourceLocation customLootTable) {

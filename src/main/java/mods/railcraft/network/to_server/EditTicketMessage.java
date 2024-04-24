@@ -4,9 +4,11 @@ import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.world.item.GoldenTicketItem;
 import mods.railcraft.world.item.TicketItem;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.InteractionHand;
+import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record EditTicketMessage(
@@ -16,16 +18,10 @@ public record EditTicketMessage(
       new Type<>(RailcraftConstants.rl("edit_ticket"));
 
   public static final StreamCodec<FriendlyByteBuf, EditTicketMessage> STREAM_CODEC =
-      CustomPacketPayload.codec(EditTicketMessage::write, EditTicketMessage::read);
-
-  private static EditTicketMessage read(FriendlyByteBuf buf) {
-    return new EditTicketMessage(buf.readEnum(InteractionHand.class), buf.readUtf());
-  }
-
-  private void write(FriendlyByteBuf buf) {
-    buf.writeEnum(this.hand);
-    buf.writeUtf(dest);
-  }
+      StreamCodec.composite(
+          NeoForgeStreamCodecs.enumCodec(InteractionHand.class), EditTicketMessage::hand,
+          ByteBufCodecs.STRING_UTF8, EditTicketMessage::dest,
+          EditTicketMessage::new);
 
   @Override
   public Type<? extends CustomPacketPayload> type() {

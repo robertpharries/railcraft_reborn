@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetTankDetectorMessage(
@@ -17,17 +18,10 @@ public record SetTankDetectorMessage(
       new Type<>(RailcraftConstants.rl("set_tank_detector"));
 
   public static final StreamCodec<FriendlyByteBuf, SetTankDetectorMessage> STREAM_CODEC =
-      CustomPacketPayload.codec(SetTankDetectorMessage::write, SetTankDetectorMessage::read);
-
-  private static SetTankDetectorMessage read(FriendlyByteBuf in) {
-    return new SetTankDetectorMessage(in.readBlockPos(),
-        in.readEnum(TankDetectorBlockEntity.Mode.class));
-  }
-
-  private void write(FriendlyByteBuf out) {
-    out.writeBlockPos(this.blockPos);
-    out.writeEnum(this.mode);
-  }
+      StreamCodec.composite(
+          BlockPos.STREAM_CODEC, SetTankDetectorMessage::blockPos,
+          NeoForgeStreamCodecs.enumCodec(TankDetectorBlockEntity.Mode.class), SetTankDetectorMessage::mode,
+          SetTankDetectorMessage::new);
 
   @Override
   public Type<? extends CustomPacketPayload> type() {

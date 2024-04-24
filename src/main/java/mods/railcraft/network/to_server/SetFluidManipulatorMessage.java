@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetFluidManipulatorMessage(
@@ -18,17 +19,10 @@ public record SetFluidManipulatorMessage(
       new Type<>(RailcraftConstants.rl("set_fluid_manipulator"));
 
   public static final StreamCodec<FriendlyByteBuf, SetFluidManipulatorMessage> STREAM_CODEC =
-      CustomPacketPayload.codec(SetFluidManipulatorMessage::write, SetFluidManipulatorMessage::read);
-
-  private static SetFluidManipulatorMessage read(FriendlyByteBuf buf) {
-    return new SetFluidManipulatorMessage(buf.readBlockPos(),
-        buf.readEnum(ManipulatorBlockEntity.RedstoneMode.class));
-  }
-
-  private void write(FriendlyByteBuf buf) {
-    buf.writeBlockPos(this.blockPos);
-    buf.writeEnum(this.redstoneMode);
-  }
+      StreamCodec.composite(
+          BlockPos.STREAM_CODEC, SetFluidManipulatorMessage::blockPos,
+          NeoForgeStreamCodecs.enumCodec(ManipulatorBlockEntity.RedstoneMode.class), SetFluidManipulatorMessage::redstoneMode,
+          SetFluidManipulatorMessage::new);
 
   @Override
   public Type<? extends CustomPacketPayload> type() {

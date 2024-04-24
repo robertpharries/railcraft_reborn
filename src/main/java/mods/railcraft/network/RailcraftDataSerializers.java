@@ -6,9 +6,10 @@ import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.season.Season;
 import mods.railcraft.world.entity.vehicle.MaintenanceMinecart;
 import mods.railcraft.world.entity.vehicle.locomotive.Locomotive;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
@@ -19,23 +20,22 @@ public class RailcraftDataSerializers {
           .create(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, RailcraftConstants.ID);
 
   public static final EntityDataSerializer<Optional<GameProfile>> OPTIONAL_GAME_PROFILE =
-      EntityDataSerializer
-          .optional(FriendlyByteBuf::writeGameProfile, FriendlyByteBuf::readGameProfile);
+      EntityDataSerializer.forValueType(ByteBufCodecs.optional(ByteBufCodecs.GAME_PROFILE));
 
   public static final EntityDataSerializer<Locomotive.Mode> LOCOMOTIVE_MODE =
-      EntityDataSerializer.simpleEnum(Locomotive.Mode.class);
+      EntityDataSerializer.forValueType(NeoForgeStreamCodecs.enumCodec(Locomotive.Mode.class));
 
   public static final EntityDataSerializer<Locomotive.Speed> LOCOMOTIVE_SPEED =
-      EntityDataSerializer.simpleEnum(Locomotive.Speed.class);
+      EntityDataSerializer.forValueType(NeoForgeStreamCodecs.enumCodec(Locomotive.Speed.class));
 
   public static final EntityDataSerializer<Locomotive.Lock> LOCOMOTIVE_LOCK =
-      EntityDataSerializer.simpleEnum(Locomotive.Lock.class);
+      EntityDataSerializer.forValueType(NeoForgeStreamCodecs.enumCodec(Locomotive.Lock.class));
 
   public static final EntityDataSerializer<MaintenanceMinecart.Mode> MAINTENANCE_MODE =
-      EntityDataSerializer.simpleEnum(MaintenanceMinecart.Mode.class);
+      EntityDataSerializer.forValueType(NeoForgeStreamCodecs.enumCodec(MaintenanceMinecart.Mode.class));
 
   public static final EntityDataSerializer<Season> MINECART_SEASON =
-      EntityDataSerializer.simpleEnum(Season.class);
+      EntityDataSerializer.forValueType(NeoForgeStreamCodecs.enumCodec(Season.class));
 
   public static void register(IEventBus modEventBus) {
     deferredRegister.register("optional_game_profile", () -> OPTIONAL_GAME_PROFILE);

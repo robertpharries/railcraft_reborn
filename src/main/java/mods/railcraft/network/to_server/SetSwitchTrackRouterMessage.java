@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetSwitchTrackRouterMessage(
@@ -19,20 +20,11 @@ public record SetSwitchTrackRouterMessage(
       new Type<>(RailcraftConstants.rl("set_switch_track_router"));
 
   public static final StreamCodec<FriendlyByteBuf, SetSwitchTrackRouterMessage> STREAM_CODEC =
-      CustomPacketPayload.codec(SetSwitchTrackRouterMessage::write, SetSwitchTrackRouterMessage::read);
-
-  private static SetSwitchTrackRouterMessage read(FriendlyByteBuf buf) {
-    var blockPos = buf.readBlockPos();
-    var railway = buf.readEnum(RouterBlockEntity.Railway.class);
-    var lock = buf.readEnum(SwitchTrackRouterBlockEntity.Lock.class);
-    return new SetSwitchTrackRouterMessage(blockPos, railway, lock);
-  }
-
-  private void write(FriendlyByteBuf buf) {
-    buf.writeBlockPos(this.blockPos);
-    buf.writeEnum(this.railway);
-    buf.writeEnum(this.lock);
-  }
+      StreamCodec.composite(
+          BlockPos.STREAM_CODEC, SetSwitchTrackRouterMessage::blockPos,
+          NeoForgeStreamCodecs.enumCodec(RouterBlockEntity.Railway.class), SetSwitchTrackRouterMessage::railway,
+          NeoForgeStreamCodecs.enumCodec(SwitchTrackRouterBlockEntity.Lock.class), SetSwitchTrackRouterMessage::lock,
+          SetSwitchTrackRouterMessage::new);
 
   @Override
   public Type<? extends CustomPacketPayload> type() {

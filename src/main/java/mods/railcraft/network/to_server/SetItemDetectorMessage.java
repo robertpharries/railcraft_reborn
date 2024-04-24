@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetItemDetectorMessage(
@@ -18,19 +19,11 @@ public record SetItemDetectorMessage(
       new Type<>(RailcraftConstants.rl("set_item_detector"));
 
   public static final StreamCodec<FriendlyByteBuf, SetItemDetectorMessage> STREAM_CODEC =
-      CustomPacketPayload.codec(SetItemDetectorMessage::write, SetItemDetectorMessage::read);
-
-  private static SetItemDetectorMessage read(FriendlyByteBuf in) {
-    return new SetItemDetectorMessage(in.readBlockPos(),
-        in.readEnum(ItemDetectorBlockEntity.PrimaryMode.class),
-        in.readEnum(ItemDetectorBlockEntity.FilterMode.class));
-  }
-
-  private void write(FriendlyByteBuf out) {
-    out.writeBlockPos(this.blockPos);
-    out.writeEnum(this.primaryMode);
-    out.writeEnum(this.filterMode);
-  }
+      StreamCodec.composite(
+          BlockPos.STREAM_CODEC, SetItemDetectorMessage::blockPos,
+          NeoForgeStreamCodecs.enumCodec(ItemDetectorBlockEntity.PrimaryMode.class), SetItemDetectorMessage::primaryMode,
+          NeoForgeStreamCodecs.enumCodec(ItemDetectorBlockEntity.FilterMode.class), SetItemDetectorMessage::filterMode,
+          SetItemDetectorMessage::new);
 
   @Override
   public Type<? extends CustomPacketPayload> type() {

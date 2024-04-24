@@ -3,8 +3,10 @@ package mods.railcraft.network.to_server;
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.world.entity.vehicle.MaintenanceMinecart;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetMaintenanceMinecartMessage(
@@ -14,18 +16,10 @@ public record SetMaintenanceMinecartMessage(
       new Type<>(RailcraftConstants.rl("set_maintenance_minecart"));
 
   public static final StreamCodec<FriendlyByteBuf, SetMaintenanceMinecartMessage> STREAM_CODEC =
-      CustomPacketPayload.codec(SetMaintenanceMinecartMessage::write, SetMaintenanceMinecartMessage::read);
-
-
-  private static SetMaintenanceMinecartMessage read(FriendlyByteBuf buf) {
-    return new SetMaintenanceMinecartMessage(buf.readVarInt(),
-        buf.readEnum(MaintenanceMinecart.Mode.class));
-  }
-
-  private void write(FriendlyByteBuf buf) {
-    buf.writeVarInt(this.entityId);
-    buf.writeEnum(this.mode);
-  }
+      StreamCodec.composite(
+          ByteBufCodecs.VAR_INT, SetMaintenanceMinecartMessage::entityId,
+          NeoForgeStreamCodecs.enumCodec(MaintenanceMinecart.Mode.class), SetMaintenanceMinecartMessage::mode,
+          SetMaintenanceMinecartMessage::new);
 
   @Override
   public Type<? extends CustomPacketPayload> type() {

@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetRoutingTrackMessage(
@@ -17,18 +18,10 @@ public record SetRoutingTrackMessage(
       new Type<>(RailcraftConstants.rl("set_routing_track"));
 
   public static final StreamCodec<FriendlyByteBuf, SetRoutingTrackMessage> STREAM_CODEC =
-      CustomPacketPayload.codec(SetRoutingTrackMessage::write, SetRoutingTrackMessage::read);
-
-  private static SetRoutingTrackMessage read(FriendlyByteBuf buf) {
-    var blockPos = buf.readBlockPos();
-    var lock = buf.readEnum(LockableSwitchTrackActuatorBlockEntity.Lock.class);
-    return new SetRoutingTrackMessage(blockPos, lock);
-  }
-
-  private void write(FriendlyByteBuf buf) {
-    buf.writeBlockPos(this.blockPos);
-    buf.writeEnum(this.lock);
-  }
+      StreamCodec.composite(
+          BlockPos.STREAM_CODEC, SetRoutingTrackMessage::blockPos,
+          NeoForgeStreamCodecs.enumCodec(LockableSwitchTrackActuatorBlockEntity.Lock.class), SetRoutingTrackMessage::lock,
+          SetRoutingTrackMessage::new);
 
   @Override
   public Type<? extends CustomPacketPayload> type() {

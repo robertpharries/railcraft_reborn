@@ -2,15 +2,16 @@ package mods.railcraft.network.to_server;
 
 import java.util.List;
 import java.util.Optional;
-import com.google.common.collect.Lists;
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.world.item.RoutingTableBookItem;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.InteractionHand;
+import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record EditRoutingTableBookMessage(
@@ -21,23 +22,13 @@ public record EditRoutingTableBookMessage(
       new Type<>(RailcraftConstants.rl("edit_routing_table_book"));
 
   public static final StreamCodec<FriendlyByteBuf, EditRoutingTableBookMessage> STREAM_CODEC =
-      CustomPacketPayload.codec(EditRoutingTableBookMessage::write, EditRoutingTableBookMessage::read);
+      StreamCodec.composite(
+          NeoForgeStreamCodecs.enumCodec(InteractionHand.class), EditRoutingTableBookMessage::hand,
+          ByteBufCodecs.STRING_UTF8.apply(ByteBufCodecs.list()), EditRoutingTableBookMessage::pages,
+          ByteBufCodecs.optional(ByteBufCodecs.STRING_UTF8), EditRoutingTableBookMessage::title,
+          EditRoutingTableBookMessage::new);
 
   private static final int BOOK_MAX_PAGES = 50;
-
-  private static EditRoutingTableBookMessage read(FriendlyByteBuf buf) {
-    var hand = buf.readEnum(InteractionHand.class);
-    var pages = buf.readCollection(FriendlyByteBuf
-        .limitValue(Lists::newArrayListWithCapacity, BOOK_MAX_PAGES), FriendlyByteBuf::readUtf);
-    var title = buf.readOptional(FriendlyByteBuf::readUtf);
-    return new EditRoutingTableBookMessage(hand, pages, title);
-  }
-
-  private void write(FriendlyByteBuf buf) {
-    buf.writeEnum(this.hand);
-    buf.writeCollection(this.pages, FriendlyByteBuf::writeUtf);
-    buf.writeOptional(this.title, FriendlyByteBuf::writeUtf);
-  }
 
   @Override
   public Type<? extends CustomPacketPayload> type() {

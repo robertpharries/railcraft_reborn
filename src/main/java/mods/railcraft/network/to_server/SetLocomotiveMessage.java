@@ -3,8 +3,10 @@ package mods.railcraft.network.to_server;
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.world.entity.vehicle.locomotive.Locomotive;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetLocomotiveMessage(
@@ -16,22 +18,13 @@ public record SetLocomotiveMessage(
       new Type<>(RailcraftConstants.rl("set_locomotive"));
 
   public static final StreamCodec<FriendlyByteBuf, SetLocomotiveMessage> STREAM_CODEC =
-      CustomPacketPayload.codec(SetLocomotiveMessage::write, SetLocomotiveMessage::read);
-
-  private static SetLocomotiveMessage read(FriendlyByteBuf buf) {
-    return new SetLocomotiveMessage(buf.readVarInt(),
-        buf.readEnum(Locomotive.Mode.class),
-        buf.readEnum(Locomotive.Speed.class),
-        buf.readEnum(Locomotive.Lock.class), buf.readBoolean());
-  }
-
-  private void write(FriendlyByteBuf buf) {
-    buf.writeVarInt(this.entityId);
-    buf.writeEnum(this.mode);
-    buf.writeEnum(this.speed);
-    buf.writeEnum(this.lock);
-    buf.writeBoolean(this.reverse);
-  }
+      StreamCodec.composite(
+          ByteBufCodecs.VAR_INT, SetLocomotiveMessage::entityId,
+          NeoForgeStreamCodecs.enumCodec(Locomotive.Mode.class), SetLocomotiveMessage::mode,
+          NeoForgeStreamCodecs.enumCodec(Locomotive.Speed.class), SetLocomotiveMessage::speed,
+          NeoForgeStreamCodecs.enumCodec(Locomotive.Lock.class), SetLocomotiveMessage::lock,
+          ByteBufCodecs.BOOL, SetLocomotiveMessage::reverse,
+          SetLocomotiveMessage::new);
 
   @Override
   public Type<? extends CustomPacketPayload> type() {

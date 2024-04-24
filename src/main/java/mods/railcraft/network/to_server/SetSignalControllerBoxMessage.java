@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetSignalControllerBoxMessage(
@@ -17,18 +18,11 @@ public record SetSignalControllerBoxMessage(
       new Type<>(RailcraftConstants.rl("set_signal_controller_box"));
 
   public static final StreamCodec<FriendlyByteBuf, SetSignalControllerBoxMessage> STREAM_CODEC =
-      CustomPacketPayload.codec(SetSignalControllerBoxMessage::write, SetSignalControllerBoxMessage::read);
-
-  private static SetSignalControllerBoxMessage read(FriendlyByteBuf buf) {
-    return new SetSignalControllerBoxMessage(buf.readBlockPos(),
-        buf.readEnum(SignalAspect.class), buf.readEnum(SignalAspect.class));
-  }
-
-  private void write(FriendlyByteBuf buf) {
-    buf.writeBlockPos(this.blockPos);
-    buf.writeEnum(this.defaultAspect);
-    buf.writeEnum(this.poweredAspect);
-  }
+      StreamCodec.composite(
+          BlockPos.STREAM_CODEC, SetSignalControllerBoxMessage::blockPos,
+          NeoForgeStreamCodecs.enumCodec(SignalAspect.class), SetSignalControllerBoxMessage::defaultAspect,
+          NeoForgeStreamCodecs.enumCodec(SignalAspect.class), SetSignalControllerBoxMessage::poweredAspect,
+          SetSignalControllerBoxMessage::new);
 
   @Override
   public Type<? extends CustomPacketPayload> type() {

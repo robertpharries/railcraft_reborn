@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetItemManipulatorMessage(
@@ -19,19 +20,11 @@ public record SetItemManipulatorMessage(
       new Type<>(RailcraftConstants.rl("set_item_manipulator"));
 
   public static final StreamCodec<FriendlyByteBuf, SetItemManipulatorMessage> STREAM_CODEC =
-      CustomPacketPayload.codec(SetItemManipulatorMessage::write, SetItemManipulatorMessage::read);
-
-  private static SetItemManipulatorMessage read(FriendlyByteBuf buf) {
-    return new SetItemManipulatorMessage(buf.readBlockPos(),
-        buf.readEnum(ManipulatorBlockEntity.RedstoneMode.class),
-        buf.readEnum(ManipulatorBlockEntity.TransferMode.class));
-  }
-
-  private void write(FriendlyByteBuf buf) {
-    buf.writeBlockPos(this.blockPos);
-    buf.writeEnum(this.redstoneMode);
-    buf.writeEnum(this.transferMode);
-  }
+      StreamCodec.composite(
+          BlockPos.STREAM_CODEC, SetItemManipulatorMessage::blockPos,
+          NeoForgeStreamCodecs.enumCodec(ManipulatorBlockEntity.RedstoneMode.class), SetItemManipulatorMessage::redstoneMode,
+          NeoForgeStreamCodecs.enumCodec(ManipulatorBlockEntity.TransferMode.class), SetItemManipulatorMessage::transferMode,
+          SetItemManipulatorMessage::new);
 
   @Override
   public Type<? extends CustomPacketPayload> type() {

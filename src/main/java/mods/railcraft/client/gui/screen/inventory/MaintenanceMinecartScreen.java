@@ -15,6 +15,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public abstract class MaintenanceMinecartScreen<T extends RailcraftMenu> extends RailcraftMenuScreen<T> {
 
@@ -63,7 +64,7 @@ public abstract class MaintenanceMinecartScreen<T extends RailcraftMenu> extends
     if (mode != this.cart.mode()) {
       this.cart.setMode(mode);
       this.updateButtons();
-      PacketHandler.sendToServer(
+      PacketDistributor.sendToServer(
           new SetMaintenanceMinecartMessage(this.cart.getId(), mode));
     }
   }

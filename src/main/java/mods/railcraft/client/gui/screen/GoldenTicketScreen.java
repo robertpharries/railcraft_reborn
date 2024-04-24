@@ -17,6 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class GoldenTicketScreen extends IngameWindowScreen {
 
@@ -122,7 +123,7 @@ public class GoldenTicketScreen extends IngameWindowScreen {
     var success = TicketItem.setTicketData(this.itemStack, destWithoutPrefix,
         this.minecraft.player.getGameProfile());
     if (success) {
-      PacketHandler.sendToServer(new EditTicketMessage(this.hand, destWithoutPrefix));
+      PacketDistributor.sendToServer(new EditTicketMessage(this.hand, destWithoutPrefix));
     }
   }
 }

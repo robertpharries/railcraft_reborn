@@ -3,23 +3,27 @@ package mods.railcraft.network.to_server;
 import java.util.EnumSet;
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.api.signal.SignalAspect;
-import mods.railcraft.network.RailcraftCustomPacketPayload;
 import mods.railcraft.world.level.block.entity.LockableSwitchTrackActuatorBlockEntity;
 import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetSwitchTrackMotorMessage(
     BlockPos blockPos,
     EnumSet<SignalAspect> actionSignalAspects,
     boolean redstoneTriggered,
-    LockableSwitchTrackActuatorBlockEntity.Lock lock) implements RailcraftCustomPacketPayload {
+    LockableSwitchTrackActuatorBlockEntity.Lock lock) implements CustomPacketPayload {
 
-  public static final ResourceLocation ID = RailcraftConstants.rl("set_switch_track_motor");
+  public static final Type<SetSwitchTrackMotorMessage> TYPE =
+      new Type<>(RailcraftConstants.rl("set_switch_track_motor"));
 
-  public static SetSwitchTrackMotorMessage read(FriendlyByteBuf buf) {
+  public static final StreamCodec<FriendlyByteBuf, SetSwitchTrackMotorMessage> STREAM_CODEC =
+      CustomPacketPayload.codec(SetSwitchTrackMotorMessage::write, SetSwitchTrackMotorMessage::read);
+
+  private static SetSwitchTrackMotorMessage read(FriendlyByteBuf buf) {
     var blockPos = buf.readBlockPos();
     var actionSignalAspects = buf.readEnumSet(SignalAspect.class);
     var redstoneTriggered = buf.readBoolean();
@@ -28,8 +32,7 @@ public record SetSwitchTrackMotorMessage(
         redstoneTriggered, lock);
   }
 
-  @Override
-  public void write(FriendlyByteBuf buf) {
+  private void write(FriendlyByteBuf buf) {
     buf.writeBlockPos(this.blockPos);
     buf.writeEnumSet(this.actionSignalAspects, SignalAspect.class);
     buf.writeBoolean(this.redstoneTriggered);
@@ -37,27 +40,25 @@ public record SetSwitchTrackMotorMessage(
   }
 
   @Override
-  public ResourceLocation id() {
-    return ID;
+  public Type<? extends CustomPacketPayload> type() {
+    return TYPE;
   }
 
-  @Override
-  public void handle(PlayPayloadContext context) {
-    context.player().ifPresent(player -> {
-      var level = player.level();
-      var senderProfile = player.getGameProfile();
-      level.getBlockEntity(this.blockPos, RailcraftBlockEntityTypes.SWITCH_TRACK_MOTOR.get())
-          .filter(switchTrack -> switchTrack.canAccess(senderProfile))
-          .ifPresent(switchTrack -> {
-            switchTrack.getActionSignalAspects().clear();
-            switchTrack.getActionSignalAspects().addAll(this.actionSignalAspects);
-            switchTrack.setRedstoneTriggered(this.redstoneTriggered);
-            switchTrack.setLock(
-                this.lock.equals(LockableSwitchTrackActuatorBlockEntity.Lock.UNLOCKED)
-                    ? null : senderProfile);
-            switchTrack.syncToClient();
-            switchTrack.setChanged();
-          });
-    });
+  public static void handle(SetSwitchTrackMotorMessage message, IPayloadContext context) {
+    var player = context.player();
+    var level = player.level();
+    var senderProfile = player.getGameProfile();
+    level.getBlockEntity(message.blockPos, RailcraftBlockEntityTypes.SWITCH_TRACK_MOTOR.get())
+        .filter(switchTrack -> switchTrack.canAccess(senderProfile))
+        .ifPresent(switchTrack -> {
+          switchTrack.getActionSignalAspects().clear();
+          switchTrack.getActionSignalAspects().addAll(message.actionSignalAspects);
+          switchTrack.setRedstoneTriggered(message.redstoneTriggered);
+          switchTrack.setLock(
+              message.lock.equals(LockableSwitchTrackActuatorBlockEntity.Lock.UNLOCKED)
+                  ? null : senderProfile);
+          switchTrack.syncToClient();
+          switchTrack.setChanged();
+        });
   }
 }

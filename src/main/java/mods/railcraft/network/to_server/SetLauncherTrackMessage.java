@@ -1,40 +1,36 @@
 package mods.railcraft.network.to_server;
 
 import mods.railcraft.api.core.RailcraftConstants;
-import mods.railcraft.network.RailcraftCustomPacketPayload;
 import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetLauncherTrackMessage(
-    BlockPos blockPos, byte force) implements RailcraftCustomPacketPayload {
+    BlockPos blockPos, byte force) implements CustomPacketPayload {
 
-  public static final ResourceLocation ID = RailcraftConstants.rl("set_launcher_track");
+  public static final Type<SetLauncherTrackMessage> TYPE =
+      new Type<>(RailcraftConstants.rl("set_launcher_track"));
 
-  public static SetLauncherTrackMessage read(FriendlyByteBuf buf) {
-    return new SetLauncherTrackMessage(buf.readBlockPos(), buf.readByte());
-  }
-
-  @Override
-  public void write(FriendlyByteBuf buf) {
-    buf.writeBlockPos(this.blockPos);
-    buf.writeByte(this.force);
-  }
+  public static final StreamCodec<FriendlyByteBuf, SetLauncherTrackMessage> STREAM_CODEC =
+      StreamCodec.composite(
+          BlockPos.STREAM_CODEC, SetLauncherTrackMessage::blockPos,
+          ByteBufCodecs.BYTE, SetLauncherTrackMessage::force,
+          SetLauncherTrackMessage::new);
 
   @Override
-  public ResourceLocation id() {
-    return ID;
+  public Type<? extends CustomPacketPayload> type() {
+    return TYPE;
   }
 
-  @Override
-  public void handle(PlayPayloadContext context) {
-    context.level()
-        .flatMap(level ->
-            level.getBlockEntity(this.blockPos, RailcraftBlockEntityTypes.LAUNCHER_TRACK.get()))
+  public static void handle(SetLauncherTrackMessage message, IPayloadContext context) {
+    context.player().level()
+        .getBlockEntity(message.blockPos, RailcraftBlockEntityTypes.LAUNCHER_TRACK.get())
         .ifPresent(track -> {
-          track.setLaunchForce(this.force);
+          track.setLaunchForce(message.force);
           track.setChanged();
         });
   }

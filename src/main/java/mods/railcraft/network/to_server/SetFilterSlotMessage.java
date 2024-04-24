@@ -1,46 +1,42 @@
 package mods.railcraft.network.to_server;
 
 import mods.railcraft.api.core.RailcraftConstants;
-import mods.railcraft.network.RailcraftCustomPacketPayload;
 import mods.railcraft.world.inventory.slot.RailcraftSlot;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetFilterSlotMessage(
-    int slotIndex, ItemStack stack) implements RailcraftCustomPacketPayload {
+    int slotIndex, ItemStack stack) implements CustomPacketPayload {
 
-  public static final ResourceLocation ID = RailcraftConstants.rl("set_filter_slot");
+  public static final Type<SetFilterSlotMessage> TYPE =
+      new Type<>(RailcraftConstants.rl("set_filter_slot"));
 
-  public static SetFilterSlotMessage read(FriendlyByteBuf buf) {
-    return new SetFilterSlotMessage(buf.readVarInt(), buf.readItem());
-  }
-
-  @Override
-  public void write(FriendlyByteBuf buf) {
-    buf.writeVarInt(this.slotIndex);
-    buf.writeItem(this.stack);
-  }
+  public static final StreamCodec<RegistryFriendlyByteBuf, SetFilterSlotMessage> STREAM_CODEC =
+      StreamCodec.composite(
+          ByteBufCodecs.VAR_INT, SetFilterSlotMessage::slotIndex,
+          ItemStack.STREAM_CODEC, SetFilterSlotMessage::stack,
+          SetFilterSlotMessage::new);
 
   @Override
-  public ResourceLocation id() {
-    return ID;
+  public Type<? extends CustomPacketPayload> type() {
+    return TYPE;
   }
 
-  @Override
-  public void handle(PlayPayloadContext context) {
-    context.player().ifPresent(player -> {
-      if (!this.stack.isEmpty() && this.stack.getCount() <= this.stack.getMaxStackSize()) {
-        var container = player.containerMenu;
-        if (container != null && this.slotIndex >= 0 && this.slotIndex < container.slots.size()) {
-          if (container.getSlot(this.slotIndex) instanceof RailcraftSlot slot && slot.isPhantom()) {
-            if (slot.mayPlace(this.stack)) {
-              slot.set(this.stack);
-            }
+  public static void handle(SetFilterSlotMessage message, IPayloadContext context) {
+    var player = context.player();
+    if (!message.stack.isEmpty() && message.stack.getCount() <= message.stack.getMaxStackSize()) {
+      var container = player.containerMenu;
+      if (container != null && message.slotIndex >= 0 && message.slotIndex < container.slots.size()) {
+        if (container.getSlot(message.slotIndex) instanceof RailcraftSlot slot && slot.isPhantom()) {
+          if (slot.mayPlace(message.stack)) {
+            slot.set(message.stack);
           }
         }
       }
-    });
+    }
   }
 }

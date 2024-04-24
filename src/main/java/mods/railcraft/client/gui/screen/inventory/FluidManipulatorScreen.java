@@ -8,6 +8,7 @@ import mods.railcraft.world.inventory.FluidManipulatorMenu;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class FluidManipulatorScreen extends ManipulatorScreen<FluidManipulatorMenu> {
 
@@ -22,7 +23,7 @@ public class FluidManipulatorScreen extends ManipulatorScreen<FluidManipulatorMe
 
   @Override
   protected void sendAttributes() {
-    PacketHandler.sendToServer(new SetFluidManipulatorMessage(
+    PacketDistributor.sendToServer(new SetFluidManipulatorMessage(
         this.menu.getManipulator().getBlockPos(), this.menu.getManipulator().getRedstoneMode()));
   }
 

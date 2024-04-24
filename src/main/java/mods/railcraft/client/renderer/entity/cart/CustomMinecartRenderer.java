@@ -83,7 +83,7 @@ public abstract class CustomMinecartRenderer<T extends AbstractMinecart>
     if (cart.hasCustomName()) {
       var customName = cart.getCustomName().getString();
       if (!Seasons.GHOST_TRAIN.equals(customName) && !Seasons.POLAR_EXPRESS.equals(customName)) {
-        this.renderNameTag(cart, cart.getCustomName(), poseStack, bufferSource, packedLight);
+        this.renderNameTag(cart, cart.getCustomName(), poseStack, bufferSource, packedLight, partialTicks);
         renderName = true;
       }
     }
@@ -97,7 +97,7 @@ public abstract class CustomMinecartRenderer<T extends AbstractMinecart>
         }
         var destination = Component.literal(dest)
             .withStyle(ChatFormatting.GOLD, ChatFormatting.ITALIC);
-        this.renderNameTag(cart, destination, poseStack, bufferSource, packedLight);
+        this.renderNameTag(cart, destination, poseStack, bufferSource, packedLight, partialTicks);
         poseStack.popPose();
       }
     }

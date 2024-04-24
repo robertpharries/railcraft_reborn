@@ -10,6 +10,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class LauncherTrackScreen extends IngameWindowScreen {
 
@@ -61,8 +62,7 @@ public class LauncherTrackScreen extends IngameWindowScreen {
   }
 
   private void sendAttributes() {
-    PacketHandler.sendToServer(
-        new SetLauncherTrackMessage(this.track.getBlockPos(),
-            this.track.getLaunchForce()));
+    PacketDistributor.sendToServer(new SetLauncherTrackMessage(this.track.getBlockPos(),
+        this.track.getLaunchForce()));
   }
 }

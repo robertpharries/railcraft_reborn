@@ -1,45 +1,46 @@
 package mods.railcraft.network.to_server;
 
 import mods.railcraft.api.core.RailcraftConstants;
-import mods.railcraft.network.RailcraftCustomPacketPayload;
 import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import mods.railcraft.world.level.block.entity.signal.SignalCapacitorBoxBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetSignalCapacitorBoxMessage(
     BlockPos blockPos, short ticksToPower,
-    SignalCapacitorBoxBlockEntity.Mode mode) implements RailcraftCustomPacketPayload {
+    SignalCapacitorBoxBlockEntity.Mode mode) implements CustomPacketPayload {
 
-  public static final ResourceLocation ID = RailcraftConstants.rl("set_signal_capacitor_box");
+  public static final Type<SetSignalCapacitorBoxMessage> TYPE =
+      new Type<>(RailcraftConstants.rl("set_signal_capacitor_box"));
 
-  public static SetSignalCapacitorBoxMessage read(FriendlyByteBuf buf) {
+  public static final StreamCodec<FriendlyByteBuf, SetSignalCapacitorBoxMessage> STREAM_CODEC =
+      CustomPacketPayload.codec(SetSignalCapacitorBoxMessage::write, SetSignalCapacitorBoxMessage::read);
+
+  private static SetSignalCapacitorBoxMessage read(FriendlyByteBuf buf) {
     return new SetSignalCapacitorBoxMessage(buf.readBlockPos(), buf.readShort(),
         buf.readEnum(SignalCapacitorBoxBlockEntity.Mode.class));
   }
 
-  @Override
-  public void write(FriendlyByteBuf buf) {
+  private void write(FriendlyByteBuf buf) {
     buf.writeBlockPos(this.blockPos);
     buf.writeShort(this.ticksToPower);
     buf.writeEnum(this.mode);
   }
 
   @Override
-  public ResourceLocation id() {
-    return ID;
+  public Type<? extends CustomPacketPayload> type() {
+    return TYPE;
   }
 
-  @Override
-  public void handle(PlayPayloadContext context) {
-    context.level()
-        .flatMap(level -> level
-            .getBlockEntity(this.blockPos, RailcraftBlockEntityTypes.SIGNAL_CAPACITOR_BOX.get()))
+  public static void handle(SetSignalCapacitorBoxMessage message, IPayloadContext context) {
+    context.player().level()
+        .getBlockEntity(message.blockPos, RailcraftBlockEntityTypes.SIGNAL_CAPACITOR_BOX.get())
         .ifPresent(signalBox -> {
-          signalBox.setTicksToPower(this.ticksToPower);
-          signalBox.setMode(this.mode);
+          signalBox.setTicksToPower(message.ticksToPower);
+          signalBox.setMode(message.mode);
           signalBox.syncToClient();
           signalBox.setChanged();
         });

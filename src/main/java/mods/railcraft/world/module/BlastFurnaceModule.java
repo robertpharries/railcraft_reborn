@@ -8,6 +8,7 @@ import mods.railcraft.world.item.RailcraftItems;
 import mods.railcraft.world.item.crafting.BlastFurnaceRecipe;
 import mods.railcraft.world.item.crafting.RailcraftRecipeTypes;
 import mods.railcraft.world.level.block.entity.BlastFurnaceBlockEntity;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.util.Mth;
@@ -179,16 +180,16 @@ public class BlastFurnaceModule extends CookingModule<BlastFurnaceRecipe, BlastF
   }
 
   @Override
-  public CompoundTag serializeNBT() {
-    var tag = super.serializeNBT();
+  public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+    var tag = super.serializeNBT(provider);
     tag.putInt(CompoundTagKeys.BURN_TIME, this.burnTime);
     tag.putInt(CompoundTagKeys.CURRENT_ITEM_BURN_TIME, this.currentItemBurnTime);
     return tag;
   }
 
   @Override
-  public void deserializeNBT(CompoundTag tag) {
-    super.deserializeNBT(tag);
+  public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
+    super.deserializeNBT(provider, tag);
     this.burnTime = tag.getInt(CompoundTagKeys.BURN_TIME);
     this.currentItemBurnTime = tag.getInt(CompoundTagKeys.CURRENT_ITEM_BURN_TIME);
   }

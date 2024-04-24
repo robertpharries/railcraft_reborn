@@ -1,41 +1,37 @@
 package mods.railcraft.network.to_server;
 
 import mods.railcraft.api.core.RailcraftConstants;
-import mods.railcraft.network.RailcraftCustomPacketPayload;
 import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetTrainDetectorMessage(
-    BlockPos blockPos, int trainSize) implements RailcraftCustomPacketPayload {
+    BlockPos blockPos, int trainSize) implements CustomPacketPayload {
 
-  public static final ResourceLocation ID = RailcraftConstants.rl("set_train_detector");
+  public static final Type<SetTrainDetectorMessage> TYPE =
+      new Type<>(RailcraftConstants.rl("set_train_detector"));
 
-  public static SetTrainDetectorMessage read(FriendlyByteBuf in) {
-    return new SetTrainDetectorMessage(in.readBlockPos(), in.readVarInt());
-  }
-
-  @Override
-  public void write(FriendlyByteBuf out) {
-    out.writeBlockPos(this.blockPos);
-    out.writeVarInt(this.trainSize);
-  }
+  public static final StreamCodec<FriendlyByteBuf, SetTrainDetectorMessage> STREAM_CODEC =
+      StreamCodec.composite(
+          BlockPos.STREAM_CODEC, SetTrainDetectorMessage::blockPos,
+          ByteBufCodecs.VAR_INT, SetTrainDetectorMessage::trainSize,
+          SetTrainDetectorMessage::new);
 
   @Override
-  public ResourceLocation id() {
-    return ID;
+  public Type<? extends CustomPacketPayload> type() {
+    return TYPE;
   }
 
-  @Override
-  public void handle(PlayPayloadContext context) {
-    context.level().ifPresent(level -> {
-      level.getBlockEntity(this.blockPos, RailcraftBlockEntityTypes.TRAIN_DETECTOR.get())
-          .ifPresent(trainDetector -> {
-            trainDetector.setTrainSize(this.trainSize);
-            trainDetector.setChanged();
-          });
-    });
+  public static void handle(SetTrainDetectorMessage message, IPayloadContext context) {
+    context.player().level()
+        .getBlockEntity(message.blockPos, RailcraftBlockEntityTypes.TRAIN_DETECTOR.get())
+        .ifPresent(trainDetector -> {
+          trainDetector.setTrainSize(message.trainSize);
+          trainDetector.setChanged();
+        });
   }
 }

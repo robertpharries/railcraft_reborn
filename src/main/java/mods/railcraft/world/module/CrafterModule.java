@@ -1,6 +1,7 @@
 package mods.railcraft.world.module;
 
 import mods.railcraft.api.core.CompoundTagKeys;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 
@@ -124,16 +125,16 @@ public abstract class CrafterModule<T extends ModuleProvider> extends ContainerM
   protected abstract boolean craftAndPush();
 
   @Override
-  public CompoundTag serializeNBT() {
-    var tag = super.serializeNBT();
+  public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+    var tag = super.serializeNBT(provider);
     tag.putInt(CompoundTagKeys.PROGRESS, this.progress);
     tag.putBoolean(CompoundTagKeys.PROCESSING, this.processing);
     return tag;
   }
 
   @Override
-  public void deserializeNBT(CompoundTag tag) {
-    super.deserializeNBT(tag);
+  public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
+    super.deserializeNBT(provider, tag);
     this.progress = tag.getInt(CompoundTagKeys.PROGRESS);
     this.processing = tag.getBoolean(CompoundTagKeys.PROCESSING);
   }

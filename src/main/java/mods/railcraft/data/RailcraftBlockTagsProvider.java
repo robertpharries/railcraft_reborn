@@ -24,9 +24,9 @@ public class RailcraftBlockTagsProvider extends BlockTagsProvider {
   @Override
   protected void addTags(HolderLookup.Provider provider) {
     this.tag(RailcraftTags.Blocks.BALLAST)
-        .addTag(Tags.Blocks.GRAVEL);
+        .addTag(Tags.Blocks.GRAVELS);
     this.tag(RailcraftTags.Blocks.TRACK_UNDERCUTTER_INVALID_BALLAST)
-        .addTags(Tags.Blocks.SAND, BlockTags.SAND);
+        .addTags(Tags.Blocks.SANDS, BlockTags.SAND);
     this.tag(RailcraftTags.Blocks.SWITCH_TRACK_ACTUATOR)
         .add(RailcraftBlocks.SWITCH_TRACK_LEVER.get())
         .add(RailcraftBlocks.SWITCH_TRACK_MOTOR.get())
@@ -482,10 +482,10 @@ public class RailcraftBlockTagsProvider extends BlockTagsProvider {
             Blocks.COBWEB,
             Blocks.END_STONE)
         .addTags(Tags.Blocks.ORES,
-            Tags.Blocks.NETHERRACK,
-            Tags.Blocks.COBBLESTONE,
-            Tags.Blocks.OBSIDIAN,
-            Tags.Blocks.GRAVEL,
+            Tags.Blocks.NETHERRACKS,
+            Tags.Blocks.COBBLESTONES,
+            Tags.Blocks.OBSIDIANS,
+            Tags.Blocks.GRAVELS,
             BlockTags.DIRT,
             BlockTags.LEAVES,
             BlockTags.SAPLINGS,

@@ -25,20 +25,9 @@ import mods.railcraft.network.to_server.SetSwitchTrackRouterMessage;
 import mods.railcraft.network.to_server.SetTankDetectorMessage;
 import mods.railcraft.network.to_server.SetTrainDetectorMessage;
 import mods.railcraft.network.to_server.UpdateAuraByKeyMessage;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.network.PacketDistributor;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent;
-import net.neoforged.neoforge.network.registration.IDirectionAwarePayloadHandlerBuilder;
-import net.neoforged.neoforge.network.registration.IPayloadRegistrar;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 public final class PacketHandler {
 
@@ -46,70 +35,64 @@ public final class PacketHandler {
   }
 
   public static void register(IEventBus modEventBus) {
-    modEventBus.addListener(RegisterPayloadHandlerEvent.class, event -> {
+    modEventBus.addListener(RegisterPayloadHandlersEvent.class, event -> {
       var registrar = event.registrar(RailcraftConstants.ID).versioned("1");
-      registerClientToServer(
-          new PacketRegistrar(registrar, IDirectionAwarePayloadHandlerBuilder::server));
-      registerServerToClient(
-          new PacketRegistrar(registrar, IDirectionAwarePayloadHandlerBuilder::client));
+      registerClientToServer(registrar);
+      registerServerToClient(registrar);
     });
   }
 
-  @FunctionalInterface
-  private interface ContextAwareHandler {
-    <P extends CustomPacketPayload, T> void accept(IDirectionAwarePayloadHandlerBuilder<P, T> builder, T handler);
+  private static void registerClientToServer(PayloadRegistrar registrar) {
+    registrar.playToServer(EditRoutingTableBookMessage.TYPE,
+        EditRoutingTableBookMessage.STREAM_CODEC, EditRoutingTableBookMessage::handle);
+    registrar.playToServer(EditTicketMessage.TYPE,
+        EditTicketMessage.STREAM_CODEC, EditTicketMessage::handle);
+    registrar.playToServer(SetActionSignalBoxMessage.TYPE,
+        SetActionSignalBoxMessage.STREAM_CODEC, SetActionSignalBoxMessage::handle);
+    registrar.playToServer(SetAnalogSignalControllerBoxMessage.TYPE,
+        SetAnalogSignalControllerBoxMessage.STREAM_CODEC, SetAnalogSignalControllerBoxMessage::handle);
+    registrar.playToServer(SetEmbarkingTrackMessage.TYPE,
+        SetEmbarkingTrackMessage.STREAM_CODEC, SetEmbarkingTrackMessage::handle);
+    registrar.playToServer(SetFluidManipulatorMessage.TYPE,
+        SetFluidManipulatorMessage.STREAM_CODEC, SetFluidManipulatorMessage::handle);
+    registrar.playToServer(SetItemManipulatorMessage.TYPE,
+        SetItemManipulatorMessage.STREAM_CODEC, SetItemManipulatorMessage::handle);
+    registrar.playToServer(SetLauncherTrackMessage.TYPE,
+        SetLauncherTrackMessage.STREAM_CODEC, SetLauncherTrackMessage::handle);
+    registrar.playToServer(SetLocomotiveMessage.TYPE,
+        SetLocomotiveMessage.STREAM_CODEC, SetLocomotiveMessage::handle);
+    registrar.playToServer(SetMaintenanceMinecartMessage.TYPE,
+        SetMaintenanceMinecartMessage.STREAM_CODEC, SetMaintenanceMinecartMessage::handle);
+    registrar.playToServer(SetRoutingTrackMessage.TYPE,
+        SetRoutingTrackMessage.STREAM_CODEC, SetRoutingTrackMessage::handle);
+    registrar.playToServer(SetSignalCapacitorBoxMessage.TYPE,
+        SetSignalCapacitorBoxMessage.STREAM_CODEC, SetSignalCapacitorBoxMessage::handle);
+    registrar.playToServer(SetSignalControllerBoxMessage.TYPE,
+        SetSignalControllerBoxMessage.STREAM_CODEC, SetSignalControllerBoxMessage::handle);
+    registrar.playToServer(SetSwitchTrackMotorMessage.TYPE,
+        SetSwitchTrackMotorMessage.STREAM_CODEC, SetSwitchTrackMotorMessage::handle);
+    registrar.playToServer(SetSwitchTrackRouterMessage.TYPE,
+        SetSwitchTrackRouterMessage.STREAM_CODEC, SetSwitchTrackRouterMessage::handle);
+    registrar.playToServer(UpdateAuraByKeyMessage.TYPE,
+        UpdateAuraByKeyMessage.STREAM_CODEC, UpdateAuraByKeyMessage::handle);
+    registrar.playToServer(SetTrainDetectorMessage.TYPE,
+        SetTrainDetectorMessage.STREAM_CODEC, SetTrainDetectorMessage::handle);
+    registrar.playToServer(SetItemDetectorMessage.TYPE,
+        SetItemDetectorMessage.STREAM_CODEC, SetItemDetectorMessage::handle);
+    registrar.playToServer(SetRoutingDetectorMessage.TYPE,
+        SetRoutingDetectorMessage.STREAM_CODEC, SetRoutingDetectorMessage::handle);
+    registrar.playToServer(SetTankDetectorMessage.TYPE,
+        SetTankDetectorMessage.STREAM_CODEC, SetTankDetectorMessage::handle);
+    registrar.playToServer(SetFilterSlotMessage.TYPE,
+        SetFilterSlotMessage.STREAM_CODEC, SetFilterSlotMessage::handle);
   }
 
-  private record PacketRegistrar(IPayloadRegistrar registrar, ContextAwareHandler contextAwareHandler) {
-    <T extends RailcraftCustomPacketPayload> void play(ResourceLocation id, FriendlyByteBuf.Reader<T> reader) {
-      registrar.play(id, reader, builder ->
-          contextAwareHandler.accept(builder, RailcraftCustomPacketPayload::handleMainThread));
-    }
-  }
-
-  private static void registerClientToServer(PacketRegistrar registrar) {
-    registrar.play(EditRoutingTableBookMessage.ID, EditRoutingTableBookMessage::read);
-    registrar.play(EditTicketMessage.ID, EditTicketMessage::read);
-    registrar.play(SetActionSignalBoxMessage.ID, SetActionSignalBoxMessage::read);
-    registrar.play(SetAnalogSignalControllerBoxMessage.ID,
-        SetAnalogSignalControllerBoxMessage::read);
-    registrar.play(SetEmbarkingTrackMessage.ID, SetEmbarkingTrackMessage::read);
-    registrar.play(SetFluidManipulatorMessage.ID, SetFluidManipulatorMessage::read);
-    registrar.play(SetItemManipulatorMessage.ID, SetItemManipulatorMessage::read);
-    registrar.play(SetLauncherTrackMessage.ID, SetLauncherTrackMessage::read);
-    registrar.play(SetLocomotiveMessage.ID, SetLocomotiveMessage::read);
-    registrar.play(SetMaintenanceMinecartMessage.ID, SetMaintenanceMinecartMessage::read);
-    registrar.play(SetRoutingTrackMessage.ID, SetRoutingTrackMessage::read);
-    registrar.play(SetSignalCapacitorBoxMessage.ID, SetSignalCapacitorBoxMessage::read);
-    registrar.play(SetSignalControllerBoxMessage.ID, SetSignalControllerBoxMessage::read);
-    registrar.play(SetSwitchTrackMotorMessage.ID, SetSwitchTrackMotorMessage::read);
-    registrar.play(SetSwitchTrackRouterMessage.ID, SetSwitchTrackRouterMessage::read);
-    registrar.play(UpdateAuraByKeyMessage.ID, UpdateAuraByKeyMessage::read);
-    registrar.play(SetTrainDetectorMessage.ID, SetTrainDetectorMessage::read);
-    registrar.play(SetItemDetectorMessage.ID, SetItemDetectorMessage::read);
-    registrar.play(SetRoutingDetectorMessage.ID, SetRoutingDetectorMessage::read);
-    registrar.play(SetTankDetectorMessage.ID, SetTankDetectorMessage::read);
-    registrar.play(SetFilterSlotMessage.ID, SetFilterSlotMessage::read);
-  }
-
-  private static void registerServerToClient(PacketRegistrar registrar) {
-    registrar.play(SyncWidgetMessage.ID, SyncWidgetMessage::read);
-    registrar.play(LinkedCartsMessage.ID, LinkedCartsMessage::read);
-    registrar.play(OpenLogBookScreen.ID, OpenLogBookScreen::read);
-  }
-
-  public static void sendToServer(RailcraftCustomPacketPayload packet) {
-    PacketDistributor.sendToServer(packet);
-  }
-
-  public static void sendTo(ServerPlayer player, RailcraftCustomPacketPayload packet) {
-    PacketDistributor.sendToPlayer(player, packet);
-  }
-
-  @SuppressWarnings("deprecation")
-  public static void sendToTrackingChunk(Packet<?> packet, ServerLevel level, BlockPos blockPos) {
-    if (level.hasChunkAt(blockPos)) {
-      PacketDistributor.sendToPlayersTrackingChunk(level, level.getChunkAt(blockPos).getPos(), packet);
-    }
+  private static void registerServerToClient(PayloadRegistrar registrar) {
+    registrar.playToClient(SyncWidgetMessage.TYPE,
+        SyncWidgetMessage.STREAM_CODEC, SyncWidgetMessage::handle);
+    registrar.playToClient(LinkedCartsMessage.TYPE,
+        LinkedCartsMessage.STREAM_CODEC, LinkedCartsMessage::handle);
+    registrar.playToClient(OpenLogBookScreen.TYPE,
+        OpenLogBookScreen.STREAM_CODEC, OpenLogBookScreen::handle);
   }
 }

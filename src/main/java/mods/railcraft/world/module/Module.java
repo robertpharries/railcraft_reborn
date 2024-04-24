@@ -1,6 +1,7 @@
 package mods.railcraft.world.module;
 
 import mods.railcraft.api.core.NetworkSerializable;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.neoforged.neoforge.common.util.INBTSerializable;
@@ -25,10 +26,10 @@ public interface Module extends NetworkSerializable, INBTSerializable<CompoundTa
   default void readFromBuf(RegistryFriendlyByteBuf in) {}
 
   @Override
-  default CompoundTag serializeNBT() {
+  default CompoundTag serializeNBT(HolderLookup.Provider provider) {
     return new CompoundTag();
   }
 
   @Override
-  default void deserializeNBT(CompoundTag tag) {}
+  default void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {}
 }

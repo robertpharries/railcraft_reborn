@@ -42,6 +42,7 @@ import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class RoutingTableBookScreen extends Screen {
 
@@ -247,7 +248,7 @@ public class RoutingTableBookScreen extends Screen {
     if (this.isModified) {
       this.eraseEmptyTrailingPages();
       this.updateLocalCopy();
-      PacketHandler.sendToServer(new EditRoutingTableBookMessage(this.hand, this.pages,
+      PacketDistributor.sendToServer(new EditRoutingTableBookMessage(this.hand, this.pages,
           Optional.of(this.title.trim())));
     }
   }

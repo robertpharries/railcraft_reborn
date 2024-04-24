@@ -10,7 +10,7 @@ public record FluidHeat(int heatValuePerBucket) {
       ExtraCodecs.POSITIVE_INT.xmap(FluidHeat::new, FluidHeat::heatValuePerBucket);
 
   public static final Codec<FluidHeat> CODEC =
-      ExtraCodecs.withAlternative(
+      Codec.withAlternative(
           RecordCodecBuilder.create(instance -> instance
               .group(
                   ExtraCodecs.POSITIVE_INT

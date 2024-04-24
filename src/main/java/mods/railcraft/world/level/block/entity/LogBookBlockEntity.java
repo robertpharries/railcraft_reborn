@@ -26,6 +26,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class LogBookBlockEntity extends RailcraftBlockEntity {
 
@@ -109,7 +110,7 @@ public class LogBookBlockEntity extends RailcraftBlockEntity {
   }
 
   public void use(ServerPlayer player) {
-    PacketHandler.sendTo(player, new OpenLogBookScreen(getPages(this.log)));
+    PacketDistributor.sendToPlayer(player, new OpenLogBookScreen(getPages(this.log)));
   }
 
   private static List<List<String>> getPages(Multimap<LocalDate, GameProfile> log) {

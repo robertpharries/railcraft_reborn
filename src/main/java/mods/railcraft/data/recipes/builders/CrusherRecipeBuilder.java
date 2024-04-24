@@ -77,7 +77,7 @@ public class CrusherRecipeBuilder {
 
   public void save(RecipeOutput recipeOutput) {
     String itemPath;
-    if (this.ingredient.values[0] instanceof Ingredient.TagValue tagValue) {
+    if (this.ingredient.getValues()[0] instanceof Ingredient.TagValue tagValue) {
       var location = tagValue.tag().location().getPath().replace("/", "_");
       itemPath = "tags_" + location;
     } else {

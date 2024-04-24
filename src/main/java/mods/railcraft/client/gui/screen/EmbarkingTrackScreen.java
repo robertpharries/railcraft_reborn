@@ -10,6 +10,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class EmbarkingTrackScreen extends IngameWindowScreen {
 
@@ -44,7 +45,7 @@ public class EmbarkingTrackScreen extends IngameWindowScreen {
   private void setRadius(int radius) {
     this.radius = radius;
     this.updateButtons();
-    PacketHandler.sendToServer(
+    PacketDistributor.sendToServer(
         new SetEmbarkingTrackMessage(this.blockPos, this.radius));
   }
 

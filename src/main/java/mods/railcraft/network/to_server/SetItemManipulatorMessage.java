@@ -1,48 +1,49 @@
 package mods.railcraft.network.to_server;
 
 import mods.railcraft.api.core.RailcraftConstants;
-import mods.railcraft.network.RailcraftCustomPacketPayload;
 import mods.railcraft.util.LevelUtil;
 import mods.railcraft.world.level.block.entity.manipulator.ItemManipulatorBlockEntity;
 import mods.railcraft.world.level.block.entity.manipulator.ManipulatorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetItemManipulatorMessage(
     BlockPos blockPos,
     ManipulatorBlockEntity.RedstoneMode redstoneMode,
-    ManipulatorBlockEntity.TransferMode transferMode) implements RailcraftCustomPacketPayload {
+    ManipulatorBlockEntity.TransferMode transferMode) implements CustomPacketPayload {
 
-  public static final ResourceLocation ID = RailcraftConstants.rl("set_item_manipulator");
+  public static final Type<SetItemManipulatorMessage> TYPE =
+      new Type<>(RailcraftConstants.rl("set_item_manipulator"));
 
-  public static SetItemManipulatorMessage read(FriendlyByteBuf buf) {
+  public static final StreamCodec<FriendlyByteBuf, SetItemManipulatorMessage> STREAM_CODEC =
+      CustomPacketPayload.codec(SetItemManipulatorMessage::write, SetItemManipulatorMessage::read);
+
+  private static SetItemManipulatorMessage read(FriendlyByteBuf buf) {
     return new SetItemManipulatorMessage(buf.readBlockPos(),
         buf.readEnum(ManipulatorBlockEntity.RedstoneMode.class),
         buf.readEnum(ManipulatorBlockEntity.TransferMode.class));
   }
 
-  @Override
-  public void write(FriendlyByteBuf buf) {
+  private void write(FriendlyByteBuf buf) {
     buf.writeBlockPos(this.blockPos);
     buf.writeEnum(this.redstoneMode);
     buf.writeEnum(this.transferMode);
   }
 
   @Override
-  public ResourceLocation id() {
-    return ID;
+  public Type<? extends CustomPacketPayload> type() {
+    return TYPE;
   }
 
-  @Override
-  public void handle(PlayPayloadContext context) {
-    context.level()
-        .flatMap(level ->
-            LevelUtil.getBlockEntity(level, this.blockPos, ItemManipulatorBlockEntity.class))
+  public static void handle(SetItemManipulatorMessage message, IPayloadContext context) {
+    var level = context.player().level();
+    LevelUtil.getBlockEntity(level, message.blockPos, ItemManipulatorBlockEntity.class)
         .ifPresent(manipulator -> {
-          manipulator.setRedstoneMode(this.redstoneMode);
-          manipulator.setTransferMode(this.transferMode);
+          manipulator.setRedstoneMode(message.redstoneMode);
+          manipulator.setTransferMode(message.transferMode);
           manipulator.setChanged();
         });
   }

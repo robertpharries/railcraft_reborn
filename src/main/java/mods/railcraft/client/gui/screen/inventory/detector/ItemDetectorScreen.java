@@ -14,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.player.Inventory;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class ItemDetectorScreen extends RailcraftMenuScreen<ItemDetectorMenu> {
 
@@ -72,7 +73,7 @@ public class ItemDetectorScreen extends RailcraftMenuScreen<ItemDetectorMenu> {
   }
 
   private void sendAttributes() {
-    PacketHandler.sendToServer(
+    PacketDistributor.sendToServer(
         new SetItemDetectorMessage(this.itemDetector.getBlockPos(),
             this.itemDetector.getPrimaryMode(), this.itemDetector.getFilterMode()));
   }

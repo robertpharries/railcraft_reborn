@@ -10,7 +10,7 @@ public record TunnelBoreHead(float digModifier) {
       ExtraCodecs.POSITIVE_FLOAT.xmap(TunnelBoreHead::new, TunnelBoreHead::digModifier);
 
   public static final Codec<TunnelBoreHead> CODEC =
-      ExtraCodecs.withAlternative(
+      Codec.withAlternative(
           RecordCodecBuilder.create(instance -> instance
               .group(
                   ExtraCodecs.POSITIVE_FLOAT

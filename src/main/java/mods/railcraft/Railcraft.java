@@ -117,6 +117,7 @@ import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.fluids.capability.wrappers.FluidBucketWrapper;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 @Mod(RailcraftConstants.ID)
 public class Railcraft {
@@ -311,7 +312,8 @@ public class Railcraft {
     generator.addProvider(event.includeServer(), new RailcraftLootTableProvider(packOutput));
     generator.addProvider(event.includeServer(),
         new RailcraftAdvancementProvider(packOutput, lookupProvider, fileHelper));
-    generator.addProvider(event.includeServer(), new RailcraftRecipeProvider(packOutput));
+    generator.addProvider(event.includeServer(),
+        new RailcraftRecipeProvider(packOutput, lookupProvider));
     generator.addProvider(event.includeServer(),
         new RailcraftPoiTypeTagsProvider(packOutput, lookupProvider, fileHelper));
     generator.addProvider(event.includeServer(),
@@ -371,7 +373,7 @@ public class Railcraft {
           .map(RollingStock::getOrThrow)
           .map(LinkedCartsMessage.LinkedCart::new)
           .toList();
-      PacketHandler.sendTo(player, new LinkedCartsMessage(linkedCarts));
+      PacketDistributor.sendToPlayer(player, new LinkedCartsMessage(linkedCarts));
     }
   }
 

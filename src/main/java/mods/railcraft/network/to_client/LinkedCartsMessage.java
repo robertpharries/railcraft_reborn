@@ -6,34 +6,36 @@ import org.jetbrains.annotations.Nullable;
 import mods.railcraft.api.carts.RollingStock;
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.client.ClientManager;
-import mods.railcraft.network.RailcraftCustomPacketPayload;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record LinkedCartsMessage(
-    Collection<LinkedCart> linkedCarts) implements RailcraftCustomPacketPayload {
+    Collection<LinkedCart> linkedCarts) implements CustomPacketPayload {
 
-  public static final ResourceLocation ID = RailcraftConstants.rl("linked_carts");
+  public static final Type<LinkedCartsMessage> TYPE =
+      new Type<>(RailcraftConstants.rl("linked_carts"));
 
-  public static LinkedCartsMessage read(FriendlyByteBuf buf) {
+  public static final StreamCodec<FriendlyByteBuf, LinkedCartsMessage> STREAM_CODEC =
+      CustomPacketPayload.codec(LinkedCartsMessage::write, LinkedCartsMessage::read);
+
+  private static LinkedCartsMessage read(FriendlyByteBuf buf) {
     return new LinkedCartsMessage(buf.readList(LinkedCart::read));
   }
 
-  @Override
-  public void write(FriendlyByteBuf buf) {
+  private void write(FriendlyByteBuf buf) {
     buf.writeCollection(this.linkedCarts, (b, cart) -> cart.write(b));
   }
 
   @Override
-  public ResourceLocation id() {
-    return ID;
+  public Type<? extends CustomPacketPayload> type() {
+    return TYPE;
   }
 
-  @Override
-  public void handle(PlayPayloadContext context) {
-    ClientManager.getShuntingAuraRenderer().setLinkedCarts(this.linkedCarts);
+  public static void handle(LinkedCartsMessage message, IPayloadContext context) {
+    ClientManager.getShuntingAuraRenderer().setLinkedCarts(message.linkedCarts);
   }
 
   public record LinkedCart(int entityId, @Nullable UUID trainId, int linkAId, int linkBId) {
@@ -55,14 +57,14 @@ public record LinkedCartsMessage(
     public static LinkedCart read(FriendlyByteBuf buf) {
       return new LinkedCart(
           buf.readVarInt(),
-          buf.readNullable(FriendlyByteBuf::readUUID),
+          buf.readNullable(buf1 -> buf1.readUUID()),
           buf.readVarInt(),
           buf.readVarInt());
     }
 
     public void write(FriendlyByteBuf buf) {
       buf.writeVarInt(this.entityId);
-      buf.writeNullable(this.trainId, FriendlyByteBuf::writeUUID);
+      buf.writeNullable(this.trainId, (buf1, uuid) -> buf1.writeUUID(uuid));
       buf.writeVarInt(this.linkAId);
       buf.writeVarInt(this.linkBId);
     }

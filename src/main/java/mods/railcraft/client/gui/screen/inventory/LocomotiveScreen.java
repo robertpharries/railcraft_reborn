@@ -20,6 +20,7 @@ import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public abstract class LocomotiveScreen<T extends LocomotiveMenu<?>>
     extends RailcraftMenuScreen<T> {
@@ -145,7 +146,7 @@ public abstract class LocomotiveScreen<T extends LocomotiveMenu<?>>
 
   protected void sendAttributes() {
     this.updateButtons();
-    PacketHandler.sendToServer(
+    PacketDistributor.sendToServer(
         new SetLocomotiveMessage(this.locomotive.getId(),
             this.locomotive.getMode(), this.locomotive.getSpeed(), this.locomotive.getLock(),
             this.locomotive.isReverse()));

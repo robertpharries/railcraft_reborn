@@ -22,6 +22,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class GogglesItem extends ArmorItem {
 
@@ -53,7 +54,7 @@ public class GogglesItem extends ArmorItem {
     }
     var aura = incrementAura(itemStack);
     player.displayClientMessage(getDescriptionText(aura.getDisplayName(), false), true);
-    PacketHandler.sendToServer(new UpdateAuraByKeyMessage(itemStack.getTag()));
+    PacketDistributor.sendToServer(new UpdateAuraByKeyMessage(itemStack.getTag()));
   }
 
   public static boolean isGoggleAuraActive(Aura aura) {

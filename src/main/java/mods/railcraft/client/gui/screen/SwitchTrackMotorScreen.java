@@ -15,6 +15,7 @@ import mods.railcraft.world.level.block.entity.SwitchTrackMotorBlockEntity;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class SwitchTrackMotorScreen extends IngameWindowScreen {
 
@@ -141,7 +142,7 @@ public class SwitchTrackMotorScreen extends IngameWindowScreen {
     if (!this.switchTrackMotor.canAccess(this.minecraft.player.getGameProfile())) {
       return;
     }
-    PacketHandler.sendToServer(
+    PacketDistributor.sendToServer(
         new SetSwitchTrackMotorMessage(this.switchTrackMotor.getBlockPos(),
             this.switchTrackMotor.getActionSignalAspects(),
             this.switchTrackMotor.isRedstoneTriggered(),

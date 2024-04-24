@@ -9,6 +9,7 @@ import mods.railcraft.world.level.block.entity.signal.SignalControllerBoxBlockEn
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class SignalControllerBoxScreen extends IngameWindowScreen {
 
@@ -66,7 +67,7 @@ public class SignalControllerBoxScreen extends IngameWindowScreen {
     if (this.minecraft.level != null) {
       this.signalBox.setDefaultAspect(this.defaultAspect);
       this.signalBox.setPoweredAspect(this.poweredAspect);
-      PacketHandler.sendToServer(
+      PacketDistributor.sendToServer(
           new SetSignalControllerBoxMessage(this.signalBox.getBlockPos(),
               this.defaultAspect, this.poweredAspect));
     }

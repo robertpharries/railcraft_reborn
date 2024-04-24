@@ -14,6 +14,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class ItemManipulatorScreen extends ManipulatorScreen<ItemManipulatorMenu> {
 
@@ -69,7 +70,7 @@ public class ItemManipulatorScreen extends ManipulatorScreen<ItemManipulatorMenu
   @Override
   protected void sendAttributes() {
     ItemManipulatorBlockEntity manipulator = this.menu.getManipulator();
-    PacketHandler.sendToServer(
+    PacketDistributor.sendToServer(
         new SetItemManipulatorMessage(manipulator.getBlockPos(),
             manipulator.getRedstoneMode(), manipulator.getTransferMode()));
   }

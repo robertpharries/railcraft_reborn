@@ -41,7 +41,7 @@ public enum StackFilter implements Predicate<ItemStack> {
       .builtInRegistryHolder().is(RailcraftTags.Blocks.BALLAST)),
   FLUID_CONTAINER(itemStack -> itemStack
       .getCapability(Capabilities.FluidHandler.ITEM) != null),
-  FEED(itemStack -> itemStack.getItem().isEdible()
+  FEED(itemStack -> itemStack.has(DataComponents.FOOD)
       || itemStack.is(Items.WHEAT)
       || ContainerTools.getBlockFromStack(itemStack) instanceof StemBlock),
   CARGO(itemStack -> (RailcraftConfig.SERVER.chestAllowFluids.get()

@@ -1,11 +1,13 @@
 package mods.railcraft.particle;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import mods.railcraft.api.core.RailcraftConstants;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -23,33 +25,38 @@ public class RailcraftParticleTypes {
 
   public static final DeferredHolder<ParticleType<?>, ParticleType<FireSparkParticleOptions>> FIRE_SPARK =
       deferredRegister.register("fire_spark",
-          () -> create(FireSparkParticleOptions.DESERIALIZER, FireSparkParticleOptions.CODEC));
+          () -> create(FireSparkParticleOptions.CODEC, FireSparkParticleOptions.STREAM_CODEC));
 
   public static final DeferredHolder<ParticleType<?>, SimpleParticleType> PUMPKIN =
       deferredRegister.register("pumpkin", () -> new SimpleParticleType(false));
 
   public static final DeferredHolder<ParticleType<?>, ParticleType<TuningAuraParticleOptions>> TUNING_AURA =
       deferredRegister.register("tuning_aura",
-          () -> create(TuningAuraParticleOptions.DESERIALIZER, TuningAuraParticleOptions.CODEC));
+          () -> create(TuningAuraParticleOptions.CODEC, TuningAuraParticleOptions.STREAM_CODEC));
 
   public static final DeferredHolder<ParticleType<?>, ParticleType<ForceSpawnParticleOptions>> FORCE_SPAWN =
       deferredRegister.register("force_spawn",
-          () -> create(ForceSpawnParticleOptions.DESERIALIZER, ForceSpawnParticleOptions.CODEC));
+          () -> create(ForceSpawnParticleOptions.CODEC, ForceSpawnParticleOptions.STREAM_CODEC));
 
   public static final DeferredHolder<ParticleType<?>, ParticleType<ChunkLoaderParticleOptions>> CHUNK_LOADER =
       deferredRegister.register("chunk_loader",
-          () -> create(ChunkLoaderParticleOptions.DESERIALIZER, ChunkLoaderParticleOptions.CODEC));
+          () -> create(ChunkLoaderParticleOptions.CODEC, ChunkLoaderParticleOptions.STREAM_CODEC));
 
   public static void register(IEventBus modEventBus) {
     deferredRegister.register(modEventBus);
   }
 
   private static <T extends ParticleOptions> ParticleType<T> create(
-      @SuppressWarnings("deprecation") ParticleOptions.Deserializer<T> deserializer,
-      Codec<T> codec) {
-    return new ParticleType<>(false, deserializer) {
-      public Codec<T> codec() {
+      MapCodec<T> codec, StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec) {
+    return new ParticleType<>(false) {
+      @Override
+      public MapCodec<T> codec() {
         return codec;
+      }
+
+      @Override
+      public StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec() {
+        return streamCodec;
       }
     };
   }

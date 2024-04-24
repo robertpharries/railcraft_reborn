@@ -1,12 +1,15 @@
 package mods.railcraft.network.to_client;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.UUID;
-import org.jetbrains.annotations.Nullable;
 import mods.railcraft.api.carts.RollingStock;
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.client.ClientManager;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
@@ -19,15 +22,9 @@ public record LinkedCartsMessage(
       new Type<>(RailcraftConstants.rl("linked_carts"));
 
   public static final StreamCodec<FriendlyByteBuf, LinkedCartsMessage> STREAM_CODEC =
-      CustomPacketPayload.codec(LinkedCartsMessage::write, LinkedCartsMessage::read);
-
-  private static LinkedCartsMessage read(FriendlyByteBuf buf) {
-    return new LinkedCartsMessage(buf.readList(LinkedCart::read));
-  }
-
-  private void write(FriendlyByteBuf buf) {
-    buf.writeCollection(this.linkedCarts, (b, cart) -> cart.write(b));
-  }
+      StreamCodec.composite(
+          LinkedCart.STREAM_CODEC.apply(ByteBufCodecs.collection(ArrayList::new)), LinkedCartsMessage::linkedCarts,
+          LinkedCartsMessage::new);
 
   @Override
   public Type<? extends CustomPacketPayload> type() {
@@ -38,12 +35,20 @@ public record LinkedCartsMessage(
     ClientManager.getShuntingAuraRenderer().setLinkedCarts(message.linkedCarts);
   }
 
-  public record LinkedCart(int entityId, @Nullable UUID trainId, int linkAId, int linkBId) {
+  public record LinkedCart(int entityId, Optional<UUID> trainId, int linkAId, int linkBId) {
+
+    private static final StreamCodec<FriendlyByteBuf, LinkedCart> STREAM_CODEC =
+        StreamCodec.composite(
+            ByteBufCodecs.VAR_INT, LinkedCart::entityId,
+            ByteBufCodecs.optional(UUIDUtil.STREAM_CODEC), LinkedCart::trainId,
+            ByteBufCodecs.VAR_INT, LinkedCart::linkAId,
+            ByteBufCodecs.VAR_INT, LinkedCart::linkBId,
+            LinkedCart::new);
 
     public LinkedCart(RollingStock extension) {
       this(
           extension.entity().getId(),
-          extension.train().id(),
+          Optional.of(extension.train().id()),
           extension.backLink()
               .map(RollingStock::entity)
               .map(AbstractMinecart::getId)
@@ -52,21 +57,6 @@ public record LinkedCartsMessage(
               .map(RollingStock::entity)
               .map(AbstractMinecart::getId)
               .orElse(-1));
-    }
-
-    public static LinkedCart read(FriendlyByteBuf buf) {
-      return new LinkedCart(
-          buf.readVarInt(),
-          buf.readNullable(buf1 -> buf1.readUUID()),
-          buf.readVarInt(),
-          buf.readVarInt());
-    }
-
-    public void write(FriendlyByteBuf buf) {
-      buf.writeVarInt(this.entityId);
-      buf.writeNullable(this.trainId, (buf1, uuid) -> buf1.writeUUID(uuid));
-      buf.writeVarInt(this.linkAId);
-      buf.writeVarInt(this.linkBId);
     }
   }
 }

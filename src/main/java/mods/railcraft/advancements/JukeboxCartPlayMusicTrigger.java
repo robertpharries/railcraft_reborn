@@ -46,11 +46,11 @@ public class JukeboxCartPlayMusicTrigger
 
     public static final Codec<TriggerInstance> CODEC =
         RecordCodecBuilder.create(instance -> instance.group(
-            ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player")
+            EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player")
                 .forGetter(TriggerInstance::player),
-            ExtraCodecs.strictOptionalField(ResourceLocation.CODEC, "music")
+            ResourceLocation.CODEC.optionalFieldOf("music")
                 .forGetter(TriggerInstance::music),
-            ExtraCodecs.strictOptionalField(MinecartPredicate.CODEC, "cart")
+            MinecartPredicate.CODEC.optionalFieldOf("cart")
                 .forGetter(TriggerInstance::cart)
         ).apply(instance, TriggerInstance::new));
 

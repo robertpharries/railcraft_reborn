@@ -30,9 +30,9 @@ public abstract class FilteredMinecart extends RailcraftMinecart {
   }
 
   @Override
-  protected void defineSynchedData() {
-    super.defineSynchedData();
-    this.entityData.define(FILTER, ItemStack.EMPTY);
+  protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    super.defineSynchedData(builder);
+    builder.define(FILTER, ItemStack.EMPTY);
   }
 
   private static ItemStack getFilterFromCartItem(ItemStack cartStack) {

@@ -48,13 +48,13 @@ public class SpikeMaulUseTrigger extends
 
     public static final Codec<TriggerInstance> CODEC =
         RecordCodecBuilder.create(instance -> instance.group(
-            ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player")
+            EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player")
                 .forGetter(TriggerInstance::player),
-            ExtraCodecs.strictOptionalField(NbtPredicate.CODEC, "nbt")
+            NbtPredicate.CODEC.optionalFieldOf("nbt")
                 .forGetter(TriggerInstance::nbt),
-            ExtraCodecs.strictOptionalField(ItemPredicate.CODEC, "tool")
+            ItemPredicate.CODEC.optionalFieldOf("tool")
                 .forGetter(TriggerInstance::tool),
-            ExtraCodecs.strictOptionalField(LocationPredicate.CODEC, "location")
+            LocationPredicate.CODEC.optionalFieldOf("location")
                 .forGetter(TriggerInstance::location)
         ).apply(instance, TriggerInstance::new));
 

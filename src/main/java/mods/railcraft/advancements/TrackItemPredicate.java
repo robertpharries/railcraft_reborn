@@ -18,11 +18,11 @@ public record TrackItemPredicate(
 
   public static final Codec<TrackItemPredicate> CODEC = RecordCodecBuilder.create(
       instance -> instance.group(
-          ExtraCodecs.strictOptionalField(Codec.BOOL, "highSpeed")
+          Codec.BOOL.optionalFieldOf("highSpeed")
               .forGetter(TrackItemPredicate::highSpeed),
-          ExtraCodecs.strictOptionalField(Codec.BOOL, "electric")
+          Codec.BOOL.optionalFieldOf("electric")
               .forGetter(TrackItemPredicate::electric),
-          ExtraCodecs.strictOptionalField(TRACK_TYPE_CODEC, "track_type")
+          TRACK_TYPE_CODEC.optionalFieldOf("track_type")
               .forGetter(TrackItemPredicate::type))
           .apply(instance, TrackItemPredicate::new));
 

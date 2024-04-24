@@ -45,10 +45,10 @@ public abstract class MaintenanceMinecart extends RailcraftMinecart {
   }
 
   @Override
-  protected void defineSynchedData() {
-    super.defineSynchedData();
-    this.entityData.define(BLINK, 0);
-    this.entityData.define(MODE, Mode.ON);
+  protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    super.defineSynchedData(builder);
+    builder.define(BLINK, 0);
+    builder.define(MODE, Mode.ON);
   }
 
   @Override

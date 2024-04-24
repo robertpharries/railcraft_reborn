@@ -12,6 +12,7 @@ import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import mods.railcraft.world.level.block.entity.RitualBlockEntity;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -82,7 +83,7 @@ public class RitualBlock extends BaseEntityBlock {
           : RailcraftItems.REFINED_FIRESTONE.get();
       var drop = item.getDefaultInstance();
       if (firestone.hasCustomName()) {
-        drop.setHoverName(firestone.getCustomName());
+        drop.set(DataComponents.CUSTOM_NAME, firestone.getCustomName());
       }
       drop.setDamageValue(drop.getMaxDamage() - firestone.charge());
       drops.add(drop);

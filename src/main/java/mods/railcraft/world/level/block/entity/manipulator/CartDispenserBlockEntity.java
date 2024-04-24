@@ -11,6 +11,7 @@ import mods.railcraft.world.inventory.CartDispenserMenu;
 import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
@@ -81,7 +82,7 @@ public class CartDispenserBlockEntity extends ManipulatorBlockEntity implements 
           var coppiedContainer = AdvancedContainer.copyOf(this);
           var cartStack = cart.getPickResult();
           if (cart.hasCustomName()) {
-            cartStack.setHoverName(cart.getName());
+            cartStack.set(DataComponents.CUSTOM_NAME, cart.getName());
           }
           var remainder = coppiedContainer.insert(cartStack.copy());
           if (remainder.isEmpty()) {

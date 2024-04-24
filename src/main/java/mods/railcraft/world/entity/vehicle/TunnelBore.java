@@ -156,13 +156,13 @@ public class TunnelBore extends RailcraftMinecart implements Linkable {
   }
 
   @Override
-  protected void defineSynchedData() {
-    super.defineSynchedData();
-    entityData.define(HAS_FUEL, false);
-    entityData.define(MOVING, false);
-    entityData.define(BORE_HEAD, ItemStack.EMPTY);
-    entityData.define(FACING, Direction.NORTH);
-    // entityData.define(WATCHER_ID_BURN_TIME, Integer.valueOf(0));
+  protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    super.defineSynchedData(builder);
+    builder.define(HAS_FUEL, false);
+    builder.define(MOVING, false);
+    builder.define(BORE_HEAD, ItemStack.EMPTY);
+    builder.define(FACING, Direction.NORTH);
+    //builder.define(WATCHER_ID_BURN_TIME, 0);
   }
 
   public boolean isMinecartPowered() {

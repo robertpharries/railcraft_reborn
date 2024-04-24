@@ -9,7 +9,6 @@ import mods.railcraft.world.entity.vehicle.MinecartUtil;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 
 public record MinecartPredicate(
@@ -25,21 +24,21 @@ public record MinecartPredicate(
 
   public static final Codec<MinecartPredicate> CODEC = RecordCodecBuilder.create(
       instance -> instance.group(
-          ExtraCodecs.strictOptionalField(Codec.BOOL, "highSpeed")
+          Codec.BOOL.optionalFieldOf("highSpeed")
               .forGetter(MinecartPredicate::highSpeed),
-          ExtraCodecs.strictOptionalField(Codec.BOOL, "launched")
+          Codec.BOOL.optionalFieldOf("launched")
               .forGetter(MinecartPredicate::launched),
-          ExtraCodecs.strictOptionalField(Codec.BOOL, "onElevator")
+          Codec.BOOL.optionalFieldOf("onElevator")
               .forGetter(MinecartPredicate::onElevator),
-          ExtraCodecs.strictOptionalField(Codec.BOOL, "derailed")
+          Codec.BOOL.optionalFieldOf("derailed")
               .forGetter(MinecartPredicate::derailed),
-          ExtraCodecs.strictOptionalField(Codec.BOOL, "mountable")
+          Codec.BOOL.optionalFieldOf("mountable")
               .forGetter(MinecartPredicate::mountable),
-          ExtraCodecs.strictOptionalField(Codec.BOOL, "checksOwner")
+          Codec.BOOL.optionalFieldOf("checksOwner")
               .forGetter(MinecartPredicate::checksOwner),
-          ExtraCodecs.strictOptionalField(MinMaxBounds.Doubles.CODEC, "speed",
+          MinMaxBounds.Doubles.CODEC.optionalFieldOf("speed",
               MinMaxBounds.Doubles.ANY).forGetter(MinecartPredicate::speed),
-          ExtraCodecs.strictOptionalField(EntityPredicate.CODEC, "parent")
+          EntityPredicate.CODEC.optionalFieldOf("parent")
               .forGetter(MinecartPredicate::parent)
       ).apply(instance, MinecartPredicate::new));
 

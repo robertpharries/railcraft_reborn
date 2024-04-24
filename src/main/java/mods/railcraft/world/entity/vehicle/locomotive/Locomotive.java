@@ -37,6 +37,7 @@ import mods.railcraft.world.entity.vehicle.RailcraftMinecart;
 import mods.railcraft.world.item.LocomotiveItem;
 import mods.railcraft.world.item.RailcraftItems;
 import mods.railcraft.world.item.TicketItem;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -111,17 +112,17 @@ public abstract class Locomotive extends RailcraftMinecart implements
   }
 
   @Override
-  protected void defineSynchedData() {
-    super.defineSynchedData();
-    this.entityData.define(HAS_FUEL, false);
-    this.entityData.define(PRIMARY_COLOR, this.getDefaultPrimaryColor().getId());
-    this.entityData.define(SECONDARY_COLOR, this.getDefaultSecondaryColor().getId());
-    this.entityData.define(MODE, Mode.SHUTDOWN);
-    this.entityData.define(SPEED, Speed.NORMAL);
-    this.entityData.define(LOCK, Lock.UNLOCKED);
-    this.entityData.define(REVERSE, false);
-    this.entityData.define(DESTINATION, "");
-    this.entityData.define(OWNER, Optional.empty());
+  protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    super.defineSynchedData(builder);
+    builder.define(HAS_FUEL, false);
+    builder.define(PRIMARY_COLOR, this.getDefaultPrimaryColor().getId());
+    builder.define(SECONDARY_COLOR, this.getDefaultSecondaryColor().getId());
+    builder.define(MODE, Mode.SHUTDOWN);
+    builder.define(SPEED, Speed.NORMAL);
+    builder.define(LOCK, Lock.UNLOCKED);
+    builder.define(REVERSE, false);
+    builder.define(DESTINATION, "");
+    builder.define(OWNER, Optional.empty());
   }
 
   protected DyeColor getDefaultPrimaryColor() {
@@ -181,7 +182,7 @@ public abstract class Locomotive extends RailcraftMinecart implements
         this.getPrimaryDyeColor(), this.getSecondaryDyeColor());
     LocomotiveItem.setItemWhistleData(itemStack, this.whistlePitch);
     if (this.hasCustomName()) {
-      itemStack.setHoverName(this.getCustomName());
+      itemStack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
     }
     return itemStack;
   }

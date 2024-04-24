@@ -87,10 +87,10 @@ public abstract class BaseSteamLocomotive extends Locomotive implements FluidTra
   }
 
   @Override
-  protected void defineSynchedData() {
-    super.defineSynchedData();
-    this.entityData.define(SMOKE, false);
-    this.entityData.define(STEAM, false);
+  protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    super.defineSynchedData(builder);
+    builder.define(SMOKE, false);
+    builder.define(STEAM, false);
   }
 
   @Override

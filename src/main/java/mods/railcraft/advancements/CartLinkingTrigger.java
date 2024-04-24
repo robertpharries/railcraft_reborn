@@ -39,11 +39,11 @@ public class CartLinkingTrigger extends SimpleCriterionTrigger<CartLinkingTrigge
 
     public static final Codec<TriggerInstance> CODEC =
         RecordCodecBuilder.create(instance -> instance.group(
-            ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player")
+            EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player")
                 .forGetter(TriggerInstance::player),
-            ExtraCodecs.strictOptionalField(MinecartPredicate.CODEC, "owned")
+            MinecartPredicate.CODEC.optionalFieldOf("owned")
                 .forGetter(TriggerInstance::owned),
-            ExtraCodecs.strictOptionalField(MinecartPredicate.CODEC, "other")
+            MinecartPredicate.CODEC.optionalFieldOf("other")
                 .forGetter(TriggerInstance::other)
         ).apply(instance, TriggerInstance::new));
 

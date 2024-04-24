@@ -37,9 +37,9 @@ public class BedCartSleepTrigger extends
 
     public static final Codec<TriggerInstance> CODEC =
         RecordCodecBuilder.create(instance -> instance.group(
-            ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player")
+            EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player")
                 .forGetter(TriggerInstance::player),
-            ExtraCodecs.strictOptionalField(MinecartPredicate.CODEC, "cart")
+            MinecartPredicate.CODEC.optionalFieldOf("cart")
                 .forGetter(TriggerInstance::cart)
         ).apply(instance, TriggerInstance::new));
 

@@ -52,9 +52,9 @@ public class TankDetectorBlockEntity extends FilterDetectorBlockEntity {
 
         if (filterFluid.isEmpty())
           liquidMatches = true;
-        else if (filterFluid.isFluidEqual(tankLiquid))
+        else if (FluidStack.isSameFluidSameComponents(filterFluid, tankLiquid))
           liquidMatches = true;
-        else if (tank.canPutFluid(new FluidStack(filterFluid, 1)))
+        else if (tank.canPutFluid(filterFluid.copyWithAmount(1)))
           liquidMatches = true;
         boolean quantityMatches = false;
         switch (mode) {

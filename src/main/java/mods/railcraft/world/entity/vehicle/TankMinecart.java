@@ -66,10 +66,10 @@ public class TankMinecart extends FilteredMinecart
   }
 
   @Override
-  protected void defineSynchedData() {
-    super.defineSynchedData();
-    this.entityData.define(FLUID_STACK_TAG, new CompoundTag());
-    this.entityData.define(FILLING, false);
+  protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    super.defineSynchedData(builder);
+    builder.define(FLUID_STACK_TAG, new CompoundTag());
+    builder.define(FILLING, false);
   }
 
   private void tankChanged() {

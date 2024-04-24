@@ -79,9 +79,9 @@ public abstract class RailcraftMinecart extends AbstractMinecartContainer
   }
 
   @Override
-  protected void defineSynchedData() {
-    super.defineSynchedData();
-    this.entityData.define(SEASON, Season.DEFAULT);
+  protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    super.defineSynchedData(builder);
+    builder.define(SEASON, Season.DEFAULT);
   }
 
   @Override
@@ -137,7 +137,7 @@ public abstract class RailcraftMinecart extends AbstractMinecartContainer
     if (this.level().getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
       var itemstack = this.getPickResult().copy();
       if (this.hasCustomName()) {
-        itemstack.setHoverName(this.getCustomName());
+        itemstack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
       }
       this.spawnAtLocation(itemstack);
     }
@@ -148,7 +148,7 @@ public abstract class RailcraftMinecart extends AbstractMinecartContainer
   public ItemStack getPickResult() {
     var itemStack = this.getDropItem().getDefaultInstance();
     if (this.hasCustomName()) {
-      itemStack.setHoverName(this.getCustomName());
+      itemStack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
     }
     return itemStack;
   }

@@ -37,9 +37,9 @@ public class EnergyMinecart extends RailcraftMinecart {
   }
 
   @Override
-  protected void defineSynchedData() {
-    super.defineSynchedData();
-    this.entityData.define(ENERGY, 0);
+  protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    super.defineSynchedData(builder);
+    builder.define(ENERGY, 0);
   }
 
   @Override

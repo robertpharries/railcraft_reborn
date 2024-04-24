@@ -57,7 +57,7 @@ public class AdvancedFluidHandler implements IFluidHandler {
     }
     return IntStream.range(0, this.getTanks())
         .mapToObj(this::getFluidInTank)
-        .filter(fluidStack -> fluidStack.isFluidEqual(fluid))
+        .filter(fluidStack -> FluidStack.isSameFluidSameComponents(fluidStack, fluid))
         .mapToInt(FluidStack::getAmount)
         .sum();
   }
@@ -118,7 +118,7 @@ public class AdvancedFluidHandler implements IFluidHandler {
     int capacity = 0;
     for (int i = 0; i < this.getTanks(); i++) {
       var liquid = this.getFluidInTank(i);
-      if (liquid.isEmpty() || !liquid.isFluidEqual(fluid))
+      if (liquid.isEmpty() || !FluidStack.isSameFluidSameComponents(liquid, fluid))
         continue;
       amount += liquid.getAmount();
       capacity += this.getTankCapacity(i);

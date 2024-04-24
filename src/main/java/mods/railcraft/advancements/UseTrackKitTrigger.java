@@ -43,11 +43,11 @@ public class UseTrackKitTrigger extends SimpleCriterionTrigger<UseTrackKitTrigge
 
     public static final Codec<TriggerInstance> CODEC =
         RecordCodecBuilder.create(instance -> instance.group(
-            ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player")
+            EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player")
                 .forGetter(TriggerInstance::player),
-            ExtraCodecs.strictOptionalField(ItemPredicate.CODEC, "item")
+            ItemPredicate.CODEC.optionalFieldOf("item")
                 .forGetter(TriggerInstance::item),
-            ExtraCodecs.strictOptionalField(LocationPredicate.CODEC, "location")
+            LocationPredicate.CODEC.optionalFieldOf("location")
                 .forGetter(TriggerInstance::location)
         ).apply(instance, TriggerInstance::new));
 

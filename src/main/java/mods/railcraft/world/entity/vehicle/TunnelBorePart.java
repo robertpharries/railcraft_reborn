@@ -1,6 +1,7 @@
 package mods.railcraft.world.entity.vehicle;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
@@ -47,7 +48,8 @@ public class TunnelBorePart extends PartEntity<TunnelBore> {
   }
 
   @Override
-  protected void defineSynchedData() {}
+  protected void defineSynchedData(SynchedEntityData.Builder builder) {
+  }
 
   @Override
   protected void readAdditionalSaveData(CompoundTag tag) {}

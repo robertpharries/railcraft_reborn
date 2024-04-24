@@ -46,11 +46,11 @@ public class MultiBlockFormedTrigger extends
 
     public static final Codec<TriggerInstance> CODEC =
         RecordCodecBuilder.create(instance -> instance.group(
-            ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player")
+            EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player")
                 .forGetter(TriggerInstance::player),
-            ExtraCodecs.strictOptionalField(BuiltInRegistries.BLOCK_ENTITY_TYPE.byNameCodec(), "type")
+            BuiltInRegistries.BLOCK_ENTITY_TYPE.byNameCodec().optionalFieldOf("type")
                 .forGetter(TriggerInstance::type),
-            ExtraCodecs.strictOptionalField(NbtPredicate.CODEC, "nbt")
+            NbtPredicate.CODEC.optionalFieldOf("nbt")
                 .forGetter(TriggerInstance::nbt)
         ).apply(instance, TriggerInstance::new));
 

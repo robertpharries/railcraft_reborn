@@ -40,11 +40,11 @@ public class SetSeasonTrigger extends SimpleCriterionTrigger<SetSeasonTrigger.Tr
 
     public static final Codec<TriggerInstance> CODEC =
         RecordCodecBuilder.create(instance -> instance.group(
-            ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player")
+            EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player")
                 .forGetter(TriggerInstance::player),
-            ExtraCodecs.strictOptionalField(Season.CODEC, "season")
+            Season.CODEC.optionalFieldOf("season")
                 .forGetter(TriggerInstance::season),
-            ExtraCodecs.strictOptionalField(MinecartPredicate.CODEC, "cart")
+            MinecartPredicate.CODEC.optionalFieldOf("cart")
                 .forGetter(TriggerInstance::cart)
         ).apply(instance, TriggerInstance::new));
 

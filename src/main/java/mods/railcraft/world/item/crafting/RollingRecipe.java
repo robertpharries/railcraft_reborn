@@ -1,13 +1,14 @@
 package mods.railcraft.world.item.crafting;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import mods.railcraft.api.core.RecipeJsonKeys;
 import mods.railcraft.data.recipes.builders.RollingRecipeBuilder;
 import mods.railcraft.world.level.block.RailcraftBlocks;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
@@ -53,8 +54,8 @@ public class RollingRecipe implements Recipe<CraftingContainer> {
   }
 
   @Override
-  public ItemStack assemble(CraftingContainer inventory, RegistryAccess registryAccess) {
-    return this.getResultItem(registryAccess).copy();
+  public ItemStack assemble(CraftingContainer inventory, HolderLookup.Provider provider) {
+    return this.getResultItem(provider).copy();
   }
 
   @Override
@@ -63,7 +64,7 @@ public class RollingRecipe implements Recipe<CraftingContainer> {
   }
 
   @Override
-  public ItemStack getResultItem(RegistryAccess registryAccess) {
+  public ItemStack getResultItem(HolderLookup.Provider provider) {
     return this.result;
   }
 
@@ -94,35 +95,40 @@ public class RollingRecipe implements Recipe<CraftingContainer> {
 
   public static class Serializer implements RecipeSerializer<RollingRecipe> {
 
-    private static final Codec<RollingRecipe> CODEC = RecordCodecBuilder
-        .create(instance -> instance.group(
+    private static final MapCodec<RollingRecipe> CODEC =
+        RecordCodecBuilder.mapCodec(instance -> instance.group(
             ShapedRecipePattern.MAP_CODEC.forGetter(recipe -> recipe.pattern),
-            ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf(RecipeJsonKeys.RESULT)
+            ItemStack.CODEC.fieldOf(RecipeJsonKeys.RESULT)
                 .forGetter(recipe -> recipe.result),
-            ExtraCodecs
-                .strictOptionalField(ExtraCodecs.POSITIVE_INT, RecipeJsonKeys.PROCESS_TIME,
+            ExtraCodecs.POSITIVE_INT.optionalFieldOf(RecipeJsonKeys.PROCESS_TIME,
                     RollingRecipeBuilder.DEFAULT_PROCESSING_TIME)
                 .forGetter(recipe -> recipe.processTime)
         ).apply(instance, RollingRecipe::new));
 
+    private static final StreamCodec<RegistryFriendlyByteBuf, RollingRecipe> STREAM_CODEC =
+        StreamCodec.of(Serializer::toNetwork, Serializer::fromNetwork);
+
     @Override
-    public Codec<RollingRecipe> codec() {
+    public MapCodec<RollingRecipe> codec() {
       return CODEC;
     }
 
     @Override
-    public RollingRecipe fromNetwork(FriendlyByteBuf buffer) {
-      var pattern = ShapedRecipePattern.fromNetwork(buffer);
+    public StreamCodec<RegistryFriendlyByteBuf, RollingRecipe> streamCodec() {
+      return STREAM_CODEC;
+    }
+
+    private static RollingRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
+      var pattern = ShapedRecipePattern.STREAM_CODEC.decode(buffer);
       int processTime = buffer.readVarInt();
-      var result = buffer.readItem();
+      var result = ItemStack.STREAM_CODEC.decode(buffer);
       return new RollingRecipe(pattern, result, processTime);
     }
 
-    @Override
-    public void toNetwork(FriendlyByteBuf buffer, RollingRecipe recipe) {
-      recipe.pattern.toNetwork(buffer);
+    private static void toNetwork(RegistryFriendlyByteBuf buffer, RollingRecipe recipe) {
+      ShapedRecipePattern.STREAM_CODEC.encode(buffer, recipe.pattern);
       buffer.writeVarInt(recipe.processTime);
-      buffer.writeItem(recipe.result);
+      ItemStack.STREAM_CODEC.encode(buffer, recipe.result);
     }
   }
 }

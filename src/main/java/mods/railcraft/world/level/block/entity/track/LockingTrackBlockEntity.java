@@ -17,8 +17,9 @@ import mods.railcraft.world.level.block.track.outfitted.LockingMode;
 import mods.railcraft.world.level.block.track.outfitted.LockingModeController;
 import mods.railcraft.world.level.block.track.outfitted.LockingTrackBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -246,8 +247,8 @@ public class LockingTrackBlockEntity extends RailcraftBlockEntity implements Loc
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.put(CompoundTagKeys.LOCKING_MODE_CONTROLLER, this.lockingModeController.serializeNBT());
     tag.putBoolean(CompoundTagKeys.LOCKED, this.locked);
     tag.putBoolean(CompoundTagKeys.TRAIN_LEAVING, this.trainLeaving);
@@ -280,13 +281,13 @@ public class LockingTrackBlockEntity extends RailcraftBlockEntity implements Loc
   }
 
   @Override
-  public void writeToBuf(RegistryFriendlyByteBuf data) {
+  public void writeToBuf(FriendlyByteBuf data) {
     super.writeToBuf(data);
     data.writeBoolean(this.locked);
   }
 
   @Override
-  public void readFromBuf(RegistryFriendlyByteBuf data) {
+  public void readFromBuf(FriendlyByteBuf data) {
     super.readFromBuf(data);
     this.locked = data.readBoolean();
   }

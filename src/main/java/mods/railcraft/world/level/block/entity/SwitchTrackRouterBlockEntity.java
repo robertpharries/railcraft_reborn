@@ -14,9 +14,10 @@ import mods.railcraft.util.routing.RoutingLogicException;
 import mods.railcraft.world.inventory.SwitchTrackRouterMenu;
 import mods.railcraft.world.level.block.track.actuator.SwitchTrackActuatorBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -57,8 +58,8 @@ public class SwitchTrackRouterBlockEntity extends LockableSwitchTrackActuatorBlo
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.put(CompoundTagKeys.CONTAINER, this.container.createTag());
     tag.putString(CompoundTagKeys.RAILWAY, this.railway.getSerializedName());
     tag.putBoolean(CompoundTagKeys.POWERED, this.powered);
@@ -73,14 +74,14 @@ public class SwitchTrackRouterBlockEntity extends LockableSwitchTrackActuatorBlo
   }
 
   @Override
-  public void writeToBuf(RegistryFriendlyByteBuf data) {
+  public void writeToBuf(FriendlyByteBuf data) {
     super.writeToBuf(data);
     data.writeEnum(this.railway);
     data.writeBoolean(this.powered);
   }
 
   @Override
-  public void readFromBuf(RegistryFriendlyByteBuf data) {
+  public void readFromBuf(FriendlyByteBuf data) {
     super.readFromBuf(data);
     this.railway = data.readEnum(Railway.class);
     this.powered = data.readBoolean();

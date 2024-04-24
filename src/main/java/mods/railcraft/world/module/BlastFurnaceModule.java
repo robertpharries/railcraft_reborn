@@ -10,7 +10,7 @@ import mods.railcraft.world.item.crafting.RailcraftRecipeTypes;
 import mods.railcraft.world.level.block.entity.BlastFurnaceBlockEntity;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -195,13 +195,13 @@ public class BlastFurnaceModule extends CookingModule<BlastFurnaceRecipe, BlastF
   }
 
   @Override
-  public void writeToBuf(RegistryFriendlyByteBuf out) {
+  public void writeToBuf(FriendlyByteBuf out) {
     super.writeToBuf(out);
     out.writeVarInt(this.burnTime);
   }
 
   @Override
-  public void readFromBuf(RegistryFriendlyByteBuf in) {
+  public void readFromBuf(FriendlyByteBuf in) {
     super.readFromBuf(in);
     this.setBurnTime(in.readVarInt());
   }

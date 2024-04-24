@@ -9,6 +9,7 @@ import mods.railcraft.world.inventory.RoutingTrackMenu;
 import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import mods.railcraft.world.level.block.track.outfitted.PoweredOutfittedTrackBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -40,8 +41,8 @@ public class RoutingTrackBlockEntity extends LockableTrackBlockEntity implements
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.put(CompoundTagKeys.CONTAINER, this.container.createTag());
   }
 

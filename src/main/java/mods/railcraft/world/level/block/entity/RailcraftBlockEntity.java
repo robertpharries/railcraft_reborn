@@ -9,17 +9,16 @@ import mods.railcraft.api.core.BlockEntityLike;
 import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.api.core.NetworkSerializable;
 import mods.railcraft.api.core.Ownable;
-import mods.railcraft.network.PacketHandler;
 import mods.railcraft.world.module.BlockModuleProvider;
 import mods.railcraft.world.module.Module;
 import mods.railcraft.world.module.ModuleDispatcher;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -28,6 +27,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public abstract class RailcraftBlockEntity extends BlockEntity
     implements NetworkSerializable, Ownable, BlockEntityLike, BlockModuleProvider {
@@ -50,8 +50,8 @@ public abstract class RailcraftBlockEntity extends BlockEntity
   }
 
   @Override
-  public final CompoundTag getUpdateTag() {
-    CompoundTag nbt = super.getUpdateTag();
+  public final CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+    CompoundTag nbt = super.getUpdateTag(provider);
     FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
     this.writeToBuf(packetBuffer);
     byte[] syncData = new byte[packetBuffer.readableBytes()];
@@ -61,25 +61,26 @@ public abstract class RailcraftBlockEntity extends BlockEntity
   }
 
   @Override
-  public final void handleUpdateTag(CompoundTag tag) {
+  public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider provider) {
     byte[] bytes = tag.getByteArray(CompoundTagKeys.SYNC);
     this.readFromBuf(new FriendlyByteBuf(Unpooled.wrappedBuffer(bytes)));
   }
 
   @Override
-  public final void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
-    this.handleUpdateTag(packet.getTag());
+  public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet,
+      HolderLookup.Provider provider) {
+    this.handleUpdateTag(packet.getTag(), provider);
   }
 
   @Override
-  public void writeToBuf(RegistryFriendlyByteBuf out) {
+  public void writeToBuf(FriendlyByteBuf out) {
     out.writeNullable(this.owner, FriendlyByteBuf::writeGameProfile);
     out.writeNullable(this.customName, FriendlyByteBuf::writeComponent);
     this.moduleDispatcher.writeToBuf(out);
   }
 
   @Override
-  public void readFromBuf(RegistryFriendlyByteBuf in) {
+  public void readFromBuf(FriendlyByteBuf in) {
     this.owner = in.readNullable(FriendlyByteBuf::readGameProfile);
     this.customName = in.readNullable(FriendlyByteBuf::readComponent);
     this.moduleDispatcher.readFromBuf(in);
@@ -99,7 +100,8 @@ public abstract class RailcraftBlockEntity extends BlockEntity
   public void syncToClient() {
     if (this.level instanceof ServerLevel serverLevel) {
       var packet = this.getUpdatePacket();
-      PacketHandler.sendToTrackingChunk(packet, serverLevel, this.getBlockPos());
+      PacketDistributor.sendToPlayersTrackingChunk(serverLevel,
+          level.getChunk(this.getBlockPos()).getPos(), packet);
     }
   }
 
@@ -138,8 +140,8 @@ public abstract class RailcraftBlockEntity extends BlockEntity
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     if (this.owner != null) {
       var ownerTag = new CompoundTag();
       NbtUtils.writeGameProfile(ownerTag, this.owner);

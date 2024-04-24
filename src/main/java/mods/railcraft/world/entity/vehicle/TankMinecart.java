@@ -49,9 +49,10 @@ public class TankMinecart extends FilteredMinecart
       StandardTank
           .ofBuckets(RailcraftConfig.SERVER.tankCartFluidCapacity.get())
           .changeCallback(this::tankChanged)
-          .setValidator(fluidStack -> this.getFilterFluid()
-              .map(fluidStack::isFluidEqual)
-              .orElse(true));
+          .setValidator(fluidStack ->
+              this.getFilterFluid()
+                  .map(x -> FluidStack.isSameFluidSameComponents(x, fluidStack))
+                  .orElse(true));
   private final ContainerMapper invLiquids = ContainerMapper.make(this).ignoreItemChecks();
   private int fluidProcessingTimer;
   private FluidTools.ProcessState processState = FluidTools.ProcessState.RESET;
@@ -189,8 +190,8 @@ public class TankMinecart extends FilteredMinecart
   @Override
   public boolean canPassFluidRequests(FluidStack fluid) {
     return this.getFilterFluid()
-        .map(filter -> filter.isFluidEqual(fluid))
-        .orElseGet(() -> this.tank.isEmpty() && tank.getFluid().isFluidEqual(fluid));
+        .map(filter -> FluidStack.isSameFluidSameComponents(filter, fluid))
+        .orElseGet(() -> this.tank.isEmpty() && FluidStack.isSameFluidSameComponents(tank.getFluid(), fluid));
   }
 
   @Override

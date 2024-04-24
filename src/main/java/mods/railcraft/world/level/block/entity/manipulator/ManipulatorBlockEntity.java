@@ -20,9 +20,10 @@ import mods.railcraft.world.level.block.manipulator.ManipulatorBlock;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
@@ -252,20 +253,20 @@ public abstract class ManipulatorBlockEntity extends ContainerBlockEntity implem
   protected abstract void processCart(AbstractMinecart cart);
 
   @Override
-  public void writeToBuf(RegistryFriendlyByteBuf data) {
+  public void writeToBuf(FriendlyByteBuf data) {
     super.writeToBuf(data);
     data.writeEnum(this.redstoneMode);
   }
 
   @Override
-  public void readFromBuf(RegistryFriendlyByteBuf data) {
+  public void readFromBuf(FriendlyByteBuf data) {
     super.readFromBuf(data);
     this.redstoneMode = data.readEnum(RedstoneMode.class);
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.putInt(CompoundTagKeys.REDSTONE_MODE, this.redstoneMode.ordinal());
     tag.put(CompoundTagKeys.CART_FILTERS, this.getCartFilters().createTag());
   }

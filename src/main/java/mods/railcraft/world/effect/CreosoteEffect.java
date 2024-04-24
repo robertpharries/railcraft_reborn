@@ -1,10 +1,11 @@
 package mods.railcraft.world.effect;
 
 import mods.railcraft.world.damagesource.RailcraftDamageSources;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobType;
 
 public class CreosoteEffect extends MobEffect {
 
@@ -13,12 +14,15 @@ public class CreosoteEffect extends MobEffect {
   }
 
   @Override
-  public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-    if (livingEntity.getMobType().equals(MobType.ARTHROPOD)) {
-      var registryAccess = livingEntity.level().registryAccess();
-      livingEntity.hurt(RailcraftDamageSources.creosote(registryAccess),
-          (float) Math.pow(1.1D, amplifier));
+  public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
+    if (livingEntity.level() instanceof ServerLevel) {
+      if (livingEntity.getType().is(EntityTypeTags.ARTHROPOD)) {
+        var registryAccess = livingEntity.level().registryAccess();
+        livingEntity.hurt(RailcraftDamageSources.creosote(registryAccess),
+            (float) Math.pow(1.1D, amplifier));
+      }
     }
+    return true;
   }
 
   @Override

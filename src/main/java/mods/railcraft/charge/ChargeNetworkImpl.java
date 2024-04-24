@@ -700,7 +700,7 @@ public class ChargeNetworkImpl implements Charge.Network {
             if (remainingDamage > 0.1F) {
               var result = entry.getValue()
                   .zap(livingEntity.getItemBySlot(entry.getKey()), livingEntity, remainingDamage);
-              entity.setItemSlot(entry.getKey(), result.stack());
+              livingEntity.setItemSlot(entry.getKey(), result.stack());
               remainingDamage -= result.damagePrevented();
             } else {
               break;

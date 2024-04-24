@@ -6,8 +6,9 @@ import mods.railcraft.api.signal.SingleSignalReceiver;
 import mods.railcraft.api.signal.entity.SignalReceiverEntity;
 import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class DualBlockSignalBlockEntity extends BlockSignalBlockEntity
@@ -49,8 +50,8 @@ public class DualBlockSignalBlockEntity extends BlockSignalBlockEntity
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.put(CompoundTagKeys.SIGNAL_RECEIVER, this.signalReceiver.serializeNBT());
   }
 
@@ -61,13 +62,13 @@ public class DualBlockSignalBlockEntity extends BlockSignalBlockEntity
   }
 
   @Override
-  public void writeToBuf(RegistryFriendlyByteBuf data) {
+  public void writeToBuf(FriendlyByteBuf data) {
     super.writeToBuf(data);
     this.signalReceiver.writeToBuf(data);
   }
 
   @Override
-  public void readFromBuf(RegistryFriendlyByteBuf data) {
+  public void readFromBuf(FriendlyByteBuf data) {
     super.readFromBuf(data);
     this.signalReceiver.readFromBuf(data);
   }

@@ -13,6 +13,7 @@ import mods.railcraft.world.level.block.entity.RailcraftBlockEntity;
 import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.Containers;
@@ -136,8 +137,8 @@ public class DumpingTrackBlockEntity extends RailcraftBlockEntity implements Men
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.put(CompoundTagKeys.CART_FILTER, this.cartFilter.createTag());
     tag.put(CompoundTagKeys.ITEM_FILTER, this.itemFilter.createTag());
     tag.putInt(CompoundTagKeys.TICKS_SINCE_LAST_DROP, this.ticksSinceLastDrop);

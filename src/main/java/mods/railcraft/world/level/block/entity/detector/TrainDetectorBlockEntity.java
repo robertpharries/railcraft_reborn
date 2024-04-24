@@ -5,8 +5,9 @@ import mods.railcraft.api.carts.RollingStock;
 import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.redstone.Redstone;
@@ -40,19 +41,19 @@ public class TrainDetectorBlockEntity extends DetectorBlockEntity {
   }
 
   @Override
-  public void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  public void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.putInt(CompoundTagKeys.TRAIN_SIZE, this.trainSize);
   }
 
   @Override
-  public void writeToBuf(RegistryFriendlyByteBuf out) {
+  public void writeToBuf(FriendlyByteBuf out) {
     super.writeToBuf(out);
     out.writeVarInt(this.trainSize);
   }
 
   @Override
-  public void readFromBuf(RegistryFriendlyByteBuf in) {
+  public void readFromBuf(FriendlyByteBuf in) {
     super.readFromBuf(in);
     this.trainSize = in.readVarInt();
   }

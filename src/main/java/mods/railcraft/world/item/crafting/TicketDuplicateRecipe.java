@@ -2,8 +2,8 @@ package mods.railcraft.world.item.crafting;
 
 import java.util.stream.IntStream;
 import mods.railcraft.world.item.RailcraftItems;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -42,13 +42,13 @@ public class TicketDuplicateRecipe extends CustomRecipe {
   }
 
   @Override
-  public ItemStack assemble(CraftingContainer container, RegistryAccess registryAccess) {
+  public ItemStack assemble(CraftingContainer container, HolderLookup.Provider provider) {
     var source = IntStream.range(0, container.getContainerSize())
         .mapToObj(container::getItem)
         .filter(TicketDuplicateRecipe.SOURCE)
         .findFirst()
         .orElse(ItemStack.EMPTY);
-    var result = getResultItem(registryAccess);
+    var result = getResultItem(provider);
     if (!source.isEmpty()) {
       var nbt = source.getTag();
       if (nbt != null)
@@ -66,7 +66,7 @@ public class TicketDuplicateRecipe extends CustomRecipe {
   }
 
   @Override
-  public ItemStack getResultItem(RegistryAccess registryAccess) {
+  public ItemStack getResultItem(HolderLookup.Provider provider) {
     return new ItemStack(RailcraftItems.TICKET.get());
   }
 

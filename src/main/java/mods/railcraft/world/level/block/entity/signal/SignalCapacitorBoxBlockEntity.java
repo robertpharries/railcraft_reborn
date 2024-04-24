@@ -12,8 +12,9 @@ import mods.railcraft.util.RedstoneUtil;
 import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.Level;
@@ -128,8 +129,8 @@ public class SignalCapacitorBoxBlockEntity extends AbstractSignalBoxBlockEntity 
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.putShort(CompoundTagKeys.TICKS_POWERED, this.ticksPowered);
     tag.putShort(CompoundTagKeys.TICKS_TO_POWER, this.ticksToPower);
     tag.putString(CompoundTagKeys.SIGNAL_ASPECT, this.signalAspect.getSerializedName());
@@ -147,7 +148,7 @@ public class SignalCapacitorBoxBlockEntity extends AbstractSignalBoxBlockEntity 
   }
 
   @Override
-  public void writeToBuf(RegistryFriendlyByteBuf data) {
+  public void writeToBuf(FriendlyByteBuf data) {
     super.writeToBuf(data);
     data.writeBoolean(this.ticksPowered > 0);
     data.writeShort(this.ticksToPower);
@@ -156,7 +157,7 @@ public class SignalCapacitorBoxBlockEntity extends AbstractSignalBoxBlockEntity 
   }
 
   @Override
-  public void readFromBuf(RegistryFriendlyByteBuf data) {
+  public void readFromBuf(FriendlyByteBuf data) {
     super.readFromBuf(data);
     this.ticksPowered = (short) (data.readBoolean() ? 1 : 0);
     this.ticksToPower = data.readShort();

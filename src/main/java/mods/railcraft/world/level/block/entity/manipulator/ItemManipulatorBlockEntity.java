@@ -18,9 +18,10 @@ import mods.railcraft.util.container.ContainerTools;
 import mods.railcraft.util.container.StackFilter;
 import mods.railcraft.world.inventory.ItemManipulatorMenu;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -243,20 +244,20 @@ public abstract class ItemManipulatorBlockEntity extends ManipulatorBlockEntity
   }
 
   @Override
-  public void writeToBuf(RegistryFriendlyByteBuf data) {
+  public void writeToBuf(FriendlyByteBuf data) {
     super.writeToBuf(data);
     data.writeEnum(this.transferMode);
   }
 
   @Override
-  public void readFromBuf(RegistryFriendlyByteBuf data) {
+  public void readFromBuf(FriendlyByteBuf data) {
     super.readFromBuf(data);
     this.transferMode = data.readEnum(TransferMode.class);
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.putString(CompoundTagKeys.TRANSFER_MODE, this.transferMode.getSerializedName());
     tag.put(CompoundTagKeys.ITEM_FILTERS, this.getItemFilters().createTag());
   }

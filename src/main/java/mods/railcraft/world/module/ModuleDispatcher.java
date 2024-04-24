@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import mods.railcraft.api.core.NetworkSerializable;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 
 public class ModuleDispatcher implements NetworkSerializable, INBTSerializable<CompoundTag> {
@@ -42,13 +42,13 @@ public class ModuleDispatcher implements NetworkSerializable, INBTSerializable<C
   }
 
   @Override
-  public void writeToBuf(RegistryFriendlyByteBuf out) {
+  public void writeToBuf(FriendlyByteBuf out) {
     out.writeMap(this.moduleByName,
         FriendlyByteBuf::writeUtf, (buf, module) -> module.writeToBuf(buf));
   }
 
   @Override
-  public void readFromBuf(RegistryFriendlyByteBuf in) {
+  public void readFromBuf(FriendlyByteBuf in) {
     var size = in.readVarInt();
     for (int i = 0; i < size; i++) {
       var name = in.readUtf();
@@ -61,21 +61,21 @@ public class ModuleDispatcher implements NetworkSerializable, INBTSerializable<C
   }
 
   @Override
-  public CompoundTag serializeNBT() {
+  public CompoundTag serializeNBT(HolderLookup.Provider provider) {
     var tag = new CompoundTag();
-    this.moduleByName.forEach((name, module) -> tag.put(name, module.serializeNBT()));
+    this.moduleByName.forEach((name, module) -> tag.put(name, module.serializeNBT(provider)));
     return tag;
   }
 
   @Override
-  public void deserializeNBT(CompoundTag tag) {
+  public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
     if (tag.isEmpty()) {
       return;
     }
     this.moduleByName.forEach((name, module) -> {
       var moduleTag = tag.getCompound(name);
       if (!moduleTag.isEmpty()) {
-        module.deserializeNBT(moduleTag);
+        module.deserializeNBT(provider, moduleTag);
       }
     });
   }

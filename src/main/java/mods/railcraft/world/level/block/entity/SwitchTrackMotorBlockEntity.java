@@ -11,11 +11,12 @@ import mods.railcraft.api.signal.entity.SignalReceiverEntity;
 import mods.railcraft.api.track.SwitchActuator;
 import mods.railcraft.world.level.block.track.actuator.SwitchTrackActuatorBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -78,8 +79,8 @@ public class SwitchTrackMotorBlockEntity extends LockableSwitchTrackActuatorBloc
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.put(CompoundTagKeys.SIGNAL_RECEIVER, this.signalReceiver.serializeNBT());
     var actionAspectsTag = new ListTag();
     this.actionSignalAspects
@@ -101,7 +102,7 @@ public class SwitchTrackMotorBlockEntity extends LockableSwitchTrackActuatorBloc
   }
 
   @Override
-  public void writeToBuf(RegistryFriendlyByteBuf data) {
+  public void writeToBuf(FriendlyByteBuf data) {
     super.writeToBuf(data);
     this.signalReceiver.writeToBuf(data);
     data.writeEnumSet(this.actionSignalAspects, SignalAspect.class);
@@ -109,7 +110,7 @@ public class SwitchTrackMotorBlockEntity extends LockableSwitchTrackActuatorBloc
   }
 
   @Override
-  public void readFromBuf(RegistryFriendlyByteBuf data) {
+  public void readFromBuf(FriendlyByteBuf data) {
     super.readFromBuf(data);
     this.signalReceiver.readFromBuf(data);
     this.actionSignalAspects.clear();

@@ -12,6 +12,7 @@ import mods.railcraft.util.container.ForwardingContainer;
 import mods.railcraft.util.container.ItemHandlerFactory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.Container;
@@ -65,8 +66,8 @@ public abstract class FilterDetectorBlockEntity extends DetectorBlockEntity
   }
 
   @Override
-  public void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  public void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.put(CompoundTagKeys.CONTAINER, this.invFilters.createTag());
   }
 }

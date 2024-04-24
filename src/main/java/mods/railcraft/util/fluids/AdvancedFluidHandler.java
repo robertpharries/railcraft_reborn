@@ -73,7 +73,7 @@ public class AdvancedFluidHandler implements IFluidHandler {
     if (fluid.isEmpty()) {
       return this.areTanksFull();
     }
-    int fill = this.fill(new FluidStack(fluid, 1), FluidAction.SIMULATE);
+    int fill = this.fill(fluid.copyWithAmount(1), FluidAction.SIMULATE);
     return fill <= 0;
   }
 

@@ -12,6 +12,7 @@ import mods.railcraft.world.item.RefinedFirestoneItem;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -188,8 +189,8 @@ public class RitualBlockEntity extends RailcraftBlockEntity {
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.putShort(CompoundTagKeys.CHARGE, (short) this.charge);
     tag.putByte(CompoundTagKeys.REBUILD_DELAY, (byte) this.rebuildDelay);
     if (this.itemName != null) {

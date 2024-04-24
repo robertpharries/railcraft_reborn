@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import mods.railcraft.api.signal.entity.SignalControllerEntity;
 import mods.railcraft.api.signal.entity.SignalReceiverEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class SimpleSignalController extends BlockEntitySignalNetwork<SignalReceiverEntity>
@@ -116,13 +116,13 @@ public class SimpleSignalController extends BlockEntitySignalNetwork<SignalRecei
   }
 
   @Override
-  public void writeToBuf(RegistryFriendlyByteBuf data) {
+  public void writeToBuf(FriendlyByteBuf data) {
     super.writeToBuf(data);
     data.writeEnum(this.signalAspect);
   }
 
   @Override
-  public void readFromBuf(RegistryFriendlyByteBuf data) {
+  public void readFromBuf(FriendlyByteBuf data) {
     super.readFromBuf(data);
     this.signalAspect = data.readEnum(SignalAspect.class);
   }

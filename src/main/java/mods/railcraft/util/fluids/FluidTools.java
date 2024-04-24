@@ -42,7 +42,7 @@ public final class FluidTools {
       return Component.literal("Empty");
     }
     return Component.literal(fluidStack.getAmount() + "x")
-        .append(fluidStack.getDisplayName());
+        .append(fluidStack.getHoverName());
   }
 
   /**

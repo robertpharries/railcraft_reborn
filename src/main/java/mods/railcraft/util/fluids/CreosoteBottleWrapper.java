@@ -89,7 +89,7 @@ public class CreosoteBottleWrapper implements IFluidHandlerItem {
     }
 
     var fluidStack = this.getFluid();
-    if (!fluidStack.isEmpty() && fluidStack.isFluidEqual(resource)) {
+    if (!fluidStack.isEmpty() && FluidStack.isSameFluidSameComponents(fluidStack, resource)) {
       if (action.execute()) {
         this.setFluid(FluidStack.EMPTY);
       }

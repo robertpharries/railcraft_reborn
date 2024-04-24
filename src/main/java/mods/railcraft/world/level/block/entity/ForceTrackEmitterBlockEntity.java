@@ -11,6 +11,7 @@ import mods.railcraft.world.level.block.RailcraftBlocks;
 import mods.railcraft.world.level.block.entity.track.ForceTrackBlockEntity;
 import mods.railcraft.world.level.block.track.ForceTrackBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -210,8 +211,8 @@ public class ForceTrackEmitterBlockEntity extends RailcraftBlockEntity implement
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.putInt(CompoundTagKeys.TRACK_COUNT, this.getTrackCount());
     tag.putString(CompoundTagKeys.STATE, this.stateInstance.state().getSerializedName());
   }

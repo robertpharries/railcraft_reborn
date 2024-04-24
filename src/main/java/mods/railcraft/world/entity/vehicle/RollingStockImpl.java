@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 import org.joml.Vector2d;
 import org.slf4j.Logger;
 import com.mojang.authlib.GameProfile;
@@ -19,6 +20,7 @@ import mods.railcraft.world.level.block.track.ElevatorTrackBlock;
 import mods.railcraft.world.level.block.track.behaivor.HighSpeedTrackUtil;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
@@ -677,7 +679,7 @@ public class RollingStockImpl implements RollingStock, INBTSerializable<Compound
   }
 
   @Override
-  public CompoundTag serializeNBT() {
+  public CompoundTag serializeNBT(HolderLookup.Provider provider) {
     var tag = new CompoundTag();
 
     if (this.train != null) {
@@ -709,7 +711,7 @@ public class RollingStockImpl implements RollingStock, INBTSerializable<Compound
   }
 
   @Override
-  public void deserializeNBT(CompoundTag tag) {
+  public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
     this.train = tag.contains(CompoundTagKeys.TRAIN, Tag.TAG_COMPOUND)
         ? TrainImpl.fromTag(tag.getCompound(CompoundTagKeys.TRAIN), this)
         : null;

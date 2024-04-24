@@ -11,9 +11,10 @@ import mods.railcraft.world.level.material.StandardTank;
 import mods.railcraft.world.level.material.TankManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
@@ -149,8 +150,8 @@ public abstract class FluidManipulatorBlockEntity extends ManipulatorBlockEntity
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.putString(CompoundTagKeys.PROCESS_STATE, this.processState.getSerializedName());
     tag.put(CompoundTagKeys.TANK_MANAGER, this.tankManager.serializeNBT());
     tag.put(CompoundTagKeys.INV_FILTER, this.getFluidFilter().createTag());
@@ -165,13 +166,13 @@ public abstract class FluidManipulatorBlockEntity extends ManipulatorBlockEntity
   }
 
   @Override
-  public void writeToBuf(RegistryFriendlyByteBuf data) {
+  public void writeToBuf(FriendlyByteBuf data) {
     super.writeToBuf(data);
     this.tankManager.writePacketData(data);
   }
 
   @Override
-  public void readFromBuf(RegistryFriendlyByteBuf data) {
+  public void readFromBuf(FriendlyByteBuf data) {
     super.readFromBuf(data);
     this.tankManager.readPacketData(data);
   }

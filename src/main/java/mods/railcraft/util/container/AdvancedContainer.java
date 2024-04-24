@@ -8,6 +8,7 @@ import mods.railcraft.api.container.manipulator.ContainerSlotAccessor;
 import mods.railcraft.api.container.manipulator.ModifiableSlotAccessor;
 import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.world.module.ModuleProvider;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.Container;
@@ -89,7 +90,7 @@ public class AdvancedContainer extends SimpleContainer
   }
 
   @Override
-  public void fromTag(ListTag tag) {
+  public void fromTag(ListTag tag, HolderLookup.Provider provider) {
     for (int i = 0; i < tag.size(); ++i) {
       var slotTag = tag.getCompound(i);
       this.setItem(slotTag.getInt(CompoundTagKeys.INDEX), ItemStack.of(slotTag));
@@ -97,7 +98,7 @@ public class AdvancedContainer extends SimpleContainer
   }
 
   @Override
-  public ListTag createTag() {
+  public ListTag createTag(HolderLookup.Provider provider) {
     var tag = new ListTag();
     for (int i = 0; i < this.getContainerSize(); ++i) {
       var slotTag = new CompoundTag();

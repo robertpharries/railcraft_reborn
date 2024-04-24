@@ -220,7 +220,7 @@ public class StandardTank extends FluidTank {
   protected Component getFluidNameToolTip(FluidStack fluidStack) {
     var fluidType = fluidStack.getFluidType();
     var rarity = fluidType.getRarity();
-    return fluidStack.getDisplayName().copy().withStyle(rarity.getStyleModifier());
+    return fluidStack.getHoverName().copy().withStyle(rarity.getStyleModifier());
   }
 
   public static StandardTank ofBuckets(int buckets) {

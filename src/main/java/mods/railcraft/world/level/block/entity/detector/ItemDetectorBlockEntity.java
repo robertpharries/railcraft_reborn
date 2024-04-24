@@ -11,8 +11,9 @@ import mods.railcraft.util.container.StackFilter;
 import mods.railcraft.world.inventory.detector.ItemDetectorMenu;
 import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.player.Inventory;
@@ -114,21 +115,21 @@ public class ItemDetectorBlockEntity extends FilterDetectorBlockEntity {
   }
 
   @Override
-  public void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  public void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.putString(CompoundTagKeys.PRIMARY_MODE, this.primaryMode.getSerializedName());
     tag.putString(CompoundTagKeys.FILTER_MODE, this.filterMode.getSerializedName());
   }
 
   @Override
-  public void writeToBuf(RegistryFriendlyByteBuf out) {
+  public void writeToBuf(FriendlyByteBuf out) {
     super.writeToBuf(out);
     out.writeEnum(this.primaryMode);
     out.writeEnum(this.filterMode);
   }
 
   @Override
-  public void readFromBuf(RegistryFriendlyByteBuf in) {
+  public void readFromBuf(FriendlyByteBuf in) {
     super.readFromBuf(in);
     this.primaryMode = in.readEnum(PrimaryMode.class);
     this.filterMode = in.readEnum(FilterMode.class);

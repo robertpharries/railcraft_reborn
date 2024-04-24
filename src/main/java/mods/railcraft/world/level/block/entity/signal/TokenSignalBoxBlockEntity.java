@@ -16,9 +16,9 @@ import mods.railcraft.world.signal.SimpleTokenRing;
 import mods.railcraft.world.signal.TokenRingManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -67,8 +67,8 @@ public class TokenSignalBoxBlockEntity extends ActionSignalBoxBlockEntity
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.putUUID(CompoundTagKeys.TOKEN_RING_ID, this.ringId);
     tag.put(CompoundTagKeys.SIGNAL_CONTROLLER, this.signalController.serializeNBT());
   }
@@ -81,7 +81,7 @@ public class TokenSignalBoxBlockEntity extends ActionSignalBoxBlockEntity
   }
 
   @Override
-  public void writeToBuf(RegistryFriendlyByteBuf data) {
+  public void writeToBuf(FriendlyByteBuf data) {
     super.writeToBuf(data);
     this.signalController.writeToBuf(data);
     data.writeNullable(this.ringCentroidPos, FriendlyByteBuf::writeVec3);
@@ -89,7 +89,7 @@ public class TokenSignalBoxBlockEntity extends ActionSignalBoxBlockEntity
   }
 
   @Override
-  public void readFromBuf(RegistryFriendlyByteBuf data) {
+  public void readFromBuf(FriendlyByteBuf data) {
     super.readFromBuf(data);
     this.signalController.readFromBuf(data);
     this.ringCentroidPos = data.readNullable(FriendlyByteBuf::readVec3);

@@ -6,6 +6,7 @@ import mods.railcraft.util.container.StackFilter;
 import mods.railcraft.world.inventory.FeedStationMenu;
 import mods.railcraft.world.level.block.FeedStationBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -100,8 +101,8 @@ public class FeedStationBlockEntity extends ContainerBlockEntity implements Menu
   }
 
   @Override
-  public void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  public void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.putByte(CompoundTagKeys.FEED_COUNTER, this.feedCounter);
   }
 

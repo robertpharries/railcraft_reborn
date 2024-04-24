@@ -1,16 +1,19 @@
 package mods.railcraft.world.item.crafting;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import mods.railcraft.api.core.RecipeJsonKeys;
 import mods.railcraft.data.recipes.builders.CrusherRecipeBuilder;
 import mods.railcraft.util.RecipeUtil;
 import mods.railcraft.world.level.block.RailcraftBlocks;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -42,8 +45,8 @@ public class CrusherRecipe implements Recipe<Container> {
   }
 
   @Override
-  public ItemStack assemble(Container inventory, RegistryAccess registryAccess) {
-    return this.getResultItem(registryAccess).copy();
+  public ItemStack assemble(Container inventory, HolderLookup.Provider provider) {
+    return this.getResultItem(provider).copy();
   }
 
   @Override
@@ -55,8 +58,8 @@ public class CrusherRecipe implements Recipe<Container> {
    * Use {@link #getProbabilityOutputs()} since we have more output
    */
   @Override
-  @Deprecated()
-  public ItemStack getResultItem(RegistryAccess registryAccess) {
+  @Deprecated
+  public ItemStack getResultItem(HolderLookup.Provider provider) {
     return ItemStack.EMPTY;
   }
 
@@ -95,7 +98,7 @@ public class CrusherRecipe implements Recipe<Container> {
         .create(instance -> instance.group(
             Ingredient.CODEC_NONEMPTY.fieldOf(RecipeJsonKeys.RESULT)
                 .forGetter(recipe -> recipe.output),
-            ExtraCodecs.strictOptionalField(ExtraCodecs.POSITIVE_INT, RecipeJsonKeys.COUNT, 1)
+            ExtraCodecs.POSITIVE_INT.optionalFieldOf(RecipeJsonKeys.COUNT, 1)
                 .forGetter(recipe -> recipe.quantity),
             Codec.doubleRange(0, 1).fieldOf(RecipeJsonKeys.PROBABILITY)
                 .forGetter(recipe -> recipe.probability)
@@ -108,42 +111,53 @@ public class CrusherRecipe implements Recipe<Container> {
 
   public static class Serializer implements RecipeSerializer<CrusherRecipe> {
 
-    private static final Codec<CrusherRecipe> CODEC = RecordCodecBuilder
-        .create(instance -> instance.group(
+    private static final MapCodec<CrusherRecipe> CODEC =
+        RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.CODEC_NONEMPTY.fieldOf(RecipeJsonKeys.INGREDIENT)
                 .forGetter(recipe -> recipe.ingredient),
             CrusherOutput.CODEC.listOf().fieldOf(RecipeJsonKeys.OUTPUTS)
                 .orElse(Collections.emptyList())
                 .forGetter(recipe -> recipe.probabilityOutputs),
-            ExtraCodecs
-                .strictOptionalField(ExtraCodecs.POSITIVE_INT, RecipeJsonKeys.PROCESS_TIME,
+            ExtraCodecs.POSITIVE_INT.optionalFieldOf(RecipeJsonKeys.PROCESS_TIME,
                     CrusherRecipeBuilder.DEFAULT_PROCESSING_TIME)
                 .forGetter(recipe -> recipe.processTime)
         ).apply(instance, CrusherRecipe::new));
 
+    private static final StreamCodec<RegistryFriendlyByteBuf, CrusherRecipe> STREAM_CODEC =
+        StreamCodec.of(Serializer::toNetwork, Serializer::fromNetwork);
+
     @Override
-    public Codec<CrusherRecipe> codec() {
+    public MapCodec<CrusherRecipe> codec() {
       return CODEC;
     }
 
     @Override
-    public CrusherRecipe fromNetwork(FriendlyByteBuf buffer) {
+    public StreamCodec<RegistryFriendlyByteBuf, CrusherRecipe> streamCodec() {
+      return STREAM_CODEC;
+    }
+
+    private static CrusherRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
       var tickCost = buffer.readVarInt();
-      var ingredient = Ingredient.fromNetwork(buffer);
-      var probabilityOutputs = buffer.readList(buf ->
-          new CrusherOutput(Ingredient.fromNetwork(buf), buf.readVarInt(), buf.readDouble()));
+      var ingredient = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+      var size = buffer.readVarInt();
+      var probabilityOutputs = new ArrayList<CrusherOutput>();
+      for (int i = 0; i < size; i++) {
+        probabilityOutputs.add(new CrusherOutput(Ingredient.CONTENTS_STREAM_CODEC.decode(buffer),
+            buffer.readVarInt(), buffer.readDouble()));
+      }
       return new CrusherRecipe(ingredient, probabilityOutputs, tickCost);
     }
 
-    @Override
-    public void toNetwork(FriendlyByteBuf buffer, CrusherRecipe recipe) {
+    private static void toNetwork(RegistryFriendlyByteBuf buffer, CrusherRecipe recipe) {
       buffer.writeVarInt(recipe.processTime);
-      recipe.ingredient.toNetwork(buffer);
-      buffer.writeCollection(recipe.probabilityOutputs, (buf, item) -> {
-        item.output.toNetwork(buf);
-        buf.writeVarInt(item.quantity);
-        buf.writeDouble(item.probability);
-      });
+      Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.ingredient);
+      buffer.writeVarInt(recipe.probabilityOutputs.size());
+      for (int i = 0; i < recipe.probabilityOutputs.size(); i++) {
+        var item = recipe.probabilityOutputs.get(i);
+        Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, item.output);
+        buffer.writeVarInt(item.quantity);
+        buffer.writeDouble(item.probability);
+      }
     }
   }
 }

@@ -4,11 +4,12 @@ import java.util.EnumSet;
 import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.api.signal.SignalAspect;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -40,8 +41,8 @@ public abstract class ActionSignalBoxBlockEntity extends LockableSignalBoxBlockE
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     var actionAspectsTag = new ListTag();
     this.actionSignalAspects
         .forEach(aspect -> actionAspectsTag.add(StringTag.valueOf(aspect.getSerializedName())));
@@ -59,13 +60,13 @@ public abstract class ActionSignalBoxBlockEntity extends LockableSignalBoxBlockE
   }
 
   @Override
-  public void writeToBuf(RegistryFriendlyByteBuf data) {
+  public void writeToBuf(FriendlyByteBuf data) {
     super.writeToBuf(data);
     data.writeEnumSet(this.actionSignalAspects, SignalAspect.class);
   }
 
   @Override
-  public void readFromBuf(RegistryFriendlyByteBuf data) {
+  public void readFromBuf(FriendlyByteBuf data) {
     super.readFromBuf(data);
     this.actionSignalAspects.clear();
     this.actionSignalAspects.addAll(data.readEnumSet(SignalAspect.class));

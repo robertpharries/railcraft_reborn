@@ -3,8 +3,8 @@ package mods.railcraft.world.item.crafting;
 import java.util.ArrayList;
 import mods.railcraft.world.item.LocomotiveItem;
 import mods.railcraft.world.item.RailcraftItems;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
@@ -46,7 +46,7 @@ public class LocomotivePaintingRecipe extends CustomRecipe {
   }
 
   @Override
-  public ItemStack assemble(CraftingContainer container, RegistryAccess registryAccess) {
+  public ItemStack assemble(CraftingContainer container, HolderLookup.Provider provider) {
     var dyePrimary = getItemStackInRow(container, 0);
     var loco = getItemStackInRow(container, 1);
     var dyeSecondary = getItemStackInRow(container, 2);
@@ -82,7 +82,7 @@ public class LocomotivePaintingRecipe extends CustomRecipe {
   }
 
   @Override
-  public ItemStack getResultItem(RegistryAccess registryAccess) {
+  public ItemStack getResultItem(HolderLookup.Provider provider) {
     return new ItemStack(RailcraftItems.STEAM_LOCOMOTIVE.get());
   }
 

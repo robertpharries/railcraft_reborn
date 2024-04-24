@@ -14,6 +14,7 @@ import mods.railcraft.world.inventory.TrainDispenserMenu;
 import mods.railcraft.world.item.CartItem;
 import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
@@ -120,8 +121,8 @@ public class TrainDispenserBlockEntity extends CartDispenserBlockEntity {
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.put(CompoundTagKeys.TRAIN_DISPENSER_FILTERS, this.invPattern.createTag());
   }
 

@@ -15,8 +15,9 @@ import mods.railcraft.util.LevelUtil;
 import mods.railcraft.world.level.block.MultiblockBlock;
 import mods.railcraft.world.level.block.entity.RailcraftBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -273,13 +274,13 @@ public abstract class MultiblockBlockEntity<T extends MultiblockBlockEntity<T, M
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.putBoolean(CompoundTagKeys.MASTER, this.membership != null && this.membership.master() == this);
   }
 
   @Override
-  public void writeToBuf(RegistryFriendlyByteBuf out) {
+  public void writeToBuf(FriendlyByteBuf out) {
     super.writeToBuf(out);
     out.writeNullable(this.membership, (buf, membership) -> {
       var patternElement = membership.patternElement();
@@ -290,7 +291,7 @@ public abstract class MultiblockBlockEntity<T extends MultiblockBlockEntity<T, M
   }
 
   @Override
-  public void readFromBuf(RegistryFriendlyByteBuf in) {
+  public void readFromBuf(FriendlyByteBuf in) {
     super.readFromBuf(in);
     this.unresolvedMembership = in.readNullable(buf -> new UnresolvedMembership(
         new MultiblockPattern.Element(in.readBlockPos(), in.readChar()), in.readBlockPos()));

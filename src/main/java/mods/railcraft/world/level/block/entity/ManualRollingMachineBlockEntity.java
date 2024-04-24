@@ -11,6 +11,7 @@ import mods.railcraft.world.inventory.ManualRollingMachineMenu;
 import mods.railcraft.world.item.crafting.RailcraftRecipeTypes;
 import mods.railcraft.world.item.crafting.RollingRecipe;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.Container;
@@ -50,8 +51,8 @@ public class ManualRollingMachineBlockEntity extends RailcraftBlockEntity implem
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.put(CompoundTagKeys.CONTAINER, this.container.createTag());
     tag.put(CompoundTagKeys.CRAFT_MATRIX, ContainerTools.writeContainer(craftMatrix));
     tag.putInt(CompoundTagKeys.PROGRESS, this.progress);

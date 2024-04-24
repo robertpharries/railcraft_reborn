@@ -9,8 +9,9 @@ import mods.railcraft.util.RedstoneUtil;
 import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -129,8 +130,8 @@ public class SignalSequencerBoxBlockEntity extends AbstractSignalBoxBlockEntity 
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.putString(CompoundTagKeys.OUTPUT_DIRECTION, this.outputDirection.getName());
     tag.putBoolean(CompoundTagKeys.POWERED, this.powered);
     tag.putBoolean(CompoundTagKeys.NEIGHBOR_SIGNAL, this.neighborSignal);
@@ -145,13 +146,13 @@ public class SignalSequencerBoxBlockEntity extends AbstractSignalBoxBlockEntity 
   }
 
   @Override
-  public void writeToBuf(RegistryFriendlyByteBuf data) {
+  public void writeToBuf(FriendlyByteBuf data) {
     super.writeToBuf(data);
     data.writeVarInt(this.outputDirection.get3DDataValue());
   }
 
   @Override
-  public void readFromBuf(RegistryFriendlyByteBuf data) {
+  public void readFromBuf(FriendlyByteBuf data) {
     super.readFromBuf(data);
     this.outputDirection = Direction.from3DDataValue(data.readVarInt());
   }

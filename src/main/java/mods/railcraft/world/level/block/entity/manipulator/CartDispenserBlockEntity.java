@@ -11,9 +11,10 @@ import mods.railcraft.world.inventory.CartDispenserMenu;
 import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -121,8 +122,8 @@ public class CartDispenserBlockEntity extends ManipulatorBlockEntity implements 
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.putBoolean(CompoundTagKeys.POWERED, this.powered);
     tag.putInt(CompoundTagKeys.TIME_SINCE_LAST_SPAWN, this.timeSinceLastSpawn);
   }
@@ -135,14 +136,14 @@ public class CartDispenserBlockEntity extends ManipulatorBlockEntity implements 
   }
 
   @Override
-  public void writeToBuf(RegistryFriendlyByteBuf data) {
+  public void writeToBuf(FriendlyByteBuf data) {
     super.writeToBuf(data);
     data.writeBoolean(this.powered);
     data.writeInt(this.timeSinceLastSpawn);
   }
 
   @Override
-  public void readFromBuf(RegistryFriendlyByteBuf data) {
+  public void readFromBuf(FriendlyByteBuf data) {
     super.readFromBuf(data);
     this.powered = data.readBoolean();
     this.timeSinceLastSpawn = data.readInt();

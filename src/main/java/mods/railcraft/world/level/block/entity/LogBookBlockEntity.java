@@ -14,10 +14,10 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.mojang.authlib.GameProfile;
 import mods.railcraft.api.core.CompoundTagKeys;
-import mods.railcraft.network.PacketHandler;
 import mods.railcraft.network.to_client.OpenLogBookScreen;
 import mods.railcraft.util.EntitySearcher;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
@@ -137,8 +137,8 @@ public class LogBookBlockEntity extends RailcraftBlockEntity {
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.put(CompoundTagKeys.LOG, convertLogToTag(log));
   }
 

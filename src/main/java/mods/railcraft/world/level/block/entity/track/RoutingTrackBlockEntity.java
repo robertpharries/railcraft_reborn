@@ -43,13 +43,13 @@ public class RoutingTrackBlockEntity extends LockableTrackBlockEntity implements
   @Override
   protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     super.saveAdditional(tag, provider);
-    tag.put(CompoundTagKeys.CONTAINER, this.container.createTag());
+    tag.put(CompoundTagKeys.CONTAINER, this.container.createTag(provider));
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
-    this.container.fromTag(tag.getList(CompoundTagKeys.CONTAINER, Tag.TAG_COMPOUND));
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
+    this.container.fromTag(tag.getList(CompoundTagKeys.CONTAINER, Tag.TAG_COMPOUND), provider);
   }
 
   @Override

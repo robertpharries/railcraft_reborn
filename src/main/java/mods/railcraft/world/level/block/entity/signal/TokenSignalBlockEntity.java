@@ -97,14 +97,14 @@ public class TokenSignalBlockEntity extends AbstractSignalBlockEntity
   @Override
   protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     super.saveAdditional(tag, provider);
-    tag.put(CompoundTagKeys.NETWORK, this.signalController.serializeNBT());
+    tag.put(CompoundTagKeys.NETWORK, this.signalController.serializeNBT(provider));
     tag.putUUID(CompoundTagKeys.TOKEN_RING_ID, this.ringId);
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
-    this.signalController.deserializeNBT(tag.getCompound(CompoundTagKeys.NETWORK));
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
+    this.signalController.deserializeNBT(provider, tag.getCompound(CompoundTagKeys.NETWORK));
     this.ringId = tag.getUUID(CompoundTagKeys.TOKEN_RING_ID);
   }
 

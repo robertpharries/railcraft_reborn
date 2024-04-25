@@ -272,8 +272,8 @@ public abstract class ManipulatorBlockEntity extends ContainerBlockEntity implem
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     this.setPowered(ManipulatorBlock.isPowered(this.getBlockState()));
     this.redstoneMode = RedstoneMode.values()[tag.getInt(CompoundTagKeys.REDSTONE_MODE)];
     this.getCartFilters().fromTag(tag.getList(CompoundTagKeys.CART_FILTERS, Tag.TAG_COMPOUND));

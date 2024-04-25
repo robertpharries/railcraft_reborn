@@ -73,8 +73,8 @@ public class LogBookBlock extends HorizontalDirectionalBlock implements EntityBl
   }
 
   @Override
-  public InteractionResult use(BlockState blockState, Level level, BlockPos pos,
-      Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
+  protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos pos,
+      Player player, BlockHitResult rayTraceResult) {
     if (player instanceof ServerPlayer serverPlayer) {
       level.getBlockEntity(pos, RailcraftBlockEntityTypes.LOGBOOK.get())
           .ifPresent(blockEntity -> blockEntity.use(serverPlayer));

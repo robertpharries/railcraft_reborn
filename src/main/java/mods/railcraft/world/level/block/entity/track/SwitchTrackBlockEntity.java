@@ -18,6 +18,7 @@ import mods.railcraft.world.level.block.track.actuator.SwitchTrackActuatorBlock;
 import mods.railcraft.world.level.block.track.outfitted.SwitchTrackBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
@@ -241,8 +242,8 @@ public abstract class SwitchTrackBlockEntity extends BlockEntity {
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.saveAdditional(tag, provider);
     tag.putByte(CompoundTagKeys.SPRUNG, this.sprung);
     tag.putByte(CompoundTagKeys.LOCKED, this.locked);
     tag.put(CompoundTagKeys.SPRINGING_CARTS, this.springingCarts.stream()
@@ -260,8 +261,8 @@ public abstract class SwitchTrackBlockEntity extends BlockEntity {
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     this.sprung = tag.getByte(CompoundTagKeys.SPRUNG);
     this.locked = tag.getByte(CompoundTagKeys.LOCKED);
     this.springingCarts = tag.getList(CompoundTagKeys.SPRINGING_CARTS, Tag.TAG_INT_ARRAY)

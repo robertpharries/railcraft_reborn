@@ -61,8 +61,8 @@ public class LauncherTrackBlockEntity extends RailcraftBlockEntity {
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     this.launchForce = tag.getByte(CompoundTagKeys.LAUNCH_FORCE);
   }
 

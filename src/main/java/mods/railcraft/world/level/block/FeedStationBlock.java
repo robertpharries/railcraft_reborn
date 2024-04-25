@@ -58,8 +58,8 @@ public class FeedStationBlock extends BaseEntityBlock implements JeiSearchable {
   }
 
   @Override
-  public InteractionResult use(BlockState blockState, Level level, BlockPos pos,
-      Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
+  protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos pos,
+      Player player, BlockHitResult rayTraceResult) {
     if (player instanceof ServerPlayer serverPlayer) {
       level.getBlockEntity(pos, RailcraftBlockEntityTypes.FEED_STATION.get())
           .ifPresent(blockEntity -> serverPlayer.openMenu(blockEntity, pos));

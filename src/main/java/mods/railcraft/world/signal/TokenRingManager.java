@@ -6,6 +6,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import mods.railcraft.api.core.CompoundTagKeys;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
@@ -25,7 +26,7 @@ public class TokenRingManager extends SavedData {
     this.level = level;
   }
 
-  private void load(CompoundTag tag) {
+  private void load(CompoundTag tag, HolderLookup.Provider provider) {
     var tokenRingList = tag.getList(CompoundTagKeys.TOKEN_RINGS, Tag.TAG_COMPOUND);
     for (int i = 0; i < tokenRingList.size(); i++) {
       var entry = tokenRingList.getCompound(i);
@@ -48,7 +49,7 @@ public class TokenRingManager extends SavedData {
   }
 
   @Override
-  public CompoundTag save(CompoundTag tag) {
+  public CompoundTag save(CompoundTag tag, HolderLookup.Provider provider) {
     var tokenRingList = new ListTag();
     for (var tokenRing : tokenRings.values()) {
       var tokenData = new CompoundTag();
@@ -89,9 +90,9 @@ public class TokenRingManager extends SavedData {
 
   public static TokenRingManager get(ServerLevel level) {
     return level.getDataStorage()
-        .computeIfAbsent(new SavedData.Factory<>(() -> new TokenRingManager(level), tag -> {
+        .computeIfAbsent(new SavedData.Factory<>(() -> new TokenRingManager(level), (tag, provider) -> {
           var manager = new TokenRingManager(level);
-          manager.load(tag);
+          manager.load(tag, provider);
           return manager;
         }), DATA_TAG);
   }

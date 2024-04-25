@@ -263,8 +263,8 @@ public abstract class ItemManipulatorBlockEntity extends ManipulatorBlockEntity
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     this.transferMode = TransferMode.fromName(tag.getString(CompoundTagKeys.TRANSFER_MODE));
     this.getItemFilters().fromTag(tag.getList(CompoundTagKeys.ITEM_FILTERS, Tag.TAG_COMPOUND));
   }

@@ -20,7 +20,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -90,11 +89,9 @@ public abstract class MultiblockBlockEntity<T extends MultiblockBlockEntity<T, M
    * Invoked from {@link MultiblockBlock} on master blocks.
    *
    * @param player - the player interacting with the block
-   * @param hand - the hand used to interact
-   *
    * @return the result
    */
-  public InteractionResult use(ServerPlayer player, InteractionHand hand) {
+  public InteractionResult use(ServerPlayer player) {
     player.openMenu(this, this.getBlockPos());
     return InteractionResult.CONSUME;
   }
@@ -266,8 +263,8 @@ public abstract class MultiblockBlockEntity<T extends MultiblockBlockEntity<T, M
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     if (tag.getBoolean(CompoundTagKeys.MASTER)) {
       this.enqueueEvaluation();
     }

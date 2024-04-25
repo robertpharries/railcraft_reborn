@@ -50,8 +50,8 @@ public abstract class ActionSignalBoxBlockEntity extends LockableSignalBoxBlockE
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     var actionAspectsTag = tag.getList(CompoundTagKeys.ACTION_SIGNAL_ASPECTS, Tag.TAG_STRING);
     this.actionSignalAspects.clear();
     for (var aspectTag : actionAspectsTag) {

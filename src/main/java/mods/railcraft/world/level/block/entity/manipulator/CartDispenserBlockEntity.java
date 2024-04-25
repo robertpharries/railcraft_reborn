@@ -129,8 +129,8 @@ public class CartDispenserBlockEntity extends ManipulatorBlockEntity implements 
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     this.powered = tag.getBoolean(CompoundTagKeys.POWERED);
     this.timeSinceLastSpawn = tag.getInt(CompoundTagKeys.TIME_SINCE_LAST_SPAWN);
   }

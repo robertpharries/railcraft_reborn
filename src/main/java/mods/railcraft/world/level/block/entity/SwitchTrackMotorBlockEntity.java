@@ -81,7 +81,7 @@ public class SwitchTrackMotorBlockEntity extends LockableSwitchTrackActuatorBloc
   @Override
   protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     super.saveAdditional(tag, provider);
-    tag.put(CompoundTagKeys.SIGNAL_RECEIVER, this.signalReceiver.serializeNBT());
+    tag.put(CompoundTagKeys.SIGNAL_RECEIVER, this.signalReceiver.serializeNBT(provider));
     var actionAspectsTag = new ListTag();
     this.actionSignalAspects
         .forEach(aspect -> actionAspectsTag.add(StringTag.valueOf(aspect.getSerializedName())));
@@ -90,9 +90,9 @@ public class SwitchTrackMotorBlockEntity extends LockableSwitchTrackActuatorBloc
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
-    this.signalReceiver.deserializeNBT(tag.getCompound(CompoundTagKeys.SIGNAL_RECEIVER));
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
+    this.signalReceiver.deserializeNBT(provider, tag.getCompound(CompoundTagKeys.SIGNAL_RECEIVER));
     var actionAspectsTag = tag.getList(CompoundTagKeys.ACTION_SIGNAL_ASPECTS, Tag.TAG_STRING);
     this.actionSignalAspects.clear();
     for (var aspectTag : actionAspectsTag) {

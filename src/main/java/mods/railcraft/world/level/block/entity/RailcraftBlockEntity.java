@@ -148,23 +148,25 @@ public abstract class RailcraftBlockEntity extends BlockEntity
       tag.put(CompoundTagKeys.OWNER, ownerTag);
     }
     if (this.customName != null) {
-      tag.putString(CompoundTagKeys.CUSTOM_NAME, Component.Serializer.toJson(this.customName));
+      tag.putString(CompoundTagKeys.CUSTOM_NAME,
+          Component.Serializer.toJson(this.customName, provider));
     }
 
-    tag.put(CompoundTagKeys.MODULES, this.moduleDispatcher.serializeNBT());
+    tag.put(CompoundTagKeys.MODULES, this.moduleDispatcher.serializeNBT(provider));
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     if (tag.contains(CompoundTagKeys.OWNER, Tag.TAG_COMPOUND)) {
       this.owner = NbtUtils.readGameProfile(tag.getCompound(CompoundTagKeys.OWNER));
     }
     if (tag.contains(CompoundTagKeys.CUSTOM_NAME, Tag.TAG_STRING)) {
-      this.customName = Component.Serializer.fromJson(tag.getString(CompoundTagKeys.CUSTOM_NAME));
+      this.customName =
+          Component.Serializer.fromJson(tag.getString(CompoundTagKeys.CUSTOM_NAME), provider);
     }
 
-    this.moduleDispatcher.deserializeNBT(tag.getCompound(CompoundTagKeys.MODULES));
+    this.moduleDispatcher.deserializeNBT(provider, tag.getCompound(CompoundTagKeys.MODULES));
   }
 
   public final int getX() {

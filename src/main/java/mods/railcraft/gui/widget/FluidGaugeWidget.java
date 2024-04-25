@@ -28,7 +28,7 @@ public class FluidGaugeWidget extends Widget {
     syncCounter++;
     return (syncCounter % 16) == 0
         || (!this.lastSyncedFluidStack.isEmpty()
-            && !this.lastSyncedFluidStack.isFluidStackIdentical(tank.getFluid()));
+            && !FluidStack.matches(this.lastSyncedFluidStack, tank.getFluid()));
   }
 
   @Override

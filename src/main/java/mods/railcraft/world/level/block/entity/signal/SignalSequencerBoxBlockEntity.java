@@ -138,8 +138,8 @@ public class SignalSequencerBoxBlockEntity extends AbstractSignalBoxBlockEntity 
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     this.outputDirection = Direction.byName(tag.getString(CompoundTagKeys.OUTPUT_DIRECTION));
     this.powered = tag.getBoolean(CompoundTagKeys.POWERED);
     this.neighborSignal = tag.getBoolean(CompoundTagKeys.NEIGHBOR_SIGNAL);

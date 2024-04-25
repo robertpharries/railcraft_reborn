@@ -109,8 +109,8 @@ public class TankDetectorBlockEntity extends FilterDetectorBlockEntity {
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     this.mode = Mode.fromName(tag.getString(CompoundTagKeys.MODE));
   }
 

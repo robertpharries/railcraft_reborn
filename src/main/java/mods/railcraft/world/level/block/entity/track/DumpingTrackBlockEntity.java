@@ -139,16 +139,16 @@ public class DumpingTrackBlockEntity extends RailcraftBlockEntity implements Men
   @Override
   protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     super.saveAdditional(tag, provider);
-    tag.put(CompoundTagKeys.CART_FILTER, this.cartFilter.createTag());
-    tag.put(CompoundTagKeys.ITEM_FILTER, this.itemFilter.createTag());
+    tag.put(CompoundTagKeys.CART_FILTER, this.cartFilter.createTag(provider));
+    tag.put(CompoundTagKeys.ITEM_FILTER, this.itemFilter.createTag(provider));
     tag.putInt(CompoundTagKeys.TICKS_SINCE_LAST_DROP, this.ticksSinceLastDrop);
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
-    this.cartFilter.fromTag(tag.getList(CompoundTagKeys.CART_FILTER, Tag.TAG_COMPOUND));
-    this.itemFilter.fromTag(tag.getList(CompoundTagKeys.ITEM_FILTER, Tag.TAG_COMPOUND));
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
+    this.cartFilter.fromTag(tag.getList(CompoundTagKeys.CART_FILTER, Tag.TAG_COMPOUND), provider);
+    this.itemFilter.fromTag(tag.getList(CompoundTagKeys.ITEM_FILTER, Tag.TAG_COMPOUND), provider);
     this.ticksSinceLastDrop = tag.getInt(CompoundTagKeys.TICKS_SINCE_LAST_DROP);
   }
 

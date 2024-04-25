@@ -45,8 +45,8 @@ public abstract class ManipulatorBlock<T extends ManipulatorBlockEntity> extends
   }
 
   @Override
-  public InteractionResult use(BlockState blockState, Level level,
-      BlockPos blockPos, Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
+  protected InteractionResult useWithoutItem(BlockState blockState, Level level,
+      BlockPos blockPos, Player player, BlockHitResult rayTraceResult) {
     if (player instanceof ServerPlayer serverPlayer) {
       var blockEntity = level.getBlockEntity(blockPos);
       if (!this.blockEntityType.isInstance(blockEntity)) {

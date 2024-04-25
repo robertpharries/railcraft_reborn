@@ -138,8 +138,8 @@ public class SignalCapacitorBoxBlockEntity extends AbstractSignalBoxBlockEntity 
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     this.ticksPowered = tag.getShort(CompoundTagKeys.TICKS_POWERED);
     this.ticksToPower = tag.getShort(CompoundTagKeys.TICKS_TO_POWER);
     this.signalAspect =

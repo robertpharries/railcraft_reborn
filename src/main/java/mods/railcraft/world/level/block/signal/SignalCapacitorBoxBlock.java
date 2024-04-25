@@ -42,8 +42,8 @@ public class SignalCapacitorBoxBlock extends SignalBoxBlock implements EntityBlo
   }
 
   @Override
-  public InteractionResult use(BlockState blockState, Level level, BlockPos pos,
-      Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
+  protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos pos,
+      Player player, BlockHitResult rayTraceResult) {
     if (level.isClientSide()) {
       level.getBlockEntity(pos, RailcraftBlockEntityTypes.SIGNAL_CAPACITOR_BOX.get())
           .ifPresent(ScreenFactories::openSignalCapacitorBoxScreen);

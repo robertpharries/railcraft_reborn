@@ -20,7 +20,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -69,11 +68,11 @@ public class SteamBoilerBlockEntity
   }
 
   @Override
-  public InteractionResult use(ServerPlayer player, InteractionHand hand) {
+  public InteractionResult use(ServerPlayer player) {
     return FluidUtil.interactWithFluidHandler(player, hand,
         this.getModule(SteamBoilerModule.class).get().getTankManager())
             ? InteractionResult.CONSUME
-            : super.use(player, hand);
+            : super.use(player);
   }
 
   public IItemHandler getItemCap(Direction side) {

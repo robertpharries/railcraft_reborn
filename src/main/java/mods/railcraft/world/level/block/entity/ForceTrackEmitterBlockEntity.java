@@ -218,7 +218,7 @@ public class ForceTrackEmitterBlockEntity extends RailcraftBlockEntity implement
   }
 
   @Override
-  public void load(CompoundTag tag) {
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     this.trackCount = tag.getInt(CompoundTagKeys.TRACK_COUNT);
     ForceTrackEmitterState.fromName(tag.getString(CompoundTagKeys.STATE))
         .ifPresent(this::loadState);

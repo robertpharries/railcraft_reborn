@@ -248,8 +248,7 @@ public class PostBlock extends Block implements SimpleWaterloggedBlock {
 
 
   @Override
-  public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos,
-      PathComputationType pathType) {
+  public boolean isPathfindable(BlockState state, PathComputationType pathType) {
     return false;
   }
 

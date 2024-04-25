@@ -27,8 +27,8 @@ public class SwitchTrackLeverBlock extends SwitchTrackActuatorBlock implements E
   }
 
   @Override
-  public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos,
-      Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
+  protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos,
+      Player player, BlockHitResult rayTraceResult) {
     setSwitched(blockState, level, blockPos, !blockState.getValue(SWITCHED));
     return InteractionResult.sidedSuccess(level.isClientSide());
   }

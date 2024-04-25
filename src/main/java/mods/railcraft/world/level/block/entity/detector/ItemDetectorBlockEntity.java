@@ -108,8 +108,8 @@ public class ItemDetectorBlockEntity extends FilterDetectorBlockEntity {
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     this.primaryMode = PrimaryMode.fromName(tag.getString(CompoundTagKeys.PRIMARY_MODE));
     this.filterMode = FilterMode.fromName(tag.getString(CompoundTagKeys.FILTER_MODE));
   }

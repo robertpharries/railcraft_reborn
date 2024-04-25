@@ -69,7 +69,7 @@ public abstract class TankGaugeBlock extends AbstractStrengthenedGlassBlock impl
         .flatMap(MultiblockBlockEntity::getMembership)
         .map(MultiblockBlockEntity.Membership::master)
         .map(master -> {
-          master.use((ServerPlayer) player, hand);
+          master.use((ServerPlayer) player);
           return InteractionResult.CONSUME;
         })
         .orElse(InteractionResult.PASS);

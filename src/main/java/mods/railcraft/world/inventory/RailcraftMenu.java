@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.function.Predicate;
 import io.netty.buffer.Unpooled;
 import mods.railcraft.gui.widget.Widget;
-import mods.railcraft.network.PacketHandler;
 import mods.railcraft.network.to_client.SyncWidgetMessage;
 import mods.railcraft.world.inventory.slot.RailcraftSlot;
 import net.minecraft.network.FriendlyByteBuf;
@@ -17,6 +16,7 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public abstract class RailcraftMenu extends AbstractContainerMenu {
 
@@ -78,7 +78,7 @@ public abstract class RailcraftMenu extends AbstractContainerMenu {
       try {
         widget.writeToBuf(player, byteBuf);
         var message = new SyncWidgetMessage(this.containerId, widget.getId(), byteBuf.array());
-        PacketHandler.sendTo(player, message);
+        PacketDistributor.sendToPlayer(player, message);
       } finally {
         byteBuf.release();
       }
@@ -163,7 +163,7 @@ public abstract class RailcraftMenu extends AbstractContainerMenu {
       for (int i = 0; !itemStack.isEmpty() && i < endIndex; i++) {
         var slot = this.slots.get(i);
         var stackInSlot = slot.getItem();
-        if (!stackInSlot.isEmpty() && ItemStack.isSameItemSameTags(itemStack, stackInSlot)) {
+        if (!stackInSlot.isEmpty() && ItemStack.isSameItemSameComponents(itemStack, stackInSlot)) {
           int j = stackInSlot.getCount() + itemStack.getCount();
           int maxSize = Math.min(slot.getMaxStackSize(), itemStack.getMaxStackSize());
           if (j <= maxSize) {

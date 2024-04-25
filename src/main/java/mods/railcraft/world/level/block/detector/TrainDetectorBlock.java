@@ -38,8 +38,8 @@ public class TrainDetectorBlock extends DetectorBlock {
   }
 
   @Override
-  public InteractionResult use(BlockState blockState, Level level, BlockPos pos,
-      Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
+  protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos pos,
+      Player player, BlockHitResult rayTraceResult) {
     if (level.isClientSide()) {
       level.getBlockEntity(pos, RailcraftBlockEntityTypes.TRAIN_DETECTOR.get())
           .ifPresent(ScreenFactories::openTrainDetectorScreen);

@@ -263,8 +263,8 @@ public class LockingTrackBlockEntity extends RailcraftBlockEntity implements Loc
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     this.lockingModeController =
         LockingTrackBlock.getLockingMode(this.getBlockState()).create(this);
     this.lockingModeController.deserializeNBT(tag.getCompound(CompoundTagKeys.LOCKING_MODE_CONTROLLER));

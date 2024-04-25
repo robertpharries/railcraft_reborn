@@ -194,17 +194,19 @@ public class RitualBlockEntity extends RailcraftBlockEntity {
     tag.putShort(CompoundTagKeys.CHARGE, (short) this.charge);
     tag.putByte(CompoundTagKeys.REBUILD_DELAY, (byte) this.rebuildDelay);
     if (this.itemName != null) {
-      tag.putString(CompoundTagKeys.ITEM_NAME, Component.Serializer.toJson(this.itemName));
+      tag.putString(CompoundTagKeys.ITEM_NAME,
+          Component.Serializer.toJson(this.itemName, provider));
     }
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     this.charge = tag.getShort(CompoundTagKeys.CHARGE);
     this.rebuildDelay = tag.getByte(CompoundTagKeys.REBUILD_DELAY);
     if (tag.contains(CompoundTagKeys.ITEM_NAME, Tag.TAG_STRING)) {
-      this.itemName = Component.Serializer.fromJson(tag.getString(CompoundTagKeys.ITEM_NAME));
+      this.itemName =
+          Component.Serializer.fromJson(tag.getString(CompoundTagKeys.ITEM_NAME), provider);
     }
   }
 }

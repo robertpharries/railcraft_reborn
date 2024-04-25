@@ -2,6 +2,7 @@ package mods.railcraft.world.level.block.entity.multiblock;
 
 import com.google.common.primitives.Ints;
 import mods.railcraft.world.level.gameevent.RailcraftGameEvents;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.gameevent.BlockPositionSource;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -40,9 +41,9 @@ public class MultiblockListener implements GameEventListener {
   }
 
   @Override
-  public boolean handleGameEvent(ServerLevel serverLevel, GameEvent gameEvent,
+  public boolean handleGameEvent(ServerLevel serverLevel, Holder<GameEvent> gameEvent,
       GameEvent.Context context, Vec3 source) {
-    if (gameEvent.equals(RailcraftGameEvents.NEIGHBOR_NOTIFY.get())) {
+    if (gameEvent.is(RailcraftGameEvents.NEIGHBOR_NOTIFY)) {
       // Can't check immediately as these events are fired before the blocks are actually changed.
       this.blockEntity.enqueueEvaluation();
     }

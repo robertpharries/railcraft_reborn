@@ -59,15 +59,17 @@ public class BlockSignalRelayBoxBlockEntity extends ActionSignalBoxBlockEntity
   @Override
   protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     super.saveAdditional(tag, provider);
-    tag.put(CompoundTagKeys.BLOCK_SIGNAL, this.blockSignal.serializeNBT());
-    tag.put(CompoundTagKeys.SIGNAL_CONTROLLER, this.signalController.serializeNBT());
+    tag.put(CompoundTagKeys.BLOCK_SIGNAL, this.blockSignal.serializeNBT(provider));
+    tag.put(CompoundTagKeys.SIGNAL_CONTROLLER, this.signalController.serializeNBT(provider));
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
-    this.blockSignal.deserializeNBT(tag.getCompound(CompoundTagKeys.BLOCK_SIGNAL));
-    this.signalController.deserializeNBT(tag.getCompound(CompoundTagKeys.SIGNAL_CONTROLLER));
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
+    this.blockSignal
+        .deserializeNBT(provider, tag.getCompound(CompoundTagKeys.BLOCK_SIGNAL));
+    this.signalController
+        .deserializeNBT(provider, tag.getCompound(CompoundTagKeys.SIGNAL_CONTROLLER));
   }
 
   @Override

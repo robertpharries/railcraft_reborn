@@ -115,17 +115,18 @@ public class SignalControllerBoxBlockEntity extends AbstractSignalBoxBlockEntity
     super.saveAdditional(tag, provider);
     tag.putString(CompoundTagKeys.DEFAULT_ASPECT, this.defaultAspect.getSerializedName());
     tag.putString(CompoundTagKeys.POWERED_ASPECT, this.poweredAspect.getSerializedName());
-    tag.put(CompoundTagKeys.SIGNAL_CONTROLLER, this.signalController.serializeNBT());
+    tag.put(CompoundTagKeys.SIGNAL_CONTROLLER, this.signalController.serializeNBT(provider));
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     this.defaultAspect =
         SignalAspect.fromName(tag.getString(CompoundTagKeys.DEFAULT_ASPECT)).orElse(SignalAspect.GREEN);
     this.poweredAspect =
         SignalAspect.fromName(tag.getString(CompoundTagKeys.POWERED_ASPECT)).orElse(SignalAspect.RED);
-    this.signalController.deserializeNBT(tag.getCompound(CompoundTagKeys.SIGNAL_CONTROLLER));
+    this.signalController
+        .deserializeNBT(provider, tag.getCompound(CompoundTagKeys.SIGNAL_CONTROLLER));
   }
 
   @Override

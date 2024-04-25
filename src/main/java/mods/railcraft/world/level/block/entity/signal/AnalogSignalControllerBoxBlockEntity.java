@@ -135,12 +135,12 @@ public class AnalogSignalControllerBoxBlockEntity extends AbstractSignalBoxBlock
     }
     tag.put(CompoundTagKeys.SIGNAL_ASPECT_TRIGGER_SIGNALS, aspectsTag);
 
-    tag.put(CompoundTagKeys.SIGNAL_CONTROLLER, this.signalController.serializeNBT());
+    tag.put(CompoundTagKeys.SIGNAL_CONTROLLER, this.signalController.serializeNBT(provider));
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     this.inputSignal = tag.getInt(CompoundTagKeys.INPUT_SIGNAL);
 
     var aspectsTag = tag.getList(CompoundTagKeys.SIGNAL_ASPECT_TRIGGER_SIGNALS, Tag.TAG_COMPOUND);
@@ -151,7 +151,8 @@ public class AnalogSignalControllerBoxBlockEntity extends AbstractSignalBoxBlock
           BitSet.valueOf(compoundNbt.getByteArray(CompoundTagKeys.SIGNALS)));
     }
 
-    this.signalController.deserializeNBT(tag.getCompound(CompoundTagKeys.SIGNAL_CONTROLLER));
+    this.signalController
+        .deserializeNBT(provider, tag.getCompound(CompoundTagKeys.SIGNAL_CONTROLLER));
   }
 
   @Override

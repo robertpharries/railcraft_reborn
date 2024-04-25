@@ -123,13 +123,14 @@ public class TrainDispenserBlockEntity extends CartDispenserBlockEntity {
   @Override
   protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     super.saveAdditional(tag, provider);
-    tag.put(CompoundTagKeys.TRAIN_DISPENSER_FILTERS, this.invPattern.createTag());
+    tag.put(CompoundTagKeys.TRAIN_DISPENSER_FILTERS, this.invPattern.createTag(provider));
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
-    this.invPattern.fromTag(tag.getList(CompoundTagKeys.TRAIN_DISPENSER_FILTERS, Tag.TAG_COMPOUND));
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
+    this.invPattern.fromTag(
+        tag.getList(CompoundTagKeys.TRAIN_DISPENSER_FILTERS, Tag.TAG_COMPOUND), provider);
   }
 
   @Nullable

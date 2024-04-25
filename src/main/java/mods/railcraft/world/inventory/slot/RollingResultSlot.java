@@ -36,7 +36,7 @@ public class RollingResultSlot extends ResultSlot {
         if (itemstack.isEmpty()) {
           this.craftSlots.setItem(i, itemstack1);
         } else if (ItemStack.isSameItem(itemstack, itemstack1)
-            && ItemStack.isSameItemSameTags(itemstack, itemstack1)) {
+            && ItemStack.isSameItemSameComponents(itemstack, itemstack1)) {
           itemstack1.grow(itemstack.getCount());
           this.craftSlots.setItem(i, itemstack1);
         } else if (!this.player.getInventory().add(itemstack1)) {

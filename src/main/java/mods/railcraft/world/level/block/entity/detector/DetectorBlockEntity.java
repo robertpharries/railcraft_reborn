@@ -72,8 +72,8 @@ public abstract class DetectorBlockEntity extends RailcraftBlockEntity {
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     this.powerState = tag.getInt(CompoundTagKeys.POWER_STATE);
     this.powerDelay = tag.getInt(CompoundTagKeys.POWER_DELAY);
   }

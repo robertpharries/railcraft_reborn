@@ -102,8 +102,8 @@ public class RoutingDetectorBlockEntity extends SecureDetectorBlockEntity implem
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     this.container.fromTag(tag.getList(CompoundTagKeys.CONTAINER, Tag.TAG_COMPOUND));
     this.railway = Railway.fromName(tag.getString(CompoundTagKeys.RAILWAY));
     this.powered = tag.getBoolean(CompoundTagKeys.POWERED);

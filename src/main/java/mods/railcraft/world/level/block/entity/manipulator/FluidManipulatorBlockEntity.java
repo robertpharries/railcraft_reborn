@@ -52,8 +52,8 @@ public abstract class FluidManipulatorBlockEntity extends ManipulatorBlockEntity
     super(type, blockPos, blockState);
     this.setContainerSize(3);
     this.tankManager.add(this.tank);
-    this.tank.setValidator(
-        fluidStack -> this.getFilterFluid().map(fluidStack::isFluidEqual).orElse(true));
+    this.tank.setValidator(fluidStack -> this.getFilterFluid()
+        .map(x -> FluidStack.isSameFluidSameComponents(x, fluidStack)).orElse(true));
     this.tank.changeCallback(this::tankChanged);
   }
 
@@ -153,13 +153,13 @@ public abstract class FluidManipulatorBlockEntity extends ManipulatorBlockEntity
   protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     super.saveAdditional(tag, provider);
     tag.putString(CompoundTagKeys.PROCESS_STATE, this.processState.getSerializedName());
-    tag.put(CompoundTagKeys.TANK_MANAGER, this.tankManager.serializeNBT());
-    tag.put(CompoundTagKeys.INV_FILTER, this.getFluidFilter().createTag());
+    tag.put(CompoundTagKeys.TANK_MANAGER, this.tankManager.serializeNBT(provider));
+    tag.put(CompoundTagKeys.INV_FILTER, this.getFluidFilter().createTag(provider));
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     this.processState = FluidTools.ProcessState.fromTag(tag);
     this.tankManager.deserializeNBT(tag.getList(CompoundTagKeys.TANK_MANAGER, Tag.TAG_COMPOUND));
     this.getFluidFilter().fromTag(tag.getList(CompoundTagKeys.INV_FILTER, Tag.TAG_COMPOUND));

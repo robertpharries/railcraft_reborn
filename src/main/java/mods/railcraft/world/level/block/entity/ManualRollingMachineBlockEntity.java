@@ -59,8 +59,8 @@ public class ManualRollingMachineBlockEntity extends RailcraftBlockEntity implem
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     this.container.fromTag(tag.getList(CompoundTagKeys.CONTAINER, Tag.TAG_COMPOUND));
     ContainerTools.readContainer(this.craftMatrix,
         tag.getList(CompoundTagKeys.CRAFT_MATRIX, Tag.TAG_COMPOUND));

@@ -95,8 +95,8 @@ public class FeedStationBlockEntity extends ContainerBlockEntity implements Menu
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    super.loadAdditional(tag, provider);
     this.feedCounter = tag.getByte(CompoundTagKeys.FEED_COUNTER);
   }
 

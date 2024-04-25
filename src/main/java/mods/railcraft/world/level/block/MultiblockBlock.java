@@ -7,7 +7,6 @@ import mods.railcraft.world.level.block.entity.multiblock.MultiblockListener;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -38,9 +37,8 @@ public abstract class MultiblockBlock extends BaseEntityBlock {
   }
 
   @Override
-  public InteractionResult use(BlockState blockState, Level level,
-      BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
-
+  protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos pos,
+      Player player, BlockHitResult rayTraceResult) {
     if (level.isClientSide()) {
       return InteractionResult.SUCCESS;
     }
@@ -49,7 +47,7 @@ public abstract class MultiblockBlock extends BaseEntityBlock {
         .map(blockEntity -> (MultiblockBlockEntity<?, ?>) blockEntity)
         .flatMap(MultiblockBlockEntity::getMembership)
         .map(MultiblockBlockEntity.Membership::master)
-        .map(master -> master.use((ServerPlayer) player, hand))
+        .map(master -> master.use((ServerPlayer) player))
         .orElse(InteractionResult.PASS);
   }
 }

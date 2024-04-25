@@ -135,8 +135,7 @@ public class GatedTrackBlock extends ReversiblePoweredOutfittedTrackBlock {
   }
 
   @Override
-  public boolean isPathfindable(BlockState blockState, BlockGetter level,
-      BlockPos pos, PathComputationType type) {
+  public boolean isPathfindable(BlockState blockState, PathComputationType type) {
     return switch (type) {
       case LAND, AIR -> blockState.getValue(OPEN);
       case WATER -> false;

@@ -33,7 +33,7 @@ public class CreosoteLiquidBlock extends LiquidBlock {
   @Override
   public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
     if (entity instanceof LivingEntity living) {
-      var potion = RailcraftMobEffects.CREOSOTE.get();
+      var potion = RailcraftMobEffects.CREOSOTE;
       if (!living.hasEffect(potion)) {
         living.addEffect(new MobEffectInstance(potion, 100, 0));
       }

@@ -398,7 +398,7 @@ public class RailcraftBlockLoot extends BlockLootSubProvider {
         LootItem
             .lootTableItem(item)
             .apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max)))
-            .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
+            .apply(ApplyBonusCount.addOreBonusCount(Enchantments.FORTUNE))));
   }
 
   @Override

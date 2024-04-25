@@ -1166,7 +1166,7 @@ public class RailcraftRecipeProvider extends RecipeProvider implements IConditio
         .define('a', Tags.Items.GLASS_PANES)
         .define('b', RailcraftItems.RECEIVER_CIRCUIT.get())
         .define('c', RailcraftTags.Items.STEEL_INGOT)
-        .define('d', Tags.Items.LEATHER)
+        .define('d', Tags.Items.LEATHERS)
         .unlockedBy(getHasName(RailcraftItems.STEEL_INGOT.get()),
             has(RailcraftTags.Items.STEEL_INGOT))
         .unlockedBy(getHasName(RailcraftItems.RECEIVER_CIRCUIT.get()),
@@ -1690,7 +1690,7 @@ public class RailcraftRecipeProvider extends RecipeProvider implements IConditio
           .pattern("aba")
           .pattern("aca")
           .pattern("ada")
-          .define('a', Tags.Items.GLASS)
+          .define('a', Tags.Items.GLASS_BLOCKS)
           .define('b', ingredient.getValue())
           .define('c', RailcraftItems.SALTPETER_DUST.get())
           .define('d', Items.WATER_BUCKET)

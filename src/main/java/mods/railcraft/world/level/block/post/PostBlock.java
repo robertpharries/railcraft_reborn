@@ -13,7 +13,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.LeadItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -143,13 +145,17 @@ public class PostBlock extends Block implements SimpleWaterloggedBlock {
   }
 
   @Override
-  public InteractionResult use(BlockState blockState, Level level, BlockPos pos,
-      Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
+  protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState state,
+      Level level, BlockPos pos, Player player, InteractionHand hand,
+      BlockHitResult rayTraceResult) {
     if (level.isClientSide()) {
-      var itemStack = player.getItemInHand(hand);
-      return itemStack.is(Items.LEAD) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+      return itemStack.is(Items.LEAD)
+          ? ItemInteractionResult.SUCCESS
+          : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     } else {
-      return LeadItem.bindPlayerMobs(player, level, pos);
+      return LeadItem.bindPlayerMobs(player, level, pos) == InteractionResult.SUCCESS
+          ? ItemInteractionResult.SUCCESS
+          : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
   }
 

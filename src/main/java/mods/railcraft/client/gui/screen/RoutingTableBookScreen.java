@@ -39,6 +39,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.util.StringUtil;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -298,7 +299,7 @@ public class RoutingTableBookScreen extends Screen {
       } else {
         return false;
       }
-    } else if (SharedConstants.isAllowedChatCharacter(codePoint)) {
+    } else if (StringUtil.isAllowedChatCharacter(codePoint)) {
       this.pageEdit.insertText(Character.toString(codePoint));
       this.clearDisplayCache();
       return true;

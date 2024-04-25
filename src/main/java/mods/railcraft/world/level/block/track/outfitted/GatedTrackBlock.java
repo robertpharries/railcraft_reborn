@@ -13,6 +13,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.item.Item;
@@ -186,23 +187,21 @@ public class GatedTrackBlock extends ReversiblePoweredOutfittedTrackBlock {
   }
 
   @Override
-  public InteractionResult use(BlockState blockState, Level level, BlockPos pos,
-      Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
-    var result = super.use(blockState, level, pos, player, hand, rayTraceResult);
+  protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState state, Level level,
+      BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
+    var result = super.useItemOn(itemStack, state, level, pos, player, hand, rayTraceResult);
     if (result.consumesAction()) {
       return result;
     }
-
     if (!level.isClientSide()) {
-      boolean open = !isOpen(blockState);
-      level.setBlockAndUpdate(pos, blockState.setValue(OPEN, open));
+      boolean open = !isOpen(state);
+      level.setBlockAndUpdate(pos, state.setValue(OPEN, open));
       level.playSound(null, pos, open
               ? SoundEvents.FENCE_GATE_OPEN
               : SoundEvents.FENCE_GATE_CLOSE, SoundSource.BLOCKS, 1,
           level.getRandom().nextFloat() * 0.1F + 0.9F);
     }
-
-    return InteractionResult.sidedSuccess(level.isClientSide());
+    return ItemInteractionResult.sidedSuccess(level.isClientSide());
   }
 
   @Override

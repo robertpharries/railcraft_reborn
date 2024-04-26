@@ -249,7 +249,7 @@ public class LockingTrackBlockEntity extends RailcraftBlockEntity implements Loc
   @Override
   protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     super.saveAdditional(tag, provider);
-    tag.put(CompoundTagKeys.LOCKING_MODE_CONTROLLER, this.lockingModeController.serializeNBT());
+    tag.put(CompoundTagKeys.LOCKING_MODE_CONTROLLER, this.lockingModeController.serializeNBT(provider));
     tag.putBoolean(CompoundTagKeys.LOCKED, this.locked);
     tag.putBoolean(CompoundTagKeys.TRAIN_LEAVING, this.trainLeaving);
     tag.putInt(CompoundTagKeys.TRAIN_DELAY, this.trainDelay);
@@ -267,7 +267,8 @@ public class LockingTrackBlockEntity extends RailcraftBlockEntity implements Loc
     super.loadAdditional(tag, provider);
     this.lockingModeController =
         LockingTrackBlock.getLockingMode(this.getBlockState()).create(this);
-    this.lockingModeController.deserializeNBT(tag.getCompound(CompoundTagKeys.LOCKING_MODE_CONTROLLER));
+    this.lockingModeController.deserializeNBT(provider,
+        tag.getCompound(CompoundTagKeys.LOCKING_MODE_CONTROLLER));
     this.locked = tag.getBoolean(CompoundTagKeys.LOCKED);
     this.trainLeaving = tag.getBoolean(CompoundTagKeys.TRAIN_LEAVING);
     this.trainDelay = tag.getInt(CompoundTagKeys.TRAIN_DELAY);

@@ -7,11 +7,15 @@ import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.api.util.EnumUtil;
 import mods.railcraft.network.PacketHandler;
 import mods.railcraft.network.to_server.UpdateAuraByKeyMessage;
+import mods.railcraft.world.item.component.AuraComponent;
+import mods.railcraft.world.item.component.RailcraftDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -23,6 +27,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 
 public class GogglesItem extends ArmorItem {
 
@@ -31,9 +36,8 @@ public class GogglesItem extends ArmorItem {
   }
 
   public static Aura getAura(ItemStack itemStack) {
-    var tag = itemStack.getTag();
-    if (tag != null && tag.contains(CompoundTagKeys.AURA)) {
-      return Aura.fromName(tag.getString(CompoundTagKeys.AURA));
+    if (itemStack.has(RailcraftDataComponents.AURA)) {
+      return itemStack.get(RailcraftDataComponents.AURA).aura();
     }
     return Aura.NONE;
   }
@@ -43,7 +47,7 @@ public class GogglesItem extends ArmorItem {
     if (aura == Aura.TRACKING) {
       aura.getNext();
     }
-    itemStack.getOrCreateTag().putString(CompoundTagKeys.AURA, aura.getSerializedName());
+    itemStack.set(RailcraftDataComponents.AURA, new AuraComponent(aura));
     return aura;
   }
 
@@ -99,9 +103,10 @@ public class GogglesItem extends ArmorItem {
     SURVEYING(Translations.Tips.GOGGLES_AURA_SURVEYING),
     WORLDSPIKE(Translations.Tips.GOGGLES_AURA_WORLDSPIKE);
 
-    private static final StringRepresentable.EnumCodec<Aura> CODEC =
+    public static final StringRepresentable.EnumCodec<Aura> CODEC =
         StringRepresentable.fromEnum(Aura::values);
-
+    public static final StreamCodec<FriendlyByteBuf, GogglesItem.Aura> STREAM_CODEC =
+        NeoForgeStreamCodecs.enumCodec(GogglesItem.Aura.class);
     private final String name;
     private final String translationKey;
 
@@ -121,10 +126,6 @@ public class GogglesItem extends ArmorItem {
 
     public Aura getNext() {
       return EnumUtil.next(this, values());
-    }
-
-    public static Aura fromName(String name) {
-      return CODEC.byName(name, NONE);
     }
   }
 }

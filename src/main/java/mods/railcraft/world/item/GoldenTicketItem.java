@@ -2,6 +2,7 @@ package mods.railcraft.world.item;
 
 import java.util.function.Predicate;
 import mods.railcraft.client.ScreenFactories;
+import mods.railcraft.world.item.component.RailcraftDataComponents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -25,9 +26,9 @@ public class GoldenTicketItem extends TicketItem {
   @Override
   public ItemStack getCraftingRemainingItem(ItemStack itemStack) {
     var newItemStack = new ItemStack(this);
-    var tag = itemStack.getTag();
-    if (tag != null) {
-      newItemStack.setTag(tag);
+    if (itemStack.has(RailcraftDataComponents.TICKET)) {
+      newItemStack.set(RailcraftDataComponents.TICKET,
+          itemStack.get(RailcraftDataComponents.TICKET));
     }
     return newItemStack;
   }

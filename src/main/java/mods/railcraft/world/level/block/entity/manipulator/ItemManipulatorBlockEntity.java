@@ -259,13 +259,13 @@ public abstract class ItemManipulatorBlockEntity extends ManipulatorBlockEntity
   protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     super.saveAdditional(tag, provider);
     tag.putString(CompoundTagKeys.TRANSFER_MODE, this.transferMode.getSerializedName());
-    tag.put(CompoundTagKeys.ITEM_FILTERS, this.getItemFilters().createTag());
+    tag.put(CompoundTagKeys.ITEM_FILTERS, this.getItemFilters().createTag(provider));
   }
 
   @Override
   public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     super.loadAdditional(tag, provider);
     this.transferMode = TransferMode.fromName(tag.getString(CompoundTagKeys.TRANSFER_MODE));
-    this.getItemFilters().fromTag(tag.getList(CompoundTagKeys.ITEM_FILTERS, Tag.TAG_COMPOUND));
+    this.getItemFilters().fromTag(tag.getList(CompoundTagKeys.ITEM_FILTERS, Tag.TAG_COMPOUND), provider);
   }
 }

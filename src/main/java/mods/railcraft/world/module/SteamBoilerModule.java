@@ -11,6 +11,7 @@ import mods.railcraft.world.level.block.steamboiler.FireboxBlock;
 import mods.railcraft.world.level.material.StandardTank;
 import mods.railcraft.world.level.material.TankManager;
 import mods.railcraft.world.level.material.steam.SteamBoiler;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
@@ -157,19 +158,20 @@ public abstract class SteamBoilerModule<T extends SteamBoilerBlockEntity>
   }
 
   @Override
-  public CompoundTag serializeNBT() {
-    var tag = super.serializeNBT();
-    tag.put(CompoundTagKeys.TANK_MANAGER, this.tankManager.serializeNBT());
-    tag.put(CompoundTagKeys.BOILER, this.boiler.serializeNBT());
+  public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+    var tag = super.serializeNBT(provider);
+    tag.put(CompoundTagKeys.TANK_MANAGER, this.tankManager.serializeNBT(provider));
+    tag.put(CompoundTagKeys.BOILER, this.boiler.serializeNBT(provider));
     tag.putString(CompoundTagKeys.PROCESS_STATE, this.processState.getSerializedName());
     return tag;
   }
 
   @Override
-  public void deserializeNBT(CompoundTag tag) {
-    super.deserializeNBT(tag);
-    this.tankManager.deserializeNBT(tag.getList(CompoundTagKeys.TANK_MANAGER, Tag.TAG_COMPOUND));
-    this.boiler.deserializeNBT(tag.getCompound(CompoundTagKeys.BOILER));
+  public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
+    super.deserializeNBT(provider, tag);
+    this.tankManager.deserializeNBT(provider,
+        tag.getList(CompoundTagKeys.TANK_MANAGER, Tag.TAG_COMPOUND));
+    this.boiler.deserializeNBT(provider, tag.getCompound(CompoundTagKeys.BOILER));
     this.processState = FluidTools.ProcessState.fromTag(tag);
   }
 }

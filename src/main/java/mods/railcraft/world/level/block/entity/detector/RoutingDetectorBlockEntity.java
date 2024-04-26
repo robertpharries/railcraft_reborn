@@ -104,7 +104,7 @@ public class RoutingDetectorBlockEntity extends SecureDetectorBlockEntity implem
   @Override
   public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     super.loadAdditional(tag, provider);
-    this.container.fromTag(tag.getList(CompoundTagKeys.CONTAINER, Tag.TAG_COMPOUND));
+    this.container.fromTag(tag.getList(CompoundTagKeys.CONTAINER, Tag.TAG_COMPOUND), provider);
     this.railway = Railway.fromName(tag.getString(CompoundTagKeys.RAILWAY));
     this.powered = tag.getBoolean(CompoundTagKeys.POWERED);
   }
@@ -112,7 +112,7 @@ public class RoutingDetectorBlockEntity extends SecureDetectorBlockEntity implem
   @Override
   public void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     super.saveAdditional(tag, provider);
-    tag.put(CompoundTagKeys.CONTAINER, this.container.createTag());
+    tag.put(CompoundTagKeys.CONTAINER, this.container.createTag(provider));
     tag.putString(CompoundTagKeys.RAILWAY, this.railway.getSerializedName());
     tag.putBoolean(CompoundTagKeys.POWERED, this.powered);
   }

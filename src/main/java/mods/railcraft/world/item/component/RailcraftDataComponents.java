@@ -49,4 +49,18 @@ public class RailcraftDataComponents {
               .persistent(LocomotiveEnergyComponent.CODEC)
               .networkSynchronized(LocomotiveEnergyComponent.STREAM_CODEC)
               .build());
+
+  public static final DeferredHolder<DataComponentType<?>, DataComponentType<TicketComponent>> TICKET =
+      deferredRegister.register("ticket", () ->
+          DataComponentType.<TicketComponent>builder()
+              .persistent(TicketComponent.CODEC)
+              .networkSynchronized(TicketComponent.STREAM_CODEC)
+              .build());
+
+  public static final DeferredHolder<DataComponentType<?>, DataComponentType<AuraComponent>> AURA =
+      deferredRegister.register("aura", () ->
+          DataComponentType.<AuraComponent>builder()
+              .persistent(AuraComponent.CODEC)
+              .networkSynchronized(AuraComponent.STREAM_CODEC)
+              .build());
 }

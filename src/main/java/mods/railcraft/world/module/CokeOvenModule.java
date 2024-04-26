@@ -143,7 +143,7 @@ public class CokeOvenModule extends CookingModule<CokeOvenRecipe, CokeOvenBlockE
   @Override
   public CompoundTag serializeNBT(HolderLookup.Provider provider) {
     var tag = super.serializeNBT(provider);
-    tag.put(CompoundTagKeys.TANK, this.tank.writeToNBT(new CompoundTag()));
+    tag.put(CompoundTagKeys.TANK, this.tank.writeToNBT(provider, new CompoundTag()));
     tag.putString(CompoundTagKeys.PROCESS_STATE, this.processState.getSerializedName());
     return tag;
   }
@@ -151,7 +151,7 @@ public class CokeOvenModule extends CookingModule<CokeOvenRecipe, CokeOvenBlockE
   @Override
   public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
     super.deserializeNBT(provider, tag);
-    this.tank.readFromNBT(tag.getCompound(CompoundTagKeys.TANK));
+    this.tank.readFromNBT(provider, tag.getCompound(CompoundTagKeys.TANK));
     this.processState = FluidTools.ProcessState.fromTag(tag);
   }
 }

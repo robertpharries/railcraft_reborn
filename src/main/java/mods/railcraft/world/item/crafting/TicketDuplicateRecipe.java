@@ -2,6 +2,7 @@ package mods.railcraft.world.item.crafting;
 
 import java.util.stream.IntStream;
 import mods.railcraft.world.item.RailcraftItems;
+import mods.railcraft.world.item.component.RailcraftDataComponents;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -50,9 +51,9 @@ public class TicketDuplicateRecipe extends CustomRecipe {
         .orElse(ItemStack.EMPTY);
     var result = getResultItem(provider);
     if (!source.isEmpty()) {
-      var nbt = source.getTag();
-      if (nbt != null)
-        result.setTag(nbt.copy());
+      if (source.has(RailcraftDataComponents.TICKET)) {
+        result.set(RailcraftDataComponents.TICKET, source.get(RailcraftDataComponents.TICKET));
+      }
     }
     return result;
   }

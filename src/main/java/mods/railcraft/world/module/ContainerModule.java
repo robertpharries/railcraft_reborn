@@ -32,13 +32,13 @@ public abstract class ContainerModule<T extends ModuleProvider> extends BaseModu
   @Override
   public CompoundTag serializeNBT(HolderLookup.Provider provider) {
     var tag = super.serializeNBT(provider);
-    tag.put(CompoundTagKeys.CONTAINER, this.container.createTag());
+    tag.put(CompoundTagKeys.CONTAINER, this.container.createTag(provider));
     return tag;
   }
 
   @Override
   public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
     super.deserializeNBT(provider, tag);
-    this.container.fromTag(tag.getList(CompoundTagKeys.CONTAINER, Tag.TAG_COMPOUND));
+    this.container.fromTag(tag.getList(CompoundTagKeys.CONTAINER, Tag.TAG_COMPOUND), provider);
   }
 }

@@ -7,6 +7,7 @@ import mods.railcraft.util.container.AdvancedContainer;
 import mods.railcraft.world.item.RailcraftItems;
 import mods.railcraft.world.level.block.entity.SteamTurbineBlockEntity;
 import mods.railcraft.world.level.material.StandardTank;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.tags.FluidTags;
@@ -96,22 +97,23 @@ public class SteamTurbineModule extends ChargeModule<SteamTurbineBlockEntity> {
   }
 
   @Override
-  public CompoundTag serializeNBT() {
-    var tag = super.serializeNBT();
-    tag.put(CompoundTagKeys.STEAM_TANK, this.steamTank.writeToNBT(new CompoundTag()));
-    tag.put(CompoundTagKeys.WATER_TANK, this.waterTank.writeToNBT(new CompoundTag()));
-    tag.put(CompoundTagKeys.ROTOR_CONTAINER, this.rotorContainer.createTag());
+  public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+    var tag = super.serializeNBT(provider);
+    tag.put(CompoundTagKeys.STEAM_TANK, this.steamTank.writeToNBT(provider, new CompoundTag()));
+    tag.put(CompoundTagKeys.WATER_TANK, this.waterTank.writeToNBT(provider, new CompoundTag()));
+    tag.put(CompoundTagKeys.ROTOR_CONTAINER, this.rotorContainer.createTag(provider));
     tag.putInt(CompoundTagKeys.ENERGY, this.energy);
     tag.putFloat(CompoundTagKeys.OPERATING_RATIO, this.operatingRatio);
     return tag;
   }
 
   @Override
-  public void deserializeNBT(CompoundTag tag) {
-    super.deserializeNBT(tag);
-    this.steamTank.readFromNBT(tag.getCompound(CompoundTagKeys.STEAM_TANK));
-    this.waterTank.readFromNBT(tag.getCompound(CompoundTagKeys.WATER_TANK));
-    this.rotorContainer.fromTag(tag.getList(CompoundTagKeys.ROTOR_CONTAINER, Tag.TAG_COMPOUND));
+  public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
+    super.deserializeNBT(provider, tag);
+    this.steamTank.readFromNBT(provider, tag.getCompound(CompoundTagKeys.STEAM_TANK));
+    this.waterTank.readFromNBT(provider, tag.getCompound(CompoundTagKeys.WATER_TANK));
+    this.rotorContainer
+        .fromTag(tag.getList(CompoundTagKeys.ROTOR_CONTAINER, Tag.TAG_COMPOUND), provider);
     this.energy = tag.getInt(CompoundTagKeys.ENERGY);
     this.operatingRatio = tag.getFloat(CompoundTagKeys.OPERATING_RATIO);
   }

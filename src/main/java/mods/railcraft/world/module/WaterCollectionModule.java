@@ -9,6 +9,7 @@ import mods.railcraft.world.level.block.entity.WaterTankSidingBlockEntity;
 import mods.railcraft.world.level.material.StandardTank;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
@@ -99,17 +100,17 @@ public class WaterCollectionModule extends ContainerModule<BlockModuleProvider> 
   }
 
   @Override
-  public CompoundTag serializeNBT() {
-    var tag = super.serializeNBT();
-    tag.put(CompoundTagKeys.TANK, this.tank.writeToNBT(new CompoundTag()));
+  public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+    var tag = super.serializeNBT(provider);
+    tag.put(CompoundTagKeys.TANK, this.tank.writeToNBT(provider, new CompoundTag()));
     tag.putString(CompoundTagKeys.PROCESS_STATE, this.processState.getSerializedName());
     return tag;
   }
 
   @Override
-  public void deserializeNBT(CompoundTag tag) {
-    super.deserializeNBT(tag);
-    this.tank.readFromNBT(tag.getCompound(CompoundTagKeys.TANK));
+  public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
+    super.deserializeNBT(provider, tag);
+    this.tank.readFromNBT(provider, tag.getCompound(CompoundTagKeys.TANK));
     this.processState = FluidTools.ProcessState.fromTag(tag);
   }
 

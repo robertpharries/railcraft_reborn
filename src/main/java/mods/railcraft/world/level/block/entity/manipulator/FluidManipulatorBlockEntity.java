@@ -161,8 +161,10 @@ public abstract class FluidManipulatorBlockEntity extends ManipulatorBlockEntity
   public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     super.loadAdditional(tag, provider);
     this.processState = FluidTools.ProcessState.fromTag(tag);
-    this.tankManager.deserializeNBT(tag.getList(CompoundTagKeys.TANK_MANAGER, Tag.TAG_COMPOUND));
-    this.getFluidFilter().fromTag(tag.getList(CompoundTagKeys.INV_FILTER, Tag.TAG_COMPOUND));
+    this.tankManager.deserializeNBT(provider,
+        tag.getList(CompoundTagKeys.TANK_MANAGER, Tag.TAG_COMPOUND));
+    this.getFluidFilter()
+        .fromTag(tag.getList(CompoundTagKeys.INV_FILTER, Tag.TAG_COMPOUND), provider);
   }
 
   @Override

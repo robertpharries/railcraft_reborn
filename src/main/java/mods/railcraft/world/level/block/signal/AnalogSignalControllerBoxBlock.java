@@ -24,8 +24,8 @@ public class AnalogSignalControllerBoxBlock extends SignalControllerBoxBlock imp
   }
 
   @Override
-  public InteractionResult use(BlockState blockState, Level level, BlockPos pos,
-      Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
+  protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos pos,
+      Player player, BlockHitResult rayTraceResult) {
     if (level.isClientSide()) {
       level.getBlockEntity(pos, RailcraftBlockEntityTypes.ANALOG_SIGNAL_CONTROLLER_BOX.get())
           .ifPresent(ScreenFactories::openAnalogSignalControllerBoxScreen);

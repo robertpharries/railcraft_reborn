@@ -10,7 +10,6 @@ import mods.railcraft.api.charge.Charge;
 import mods.railcraft.api.charge.ChargeBlock;
 import mods.railcraft.api.charge.ChargeStorage;
 import mods.railcraft.api.charge.ChargeStorage.State;
-import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.util.container.ContainerTools;
 import mods.railcraft.world.level.block.entity.ForceTrackEmitterBlockEntity;
 import mods.railcraft.world.level.block.entity.ForceTrackEmitterState;
@@ -18,11 +17,12 @@ import mods.railcraft.world.level.block.entity.RailcraftBlockEntityTypes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
@@ -30,7 +30,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -92,17 +91,17 @@ public class ForceTrackEmitterBlock extends BaseEntityBlock implements ChargeBlo
 
   @SuppressWarnings("deprecation")
   @Override
-  public InteractionResult use(BlockState state, Level level, BlockPos pos,
-      Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
-    if (super.use(state, level, pos, player, hand, rayTraceResult).consumesAction()) {
-      return InteractionResult.CONSUME;
+  protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState state, Level level,
+      BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
+    if (super.useItemOn(itemStack, state, level, pos, player, hand, rayTraceResult).consumesAction()) {
+      return ItemInteractionResult.CONSUME;
     }
     if (player.isShiftKeyDown()) {
-      return InteractionResult.FAIL;
+      return ItemInteractionResult.FAIL;
     }
     ItemStack heldItem = player.getItemInHand(hand);
     if (heldItem.isEmpty() || hand == InteractionHand.OFF_HAND) {
-      return InteractionResult.FAIL;
+      return ItemInteractionResult.FAIL;
     }
     if (level.getBlockEntity(pos) instanceof ForceTrackEmitterBlockEntity t) {
       var color = DyeColor.getColor(heldItem);
@@ -110,16 +109,15 @@ public class ForceTrackEmitterBlock extends BaseEntityBlock implements ChargeBlo
         if (!player.isCreative()) {
           player.setItemInHand(hand, ContainerTools.depleteItem(heldItem));
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
       }
     }
-    return InteractionResult.FAIL;
+    return ItemInteractionResult.FAIL;
   }
 
   private ItemStack getItem(BlockState blockState) {
     var itemStack = this.asItem().getDefaultInstance();
-    var tag = itemStack.getOrCreateTag();
-    tag.putString(CompoundTagKeys.COLOR, blockState.getValue(COLOR).getName());
+    itemStack.set(DataComponents.BASE_COLOR, blockState.getValue(COLOR));
     return itemStack;
   }
 
@@ -183,10 +181,9 @@ public class ForceTrackEmitterBlock extends BaseEntityBlock implements ChargeBlo
   @Override
   public void setPlacedBy(Level level, BlockPos pos, BlockState state,
       @Nullable LivingEntity livingEntity, ItemStack itemStack) {
-    var tag = itemStack.getTag();
-    if (tag != null) {
+    if (itemStack.has(DataComponents.BASE_COLOR)) {
       if (level.getBlockEntity(pos) instanceof ForceTrackEmitterBlockEntity t) {
-        var color = DyeColor.byName(tag.getString(CompoundTagKeys.COLOR), null);
+        var color = itemStack.get(DataComponents.BASE_COLOR);
         if (color != null) {
           t.setColor(color);
         }

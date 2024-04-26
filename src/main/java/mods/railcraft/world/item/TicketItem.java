@@ -6,12 +6,15 @@ import org.jetbrains.annotations.Nullable;
 import com.mojang.authlib.GameProfile;
 import mods.railcraft.Translations;
 import mods.railcraft.api.core.CompoundTagKeys;
+import mods.railcraft.world.item.component.RailcraftDataComponents;
+import mods.railcraft.world.item.component.TicketComponent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.level.Level;
 
 public class TicketItem extends Item {
@@ -38,7 +41,7 @@ public class TicketItem extends Item {
   @Override
   public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list,
       TooltipFlag flag) {
-    if (!stack.hasTag()) {
+    if (!stack.has(RailcraftDataComponents.TICKET)) {
       list.add(Component.translatable(Translations.Tips.ROUTING_TICKET_BLANK)
           .withStyle(ChatFormatting.GRAY));
       return;
@@ -72,9 +75,9 @@ public class TicketItem extends Item {
       ItemStack ticket = RailcraftItems.TICKET.get().getDefaultInstance();
       if (ticket.isEmpty())
         return ItemStack.EMPTY;
-      var tag = source.getTag();
-      if (tag != null)
-        ticket.setTag(tag.copy());
+      var ticketData = source.get(RailcraftDataComponents.TICKET);
+      if (ticketData != null)
+        ticket.set(RailcraftDataComponents.TICKET, ticketData);
       return ticket;
     }
     return ItemStack.EMPTY;
@@ -87,28 +90,26 @@ public class TicketItem extends Item {
       return false;
     if (owner == null)
       return false;
-    var tag = ticket.getOrCreateTag();
-    tag.putString(CompoundTagKeys.DEST, dest);
-    NbtUtils.writeGameProfile(tag, owner);
+    ticket.set(RailcraftDataComponents.TICKET, new TicketComponent(dest, owner));
     return true;
   }
 
   public static String getDestination(ItemStack ticket) {
     if (ticket.isEmpty() || !(ticket.getItem() instanceof TicketItem))
       return "";
-    var tag = ticket.getTag();
-    if (tag == null)
+    if (!ticket.has(RailcraftDataComponents.TICKET))
       return "";
-    return tag.getString(CompoundTagKeys.DEST);
+    var ticketData = ticket.get(RailcraftDataComponents.TICKET);
+    return ticketData.destination();
   }
 
   @Nullable
   public static GameProfile getOwner(ItemStack ticket) {
     if (ticket.isEmpty() || !(ticket.getItem() instanceof TicketItem))
       return null;
-    var tag = ticket.getTag();
-    if (tag == null)
+    if (!ticket.has(RailcraftDataComponents.TICKET))
       return null;
-    return NbtUtils.readGameProfile(tag);
+    var ticketData = ticket.get(RailcraftDataComponents.TICKET);
+    return ticketData.owner().map(ResolvableProfile::gameProfile).orElse(null);
   }
 }

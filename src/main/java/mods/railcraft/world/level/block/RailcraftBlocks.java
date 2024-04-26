@@ -213,6 +213,7 @@ public class RailcraftBlocks {
         .mapColor(MapColor.METAL)
         .sound(SoundType.METAL)
         .noOcclusion()
+        .isValidSpawn(RailcraftBlocks::never)
         .strength(1.0F, 5.0F)
         .requiresCorrectToolForDrops()
         .explosionResistance(12));
@@ -223,6 +224,7 @@ public class RailcraftBlocks {
         .mapColor(MapColor.METAL)
         .sound(SoundType.METAL)
         .noOcclusion()
+        .isValidSpawn(RailcraftBlocks::never)
         .strength(1.0F, 5.0F)
         .requiresCorrectToolForDrops()
         .explosionResistance(12));
@@ -247,6 +249,7 @@ public class RailcraftBlocks {
         .mapColor(MapColor.METAL)
         .sound(SoundType.METAL)
         .noOcclusion()
+        .isValidSpawn(RailcraftBlocks::never)
         .strength(1.5F, 6.0F)
         .requiresCorrectToolForDrops()
         .explosionResistance(15));
@@ -257,6 +260,7 @@ public class RailcraftBlocks {
         .mapColor(MapColor.METAL)
         .sound(SoundType.METAL)
         .noOcclusion()
+        .isValidSpawn(RailcraftBlocks::never)
         .strength(1.5F, 6.0F)
         .requiresCorrectToolForDrops()
         .explosionResistance(15));
@@ -320,6 +324,7 @@ public class RailcraftBlocks {
           () -> new BlastFurnaceBricksBlock(BlockBehaviour.Properties.of()
               .mapColor(MapColor.STONE)
               .strength(3.5F)
+              .isValidSpawn(RailcraftBlocks::never)
               .requiresCorrectToolForDrops()
               .lightLevel(litBlockEmission(13))
               .sound(SoundType.STONE)));
@@ -1462,6 +1467,7 @@ public class RailcraftBlocks {
           () -> new CokeOvenBricksBlock(BlockBehaviour.Properties.of()
               .mapColor(MapColor.STONE)
               .sound(SoundType.STONE)
+              .isValidSpawn(RailcraftBlocks::never)
               .lightLevel(litBlockEmission(13))
               .strength(2F, 6.0F)));
 
@@ -1489,6 +1495,7 @@ public class RailcraftBlocks {
       deferredRegister.register("crushed_obsidian",
           () -> new CrushedObsidian(BlockBehaviour.Properties.of()
               .mapColor(MapColor.COLOR_BLACK)
+              .isValidSpawn(RailcraftBlocks::never)
               .requiresCorrectToolForDrops()
               .strength(50, 1200)));
 

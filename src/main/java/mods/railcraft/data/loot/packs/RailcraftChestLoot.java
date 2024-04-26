@@ -5,9 +5,9 @@ import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.tags.RailcraftTags;
 import mods.railcraft.world.item.RailcraftItems;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -21,11 +21,12 @@ public class RailcraftChestLoot implements LootTableSubProvider {
 
   // If you change the name, remember to regenerate the chest inside the structure
   // /setblock x y z minecraft:chest[facing=south]{LootTable:"railcraft:chests/component_workshop"}
-  private static final ResourceLocation COMPONENT_WORKSHOP =
-      RailcraftConstants.rl("chests/component_workshop");
-  public static final ResourceLocation ABANDONED_MINESHAFT =
-      RailcraftConstants.rl("chests/abandoned_mineshaft");
-  public static final ResourceLocation SIMPLE_DUNGEON = RailcraftConstants.rl("chests/simple_dungeon");
+  private static final ResourceKey<LootTable> COMPONENT_WORKSHOP =
+      ResourceKey.create(Registries.LOOT_TABLE, RailcraftConstants.rl("chests/component_workshop"));
+  public static final ResourceKey<LootTable> ABANDONED_MINESHAFT =
+      ResourceKey.create(Registries.LOOT_TABLE, RailcraftConstants.rl("chests/abandoned_mineshaft"));
+  public static final ResourceKey<LootTable> SIMPLE_DUNGEON =
+      ResourceKey.create(Registries.LOOT_TABLE, RailcraftConstants.rl("chests/simple_dungeon"));
 
   @Override
   public void generate(HolderLookup.Provider provider,

@@ -49,12 +49,6 @@ public class CokeOvenBricksBlock extends FurnaceMultiblockBlock {
   }
 
   @Override
-  public boolean isValidSpawn(BlockState state, BlockGetter level, BlockPos pos,
-      SpawnPlacements.Type type, EntityType<?> entityType) {
-    return false;
-  }
-
-  @Override
   public void appendHoverText(ItemStack stack, Item.TooltipContext context,
       List<Component> tooltip, TooltipFlag flag) {
     tooltip.add(Component.translatable(Translations.Tips.COKE_OVEN).withStyle(ChatFormatting.GRAY));

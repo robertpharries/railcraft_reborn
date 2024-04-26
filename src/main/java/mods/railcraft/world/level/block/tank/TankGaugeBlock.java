@@ -43,12 +43,6 @@ public abstract class TankGaugeBlock extends AbstractStrengthenedGlassBlock impl
     builder.add(LEVEL);
   }
 
-  @Override
-  public boolean isValidSpawn(BlockState state, BlockGetter level, BlockPos pos,
-      SpawnPlacements.Type type, EntityType<?> entityType) {
-    return false;
-  }
-
   @Nullable
   @Override
   public <T extends BlockEntity> GameEventListener getListener(ServerLevel level, T blockEntity) {

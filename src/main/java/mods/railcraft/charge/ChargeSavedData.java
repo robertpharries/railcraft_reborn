@@ -6,6 +6,7 @@ import mods.railcraft.api.charge.Charge;
 import mods.railcraft.api.core.CompoundTagKeys;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
@@ -23,7 +24,7 @@ public final class ChargeSavedData extends SavedData {
 
   public static ChargeSavedData getFor(Charge network, ServerLevel level) {
     return level.getDataStorage()
-        .computeIfAbsent(new SavedData.Factory<>(ChargeSavedData::new, tag -> {
+        .computeIfAbsent(new SavedData.Factory<>(ChargeSavedData::new, (tag, provider) -> {
           var manager = new ChargeSavedData();
           manager.load(tag);
           return manager;
@@ -31,7 +32,7 @@ public final class ChargeSavedData extends SavedData {
   }
 
   @Override
-  public CompoundTag save(CompoundTag tag) {
+  public CompoundTag save(CompoundTag tag, HolderLookup.Provider provider) {
     var batteriesTag = new ListTag();
     for (var entry : this.chargeLevels.object2IntEntrySet()) {
       var entryTag = new CompoundTag();

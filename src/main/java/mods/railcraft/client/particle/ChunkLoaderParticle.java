@@ -21,7 +21,7 @@ public class ChunkLoaderParticle extends TextureSheetParticle {
   private ChunkLoaderParticle(ClientLevel level, double x, double y, double z, double dx,
       double dy, double dz, ChunkLoaderParticleOptions options, SpriteSet sprites) {
     super(level, x, y, z, dx, dy, dz);
-    this.dest = options.dest();
+    this.dest = options.destination();
     this.calculateVector();
     this.scale(1.2F);
 

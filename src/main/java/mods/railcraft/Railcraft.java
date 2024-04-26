@@ -309,7 +309,8 @@ public class Railcraft {
         new RailcraftItemTagsProvider(packOutput, lookupProvider, blockTagsLookup, fileHelper));
     generator.addProvider(event.includeServer(),
         new RailcraftFluidTagsProvider(packOutput, lookupProvider, fileHelper));
-    generator.addProvider(event.includeServer(), new RailcraftLootTableProvider(packOutput));
+    generator.addProvider(event.includeServer(),
+        new RailcraftLootTableProvider(packOutput, lookupProvider));
     generator.addProvider(event.includeServer(),
         new RailcraftAdvancementProvider(packOutput, lookupProvider, fileHelper));
     generator.addProvider(event.includeServer(),

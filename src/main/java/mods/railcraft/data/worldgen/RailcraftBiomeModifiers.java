@@ -100,7 +100,7 @@ public class RailcraftBiomeModifiers {
   }
 
   private static HolderSet<PlacedFeature> getPlacedFeature(
-      BootstapContext<BiomeModifier> context, ResourceKey<PlacedFeature> resourceKey) {
+      BootstrapContext<BiomeModifier> context, ResourceKey<PlacedFeature> resourceKey) {
     return HolderSet.direct(context.lookup(Registries.PLACED_FEATURE).getOrThrow(resourceKey));
   }
 

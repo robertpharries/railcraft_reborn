@@ -2,6 +2,7 @@ package mods.railcraft.world.level.material.steam;
 
 import java.util.List;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 import com.google.common.primitives.Floats;
 import mods.railcraft.RailcraftConfig;
 import mods.railcraft.api.core.CompoundTagKeys;
@@ -9,6 +10,7 @@ import mods.railcraft.gui.widget.Gauge;
 import mods.railcraft.world.level.material.FuelProvider;
 import mods.railcraft.world.level.material.RailcraftFluids;
 import mods.railcraft.world.level.material.StandardTank;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.neoforged.neoforge.common.util.INBTSerializable;
@@ -262,7 +264,7 @@ public class SteamBoiler implements INBTSerializable<CompoundTag> {
   }
 
   @Override
-  public CompoundTag serializeNBT() {
+  public CompoundTag serializeNBT(HolderLookup.Provider provider) {
     var tag = new CompoundTag();
     tag.putFloat(CompoundTagKeys.TEMPERATURE, this.temperature);
     tag.putFloat(CompoundTagKeys.MAX_TEMPERATURE, this.maxTemperature);
@@ -272,7 +274,7 @@ public class SteamBoiler implements INBTSerializable<CompoundTag> {
   }
 
   @Override
-  public void deserializeNBT(CompoundTag tag) {
+  public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
     this.setTemperature(tag.getFloat(CompoundTagKeys.TEMPERATURE));
     this.setMaxTemperature(tag.getFloat(CompoundTagKeys.MAX_TEMPERATURE));
     this.setBurnTime(tag.getFloat(CompoundTagKeys.BURN_TIME));

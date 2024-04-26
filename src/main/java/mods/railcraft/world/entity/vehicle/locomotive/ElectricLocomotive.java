@@ -12,6 +12,8 @@ import mods.railcraft.world.entity.RailcraftEntityTypes;
 import mods.railcraft.world.inventory.ElectricLocomotiveMenu;
 import mods.railcraft.world.item.RailcraftItems;
 import mods.railcraft.world.item.TicketItem;
+import mods.railcraft.world.item.component.LocomotiveEnergyComponent;
+import mods.railcraft.world.item.component.RailcraftDataComponents;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -174,16 +176,17 @@ public class ElectricLocomotive extends Locomotive implements WorldlyContainer {
   @Override
   protected void loadFromItemStack(ItemStack itemStack) {
     super.loadFromItemStack(itemStack);
-    var tag = itemStack.getTag();
-    if (tag != null && tag.contains(CompoundTagKeys.ENERGY)) {
-      this.cartStorage.receiveEnergy(tag.getInt(CompoundTagKeys.ENERGY), false);
+    if (itemStack.has(RailcraftDataComponents.LOCOMOTIVE_ENERGY)) {
+      this.cartStorage.receiveEnergy(
+          itemStack.get(RailcraftDataComponents.LOCOMOTIVE_ENERGY).energy(), false);
     }
   }
 
   @Override
   public ItemStack getPickResult() {
     var itemStack = super.getPickResult();
-    itemStack.getOrCreateTag().putInt(CompoundTagKeys.ENERGY, this.cartStorage.getEnergyStored());
+    itemStack.set(RailcraftDataComponents.LOCOMOTIVE_ENERGY,
+        new LocomotiveEnergyComponent(this.cartStorage.getEnergyStored()));
     return itemStack;
   }
 

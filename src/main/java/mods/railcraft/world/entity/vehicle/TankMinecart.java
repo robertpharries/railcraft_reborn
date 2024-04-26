@@ -138,7 +138,7 @@ public class TankMinecart extends FilteredMinecart
   protected void readAdditionalSaveData(CompoundTag tag) {
     super.readAdditionalSaveData(tag);
     this.processState = FluidTools.ProcessState.fromTag(tag);
-    this.tank.readFromNBT(tag.getCompound(CompoundTagKeys.TANK));
+    this.tank.readFromNBT(this.registryAccess(), tag.getCompound(CompoundTagKeys.TANK));
   }
 
   @Override
@@ -146,7 +146,7 @@ public class TankMinecart extends FilteredMinecart
     super.addAdditionalSaveData(tag);
     tag.putString(CompoundTagKeys.PROCESS_STATE, this.processState.getSerializedName());
     var tankTag = new CompoundTag();
-    this.tank.writeToNBT(tankTag);
+    this.tank.writeToNBT(this.registryAccess(), tankTag);
     tag.put(CompoundTagKeys.TANK, tankTag);
   }
 

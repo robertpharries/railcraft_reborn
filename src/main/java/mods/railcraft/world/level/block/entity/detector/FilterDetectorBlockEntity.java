@@ -62,12 +62,12 @@ public abstract class FilterDetectorBlockEntity extends DetectorBlockEntity
   @Override
   public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     super.loadAdditional(tag, provider);
-    this.invFilters.fromTag(tag.getList(CompoundTagKeys.CONTAINER, Tag.TAG_COMPOUND));
+    this.invFilters.fromTag(tag.getList(CompoundTagKeys.CONTAINER, Tag.TAG_COMPOUND), provider);
   }
 
   @Override
   public void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     super.saveAdditional(tag, provider);
-    tag.put(CompoundTagKeys.CONTAINER, this.invFilters.createTag());
+    tag.put(CompoundTagKeys.CONTAINER, this.invFilters.createTag(provider));
   }
 }

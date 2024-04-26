@@ -73,12 +73,13 @@ public abstract class MaintenancePatternMinecart extends MaintenanceMinecart
   @Override
   protected void addAdditionalSaveData(CompoundTag tag) {
     super.addAdditionalSaveData(tag);
-    tag.put(CompoundTagKeys.PATTERN, this.patternContainer.createTag());
+    tag.put(CompoundTagKeys.PATTERN, this.patternContainer.createTag(this.registryAccess()));
   }
 
   @Override
   protected void readAdditionalSaveData(CompoundTag tag) {
     super.readAdditionalSaveData(tag);
-    this.patternContainer.fromTag(tag.getList(CompoundTagKeys.PATTERN, Tag.TAG_COMPOUND));
+    this.patternContainer
+        .fromTag(tag.getList(CompoundTagKeys.PATTERN, Tag.TAG_COMPOUND), this.registryAccess());
   }
 }

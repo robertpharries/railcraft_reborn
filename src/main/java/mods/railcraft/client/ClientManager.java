@@ -164,8 +164,8 @@ public class ClientManager {
 
   private static void handleItemColors(RegisterColorHandlersEvent.Item event) {
     event.register((stack, tintIndex) -> switch (tintIndex) {
-          case 0 -> LocomotiveItem.getPrimaryColor(stack).getMapColor().col;
-          case 1 -> LocomotiveItem.getSecondaryColor(stack).getMapColor().col;
+          case 0 -> LocomotiveItem.getColor(stack).primary().getMapColor().col;
+          case 1 -> LocomotiveItem.getColor(stack).secondary().getMapColor().col;
           default -> 0xFFFFFFFF;
         },
         RailcraftItems.CREATIVE_LOCOMOTIVE.get(),

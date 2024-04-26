@@ -49,6 +49,7 @@ import mods.railcraft.world.item.CrowbarHandler;
 import mods.railcraft.world.item.RailcraftCreativeModeTabs;
 import mods.railcraft.world.item.RailcraftItems;
 import mods.railcraft.world.item.alchemy.RailcraftPotions;
+import mods.railcraft.world.item.component.RailcraftDataComponents;
 import mods.railcraft.world.item.crafting.RailcraftRecipeSerializers;
 import mods.railcraft.world.item.crafting.RailcraftRecipeTypes;
 import mods.railcraft.world.item.enchantment.RailcraftEnchantments;
@@ -179,6 +180,7 @@ public class Railcraft {
     RailcraftCriteriaTriggers.register(modEventBus);
     RailcraftAttachmentTypes.register(modEventBus);
     RailcraftDataMaps.register(modEventBus);
+    RailcraftDataComponents.register(modEventBus);
   }
 
   // Mod Events

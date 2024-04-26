@@ -5,6 +5,8 @@ import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.world.entity.RailcraftEntityTypes;
 import mods.railcraft.world.inventory.EnergyMinecartMenu;
 import mods.railcraft.world.item.RailcraftItems;
+import mods.railcraft.world.item.component.LocomotiveEnergyComponent;
+import mods.railcraft.world.item.component.RailcraftDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -78,17 +80,15 @@ public class EnergyMinecart extends RailcraftMinecart {
   @Override
   protected void loadFromItemStack(ItemStack itemStack) {
     super.loadFromItemStack(itemStack);
-    var tag = itemStack.getTag();
-    if (tag != null && tag.contains(CompoundTagKeys.ENERGY)) {
-      this.energyStorage.setEnergyStored(tag.getInt(CompoundTagKeys.ENERGY));
+    if (itemStack.has(RailcraftDataComponents.LOCOMOTIVE_ENERGY)) {
+      this.energyStorage.setEnergyStored(itemStack.get(RailcraftDataComponents.LOCOMOTIVE_ENERGY).energy());
     }
   }
 
   @Override
   public ItemStack getPickResult() {
     var itemStack = super.getPickResult();
-    var tag = itemStack.getOrCreateTag();
-    tag.putInt(CompoundTagKeys.ENERGY, this.energyStorage.getEnergyStored());
+    itemStack.set(RailcraftDataComponents.LOCOMOTIVE_ENERGY, new LocomotiveEnergyComponent(this.energyStorage.getEnergyStored()));
     return itemStack;
   }
 

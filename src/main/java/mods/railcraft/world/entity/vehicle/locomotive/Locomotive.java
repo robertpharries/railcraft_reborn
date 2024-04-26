@@ -37,12 +37,16 @@ import mods.railcraft.world.entity.vehicle.RailcraftMinecart;
 import mods.railcraft.world.item.LocomotiveItem;
 import mods.railcraft.world.item.RailcraftItems;
 import mods.railcraft.world.item.TicketItem;
+import mods.railcraft.world.item.component.LocomotiveWhistlePitchComponent;
+import mods.railcraft.world.item.component.RailcraftDataComponents;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -63,6 +67,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 
 public abstract class Locomotive extends RailcraftMinecart implements
     Linkable, Directional, Lockable, Paintable, Routable, NeedsFuel {
@@ -135,26 +140,25 @@ public abstract class Locomotive extends RailcraftMinecart implements
 
   protected void loadFromItemStack(ItemStack itemStack) {
     super.loadFromItemStack(itemStack);
-    var tag = itemStack.getTag();
-    if (tag == null || !(itemStack.getItem() instanceof LocomotiveItem)) {
+    if (!(itemStack.getItem() instanceof LocomotiveItem)) {
       return;
     }
 
-    this.setPrimaryColor(LocomotiveItem.getPrimaryColor(itemStack));
-    this.setSecondaryColor(LocomotiveItem.getSecondaryColor(itemStack));
+    var color = LocomotiveItem.getColor(itemStack);
+    this.setPrimaryColor(color.primary());
+    this.setSecondaryColor(color.secondary());
 
-    if (tag.contains(CompoundTagKeys.WHISTLE_PITCH)) {
-      this.whistlePitch = tag.getFloat(CompoundTagKeys.WHISTLE_PITCH);
-    }
+    this.whistlePitch = itemStack.getOrDefault(RailcraftDataComponents.LOCOMOTIVE_WHISTLE_PITCH,
+        new LocomotiveWhistlePitchComponent(getNewWhistlePitch())).whistlePitch();
 
-    if (tag.contains(CompoundTagKeys.OWNER, Tag.TAG_COMPOUND)) {
-      var ownerProfile = NbtUtils.readGameProfile(tag.getCompound(CompoundTagKeys.OWNER));
-      this.setOwner(ownerProfile);
+    if (itemStack.has(RailcraftDataComponents.LOCOMOTIVE_OWNER)) {
+      var owner = itemStack.get(RailcraftDataComponents.LOCOMOTIVE_OWNER).owner();
+      this.setOwner(owner.gameProfile());
       this.setLock(Lock.LOCKED);
     }
 
-    if (tag.contains(CompoundTagKeys.LOCK, Tag.TAG_STRING)) {
-      Lock.fromNameOptional(tag.getString(CompoundTagKeys.LOCK)).ifPresent(this::setLock);
+    if (itemStack.has(RailcraftDataComponents.LOCOMOTIVE_LOCK)) {
+      this.setLock(itemStack.get(RailcraftDataComponents.LOCOMOTIVE_LOCK).lock());
     }
   }
 
@@ -891,8 +895,10 @@ public abstract class Locomotive extends RailcraftMinecart implements
     LOCKED("locked", ButtonTexture.LOCKED_BUTTON),
     PRIVATE("private", new SimpleTexturePosition(240, 48, 16, 16));
 
-    private static final StringRepresentable.EnumCodec<Lock> CODEC =
+    public static final StringRepresentable.EnumCodec<Lock> CODEC =
         StringRepresentable.fromEnum(Lock::values);
+    public static final StreamCodec<FriendlyByteBuf, Lock> STREAM_CODEC =
+        NeoForgeStreamCodecs.enumCodec(Lock.class);
 
     private final String name;
     private final TexturePosition texture;
@@ -924,10 +930,6 @@ public abstract class Locomotive extends RailcraftMinecart implements
 
     public static Lock fromName(String name) {
       return CODEC.byName(name, UNLOCKED);
-    }
-
-    public static Optional<Lock> fromNameOptional(String name) {
-      return Optional.ofNullable(CODEC.byName(name));
     }
   }
 }

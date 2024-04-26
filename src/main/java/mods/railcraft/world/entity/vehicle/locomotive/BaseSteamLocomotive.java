@@ -233,16 +233,17 @@ public abstract class BaseSteamLocomotive extends Locomotive implements FluidTra
   @Override
   public void addAdditionalSaveData(CompoundTag tag) {
     super.addAdditionalSaveData(tag);
-    tag.put(CompoundTagKeys.TANK_MANAGER, this.getTankManager().serializeNBT());
-    tag.put(CompoundTagKeys.BOILER, this.boiler.serializeNBT());
+    tag.put(CompoundTagKeys.TANK_MANAGER, this.getTankManager().serializeNBT(this.registryAccess()));
+    tag.put(CompoundTagKeys.BOILER, this.boiler.serializeNBT(this.registryAccess()));
     tag.putString(CompoundTagKeys.PROCESS_STATE, this.processState.getSerializedName());
   }
 
   @Override
   public void readAdditionalSaveData(CompoundTag tag) {
     super.readAdditionalSaveData(tag);
-    this.getTankManager().deserializeNBT(tag.getList(CompoundTagKeys.TANK_MANAGER, Tag.TAG_COMPOUND));
-    this.boiler.deserializeNBT(tag.getCompound(CompoundTagKeys.BOILER));
+    this.getTankManager().deserializeNBT(this.registryAccess(),
+        tag.getList(CompoundTagKeys.TANK_MANAGER, Tag.TAG_COMPOUND));
+    this.boiler.deserializeNBT(this.registryAccess(), tag.getCompound(CompoundTagKeys.BOILER));
     this.processState = FluidTools.ProcessState.fromTag(tag);
   }
 

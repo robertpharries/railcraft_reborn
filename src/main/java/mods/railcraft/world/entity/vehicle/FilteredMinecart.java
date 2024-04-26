@@ -61,14 +61,14 @@ public abstract class FilteredMinecart extends RailcraftMinecart {
   @Override
   protected void readAdditionalSaveData(CompoundTag tag) {
     super.readAdditionalSaveData(tag);
-    this.filterContainer.fromTag(tag.getList(CompoundTagKeys.FILTER, Tag.TAG_COMPOUND));
+    this.filterContainer.fromTag(tag.getList(CompoundTagKeys.FILTER, Tag.TAG_COMPOUND), this.registryAccess());
     this.entityData.set(FILTER, this.getFilterInv().getItem(0));
   }
 
   @Override
   protected void addAdditionalSaveData(CompoundTag tag) {
     super.addAdditionalSaveData(tag);
-    tag.put(CompoundTagKeys.FILTER, this.filterContainer.createTag());
+    tag.put(CompoundTagKeys.FILTER, this.filterContainer.createTag(this.registryAccess()));
   }
 
   public boolean hasFilter() {

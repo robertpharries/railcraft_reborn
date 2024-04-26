@@ -268,7 +268,7 @@ public abstract class ManipulatorBlockEntity extends ContainerBlockEntity implem
   protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     super.saveAdditional(tag, provider);
     tag.putInt(CompoundTagKeys.REDSTONE_MODE, this.redstoneMode.ordinal());
-    tag.put(CompoundTagKeys.CART_FILTERS, this.getCartFilters().createTag());
+    tag.put(CompoundTagKeys.CART_FILTERS, this.getCartFilters().createTag(provider));
   }
 
   @Override
@@ -276,7 +276,7 @@ public abstract class ManipulatorBlockEntity extends ContainerBlockEntity implem
     super.loadAdditional(tag, provider);
     this.setPowered(ManipulatorBlock.isPowered(this.getBlockState()));
     this.redstoneMode = RedstoneMode.values()[tag.getInt(CompoundTagKeys.REDSTONE_MODE)];
-    this.getCartFilters().fromTag(tag.getList(CompoundTagKeys.CART_FILTERS, Tag.TAG_COMPOUND));
+    this.getCartFilters().fromTag(tag.getList(CompoundTagKeys.CART_FILTERS, Tag.TAG_COMPOUND), provider);
   }
 
   public enum TransferMode implements ButtonState<TransferMode>, StringRepresentable {

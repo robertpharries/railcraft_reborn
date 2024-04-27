@@ -48,8 +48,8 @@ public final class ChargeSavedData extends SavedData {
     var batteriesTag = tag.getList(CompoundTagKeys.BATTERIES, Tag.TAG_COMPOUND);
     for (int i = 0; i < batteriesTag.size(); i++) {
       var entryTag = batteriesTag.getCompound(i);
-      var pos = NbtUtils.readBlockPos(entryTag.getCompound(CompoundTagKeys.POS));
-      this.chargeLevels.put(pos, entryTag.getInt(CompoundTagKeys.VALUE));
+      NbtUtils.readBlockPos(entryTag, CompoundTagKeys.POS)
+          .ifPresent(pos -> this.chargeLevels.put(pos, entryTag.getInt(CompoundTagKeys.VALUE)));
     }
   }
 

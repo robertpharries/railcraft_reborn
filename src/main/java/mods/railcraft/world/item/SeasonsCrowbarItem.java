@@ -5,6 +5,8 @@ import org.jetbrains.annotations.Nullable;
 import mods.railcraft.Translations.Tips;
 import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.season.Season;
+import mods.railcraft.world.item.component.RailcraftDataComponents;
+import mods.railcraft.world.item.component.SeasonComponent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -46,13 +48,15 @@ public class SeasonsCrowbarItem extends CrowbarItem {
   }
 
   public static Season getSeason(ItemStack itemStack) {
-    var tag = itemStack.getOrCreateTag();
-    return Season.fromName(tag.getString(CompoundTagKeys.SEASON));
+    if (itemStack.has(RailcraftDataComponents.SEASON)) {
+      return itemStack.get(RailcraftDataComponents.SEASON).season();
+    }
+    return Season.DEFAULT;
   }
 
   private static void incrementSeason(ItemStack itemStack) {
     var season = getSeason(itemStack).getNext();
-    itemStack.getOrCreateTag().putString(CompoundTagKeys.SEASON, season.getSerializedName());
+    itemStack.set(RailcraftDataComponents.SEASON, new SeasonComponent(season));
   }
 
   private static Component getDescriptionText(Season value, boolean tooltip) {

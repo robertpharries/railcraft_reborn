@@ -13,11 +13,14 @@ import mods.railcraft.client.gui.widget.button.ButtonTexture;
 import mods.railcraft.client.gui.widget.button.TexturePosition;
 import mods.railcraft.gui.button.ButtonState;
 import mods.railcraft.util.container.ForwardingContainer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.item.ItemStack;
 
 public interface RouterBlockEntity extends MenuProvider, ForwardingContainer {
 
@@ -41,12 +44,16 @@ public interface RouterBlockEntity extends MenuProvider, ForwardingContainer {
 
   void resetLogic();
 
-  default Deque<String> loadPages(CompoundTag tag) {
+  default Deque<String> loadPages(ItemStack book) {
     Deque<String> contents = new LinkedList<>();
-    var pages = tag.getList("pages", Tag.TAG_STRING).copy();
-    for (int i = 0; i < pages.size(); i++) {
-      var page = pages.getString(i).split("\n");
-      contents.addAll(Arrays.asList(page));
+    var writableBookContent = book.get(DataComponents.WRITABLE_BOOK_CONTENT);
+    if (writableBookContent != null) {
+      writableBookContent
+          .getPages(Minecraft.getInstance().isTextFilteringEnabled())
+          .forEach(x -> {
+            var page = x.split("\n");
+            contents.addAll(Arrays.asList(page));
+          });
     }
     return contents;
   }

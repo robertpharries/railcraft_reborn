@@ -4,11 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 import java.util.function.Supplier;
-import org.jetbrains.annotations.Nullable;
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Multimap;
 import mods.railcraft.Translations.Tips;
 import mods.railcraft.advancements.RailcraftCriteriaTriggers;
 import mods.railcraft.api.item.SpikeMaulTarget;
@@ -21,20 +17,18 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseRailBlock;
 import net.minecraft.world.level.block.Block;
@@ -42,25 +36,22 @@ import net.minecraft.world.level.block.Blocks;
 
 public class SpikeMaulItem extends TieredItem {
 
-  private final float attackDamage;
-  private final Multimap<Attribute, AttributeModifier> defaultModifiers;
+  private final ItemAttributeModifiers defaultModifiers;
 
   public SpikeMaulItem(float attackDamage, float attackSpeed, Tier tier, Properties properties) {
     super(tier, properties.durability(tier.getUses()));
-    this.attackDamage = attackDamage + tier.getAttackDamageBonus();
-    Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-    builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID,
-        "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
-    builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID,
-        "Weapon modifier", attackSpeed, AttributeModifier.Operation.ADDITION));
-    this.defaultModifiers = builder.build();
+    float attackDamageWithBonus = attackDamage + tier.getAttackDamageBonus();
+    this.defaultModifiers = ItemAttributeModifiers.builder()
+        .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID,
+            "Weapon modifier", attackDamageWithBonus, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+        .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID,
+            "Weapon modifier", attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+        .build();
   }
 
-  @SuppressWarnings("deprecation")
   @Override
-  public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
-    return slot == EquipmentSlot.MAINHAND ? this.defaultModifiers
-        : super.getDefaultAttributeModifiers(slot);
+  public ItemAttributeModifiers getDefaultAttributeModifiers() {
+    return this.defaultModifiers;
   }
 
   @Override
@@ -129,7 +120,8 @@ public class SpikeMaulItem extends TieredItem {
       RailcraftCriteriaTriggers.SPIKE_MAUL_USE.value().trigger(
           (ServerPlayer) player, heldStack, serverLevel, blockPos);
 
-      heldStack.hurtAndBreak(1, player, __ -> player.broadcastBreakEvent(hand));
+      heldStack.hurtAndBreak(1, player.getRandom(), player,
+          () -> player.broadcastBreakEvent(LivingEntity.getSlotForHand(hand)));
     }
     return InteractionResult.sidedSuccess(level.isClientSide());
   }

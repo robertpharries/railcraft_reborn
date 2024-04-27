@@ -3,6 +3,7 @@ package mods.railcraft.world.inventory;
 import mods.railcraft.util.container.ContainerMapper;
 import mods.railcraft.world.inventory.slot.RollingResultSlot;
 import mods.railcraft.world.inventory.slot.UnmodifiableSlot;
+import mods.railcraft.world.item.component.RailcraftDataComponents;
 import mods.railcraft.world.level.block.entity.ManualRollingMachineBlockEntity;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
@@ -16,7 +17,6 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class ManualRollingMachineMenu extends RailcraftMenu {
 
-  public static final String CLICK_TO_CRAFT_TAG = "clickToCraft";
   private final ManualRollingMachineBlockEntity blockEntity;
   private final ManualRollingMachineBlockEntity.RollingCraftingContainer craftMatrix;
   private final ResultContainer craftResult;
@@ -33,7 +33,7 @@ public class ManualRollingMachineMenu extends RailcraftMenu {
       @Override
       public void setItem(int index, ItemStack stack) {
         super.setItem(index, stack);
-        stack.getOrCreateTag().putBoolean(CLICK_TO_CRAFT_TAG, true);
+        stack.set(RailcraftDataComponents.CLICK_TO_CRAFT, true);
       }
     };
     this.addSlot(new SlotRollingMachine(this.craftResult, 0, xs, xy));

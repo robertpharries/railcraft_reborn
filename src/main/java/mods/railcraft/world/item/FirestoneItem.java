@@ -91,7 +91,7 @@ public class FirestoneItem extends Item {
     if (spawnedFire && stack.isDamageableItem()
         && stack.getDamageValue() < stack.getMaxDamage() - 1) {
       if (entity instanceof Player player) {
-        stack.hurtAndBreak(1, player, t -> {});
+        stack.hurtAndBreak(1, level.getRandom(), player, () -> {});
       }
     }
     return spawnedFire;

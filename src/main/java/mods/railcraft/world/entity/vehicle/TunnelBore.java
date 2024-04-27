@@ -372,7 +372,8 @@ public class TunnelBore extends RailcraftMinecart implements Linkable {
 
         var head = getItem(0);
         if (!head.isEmpty()) {
-          head.hurt(entities.size(), this.random, MinecartUtil.getFakePlayer(this));
+          head.hurtAndBreak(entities.size(), this.random,
+              MinecartUtil.getFakePlayer(this), () -> {});
         }
       }
 

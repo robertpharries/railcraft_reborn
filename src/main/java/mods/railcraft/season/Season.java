@@ -2,8 +2,11 @@ package mods.railcraft.season;
 
 import mods.railcraft.Translations;
 import mods.railcraft.api.util.EnumUtil;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.StringRepresentable;
+import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 
 public enum Season implements StringRepresentable {
 
@@ -14,6 +17,8 @@ public enum Season implements StringRepresentable {
 
   public static final StringRepresentable.EnumCodec<Season> CODEC =
       StringRepresentable.fromEnum(Season::values);
+  public static final StreamCodec<FriendlyByteBuf, Season> STREAM_CODEC =
+      NeoForgeStreamCodecs.enumCodec(Season.class);
   private final String name;
   private final String translationKey;
 
@@ -34,6 +39,7 @@ public enum Season implements StringRepresentable {
   public Season getNext() {
     return EnumUtil.next(this, values());
   }
+
   public static Season fromName(String name) {
     return CODEC.byName(name, DEFAULT);
   }

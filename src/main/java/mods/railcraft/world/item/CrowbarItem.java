@@ -84,7 +84,8 @@ public class CrowbarItem extends DiggerItem implements Crowbar {
       if (newBlockState != blockState) {
         level.setBlockAndUpdate(pos, newBlockState);
         player.swing(hand);
-        stack.hurtAndBreak(1, player, __ -> player.broadcastBreakEvent(hand));
+        stack.hurtAndBreak(1, player.getRandom(), player,
+            () -> player.broadcastBreakEvent(LivingEntity.getSlotForHand(hand)));
         return InteractionResult.SUCCESS;
       }
     }
@@ -112,7 +113,8 @@ public class CrowbarItem extends DiggerItem implements Crowbar {
    */
   @Override
   public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-    stack.hurtAndBreak(2, attacker, __ -> attacker.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+    stack.hurtAndBreak(2, target.getRandom(), attacker,
+        () -> attacker.broadcastBreakEvent(EquipmentSlot.MAINHAND));
     return true;
   }
 
@@ -123,7 +125,8 @@ public class CrowbarItem extends DiggerItem implements Crowbar {
 
   @Override
   public void onWhack(Player player, InteractionHand hand, ItemStack crowbar, BlockPos pos) {
-    crowbar.hurtAndBreak(1, player, __ -> player.broadcastBreakEvent(hand));
+    crowbar.hurtAndBreak(1, player.getRandom(), player,
+        () -> player.broadcastBreakEvent(LivingEntity.getSlotForHand(hand)));
     player.swing(hand);
   }
 
@@ -136,7 +139,8 @@ public class CrowbarItem extends DiggerItem implements Crowbar {
   @Override
   public void onLink(Player player, InteractionHand hand, ItemStack crowbar,
       AbstractMinecart cart) {
-    crowbar.hurtAndBreak(1, player, __ -> player.broadcastBreakEvent(hand));
+    crowbar.hurtAndBreak(1, player.getRandom(), player,
+        () -> player.broadcastBreakEvent(LivingEntity.getSlotForHand(hand)));
     player.swing(hand);
   }
 
@@ -149,7 +153,8 @@ public class CrowbarItem extends DiggerItem implements Crowbar {
   @Override
   public void onBoost(Player player, InteractionHand hand, ItemStack crowbar,
       AbstractMinecart cart) {
-    crowbar.hurtAndBreak(BOOST_DAMAGE, player, __ -> player.broadcastBreakEvent(hand));
+    crowbar.hurtAndBreak(BOOST_DAMAGE, player.getRandom(), player,
+        () -> player.broadcastBreakEvent(LivingEntity.getSlotForHand(hand)));
     player.swing(hand);
   }
 

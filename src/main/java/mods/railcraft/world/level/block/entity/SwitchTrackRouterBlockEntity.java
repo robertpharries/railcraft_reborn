@@ -15,6 +15,7 @@ import mods.railcraft.world.inventory.SwitchTrackRouterMenu;
 import mods.railcraft.world.level.block.track.actuator.SwitchTrackActuatorBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -106,8 +107,8 @@ public class SwitchTrackRouterBlockEntity extends LockableSwitchTrackActuatorBlo
   private void refreshLogic() {
     if (this.logic == null && !this.container.getItem(0).isEmpty()) {
       var item = this.container.getItem(0);
-      if (item.getTag() != null && item.getTag().contains("pages")) {
-        var content = this.loadPages(item.getTag());
+      if (item.has(DataComponents.WRITABLE_BOOK_CONTENT)) {
+        var content = this.loadPages(item);
         try {
           this.logic = Either.left(RoutingLogic.parseTable(content));
         } catch (RoutingLogicException e) {

@@ -62,7 +62,7 @@ public final class ForceTrackBlockEntity extends RailcraftBlockEntity {
   @Override
   public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     if (tag.contains(CompoundTagKeys.EMITTER_POS)) {
-      this.emitterPos = NbtUtils.readBlockPos(tag.getCompound(CompoundTagKeys.EMITTER_POS));
+      this.emitterPos = NbtUtils.readBlockPos(tag, CompoundTagKeys.EMITTER_POS).orElse(null);
     }
   }
 }

@@ -58,12 +58,14 @@ import mods.railcraft.world.inventory.RailcraftMenuTypes;
 import mods.railcraft.world.item.GogglesItem;
 import mods.railcraft.world.item.LocomotiveItem;
 import mods.railcraft.world.item.RailcraftItems;
+import mods.railcraft.world.item.component.RailcraftDataComponents;
 import mods.railcraft.world.level.block.ForceTrackEmitterBlock;
 import mods.railcraft.world.level.block.RailcraftBlocks;
 import mods.railcraft.world.level.block.track.ForceTrackBlock;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -289,14 +291,11 @@ public class ClientManager {
   @SubscribeEvent
   static void handleItemTooltip(ItemTooltipEvent event) {
     var itemStack = event.getItemStack();
-    var tag = itemStack.getTag();
-    if (tag == null) {
-      return;
-    }
-    if (tag.contains(ManualRollingMachineMenu.CLICK_TO_CRAFT_TAG) &&
-        tag.getBoolean(ManualRollingMachineMenu.CLICK_TO_CRAFT_TAG)) {
+    var clickToCraft = itemStack.get(RailcraftDataComponents.CLICK_TO_CRAFT);
+    if (clickToCraft != null && clickToCraft) {
       event.getToolTip().add(Component.translatable(Translations.Tips.CLICK_TO_CRAFT)
           .withStyle(ChatFormatting.YELLOW));
+
     }
   }
 

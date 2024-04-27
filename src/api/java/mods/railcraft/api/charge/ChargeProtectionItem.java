@@ -6,8 +6,7 @@
  -----------------------------------------------------------------------------*/
 package mods.railcraft.api.charge;
 
-import org.apache.commons.lang3.NotImplementedException;
-import net.minecraft.server.level.ServerPlayer;
+import java.util.concurrent.atomic.AtomicReference;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
@@ -36,14 +35,12 @@ public interface ChargeProtectionItem {
    * @return A ZapResult object with the resulting stack and damage prevented.
    */
   default ZapResult zap(ItemStack stack, LivingEntity owner, float attackDamage) {
-    var resultStack = stack;
-    //FIXME
-    throw new NotImplementedException();
-    /*if (owner.getRandom().nextInt(150) == 0 && stack.hurt(1, owner.getRandom(),
-          owner instanceof ServerPlayer serverPlayer ? serverPlayer : null)) {
-      resultStack = ItemStack.EMPTY;
+    AtomicReference<ItemStack> resultStack = new AtomicReference<>(stack);
+    if (owner.getRandom().nextInt(150) == 0) {
+      stack.hurtAndBreak(1, owner.getRandom(), owner,
+          () -> resultStack.set(ItemStack.EMPTY));
     }
-    return new ZapResult(resultStack, attackDamage);*/
+    return new ZapResult(resultStack.get(), attackDamage);
   }
 
   record ZapResult(ItemStack stack, float damagePrevented) {}

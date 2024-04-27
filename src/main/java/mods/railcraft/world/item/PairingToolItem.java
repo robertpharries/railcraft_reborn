@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.api.item.ActivationBlockingItem;
+import mods.railcraft.world.item.component.PairToolComponent;
+import mods.railcraft.world.item.component.RailcraftDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.nbt.NbtOps;
@@ -167,26 +169,18 @@ public abstract class PairingToolItem<T, P> extends Item {
   }
 
   public static Optional<GlobalPos> getTargetPos(ItemStack itemStack) {
-    var tag = itemStack.getTag();
-    return tag != null && tag.contains("peerPos", Tag.TAG_COMPOUND)
-        ? GlobalPos.CODEC
-            .parse(NbtOps.INSTANCE, tag.getCompound("peerPos"))
-            .resultOrPartial(logger::error)
-        : Optional.empty();
+    if (itemStack.has(RailcraftDataComponents.PAIR_TOOL)) {
+      return Optional.of(itemStack.get(RailcraftDataComponents.PAIR_TOOL).peerPos());
+    }
+    return Optional.empty();
   }
 
   public static void setTargetPos(ItemStack itemStack, GlobalPos peerPos) {
-    GlobalPos.CODEC
-        .encodeStart(NbtOps.INSTANCE, peerPos)
-        .resultOrPartial(logger::error)
-        .ifPresent(tag -> itemStack.getOrCreateTag().put(CompoundTagKeys.PEER_POS, tag));
+    itemStack.set(RailcraftDataComponents.PAIR_TOOL, new PairToolComponent(peerPos));
   }
 
   public static void clearTargetPos(ItemStack itemStack) {
-    var tag = itemStack.getTag();
-    if (tag != null) {
-      tag.remove(CompoundTagKeys.PEER_POS);
-    }
+    itemStack.remove(RailcraftDataComponents.PAIR_TOOL);
   }
 
   public static <T> boolean checkAbandonPairing(GlobalPos signalPos, Player player,

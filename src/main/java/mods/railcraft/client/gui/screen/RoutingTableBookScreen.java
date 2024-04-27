@@ -16,33 +16,32 @@ import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.client.gui.widget.button.ButtonTexture;
 import mods.railcraft.client.gui.widget.button.RailcraftButton;
 import mods.railcraft.client.gui.widget.button.RailcraftPageButton;
-import mods.railcraft.network.PacketHandler;
 import mods.railcraft.network.to_server.EditRoutingTableBookMessage;
 import net.minecraft.ChatFormatting;
-import net.minecraft.SharedConstants;
 import net.minecraft.Util;
 import net.minecraft.client.GameNarrator;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.StringSplitter;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.font.TextFieldHelper;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.BookViewScreen;
 import net.minecraft.client.gui.screens.inventory.PageButton;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.network.Filterable;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.WritableBookContent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 public class RoutingTableBookScreen extends Screen {
@@ -107,9 +106,11 @@ public class RoutingTableBookScreen extends Screen {
     this.ownerText = Component.translatable("book.byAuthor", owner.getName())
         .withStyle(ChatFormatting.DARK_GRAY);
 
-    var tag = book.getTag();
-    if (tag != null) {
-      BookViewScreen.loadPages(tag, this.pages::add);
+    var writableBookContent = book.get(DataComponents.WRITABLE_BOOK_CONTENT);
+    if (writableBookContent != null) {
+      writableBookContent
+          .getPages(Minecraft.getInstance().isTextFilteringEnabled())
+          .forEach(this.pages::add);
     }
     if (this.pages.isEmpty()) {
       this.pages.add("");
@@ -255,13 +256,8 @@ public class RoutingTableBookScreen extends Screen {
   }
 
   private void updateLocalCopy() {
-    if (!this.pages.isEmpty()) {
-      var listtag = new ListTag();
-      this.pages.stream().map(StringTag::valueOf).forEach(listtag::add);
-      this.book.addTagElement("pages", listtag);
-    }
-    this.book.addTagElement("author", StringTag.valueOf(this.owner.getGameProfile().getName()));
-    this.book.addTagElement("title", StringTag.valueOf(this.title.trim()));
+    this.book.set(DataComponents.WRITABLE_BOOK_CONTENT,
+        new WritableBookContent(this.pages.stream().map(Filterable::passThrough).toList()));
   }
 
   private void appendPageToBook() {

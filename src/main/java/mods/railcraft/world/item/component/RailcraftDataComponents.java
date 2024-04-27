@@ -1,7 +1,13 @@
 package mods.railcraft.world.item.component;
 
+import java.util.function.UnaryOperator;
+import com.mojang.serialization.Codec;
 import mods.railcraft.api.core.RailcraftConstants;
+import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.util.ExtraCodecs;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -62,5 +68,26 @@ public class RailcraftDataComponents {
           DataComponentType.<AuraComponent>builder()
               .persistent(AuraComponent.CODEC)
               .networkSynchronized(AuraComponent.STREAM_CODEC)
+              .build());
+
+  public static final DeferredHolder<DataComponentType<?>, DataComponentType<PairToolComponent>> PAIR_TOOL =
+      deferredRegister.register("pair_tool", () ->
+          DataComponentType.<PairToolComponent>builder()
+              .persistent(PairToolComponent.CODEC)
+              .networkSynchronized(PairToolComponent.STREAM_CODEC)
+              .build());
+
+  public static final DeferredHolder<DataComponentType<?>, DataComponentType<SeasonComponent>> SEASON =
+      deferredRegister.register("season", () ->
+          DataComponentType.<SeasonComponent>builder()
+              .persistent(SeasonComponent.CODEC)
+              .networkSynchronized(SeasonComponent.STREAM_CODEC)
+              .build());
+
+  public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> CLICK_TO_CRAFT =
+      deferredRegister.register("click_to_craft", () ->
+          DataComponentType.<Boolean>builder()
+              .persistent(Codec.BOOL)
+              .networkSynchronized(ByteBufCodecs.BOOL)
               .build());
 }

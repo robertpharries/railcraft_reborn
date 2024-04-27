@@ -124,7 +124,7 @@ public class RefinedFirestoneItem extends FirestoneItem {
               level.setBlockAndUpdate(pos, newState);
               level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.AMBIENT, 1,
                   random.nextFloat() * 0.4F + 0.8F);
-              stack.hurt(1, random, serverPlayer);
+              stack.hurtAndBreak(1, random, serverPlayer, () -> {});
               return InteractionResult.SUCCESS;
             }
           }
@@ -137,7 +137,7 @@ public class RefinedFirestoneItem extends FirestoneItem {
         level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.AMBIENT, 1,
             random.nextFloat() * 0.4F + 0.8F);
         level.setBlockAndUpdate(pos, Blocks.FIRE.defaultBlockState());
-        stack.hurt(1, random, serverPlayer);
+        stack.hurtAndBreak(1, random, serverPlayer, () -> {});
       }
     }
     return InteractionResult.sidedSuccess(level.isClientSide());
@@ -156,8 +156,9 @@ public class RefinedFirestoneItem extends FirestoneItem {
       LivingEntity livingEntity, InteractionHand hand) {
     var level = player.level();
     if (!level.isClientSide() && !livingEntity.fireImmune()) {
-      livingEntity.setSecondsOnFire(5);
-      itemStack.hurtAndBreak(1, player, __ -> player.broadcastBreakEvent(hand));
+      livingEntity.igniteForSeconds(5);
+      itemStack.hurtAndBreak(1, player.getRandom(), player,
+          () -> player.broadcastBreakEvent(LivingEntity.getSlotForHand(hand)));
       level.playSound(null, livingEntity.blockPosition(), SoundEvents.FIRECHARGE_USE,
           SoundSource.AMBIENT, 1, player.getRandom().nextFloat() * 0.4F + 0.8F);
       player.swing(hand);

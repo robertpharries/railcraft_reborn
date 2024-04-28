@@ -64,7 +64,8 @@ public abstract class RailcraftBlockEntity extends BlockEntity
   @Override
   public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider provider) {
     byte[] bytes = tag.getByteArray(CompoundTagKeys.SYNC);
-    this.readFromBuf(new FriendlyByteBuf(Unpooled.wrappedBuffer(bytes)));
+    this.readFromBuf(new RegistryFriendlyByteBuf(
+        new FriendlyByteBuf(Unpooled.wrappedBuffer(bytes)), level.registryAccess()));
   }
 
   @Override

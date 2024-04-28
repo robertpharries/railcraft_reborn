@@ -44,8 +44,11 @@ public class ModuleDispatcher implements NetworkSerializable, INBTSerializable<C
 
   @Override
   public void writeToBuf(RegistryFriendlyByteBuf out) {
-    out.writeMap(this.moduleByName,
-        FriendlyByteBuf::writeUtf, (buf, module) -> module.writeToBuf(buf));
+    out.writeVarInt(this.moduleByName.size());
+    this.moduleByName.forEach((s, module) -> {
+      out.writeUtf(s);
+      module.writeToBuf(out);
+    });
   }
 
   @Override

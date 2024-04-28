@@ -2,6 +2,7 @@ package mods.railcraft.world.entity.npc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
@@ -15,6 +16,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -27,7 +29,8 @@ public class RailcraftVillagerTrades {
 
   public static void addTradeForTrackman(Int2ObjectMap<List<VillagerTrades.ItemListing>> trades) {
     BiFunction<ItemStack, RandomSource, ItemStack> enchanter = (stack, rand) -> {
-      EnchantmentHelper.enchantItem(rand, stack, 15 + rand.nextInt(16), true);
+      EnchantmentHelper.enchantItem(FeatureFlags.DEFAULT_FLAGS, rand, stack,
+          15 + rand.nextInt(16), true);
       return stack;
     };
 
@@ -190,12 +193,8 @@ public class RailcraftVillagerTrades {
     public MerchantOffer getOffer(Entity trader, RandomSource random) {
       var sellStack = prepareStack(random, sale);
       var buyStack1 = prepareStack(random, offers[0]);
-      var buyStack2 = ItemStack.EMPTY;
-      if (offers.length >= 2) {
-        buyStack2 = prepareStack(random, offers[1]);
-      }
-
-      return new MerchantOffer(buyStack1, buyStack2, enchanter.apply(sellStack, random),
+      var buyStack2 = Optional.ofNullable(offers.length >= 2 ? prepareStack(random, offers[1]) : null);
+      return new MerchantOffer(buyStack1, buyStack2, enchanter.apply(sellStack.itemStack(), random),
           12, 15, maxUseSetter.applyAsInt(this));
     }
 
@@ -209,9 +208,8 @@ public class RailcraftVillagerTrades {
       return this;
     }
 
-    private ItemStack prepareStack(RandomSource random, Offer offer) {
-
-      return new ItemStack(offer.item, stackSize(random, offer));
+    private ItemCost prepareStack(RandomSource random, Offer offer) {
+      return new ItemCost(offer.item, stackSize(random, offer));
     }
 
     private int stackSize(RandomSource random, Offer offer) {
@@ -242,7 +240,7 @@ public class RailcraftVillagerTrades {
         return null;
       }
       int size = random.nextIntBetweenInclusive(2, 6);
-      return new MerchantOffer(new ItemStack(Items.EMERALD, size), stack, 12, 15, 7);
+      return new MerchantOffer(new ItemCost(Items.EMERALD, size), stack, 12, 15, 7);
     }
   }
 
@@ -294,7 +292,7 @@ public class RailcraftVillagerTrades {
           .getPickResult();
 
       int size = random.nextIntBetweenInclusive(priceLow, priceHigh);
-      return new MerchantOffer(new ItemStack(Items.EMERALD, size), stack, 12, 15, 7);
+      return new MerchantOffer(new ItemCost(Items.EMERALD, size), stack, 12, 15, 7);
     }
   }
 }

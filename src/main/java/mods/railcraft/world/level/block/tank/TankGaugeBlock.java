@@ -11,10 +11,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -52,19 +51,19 @@ public abstract class TankGaugeBlock extends AbstractStrengthenedGlassBlock impl
   }
 
   @Override
-  protected InteractionResult useWithoutItem(BlockState blockState, Level level,
-      BlockPos pos, Player player, BlockHitResult rayTraceResult) {
+  protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level,
+      BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
     if (level.isClientSide()) {
-      return InteractionResult.SUCCESS;
+      return ItemInteractionResult.SUCCESS;
     }
 
     return LevelUtil.getBlockEntity(level, pos, TankBlockEntity.class)
         .flatMap(MultiblockBlockEntity::getMembership)
         .map(MultiblockBlockEntity.Membership::master)
         .map(master -> {
-          master.use((ServerPlayer) player);
-          return InteractionResult.CONSUME;
+          master.use((ServerPlayer) player, hand);
+          return ItemInteractionResult.CONSUME;
         })
-        .orElse(InteractionResult.PASS);
+        .orElse(ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION);
   }
 }

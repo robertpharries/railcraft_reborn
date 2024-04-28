@@ -2,48 +2,36 @@ package mods.railcraft.world.item.enchantment;
 
 import java.lang.ref.WeakReference;
 import java.util.function.Predicate;
-import org.jetbrains.annotations.Nullable;
+import mods.railcraft.tags.RailcraftTags;
 import mods.railcraft.util.Predicates;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.DamageEnchantment;
 import net.minecraft.world.item.enchantment.Enchantment;
 
 public class RailcraftDamageEnchantment extends Enchantment {
 
-  private final int baseEnchantability, levelEnchantability, thresholdEnchantability;
   private final Predicate<? super Entity> check;
   private final float damageBonusPerLevel;
   private WeakReference<Entity> target;
 
-  public RailcraftDamageEnchantment(Rarity rarity, int baseEnchantability,
-      int levelEnchantability, int thresholdEnchantability,
-      @Nullable Predicate<? super Entity> check, float damageBonusPerLevel,
-      EquipmentSlot... slots) {
-    super(rarity, RailcraftEnchantmentCategories.RAILWAY_TOOL, slots);
-    this.baseEnchantability = baseEnchantability;
-    this.levelEnchantability = levelEnchantability;
-    this.thresholdEnchantability = thresholdEnchantability;
-    this.check = check == null ? Predicates.alwaysTrue() : check;
+  //TODO: Check if this is the correct tag
+  public RailcraftDamageEnchantment(int baseEnchantability, int levelEnchantability,
+      int thresholdEnchantability, float damageBonusPerLevel, Predicate<? super Entity> check) {
+    super(Enchantment.definition(RailcraftTags.Items.CROWBAR,
+        1, 5, Enchantment.dynamicCost(baseEnchantability, levelEnchantability),
+        Enchantment.dynamicCost(baseEnchantability + thresholdEnchantability, levelEnchantability),
+        4, EquipmentSlot.MAINHAND));
     this.damageBonusPerLevel = damageBonusPerLevel;
+    this.check = check;
   }
 
-  @Override
-  public int getMinCost(int level) {
-    return this.baseEnchantability + (level - 1) * this.levelEnchantability;
-  }
-
-  @Override
-  public int getMaxCost(int level) {
-    return this.getMinCost(level) + this.thresholdEnchantability;
-  }
-
-  @Override
-  public int getMaxLevel() {
-    return 5;
+  public RailcraftDamageEnchantment(int baseEnchantability, int levelEnchantability,
+      int thresholdEnchantability, float damageBonusPerLevel) {
+    this(baseEnchantability, levelEnchantability, thresholdEnchantability,
+        damageBonusPerLevel, Predicates.alwaysTrue());
   }
 
   @Override

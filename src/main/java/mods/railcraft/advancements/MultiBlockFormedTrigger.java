@@ -56,7 +56,10 @@ public class MultiBlockFormedTrigger extends
 
     public boolean matches(RailcraftBlockEntity blockEntity) {
       return this.type.map(type -> type.equals(blockEntity.getType())).orElse(true)
-          && this.nbt.map(predicate -> predicate.matches(blockEntity.saveWithoutMetadata()))
+          && this.nbt.map(predicate -> {
+            var registryAccess = blockEntity.level().registryAccess();
+            return predicate.matches(blockEntity.saveWithoutMetadata(registryAccess));
+          })
           .orElse(true);
     }
 

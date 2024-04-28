@@ -8,6 +8,7 @@ import mods.railcraft.gui.widget.Widget;
 import mods.railcraft.network.to_client.SyncWidgetMessage;
 import mods.railcraft.world.inventory.slot.RailcraftSlot;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -74,7 +75,8 @@ public abstract class RailcraftMenu extends AbstractContainerMenu {
 
   private void sendWidgetPacket(ServerPlayer player, Widget widget) {
     if (widget.requiresSync(player)) {
-      var byteBuf = new FriendlyByteBuf(Unpooled.buffer());
+      var byteBuf = new RegistryFriendlyByteBuf(
+          new FriendlyByteBuf(Unpooled.buffer()), player.registryAccess());
       try {
         widget.writeToBuf(player, byteBuf);
         var message = new SyncWidgetMessage(this.containerId, widget.getId(), byteBuf.array());

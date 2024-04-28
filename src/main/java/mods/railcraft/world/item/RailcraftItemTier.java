@@ -3,24 +3,27 @@ package mods.railcraft.world.item;
 import java.util.function.Supplier;
 import com.google.common.base.Suppliers;
 import mods.railcraft.tags.RailcraftTags;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
 
 public enum RailcraftItemTier implements Tier {
 
-  STEEL(2, 500, 7, 2.5F, 9, () -> Ingredient.of(RailcraftTags.Items.STEEL_INGOT)),
-  BRONZE(2, 500, 7, 2.5F, 13, () -> Ingredient.of(RailcraftTags.Items.BRONZE_INGOT));
+  STEEL(BlockTags.INCORRECT_FOR_IRON_TOOL, 500, 7, 2.5F, 9, () -> Ingredient.of(RailcraftTags.Items.STEEL_INGOT)),
+  BRONZE(BlockTags.INCORRECT_FOR_IRON_TOOL, 500, 7, 2.5F, 13, () -> Ingredient.of(RailcraftTags.Items.BRONZE_INGOT));
 
-  private final int level;
+  private final TagKey<Block> incorrectBlocksForDrops;
   private final int uses;
   private final float speed;
   private final float damage;
   private final int enchantmentValue;
   private final Supplier<Ingredient> repairIngredient;
 
-  RailcraftItemTier(int level, int uses, float speed, float damage, int enchantmentValue,
+  RailcraftItemTier(TagKey<Block> incorrectBlocksForDrops, int uses, float speed, float damage, int enchantmentValue,
       Supplier<Ingredient> repairIngredient) {
-    this.level = level;
+    this.incorrectBlocksForDrops = incorrectBlocksForDrops;
     this.uses = uses;
     this.speed = speed;
     this.damage = damage;
@@ -44,8 +47,8 @@ public enum RailcraftItemTier implements Tier {
   }
 
   @Override
-  public int getLevel() {
-    return this.level;
+  public TagKey<Block> getIncorrectBlocksForDrops() {
+    return this.incorrectBlocksForDrops;
   }
 
   @Override

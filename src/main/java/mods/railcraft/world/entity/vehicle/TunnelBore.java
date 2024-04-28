@@ -747,9 +747,9 @@ public class TunnelBore extends RailcraftMinecart implements Linkable {
 
     LevelUtil.setAir(this.level(), targetPos);
 
-    if (head.hurt(1, this.random, fakePlayer)) {
+    head.hurtAndBreak(1, this.random, fakePlayer, () -> {
       this.setItem(0, ItemStack.EMPTY);
-    }
+    });
 
     return true;
   }

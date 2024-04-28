@@ -5,12 +5,14 @@ import mods.railcraft.RailcraftConfig;
 import mods.railcraft.api.carts.FluidTransferHandler;
 import mods.railcraft.api.carts.RollingStock;
 import mods.railcraft.api.core.CompoundTagKeys;
+import mods.railcraft.network.RailcraftDataSerializers;
 import mods.railcraft.util.container.ContainerMapper;
 import mods.railcraft.util.container.ContainerTools;
 import mods.railcraft.util.fluids.FluidTools;
 import mods.railcraft.world.entity.RailcraftEntityTypes;
 import mods.railcraft.world.inventory.TankMinecartMenu;
 import mods.railcraft.world.item.RailcraftItems;
+import mods.railcraft.world.item.component.RailcraftDataComponents;
 import mods.railcraft.world.level.material.StandardTank;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -31,14 +33,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidUtil;
+import net.neoforged.neoforge.fluids.SimpleFluidContent;
 
 public class TankMinecart extends FilteredMinecart
     implements WorldlyContainer, FluidTransferHandler {
 
   // Can't use FluidStack directly because its equals method doesn't consider amount so will never
   // sync if the amount is changed.
-  private static final EntityDataAccessor<CompoundTag> FLUID_STACK_TAG =
-      SynchedEntityData.defineId(TankMinecart.class, EntityDataSerializers.COMPOUND_TAG);
+  private static final EntityDataAccessor<FluidStack> FLUID_STACK =
+      SynchedEntityData.defineId(TankMinecart.class, RailcraftDataSerializers.FLUID_STACK);
   private static final EntityDataAccessor<Boolean> FILLING =
       SynchedEntityData.defineId(TankMinecart.class, EntityDataSerializers.BOOLEAN);
   public static final int SLOT_INPUT = 0;
@@ -69,12 +72,12 @@ public class TankMinecart extends FilteredMinecart
   @Override
   protected void defineSynchedData(SynchedEntityData.Builder builder) {
     super.defineSynchedData(builder);
-    builder.define(FLUID_STACK_TAG, new CompoundTag());
+    builder.define(FLUID_STACK, FluidStack.EMPTY);
     builder.define(FILLING, false);
   }
 
   private void tankChanged() {
-    this.entityData.set(FLUID_STACK_TAG, this.tank.getFluid().writeToNBT(new CompoundTag()));
+    this.entityData.set(FLUID_STACK, this.tank.getFluid());
   }
 
   @Override
@@ -84,8 +87,8 @@ public class TankMinecart extends FilteredMinecart
     if (!this.level().isClientSide()) {
       return;
     }
-    if (key.equals(FLUID_STACK_TAG)) {
-      this.tank.setFluid(FluidStack.loadFluidStackFromNBT(this.entityData.get(FLUID_STACK_TAG)));
+    if (key.equals(FLUID_STACK)) {
+      this.tank.setFluid(this.entityData.get(FLUID_STACK));
     }
   }
 
@@ -208,10 +211,7 @@ public class TankMinecart extends FilteredMinecart
   public ItemStack getPickResult() {
     var itemStack = super.getPickResult();
     if (!this.tank.isEmpty()) {
-      var tag = itemStack.getOrCreateTag();
-      var tankTag = new CompoundTag();
-      this.tank.writeToNBT(tankTag);
-      tag.put(CompoundTagKeys.TANK, tankTag);
+      itemStack.set(RailcraftDataComponents.FLUID, SimpleFluidContent.copyOf(this.tank.getFluid()));
     }
     return itemStack;
   }
@@ -219,11 +219,9 @@ public class TankMinecart extends FilteredMinecart
   @Override
   protected void loadFromItemStack(ItemStack itemStack) {
     super.loadFromItemStack(itemStack);
-    var tag = itemStack.getTag();
-    if (tag == null) {
-      return;
+    if (itemStack.has(RailcraftDataComponents.FLUID)) {
+      this.tank.setFluid(itemStack.get(RailcraftDataComponents.FLUID).copy());
     }
-    this.tank.readFromNBT(tag.getCompound(CompoundTagKeys.TANK));
   }
 
   @Override

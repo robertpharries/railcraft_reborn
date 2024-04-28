@@ -9,6 +9,7 @@ import mods.railcraft.world.entity.vehicle.locomotive.Locomotive;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
@@ -36,6 +37,9 @@ public class RailcraftDataSerializers {
 
   public static final EntityDataSerializer<Season> MINECART_SEASON =
       EntityDataSerializer.forValueType(NeoForgeStreamCodecs.enumCodec(Season.class));
+
+  public static final EntityDataSerializer<FluidStack> FLUID_STACK =
+      EntityDataSerializer.forValueType(FluidStack.STREAM_CODEC);
 
   public static void register(IEventBus modEventBus) {
     deferredRegister.register("optional_game_profile", () -> OPTIONAL_GAME_PROFILE);

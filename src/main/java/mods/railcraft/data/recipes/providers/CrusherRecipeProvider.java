@@ -182,7 +182,7 @@ public class CrusherRecipeProvider extends RecipeProvider {
     CrusherRecipeBuilder.crush(ItemTags.WOOL)
         .addResult(Items.STRING, 4, 1)
         .save(recipeOutput);
-    CrusherRecipeBuilder.crush(Tags.Items.STORAGE_BLOCKS_QUARTZ)
+    CrusherRecipeBuilder.crush(Items.QUARTZ_BLOCK)
         .addResult(Items.QUARTZ, 4, 1)
         .save(recipeOutput);
     CrusherRecipeBuilder.crush(Items.RAW_IRON_BLOCK)

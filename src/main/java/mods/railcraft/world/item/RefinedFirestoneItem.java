@@ -1,6 +1,7 @@
 package mods.railcraft.world.item;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import mods.railcraft.Translations.Tips;
@@ -71,10 +72,13 @@ public class RefinedFirestoneItem extends FirestoneItem {
       newStack = CrackedFirestoneItem.getItemEmpty();
       if (itemStack.has(DataComponents.CUSTOM_NAME))
         newStack.set(DataComponents.CUSTOM_NAME, itemStack.getHoverName());
-    } else
+    } else {
       newStack = itemStack.copy();
+    }
     newStack.setCount(1);
-    return newStack.hurt(1, random, null) ? ItemStack.EMPTY : newStack;
+    var res = new AtomicReference<>(newStack);
+    newStack.hurtAndBreak(1, random, null, () -> res.set(ItemStack.EMPTY));
+    return res.get();
   }
 
   @Override

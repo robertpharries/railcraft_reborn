@@ -60,10 +60,10 @@ public class SpikeMaulUseTrigger extends
 
     public boolean matches(ItemStack item, ServerLevel level, BlockPos pos) {
       return LevelUtil.getBlockEntity(level, pos)
-          .map(BlockEntity::saveWithoutMetadata)
+          .map(x -> x.saveWithoutMetadata(level.registryAccess()))
           .map(tag -> this.nbt.map(x -> x.matches(tag)).orElse(true))
           .orElse(false)
-          && this.tool.map(x -> x.matches(item)).orElse(true)
+          && this.tool.map(x -> x.test(item)).orElse(true)
           && this.location.map(x -> x.matches(level, pos.getX(), pos.getY(), pos.getZ()))
           .orElse(true);
     }

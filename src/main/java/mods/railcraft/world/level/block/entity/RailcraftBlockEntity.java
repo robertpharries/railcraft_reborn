@@ -21,6 +21,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
@@ -52,8 +53,9 @@ public abstract class RailcraftBlockEntity extends BlockEntity
 
   @Override
   public final CompoundTag getUpdateTag(HolderLookup.Provider provider) {
-    CompoundTag nbt = super.getUpdateTag(provider);
-    FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
+    var nbt = super.getUpdateTag(provider);
+    var packetBuffer = new RegistryFriendlyByteBuf(
+        new FriendlyByteBuf(Unpooled.buffer()), level.registryAccess());
     this.writeToBuf(packetBuffer);
     byte[] syncData = new byte[packetBuffer.readableBytes()];
     packetBuffer.readBytes(syncData);
@@ -77,14 +79,16 @@ public abstract class RailcraftBlockEntity extends BlockEntity
   @Override
   public void writeToBuf(RegistryFriendlyByteBuf out) {
     out.writeNullable(this.owner, FriendlyByteBuf::writeGameProfile);
-    out.writeNullable(this.customName, FriendlyByteBuf::writeComponent);
+    out.writeNullable(this.customName, (friendlyByteBuf, component) ->
+        ComponentSerialization.STREAM_CODEC.encode((RegistryFriendlyByteBuf) friendlyByteBuf, component));
     this.moduleDispatcher.writeToBuf(out);
   }
 
   @Override
   public void readFromBuf(RegistryFriendlyByteBuf in) {
     this.owner = in.readNullable(FriendlyByteBuf::readGameProfile);
-    this.customName = in.readNullable(FriendlyByteBuf::readComponent);
+    this.customName = in.readNullable(friendlyByteBuf ->
+        ComponentSerialization.STREAM_CODEC.decode((RegistryFriendlyByteBuf) friendlyByteBuf));
     this.moduleDispatcher.readFromBuf(in);
   }
 

@@ -20,7 +20,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -32,7 +31,7 @@ public class LogBookBlockEntity extends RailcraftBlockEntity {
 
   private static final float SEARCH_RADIUS = 16;
   private static final int BOOK_LINES_PER_PAGE = 13;
-  private final Multimap<LocalDate, GameProfile> log = HashMultimap.create();
+  private final Multimap<LocalDate, String> log = HashMultimap.create();
   private int clock = 0;
 
   public LogBookBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -52,6 +51,7 @@ public class LogBookBlockEntity extends RailcraftBlockEntity {
         var date = LocalDate.now();
         var isChanged = blockEntity.log.putAll(date, players.stream()
             .map(Player::getGameProfile)
+            .map(GameProfile::getName)
             .toList());
         if (isChanged) {
           blockEntity.setChanged();
@@ -60,7 +60,7 @@ public class LogBookBlockEntity extends RailcraftBlockEntity {
     }
   }
 
-  public static CompoundTag convertLogToTag(Multimap<LocalDate, GameProfile> log) {
+  public static CompoundTag convertLogToTag(Multimap<LocalDate, String> log) {
     var tag = new CompoundTag();
     var monthAgo = LocalDate.now().minusMonths(1);
 
@@ -72,7 +72,8 @@ public class LogBookBlockEntity extends RailcraftBlockEntity {
       var dateEntry = new CompoundTag();
       var players = new ListTag();
       for (var player : entry.getValue()) {
-        var playerTag = NbtUtils.writeGameProfile(new CompoundTag(), player);
+        var playerTag = new CompoundTag();
+        playerTag.putString("player", player);
         players.add(playerTag);
       }
       dateEntry.putString(CompoundTagKeys.DATE, entry.getKey().toString());
@@ -83,8 +84,8 @@ public class LogBookBlockEntity extends RailcraftBlockEntity {
     return tag;
   }
 
-  public static Multimap<LocalDate, GameProfile> convertLogFromTag(CompoundTag tag) {
-    Multimap<LocalDate, GameProfile> log = HashMultimap.create();
+  public static Multimap<LocalDate, String> convertLogFromTag(CompoundTag tag) {
+    Multimap<LocalDate, String> log = HashMultimap.create();
 
     var monthAgo = LocalDate.now().minusMonths(1);
 
@@ -97,10 +98,10 @@ public class LogBookBlockEntity extends RailcraftBlockEntity {
           continue;
         }
         var playerList = compound.getList(CompoundTagKeys.PLAYERS, Tag.TAG_COMPOUND);
-        var players = new HashSet<GameProfile>();
+        var players = new HashSet<String>();
         for (int j = 0; j < playerList.size(); j++) {
           var playerCompound = playerList.getCompound(i);
-          players.add(NbtUtils.readGameProfile(playerCompound));
+          players.add(playerCompound.getString("player"));
         }
         log.putAll(date, players);
       } catch (DateTimeParseException ignored) {
@@ -113,7 +114,7 @@ public class LogBookBlockEntity extends RailcraftBlockEntity {
     PacketDistributor.sendToPlayer(player, new OpenLogBookScreen(getPages(this.log)));
   }
 
-  private static List<List<String>> getPages(Multimap<LocalDate, GameProfile> log) {
+  private static List<List<String>> getPages(Multimap<LocalDate, String> log) {
     var pages = new ArrayList<List<String>>();
     var days = new ArrayList<>(log.keySet());
     days.sort(Comparator.reverseOrder());
@@ -122,7 +123,7 @@ public class LogBookBlockEntity extends RailcraftBlockEntity {
       for (var profile : log.get(day)) {
         if (page.size() > BOOK_LINES_PER_PAGE)
           page = makePage(pages, day);
-        page.add(profile.getName());
+        page.add(profile);
       }
     }
     return pages;

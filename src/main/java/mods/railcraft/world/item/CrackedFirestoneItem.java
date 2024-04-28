@@ -1,5 +1,6 @@
 package mods.railcraft.world.item;
 
+import java.util.concurrent.atomic.AtomicReference;
 import net.minecraft.world.item.ItemStack;
 
 public class CrackedFirestoneItem extends RefinedFirestoneItem {
@@ -20,7 +21,9 @@ public class CrackedFirestoneItem extends RefinedFirestoneItem {
     if (random.nextDouble() < damageLevel * 0.0001) {
       return RailcraftItems.RAW_FIRESTONE.get().getDefaultInstance();
     }
-    var newStack = itemStack.copyWithCount(1);
-    return newStack.hurt(1, random, null) ? ItemStack.EMPTY : newStack;
+    var newStack = new AtomicReference<>(itemStack.copyWithCount(1));
+    newStack.get().hurtAndBreak(1, random, null,
+        () -> newStack.set(ItemStack.EMPTY));
+    return newStack.get();
   }
 }

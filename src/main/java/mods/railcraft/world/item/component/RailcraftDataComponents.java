@@ -9,6 +9,9 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.util.ExtraCodecs;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.util.NeoForgeExtraCodecs;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.SimpleFluidContent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -92,9 +95,16 @@ public class RailcraftDataComponents {
               .build());
 
   public static final DeferredHolder<DataComponentType<?>, DataComponentType<RoutingTableBookContent>> ROUTING_TABLE_BOOK =
-      deferredRegister.register("click_to_craft", () ->
+      deferredRegister.register("routing_table_book", () ->
           DataComponentType.<RoutingTableBookContent>builder()
               .persistent(RoutingTableBookContent.CODEC)
               .networkSynchronized(RoutingTableBookContent.STREAM_CODEC)
+              .build());
+
+  public static final DeferredHolder<DataComponentType<?>, DataComponentType<SimpleFluidContent>> FLUID =
+      deferredRegister.register("simple_fluid_content", () ->
+          DataComponentType.<SimpleFluidContent>builder()
+              .persistent(SimpleFluidContent.CODEC)
+              .networkSynchronized(SimpleFluidContent.STREAM_CODEC)
               .build());
 }

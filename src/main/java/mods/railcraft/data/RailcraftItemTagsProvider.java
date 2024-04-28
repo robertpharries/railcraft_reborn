@@ -9,6 +9,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -280,9 +281,9 @@ public class RailcraftItemTagsProvider extends ItemTagsProvider {
     this.tag(ItemTags.SHOVELS).add(RailcraftItems.STEEL_SHOVEL.get());
     this.tag(ItemTags.SWORDS).add(RailcraftItems.STEEL_SWORD.get());
 
-    this.tag(Tags.Items.ARMORS_HELMETS).addTags(RailcraftTags.Items.ARMORS_HELMETS_STEEL);
-    this.tag(Tags.Items.ARMORS_CHESTPLATES).addTags(RailcraftTags.Items.ARMORS_CHESTPLATES_STEEL);
-    this.tag(Tags.Items.ARMORS_LEGGINGS).addTags(RailcraftTags.Items.ARMORS_LEGGINGS_STEEL);
-    this.tag(Tags.Items.ARMORS_BOOTS).addTags(RailcraftTags.Items.ARMORS_BOOTS_STEEL);
+    this.tag(ItemTags.HEAD_ARMOR).addTags(RailcraftTags.Items.ARMORS_HELMETS_STEEL);
+    this.tag(ItemTags.CHEST_ARMOR).addTags(RailcraftTags.Items.ARMORS_CHESTPLATES_STEEL);
+    this.tag(ItemTags.LEG_ARMOR).addTags(RailcraftTags.Items.ARMORS_LEGGINGS_STEEL);
+    this.tag(ItemTags.FOOT_ARMOR).addTags(RailcraftTags.Items.ARMORS_BOOTS_STEEL);
   }
 }

@@ -452,6 +452,6 @@ public class Railcraft {
 
   @SubscribeEvent
   public void handleNeighborNotify(BlockEvent.NeighborNotifyEvent event) {
-    event.getLevel().gameEvent(null, RailcraftGameEvents.NEIGHBOR_NOTIFY.get(), event.getPos());
+    event.getLevel().gameEvent(null, RailcraftGameEvents.NEIGHBOR_NOTIFY, event.getPos());
   }
 }

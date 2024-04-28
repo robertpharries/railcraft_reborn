@@ -2,8 +2,6 @@ package mods.railcraft.network.to_server;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.BiFunction;
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.world.item.RoutingTableBookItem;
 import mods.railcraft.world.item.component.RailcraftDataComponents;
@@ -12,12 +10,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.network.Filterable;
-import net.minecraft.server.network.FilteredText;
-import net.minecraft.server.network.TextFilter;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
@@ -45,26 +38,8 @@ public record EditRoutingTableBookMessage(
     var senderProfile = player.getGameProfile();
     var itemStack = player.getItemInHand(message.hand);
     if (itemStack.getItem() instanceof RoutingTableBookItem) {
-      filterTextPacket((ServerPlayer) player, message.pages)
-          .thenAcceptAsync(pages -> {
-            var content = pages.stream().map(x -> filterableFromOutgoing(player, x)).toList();
-            itemStack.set(RailcraftDataComponents.ROUTING_TABLE_BOOK,
-                new RoutingTableBookContent(content, senderProfile.getName(), message.title));
-          });
+      itemStack.set(RailcraftDataComponents.ROUTING_TABLE_BOOK,
+          new RoutingTableBookContent(message.pages, senderProfile.getName(), message.title));
     }
-  }
-
-  private static <T, R> CompletableFuture<R> filterTextPacket(ServerPlayer player, T message,
-      BiFunction<TextFilter, T, CompletableFuture<R>> processor) {
-    return processor.apply(player.getTextFilter(), message).thenApply(x -> x);
-  }
-
-  private static CompletableFuture<List<FilteredText>> filterTextPacket(ServerPlayer player,
-      List<String> text) {
-    return filterTextPacket(player, text, TextFilter::processMessageBundle);
-  }
-
-  private static Filterable<String> filterableFromOutgoing(Player player, FilteredText text) {
-    return player.isTextFilteringEnabled() ? Filterable.passThrough(text.filteredOrEmpty()) : Filterable.from(text);
   }
 }

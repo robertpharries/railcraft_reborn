@@ -50,10 +50,6 @@ public record RoutingTableBookContent(
     }
   }
 
-  public List<String> pages() {
-    return this.pages;
-  }
-
   @Override
   public void addToTooltip(Item.TooltipContext tooltipContext, Consumer<Component> consumer,
       TooltipFlag tooltipFlag) {

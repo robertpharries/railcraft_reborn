@@ -13,6 +13,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.util.INBTSerializable;
@@ -64,15 +65,15 @@ public class TankManager implements IFluidHandler, INBTSerializable<ListTag> {
     }
   }
 
-  public void writePacketData(FriendlyByteBuf data) {
+  public void writePacketData(RegistryFriendlyByteBuf data) {
     for (var tank : this.tanks) {
-      data.writeFluidStack(tank.getFluid());
+      FluidStack.STREAM_CODEC.encode(data, tank.getFluid());
     }
   }
 
-  public void readPacketData(FriendlyByteBuf data) {
+  public void readPacketData(RegistryFriendlyByteBuf data) {
     for (var tank : this.tanks) {
-      tank.setFluid(data.readFluidStack());
+      tank.setFluid(FluidStack.STREAM_CODEC.decode(data));
     }
   }
 

@@ -14,7 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.Level;
@@ -148,7 +148,7 @@ public class SignalCapacitorBoxBlockEntity extends AbstractSignalBoxBlockEntity 
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf data) {
+  public void writeToBuf(RegistryFriendlyByteBuf data) {
     super.writeToBuf(data);
     data.writeBoolean(this.ticksPowered > 0);
     data.writeShort(this.ticksToPower);
@@ -157,7 +157,7 @@ public class SignalCapacitorBoxBlockEntity extends AbstractSignalBoxBlockEntity 
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf data) {
+  public void readFromBuf(RegistryFriendlyByteBuf data) {
     super.readFromBuf(data);
     this.ticksPowered = (short) (data.readBoolean() ? 1 : 0);
     this.ticksToPower = data.readShort();

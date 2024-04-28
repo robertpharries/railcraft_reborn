@@ -1,7 +1,7 @@
 package mods.railcraft.gui.widget;
 
 import mods.railcraft.world.inventory.RailcraftMenu;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 
 public class Widget {
@@ -38,7 +38,7 @@ public class Widget {
     return false;
   }
 
-  public void writeToBuf(ServerPlayer player, FriendlyByteBuf out) {}
+  public void writeToBuf(ServerPlayer player, RegistryFriendlyByteBuf out) {}
 
-  public void readFromBuf(FriendlyByteBuf in) {}
+  public void readFromBuf(RegistryFriendlyByteBuf in) {}
 }

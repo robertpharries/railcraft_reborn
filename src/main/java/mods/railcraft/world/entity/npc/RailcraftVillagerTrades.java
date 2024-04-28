@@ -19,6 +19,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
@@ -209,6 +210,7 @@ public class RailcraftVillagerTrades {
     }
 
     private ItemStack prepareStack(RandomSource random, Offer offer) {
+
       return new ItemStack(offer.item, stackSize(random, offer));
     }
 

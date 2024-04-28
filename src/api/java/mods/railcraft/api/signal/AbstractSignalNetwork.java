@@ -23,7 +23,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -161,13 +160,13 @@ public abstract class AbstractSignalNetwork<T extends BlockEntityLike>
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf data) {
+  public void writeToBuf(RegistryFriendlyByteBuf data) {
     data.writeBoolean(this.linking);
     data.writeCollection(this.peers, RegistryFriendlyByteBuf::writeBlockPos);
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf data) {
+  public void readFromBuf(RegistryFriendlyByteBuf data) {
     this.linking = data.readBoolean();
     this.peers.clear();
     this.peers.addAll(data.readList(RegistryFriendlyByteBuf::readBlockPos));

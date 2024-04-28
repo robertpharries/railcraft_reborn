@@ -9,8 +9,9 @@ import mods.railcraft.util.HumanReadableNumberFormatter;
 import mods.railcraft.world.level.material.StandardTank;
 import mods.railcraft.world.module.WaterCollectionModule;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.server.level.ServerPlayer;
 
 public class WaterCollectionGaugeWidget extends FluidGaugeWidget {
@@ -80,15 +81,20 @@ public class WaterCollectionGaugeWidget extends FluidGaugeWidget {
   }
 
   @Override
-  public void writeToBuf(ServerPlayer player, FriendlyByteBuf out) {
+  public void writeToBuf(ServerPlayer player, RegistryFriendlyByteBuf out) {
     super.writeToBuf(player, out);
     this.refresh();
-    out.writeCollection(this.tooltip, FriendlyByteBuf::writeComponent);
+    out.writeVarInt(this.tooltip.size());
+    this.tooltip.forEach(component -> ComponentSerialization.STREAM_CODEC.encode(out, component));
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf in) {
+  public void readFromBuf(RegistryFriendlyByteBuf in) {
     super.readFromBuf(in);
-    this.tooltip = in.readList(FriendlyByteBuf::readComponent);
+    this.tooltip = new ArrayList<>();
+    int size = in.readVarInt();
+    for (int i = 0; i < size; i++) {
+      this.tooltip.add(ComponentSerialization.STREAM_CODEC.decode(in));
+    }
   }
 }

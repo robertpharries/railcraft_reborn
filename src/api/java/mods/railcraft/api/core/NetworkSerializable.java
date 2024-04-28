@@ -6,11 +6,11 @@
  -----------------------------------------------------------------------------*/
 package mods.railcraft.api.core;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 
 public interface NetworkSerializable {
 
-  void writeToBuf(FriendlyByteBuf out);
+  void writeToBuf(RegistryFriendlyByteBuf out);
 
-  void readFromBuf(FriendlyByteBuf in);
+  void readFromBuf(RegistryFriendlyByteBuf in);
 }

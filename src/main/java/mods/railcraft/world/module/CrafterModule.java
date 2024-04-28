@@ -3,7 +3,7 @@ package mods.railcraft.world.module;
 import mods.railcraft.api.core.CompoundTagKeys;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 
 public abstract class CrafterModule<T extends ModuleProvider> extends ContainerModule<T> {
 
@@ -140,13 +140,13 @@ public abstract class CrafterModule<T extends ModuleProvider> extends ContainerM
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf out) {
+  public void writeToBuf(RegistryFriendlyByteBuf out) {
     super.writeToBuf(out);
     out.writeBoolean(this.processing);
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf in) {
+  public void readFromBuf(RegistryFriendlyByteBuf in) {
     super.readFromBuf(in);
     this.processing = in.readBoolean();
   }

@@ -2,11 +2,10 @@ package mods.railcraft.gui.widget;
 
 import java.util.List;
 import mods.railcraft.world.level.material.StandardTank;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.fluids.FluidStack;
-
 
 public class FluidGaugeWidget extends Widget {
 
@@ -32,18 +31,18 @@ public class FluidGaugeWidget extends Widget {
   }
 
   @Override
-  public void writeToBuf(ServerPlayer player, FriendlyByteBuf data) {
+  public void writeToBuf(ServerPlayer player, RegistryFriendlyByteBuf data) {
     super.writeToBuf(player, data);
     var fluidStack = tank.getFluid();
     this.lastSyncedFluidStack = fluidStack.copy();
     data.writeInt(tank.getCapacity());
-    data.writeFluidStack(fluidStack);
+    FluidStack.STREAM_CODEC.encode(data, fluidStack);
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf data) {
+  public void readFromBuf(RegistryFriendlyByteBuf data) {
     super.readFromBuf(data);
     tank.setCapacity(data.readInt());
-    tank.setFluid(data.readFluidStack());
+    tank.setFluid(FluidStack.STREAM_CODEC.decode(data));
   }
 }

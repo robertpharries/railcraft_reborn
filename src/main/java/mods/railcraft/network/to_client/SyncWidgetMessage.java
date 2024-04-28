@@ -4,6 +4,7 @@ import io.netty.buffer.Unpooled;
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.world.inventory.RailcraftMenu;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -32,7 +33,8 @@ public record SyncWidgetMessage(
     var menu = player.containerMenu;
     if (menu instanceof RailcraftMenu railcraftMenu
         && menu.containerId == message.windowId) {
-      var buff = new FriendlyByteBuf(Unpooled.wrappedBuffer(message.rawUpdates));
+      var buff = new RegistryFriendlyByteBuf(
+          new FriendlyByteBuf(Unpooled.wrappedBuffer(message.rawUpdates)), player.registryAccess());
       railcraftMenu.getWidgets().get(message.widgetId).readFromBuf(buff);
       buff.release();
     }

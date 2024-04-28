@@ -2,7 +2,7 @@ package mods.railcraft.gui.widget;
 
 import it.unimi.dsi.fastutil.objects.Object2FloatMap;
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 
 public class GaugeWidget extends Widget {
@@ -49,14 +49,14 @@ public class GaugeWidget extends Widget {
   }
 
   @Override
-  public void writeToBuf(ServerPlayer listener, FriendlyByteBuf data) {
+  public void writeToBuf(ServerPlayer listener, RegistryFriendlyByteBuf data) {
     float value = this.gauge.getServerValue();
     data.writeFloat(value);
     this.previousValues.put(listener, value);
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf data) {
+  public void readFromBuf(RegistryFriendlyByteBuf data) {
     this.gauge.setClientValue(data.readFloat());
     this.gauge.refresh();
   }

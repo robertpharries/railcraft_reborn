@@ -20,7 +20,7 @@ import mods.railcraft.world.level.material.StandardTank;
 import mods.railcraft.world.module.TankModule;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
@@ -179,7 +179,7 @@ public abstract class TankBlockEntity extends MultiblockBlockEntity<TankBlockEnt
   }
 
   @Override
-  public void writeToBuf(FriendlyByteBuf out) {
+  public void writeToBuf(RegistryFriendlyByteBuf out) {
     super.writeToBuf(out);
     out.writeVarInt(this.maxX);
     out.writeVarInt(this.maxY);
@@ -187,7 +187,7 @@ public abstract class TankBlockEntity extends MultiblockBlockEntity<TankBlockEnt
   }
 
   @Override
-  public void readFromBuf(FriendlyByteBuf in) {
+  public void readFromBuf(RegistryFriendlyByteBuf in) {
     super.readFromBuf(in);
     this.maxX = in.readVarInt();
     this.maxY = in.readVarInt();

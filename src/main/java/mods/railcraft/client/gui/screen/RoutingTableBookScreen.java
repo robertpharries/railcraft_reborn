@@ -17,6 +17,8 @@ import mods.railcraft.client.gui.widget.button.ButtonTexture;
 import mods.railcraft.client.gui.widget.button.RailcraftButton;
 import mods.railcraft.client.gui.widget.button.RailcraftPageButton;
 import mods.railcraft.network.to_server.EditRoutingTableBookMessage;
+import mods.railcraft.world.item.component.RailcraftDataComponents;
+import mods.railcraft.world.item.component.RoutingTableBookContent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.GameNarrator;
@@ -30,7 +32,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.PageButton;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -106,7 +107,7 @@ public class RoutingTableBookScreen extends Screen {
     this.ownerText = Component.translatable("book.byAuthor", owner.getName())
         .withStyle(ChatFormatting.DARK_GRAY);
 
-    var writableBookContent = book.get(DataComponents.WRITABLE_BOOK_CONTENT);
+    var writableBookContent = book.get(RailcraftDataComponents.ROUTING_TABLE_BOOK);
     if (writableBookContent != null) {
       writableBookContent
           .getPages(Minecraft.getInstance().isTextFilteringEnabled())
@@ -256,8 +257,9 @@ public class RoutingTableBookScreen extends Screen {
   }
 
   private void updateLocalCopy() {
-    this.book.set(DataComponents.WRITABLE_BOOK_CONTENT,
-        new WritableBookContent(this.pages.stream().map(Filterable::passThrough).toList()));
+    this.book.set(RailcraftDataComponents.ROUTING_TABLE_BOOK,
+        new RoutingTableBookContent(this.pages.stream().map(Filterable::passThrough).toList(),
+        this.owner.getGameProfile().getName(), Optional.of(this.title.trim())));
   }
 
   private void appendPageToBook() {

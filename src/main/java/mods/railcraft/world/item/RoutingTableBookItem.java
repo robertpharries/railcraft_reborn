@@ -1,18 +1,14 @@
 package mods.railcraft.world.item;
 
-import java.util.List;
 import java.util.function.Predicate;
-import org.jetbrains.annotations.Nullable;
-import mods.railcraft.Translations;
 import mods.railcraft.client.ScreenFactories;
-import net.minecraft.ChatFormatting;
+import mods.railcraft.world.item.component.RailcraftDataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 public class RoutingTableBookItem extends Item {
@@ -27,27 +23,14 @@ public class RoutingTableBookItem extends Item {
   @Override
   public Component getName(ItemStack stack) {
     var name = super.getName(stack);
-    var tag = stack.getTag();
-    if (tag != null && tag.contains("title")) {
-      var title = tag.getString("title");
-      if (!title.isEmpty()) {
+    var content = stack.get(RailcraftDataComponents.ROUTING_TABLE_BOOK);
+    if (content != null) {
+      var title = content.title();
+      if (title.isPresent()) {
         name = name.copy().append(" - " + title);
       }
     }
     return name;
-  }
-
-  @Override
-  public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list,
-      TooltipFlag flag) {
-    var tag = stack.getTag();
-    if (tag != null && tag.contains("author")) {
-      var author = tag.getString("author");
-      if (!author.isEmpty()) {
-        list.add(Component.translatable(Translations.Tips.ROUTING_TABLE_BOOK_LAST_EDIT, author)
-            .withStyle(ChatFormatting.GRAY));
-      }
-    }
   }
 
   @Override

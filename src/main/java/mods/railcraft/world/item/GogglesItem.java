@@ -58,7 +58,7 @@ public class GogglesItem extends ArmorItem {
     }
     var aura = incrementAura(itemStack);
     player.displayClientMessage(getDescriptionText(aura.getDisplayName(), false), true);
-    PacketDistributor.sendToServer(new UpdateAuraByKeyMessage(itemStack.getTag()));
+    PacketDistributor.sendToServer(new UpdateAuraByKeyMessage(aura));
   }
 
   public static boolean isGoggleAuraActive(Aura aura) {

@@ -64,10 +64,8 @@ public class LocomotivePaintingRecipe extends CustomRecipe {
     var primaryColor = primaryItem.getDyeColor();
     var secondaryColor = secondaryItem.getDyeColor();
     var result = new ItemStack(locomotiveItem);
-    var tag = loco.getTag();
-    if (tag != null) {
-      result.setTag(tag);
-    }
+    var components = loco.getComponents();
+    result.applyComponents(components);
     LocomotiveItem.setItemColorData(result, primaryColor, secondaryColor);
     return result;
   }

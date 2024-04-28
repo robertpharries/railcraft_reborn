@@ -16,17 +16,17 @@ public class RailcraftPotions {
 
   public static final DeferredHolder<Potion, Potion> CREOSOTE =
       deferredRegister.register("creosote",
-          () -> new Potion(new MobEffectInstance(RailcraftMobEffects.CREOSOTE.get(), 3600)));
+          () -> new Potion(new MobEffectInstance(RailcraftMobEffects.CREOSOTE, 3600)));
 
   public static final DeferredHolder<Potion, Potion> LONG_CREOSOTE =
       deferredRegister.register("long_creosote",
           () -> new Potion("creosote",
-              new MobEffectInstance(RailcraftMobEffects.CREOSOTE.get(), 9600)));
+              new MobEffectInstance(RailcraftMobEffects.CREOSOTE, 9600)));
 
   public static final DeferredHolder<Potion, Potion> STRONG_CREOSOTE =
       deferredRegister.register("strong_creosote",
           () -> new Potion("creosote",
-              new MobEffectInstance(RailcraftMobEffects.CREOSOTE.get(), 1800, 1)));
+              new MobEffectInstance(RailcraftMobEffects.CREOSOTE, 1800, 1)));
 
   public static void register(IEventBus modEventBus) {
     deferredRegister.register(modEventBus);

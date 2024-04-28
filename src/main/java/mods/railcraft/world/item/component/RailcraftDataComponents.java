@@ -90,4 +90,11 @@ public class RailcraftDataComponents {
               .persistent(Codec.BOOL)
               .networkSynchronized(ByteBufCodecs.BOOL)
               .build());
+
+  public static final DeferredHolder<DataComponentType<?>, DataComponentType<RoutingTableBookContent>> ROUTING_TABLE_BOOK =
+      deferredRegister.register("click_to_craft", () ->
+          DataComponentType.<RoutingTableBookContent>builder()
+              .persistent(RoutingTableBookContent.CODEC)
+              .networkSynchronized(RoutingTableBookContent.STREAM_CODEC)
+              .build());
 }

@@ -106,7 +106,6 @@ import net.neoforged.neoforge.common.world.chunk.RegisterTicketControllersEvent;
 import net.neoforged.neoforge.common.world.chunk.TicketController;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.event.TickEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
@@ -114,6 +113,8 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.fluids.capability.wrappers.FluidBucketWrapper;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -352,8 +353,8 @@ public class Railcraft {
   }
 
   @SubscribeEvent
-  public void handleLevelTick(TickEvent.LevelTickEvent event) {
-    if (event.level instanceof ServerLevel level && event.phase == TickEvent.Phase.END) {
+  public void handleLevelTick(LevelTickEvent.Post event) {
+    if (event.getLevel() instanceof ServerLevel level) {
       for (var provider : ChargeProviderImpl.values()) {
         provider.network(level).tick();
       }
@@ -362,8 +363,8 @@ public class Railcraft {
   }
 
   @SubscribeEvent
-  public void handlePlayerTick(TickEvent.PlayerTickEvent event) {
-    if (event.player instanceof ServerPlayer player
+  public void handlePlayerTick(PlayerTickEvent.Post event) {
+    if (event.getEntity() instanceof ServerPlayer player
         && player.tickCount % SharedConstants.TICKS_PER_SECOND == 0) {
       var linkedCarts = EntitySearcher.findMinecarts()
           .around(player)

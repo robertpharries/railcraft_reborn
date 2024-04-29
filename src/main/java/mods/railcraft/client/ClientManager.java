@@ -76,6 +76,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.fml.loading.moddiscovery.ModFileInfo;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
@@ -84,7 +85,6 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.TickEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -221,9 +221,8 @@ public class ClientManager {
   // ================================================================================
 
   @SubscribeEvent
-  static void handleClientTick(TickEvent.ClientTickEvent event) {
-    if (event.phase == TickEvent.Phase.START
-        && (Minecraft.getInstance().level != null && !Minecraft.getInstance().isPaused())) {
+  static void handleClientTick(ClientTickEvent.Pre event) {
+    if (Minecraft.getInstance().level != null && !Minecraft.getInstance().isPaused()) {
       SignalAspect.tickBlinkState();
     }
   }

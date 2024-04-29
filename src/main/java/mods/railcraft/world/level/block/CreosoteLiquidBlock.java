@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class CreosoteLiquidBlock extends LiquidBlock {
 
   public CreosoteLiquidBlock(Properties properties) {
-    super(RailcraftFluids.CREOSOTE, properties);
+    super(RailcraftFluids.CREOSOTE.get(), properties);
   }
 
   @Override

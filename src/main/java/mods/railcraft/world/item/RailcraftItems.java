@@ -1397,7 +1397,7 @@ public class RailcraftItems {
 
   public static final DeferredItem<BucketItem> CREOSOTE_BUCKET =
       deferredRegister.registerItem("creosote_bucket", properties ->
-          new BucketItem(RailcraftFluids.CREOSOTE, properties
+          new BucketItem(RailcraftFluids.CREOSOTE.get(), properties
               .stacksTo(1)
               .craftRemainder(Items.BUCKET)));
 

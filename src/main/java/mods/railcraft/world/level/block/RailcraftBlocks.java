@@ -1525,7 +1525,7 @@ public class RailcraftBlocks {
 
   public static final DeferredBlock<StairBlock> QUARRIED_BRICK_STAIRS =
       deferredRegister.register("quarried_brick_stairs",
-          () -> new StairBlock(() -> QUARRIED_BRICKS.get().defaultBlockState(),
+          () -> new StairBlock(QUARRIED_BRICKS.get().defaultBlockState(),
               BlockBehaviour.Properties.ofFullCopy(QUARRIED_STONE.get())));
 
   public static final DeferredBlock<SlabBlock> QUARRIED_BRICK_SLAB =
@@ -1538,7 +1538,7 @@ public class RailcraftBlocks {
 
   public static final DeferredBlock<StairBlock> QUARRIED_PAVER_STAIRS =
       deferredRegister.register("quarried_paver_stairs",
-          () -> new StairBlock(() -> QUARRIED_PAVER.get().defaultBlockState(),
+          () -> new StairBlock(QUARRIED_PAVER.get().defaultBlockState(),
               BlockBehaviour.Properties.ofFullCopy(QUARRIED_STONE.get())));
 
   public static final DeferredBlock<SlabBlock> QUARRIED_PAVER_SLAB =
@@ -1571,7 +1571,7 @@ public class RailcraftBlocks {
 
   public static final DeferredBlock<StairBlock> ABYSSAL_BRICK_STAIRS =
       deferredRegister.register("abyssal_brick_stairs",
-          () -> new StairBlock(() -> ABYSSAL_BRICKS.get().defaultBlockState(),
+          () -> new StairBlock(ABYSSAL_BRICKS.get().defaultBlockState(),
               BlockBehaviour.Properties.ofFullCopy(ABYSSAL_STONE.get())));
 
   public static final DeferredBlock<SlabBlock> ABYSSAL_BRICK_SLAB =
@@ -1584,7 +1584,7 @@ public class RailcraftBlocks {
 
   public static final DeferredBlock<StairBlock> ABYSSAL_PAVER_STAIRS =
       deferredRegister.register("abyssal_paver_stairs",
-          () -> new StairBlock(() -> ABYSSAL_PAVER.get().defaultBlockState(),
+          () -> new StairBlock(ABYSSAL_PAVER.get().defaultBlockState(),
               BlockBehaviour.Properties.ofFullCopy(ABYSSAL_STONE.get())));
 
   public static final DeferredBlock<SlabBlock> ABYSSAL_PAVER_SLAB =

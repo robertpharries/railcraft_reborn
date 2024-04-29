@@ -54,7 +54,7 @@ public class ManualRollingMachineBlockEntity extends RailcraftBlockEntity implem
   protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     super.saveAdditional(tag, provider);
     tag.put(CompoundTagKeys.CONTAINER, this.container.createTag(provider));
-    tag.put(CompoundTagKeys.CRAFT_MATRIX, ContainerTools.writeContainer(craftMatrix));
+    tag.put(CompoundTagKeys.CRAFT_MATRIX, ContainerTools.writeContainer(craftMatrix, provider));
     tag.putInt(CompoundTagKeys.PROGRESS, this.progress);
   }
 
@@ -63,7 +63,7 @@ public class ManualRollingMachineBlockEntity extends RailcraftBlockEntity implem
     super.loadAdditional(tag, provider);
     this.container.fromTag(tag.getList(CompoundTagKeys.CONTAINER, Tag.TAG_COMPOUND), provider);
     ContainerTools.readContainer(this.craftMatrix,
-        tag.getList(CompoundTagKeys.CRAFT_MATRIX, Tag.TAG_COMPOUND));
+        tag.getList(CompoundTagKeys.CRAFT_MATRIX, Tag.TAG_COMPOUND), provider);
     this.progress = tag.getInt(CompoundTagKeys.PROGRESS);
   }
 

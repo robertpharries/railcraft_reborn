@@ -9,6 +9,8 @@ import net.minecraft.network.codec.StreamCodec;
 
 public record AuraComponent(GogglesItem.Aura aura) {
 
+  public static final AuraComponent NONE = new AuraComponent(GogglesItem.Aura.NONE);
+
   public static final Codec<AuraComponent> CODEC =
       RecordCodecBuilder.create(instance -> instance.group(
           GogglesItem.Aura.CODEC.fieldOf(CompoundTagKeys.AURA).forGetter(AuraComponent::aura)

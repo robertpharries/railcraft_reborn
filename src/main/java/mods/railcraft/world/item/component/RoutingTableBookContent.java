@@ -21,6 +21,8 @@ public record RoutingTableBookContent(
     Optional<String> title)
     implements TooltipProvider {
 
+  public static final RoutingTableBookContent EMPTY =
+      new RoutingTableBookContent(List.of(), "", Optional.empty());
   private static final int PAGE_EDIT_LENGTH = 1024;
   private static final int MAX_PAGES = 50;
   private static final Codec<String> PAGE_CODEC = Codec.string(0, PAGE_EDIT_LENGTH);

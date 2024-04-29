@@ -1,13 +1,21 @@
 package mods.railcraft.world.item.component;
 
+import java.util.function.Consumer;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import mods.railcraft.Translations;
 import mods.railcraft.api.core.CompoundTagKeys;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipProvider;
 
-public record LocomotiveColorComponent(DyeColor primary, DyeColor secondary) {
+public record LocomotiveColorComponent(DyeColor primary, DyeColor secondary)
+    implements TooltipProvider {
 
   public static final Codec<LocomotiveColorComponent> CODEC =
       RecordCodecBuilder.create(instance -> instance.group(
@@ -21,4 +29,20 @@ public record LocomotiveColorComponent(DyeColor primary, DyeColor secondary) {
           DyeColor.STREAM_CODEC, LocomotiveColorComponent::primary,
           DyeColor.STREAM_CODEC, LocomotiveColorComponent::secondary,
           LocomotiveColorComponent::new);
+
+  @Override
+  public void addToTooltip(Item.TooltipContext tooltipContext, Consumer<Component> consumer,
+      TooltipFlag tooltipFlag) {
+    consumer.accept(Component.translatable(Translations.Tips.LOCOMOTIVE_ITEM_PRIMARY)
+        .withStyle(ChatFormatting.AQUA)
+        .append(" ")
+        .append(Component.translatable("color.minecraft." + primary.getName())
+            .withStyle(ChatFormatting.GRAY)));
+
+    consumer.accept(Component.translatable(Translations.Tips.LOCOMOTIVE_ITEM_SECONDARY)
+        .withStyle(ChatFormatting.AQUA)
+        .append(" ")
+        .append(Component.translatable("color.minecraft." + secondary.getName())
+            .withStyle(ChatFormatting.GRAY)));
+  }
 }

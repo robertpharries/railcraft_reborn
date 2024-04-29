@@ -19,14 +19,8 @@ import net.minecraft.world.item.TooltipFlag;
 
 public class LocomotiveItem extends CartItem implements Filter {
 
-  private final DyeColor defaultPrimary;
-  private final DyeColor defaultSecondary;
-
-  public LocomotiveItem(MinecartFactory minecartPlacer, DyeColor primary, DyeColor secondary,
-      Properties properties) {
+  public LocomotiveItem(MinecartFactory minecartPlacer, Properties properties) {
     super(minecartPlacer, properties);
-    this.defaultPrimary = primary;
-    this.defaultSecondary = secondary;
   }
 
   @Override
@@ -44,30 +38,6 @@ public class LocomotiveItem extends CartItem implements Filter {
           .append(" ")
           .append(Component.literal(owner.getName()).withStyle(ChatFormatting.GRAY)));
     }
-
-    tooltip.add(Component.translatable(Translations.Tips.LOCOMOTIVE_ITEM_PRIMARY)
-        .withStyle(ChatFormatting.AQUA)
-        .append(" ")
-        .append(Component.translatable("color.minecraft." + getColor(stack).primary().getName())
-        .withStyle(ChatFormatting.GRAY)));
-
-    tooltip.add(Component.translatable(Translations.Tips.LOCOMOTIVE_ITEM_SECONDARY)
-        .withStyle(ChatFormatting.AQUA)
-        .append(" ")
-        .append(Component.translatable("color.minecraft." + getColor(stack).secondary().getName())
-        .withStyle(ChatFormatting.GRAY)));
-
-    float whistle = getWhistlePitch(stack);
-    if (whistle < 0) {
-      tooltip.add(Component.translatable(Translations.Tips.LOCOMOTIVE_ITEM_NO_WHISTLE)
-          .withStyle(ChatFormatting.GRAY));
-    } else {
-      tooltip.add(Component.translatable(Translations.Tips.LOCOMOTIVE_ITEM_WHISTLE)
-          .withStyle(ChatFormatting.AQUA)
-          .append(" ")
-          .append(Component.literal(String.format("%.2f", whistle))
-              .withStyle(ChatFormatting.GRAY)));
-    }
   }
 
   public static void setItemColorData(ItemStack stack, DyeColor primaryColor,
@@ -78,10 +48,6 @@ public class LocomotiveItem extends CartItem implements Filter {
   public static void setItemWhistleData(ItemStack stack, float whistlePitch) {
     stack.set(RailcraftDataComponents.LOCOMOTIVE_WHISTLE_PITCH,
         new LocomotiveWhistlePitchComponent(whistlePitch));
-  }
-
-  public static float getWhistlePitch(ItemStack stack) {
-    return stack.getOrDefault(RailcraftDataComponents.LOCOMOTIVE_WHISTLE_PITCH, new LocomotiveWhistlePitchComponent(-1)).whistlePitch();
   }
 
   public static void setOwnerData(ItemStack stack, GameProfile owner) {
@@ -97,8 +63,9 @@ public class LocomotiveItem extends CartItem implements Filter {
   }
 
   public static LocomotiveColorComponent getColor(ItemStack stack) {
-    var item = (LocomotiveItem) stack.getItem();
-    return stack.getOrDefault(RailcraftDataComponents.LOCOMOTIVE_COLOR,
-        new LocomotiveColorComponent(item.defaultPrimary, item.defaultSecondary));
+    if (stack.has(RailcraftDataComponents.LOCOMOTIVE_COLOR)) {
+      return stack.get(RailcraftDataComponents.LOCOMOTIVE_COLOR);
+    }
+    throw new IllegalArgumentException("locomotive_color component not found");
   }
 }

@@ -110,6 +110,7 @@ import net.neoforged.neoforge.common.world.chunk.TicketController;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.TickEvent;
+import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -143,7 +144,7 @@ public class Railcraft {
     RailcraftConfig.registerConfig(modContainer);
 
     var modEventBus = modContainer.getEventBus();
-    modEventBus.addListener(this::handleCommonSetup);
+    modEventBus.addListener(this::handleBrewingSetup);
     modEventBus.addListener(this::handleRegisterCapabilities);
     modEventBus.addListener(this::buildContents);
     modEventBus.addListener(this::handleGatherData);
@@ -184,11 +185,9 @@ public class Railcraft {
   }
 
   // Mod Events
-  private void handleCommonSetup(FMLCommonSetupEvent event) {
-    event.enqueueWork(() -> {
-      BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Potions.AWKWARD,
-          RailcraftItems.CREOSOTE_BOTTLE.get(), RailcraftPotions.CREOSOTE.get()));
-    });
+  private void handleBrewingSetup(RegisterBrewingRecipesEvent event) {
+    event.getBuilder().addRecipe(
+        new BrewingRecipe(Potions.AWKWARD, RailcraftItems.CREOSOTE_BOTTLE.get(), RailcraftPotions.CREOSOTE));
   }
 
   private void handleRegisterCapabilities(RegisterCapabilitiesEvent event) {

@@ -15,6 +15,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.ContainerListener;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 /**
@@ -93,7 +94,10 @@ public class AdvancedContainer extends SimpleContainer
   public void fromTag(ListTag tag, HolderLookup.Provider provider) {
     for (int i = 0; i < tag.size(); ++i) {
       var slotTag = tag.getCompound(i);
-      this.setItem(slotTag.getInt(CompoundTagKeys.INDEX), ItemStack.of(slotTag));
+      ItemStack.parse(provider, slotTag).ifPresent(itemStack -> {
+        int slot = slotTag.getInt(CompoundTagKeys.INDEX);
+        this.setItem(slot, itemStack);
+      });
     }
   }
 
@@ -103,8 +107,7 @@ public class AdvancedContainer extends SimpleContainer
     for (int i = 0; i < this.getContainerSize(); ++i) {
       var slotTag = new CompoundTag();
       slotTag.putInt(CompoundTagKeys.INDEX, i);
-      this.getItem(i).save(slotTag);
-      tag.add(slotTag);
+      tag.add(this.getItem(i).save(provider, slotTag));
     }
     return tag;
   }

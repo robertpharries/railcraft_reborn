@@ -772,7 +772,7 @@ public class TunnelBore extends RailcraftMinecart implements Linkable {
       if (tunnelBoreHead != null) {
         double dig = tunnelBoreHead.digModifier();
         hardness /= dig;
-        int e = boreSlot.getEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY);
+        int e = boreSlot.getEnchantmentLevel(Enchantments.EFFICIENCY);
         hardness /= (e * e * 0.2d + 1);
       }
     }

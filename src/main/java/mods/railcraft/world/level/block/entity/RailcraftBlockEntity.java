@@ -15,6 +15,7 @@ import mods.railcraft.world.module.ModuleDispatcher;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.Connection;
@@ -24,7 +25,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -149,9 +152,8 @@ public abstract class RailcraftBlockEntity extends BlockEntity
   protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     super.saveAdditional(tag, provider);
     if (this.owner != null) {
-      var ownerTag = new CompoundTag();
-      NbtUtils.writeGameProfile(ownerTag, this.owner);
-      tag.put(CompoundTagKeys.OWNER, ownerTag);
+      tag.put(CompoundTagKeys.OWNER, ExtraCodecs.GAME_PROFILE
+          .encodeStart(NbtOps.INSTANCE, this.owner).result().orElseThrow());
     }
     if (this.customName != null) {
       tag.putString(CompoundTagKeys.CUSTOM_NAME,
@@ -165,7 +167,9 @@ public abstract class RailcraftBlockEntity extends BlockEntity
   public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
     super.loadAdditional(tag, provider);
     if (tag.contains(CompoundTagKeys.OWNER, Tag.TAG_COMPOUND)) {
-      this.owner = NbtUtils.readGameProfile(tag.getCompound(CompoundTagKeys.OWNER));
+      this.owner = ExtraCodecs.GAME_PROFILE
+          .decode(NbtOps.INSTANCE, tag.getCompound(CompoundTagKeys.OWNER))
+          .result().orElseThrow().getFirst();
     }
     if (tag.contains(CompoundTagKeys.CUSTOM_NAME, Tag.TAG_STRING)) {
       this.customName =

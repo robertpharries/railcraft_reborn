@@ -9,6 +9,12 @@ import mods.railcraft.world.entity.vehicle.TankMinecart;
 import mods.railcraft.world.entity.vehicle.locomotive.CreativeLocomotive;
 import mods.railcraft.world.entity.vehicle.locomotive.ElectricLocomotive;
 import mods.railcraft.world.entity.vehicle.locomotive.SteamLocomotive;
+import mods.railcraft.world.item.component.AuraComponent;
+import mods.railcraft.world.item.component.LocomotiveColorComponent;
+import mods.railcraft.world.item.component.LocomotiveWhistlePitchComponent;
+import mods.railcraft.world.item.component.RailcraftDataComponents;
+import mods.railcraft.world.item.component.RoutingTableBookContent;
+import mods.railcraft.world.item.component.SeasonComponent;
 import mods.railcraft.world.item.tunnelbore.TunnelBoreHeadItem;
 import mods.railcraft.world.item.tunnelbore.TunnelBoreItem;
 import mods.railcraft.world.level.block.RailcraftBlocks;
@@ -250,23 +256,28 @@ public class RailcraftItems {
 
   public static final DeferredItem<SwordItem> STEEL_SWORD =
       deferredRegister.registerItem("steel_sword", properties ->
-          new SwordItem(RailcraftItemTier.STEEL, 3, -2.4F, properties));
+          new SwordItem(RailcraftItemTier.STEEL, properties
+              .attributes(SwordItem.createAttributes(RailcraftItemTier.STEEL, 3, -2.4F))));
 
   public static final DeferredItem<ShovelItem> STEEL_SHOVEL =
       deferredRegister.registerItem("steel_shovel", properties ->
-          new ShovelItem(RailcraftItemTier.STEEL, 1.5F, -3.0F, properties));
+          new ShovelItem(RailcraftItemTier.STEEL, properties
+              .attributes(ShovelItem.createAttributes(RailcraftItemTier.STEEL, 1.5F, -3F))));
 
   public static final DeferredItem<PickaxeItem> STEEL_PICKAXE =
       deferredRegister.registerItem("steel_pickaxe", properties ->
-          new PickaxeItem(RailcraftItemTier.STEEL, 1, -2.8F, properties));
+          new PickaxeItem(RailcraftItemTier.STEEL, properties
+              .attributes(PickaxeItem.createAttributes(RailcraftItemTier.STEEL, 1, -2.8F))));
 
   public static final DeferredItem<AxeItem> STEEL_AXE =
       deferredRegister.registerItem("steel_axe", properties ->
-          new AxeItem(RailcraftItemTier.STEEL, 8.0F, -3F, properties));
+          new AxeItem(RailcraftItemTier.STEEL, properties
+              .attributes(AxeItem.createAttributes(RailcraftItemTier.STEEL, 8F, -3F))));
 
   public static final DeferredItem<HoeItem> STEEL_HOE =
       deferredRegister.registerItem("steel_hoe", properties ->
-          new HoeItem(RailcraftItemTier.STEEL, -2, -0.5F, properties));
+          new HoeItem(RailcraftItemTier.STEEL, properties
+              .attributes(HoeItem.createAttributes(RailcraftItemTier.STEEL, -2, -0.5F))));
 
   public static final DeferredItem<ArmorItem> STEEL_BOOTS =
       deferredRegister.registerItem("steel_boots", properties ->
@@ -483,18 +494,30 @@ public class RailcraftItems {
 
   public static final DeferredItem<LocomotiveItem> CREATIVE_LOCOMOTIVE =
       deferredRegister.registerItem("creative_locomotive", properties ->
-          new LocomotiveItem(CreativeLocomotive::new, DyeColor.BLACK, DyeColor.MAGENTA,
-              properties.stacksTo(1)));
+          new LocomotiveItem(CreativeLocomotive::new,
+              properties.stacksTo(1)
+                  .component(RailcraftDataComponents.LOCOMOTIVE_COLOR,
+                      new LocomotiveColorComponent(DyeColor.BLACK, DyeColor.MAGENTA))
+                  .component(RailcraftDataComponents.LOCOMOTIVE_WHISTLE_PITCH,
+                      LocomotiveWhistlePitchComponent.NO_WHISTLE)));
 
   public static final DeferredItem<LocomotiveItem> ELECTRIC_LOCOMOTIVE =
       deferredRegister.registerItem("electric_locomotive", properties ->
-          new LocomotiveItem(ElectricLocomotive::new, DyeColor.YELLOW, DyeColor.BLACK,
-              properties.stacksTo(1)));
+          new LocomotiveItem(ElectricLocomotive::new,
+              properties.stacksTo(1)
+                  .component(RailcraftDataComponents.LOCOMOTIVE_COLOR,
+                      new LocomotiveColorComponent(DyeColor.YELLOW, DyeColor.BLACK))
+                  .component(RailcraftDataComponents.LOCOMOTIVE_WHISTLE_PITCH,
+                      LocomotiveWhistlePitchComponent.NO_WHISTLE)));
 
   public static final DeferredItem<LocomotiveItem> STEAM_LOCOMOTIVE =
       deferredRegister.registerItem("steam_locomotive", properties ->
-          new LocomotiveItem(SteamLocomotive::new, DyeColor.LIGHT_GRAY, DyeColor.GRAY,
-              properties.stacksTo(1)));
+          new LocomotiveItem(SteamLocomotive::new,
+              properties.stacksTo(1)
+                  .component(RailcraftDataComponents.LOCOMOTIVE_COLOR,
+                      new LocomotiveColorComponent(DyeColor.LIGHT_GRAY, DyeColor.GRAY))
+                  .component(RailcraftDataComponents.LOCOMOTIVE_WHISTLE_PITCH,
+                      LocomotiveWhistlePitchComponent.NO_WHISTLE)));
 
   public static final DeferredItem<Item> WHISTLE_TUNER =
       deferredRegister.registerSimpleItem("whistle_tuner", new Item.Properties().durability(250));
@@ -507,7 +530,9 @@ public class RailcraftItems {
       deferredRegister.registerItem("ticket", TicketItem::new);
 
   public static final DeferredItem<RoutingTableBookItem> ROUTING_TABLE_BOOK =
-      deferredRegister.registerItem("routing_table_book", RoutingTableBookItem::new);
+      deferredRegister.registerItem("routing_table_book", properties ->
+          new RoutingTableBookItem(properties.component(RailcraftDataComponents.ROUTING_TABLE_BOOK,
+                  RoutingTableBookContent.EMPTY)));
 
   public static final DeferredItem<OverallsItem> OVERALLS =
       deferredRegister.registerItem("overalls", OverallsItem::new);
@@ -943,7 +968,9 @@ public class RailcraftItems {
           new CrowbarItem(2.5F, -2.4F, Tiers.DIAMOND, properties));
 
   public static final DeferredItem<SeasonsCrowbarItem> SEASONS_CROWBAR =
-      deferredRegister.registerItem("seasons_crowbar", SeasonsCrowbarItem::new);
+      deferredRegister.registerItem("seasons_crowbar", properties ->
+          new SeasonsCrowbarItem(properties
+              .component(RailcraftDataComponents.SEASON, SeasonComponent.DEFAULT)));
 
   public static final DeferredItem<Item> TRACK_PARTS = registerBasic("track_parts");
 
@@ -1154,7 +1181,9 @@ public class RailcraftItems {
               .addOutfittedBlock(TrackTypes.STRAP_IRON, RailcraftBlocks.STRAP_IRON_ROUTING_TRACK)));
 
   public static final DeferredItem<GogglesItem> GOGGLES =
-      deferredRegister.registerItem("goggles", GogglesItem::new);
+      deferredRegister.registerItem("goggles", properties ->
+          new GogglesItem(properties
+              .component(RailcraftDataComponents.AURA, AuraComponent.NONE)));
 
   public static final DeferredItem<BlockItem> MANUAL_ROLLING_MACHINE =
       blockItem(RailcraftBlocks.MANUAL_ROLLING_MACHINE);

@@ -1,18 +1,19 @@
 package mods.railcraft.data.recipes.builders;
 
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.neoforged.neoforge.common.brewing.IBrewingRecipe;
 
 public class BrewingRecipe implements IBrewingRecipe {
 
-  private final Potion input, output;
+  private final Holder<Potion> input, output;
   private final Item ingredient;
 
-  public BrewingRecipe(Potion input, Item ingredient, Potion output) {
+  public BrewingRecipe(Holder<Potion> input, Item ingredient, Holder<Potion> output) {
     this.input = input;
     this.ingredient = ingredient;
     this.output = output;
@@ -20,7 +21,11 @@ public class BrewingRecipe implements IBrewingRecipe {
 
   @Override
   public boolean isInput(ItemStack input) {
-    return PotionUtils.getPotion(input).equals(this.input);
+    var potionContent = input.get(DataComponents.POTION_CONTENTS);
+    if (potionContent != null) {
+      return potionContent.is(this.input);
+    }
+    return false;
   }
 
   @Override
@@ -35,8 +40,7 @@ public class BrewingRecipe implements IBrewingRecipe {
     }
 
     var itemStack = new ItemStack(input.getItem());
-    itemStack.setTag(new CompoundTag());
-    PotionUtils.setPotion(itemStack, this.output);
+    itemStack.set(DataComponents.POTION_CONTENTS, new PotionContents(this.output));
     return itemStack;
   }
 }

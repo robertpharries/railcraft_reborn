@@ -21,7 +21,7 @@ public record ItemStackKey(ItemStack itemStack) {
     return Objects.hash(
         this.itemStack.getItem(),
         this.itemStack.getDamageValue(),
-        this.itemStack.getTag());
+        this.itemStack.getComponents());
   }
 
   public ItemStack copyStack() {

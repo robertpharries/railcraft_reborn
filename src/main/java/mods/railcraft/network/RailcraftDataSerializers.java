@@ -48,6 +48,7 @@ public class RailcraftDataSerializers {
     deferredRegister.register("locomotive_lock", () -> LOCOMOTIVE_LOCK);
     deferredRegister.register("maintenance_mode", () -> MAINTENANCE_MODE);
     deferredRegister.register("minecart_season", () -> MINECART_SEASON);
+    deferredRegister.register("fluid_stack", () -> FLUID_STACK);
     deferredRegister.register(modEventBus);
   }
 }

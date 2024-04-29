@@ -9,6 +9,8 @@ import net.minecraft.network.codec.StreamCodec;
 
 public record SeasonComponent(Season season) {
 
+  public static final SeasonComponent DEFAULT = new SeasonComponent(Season.DEFAULT);
+
   public static final Codec<SeasonComponent> CODEC =
       RecordCodecBuilder.create(instance -> instance.group(
           Season.CODEC.fieldOf(CompoundTagKeys.SEASON).forGetter(SeasonComponent::season)

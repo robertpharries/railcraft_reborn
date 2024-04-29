@@ -7,6 +7,7 @@ import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.api.item.Filter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.Container;
@@ -59,27 +60,26 @@ public abstract class ContainerTools {
     return ItemStack.isSameItem(stack, filter);
   }
 
-  public static ListTag writeContainer(Container container) {
+  public static ListTag writeContainer(Container container, HolderLookup.Provider provider) {
     var tag = new ListTag();
     for (byte i = 0; i < container.getContainerSize(); i++) {
       var itemStack = container.getItem(i);
       if (!itemStack.isEmpty()) {
         var slotTag = new CompoundTag();
         slotTag.putByte(CompoundTagKeys.INDEX, i);
-        itemStack.save(slotTag);
-        tag.add(slotTag);
+        tag.add(itemStack.save(provider, slotTag));
       }
     }
     return tag;
   }
 
-  public static void readContainer(Container container, ListTag tag) {
+  public static void readContainer(Container container, ListTag tag, HolderLookup.Provider provider) {
     for (byte i = 0; i < tag.size(); i++) {
       var slotTag = tag.getCompound(i);
       int slot = slotTag.getByte(CompoundTagKeys.INDEX);
       if (slot >= 0 && slot < container.getContainerSize()) {
-        var itemStack = ItemStack.of(slotTag);
-        container.setItem(slot, itemStack);
+        ItemStack.parse(provider, slotTag)
+            .ifPresent(itemStack -> container.setItem(slot, itemStack));
       }
     }
   }

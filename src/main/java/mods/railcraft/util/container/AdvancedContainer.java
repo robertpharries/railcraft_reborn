@@ -104,9 +104,12 @@ public class AdvancedContainer extends SimpleContainer
   public ListTag createTag(HolderLookup.Provider provider) {
     var tag = new ListTag();
     for (int i = 0; i < this.getContainerSize(); ++i) {
-      var slotTag = new CompoundTag();
-      slotTag.putInt(CompoundTagKeys.INDEX, i);
-      tag.add(this.getItem(i).save(provider, slotTag));
+      var item = this.getItem(i);
+      if (!item.isEmpty()) {
+        var slotTag = new CompoundTag();
+        slotTag.putInt(CompoundTagKeys.INDEX, i);
+        tag.add(item.save(provider, slotTag));
+      }
     }
     return tag;
   }

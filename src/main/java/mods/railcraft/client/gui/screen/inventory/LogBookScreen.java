@@ -103,13 +103,13 @@ public class LogBookScreen extends Screen {
   }
 
   private String getCurrentPageText() {
-    return this.currentPage >= 0 && this.currentPage < this.pages.size() ? this.pages.get(
-        this.currentPage) : "";
+    return this.currentPage >= 0 && this.currentPage < this.pages.size() ?
+        this.pages.get(this.currentPage) : "";
   }
 
   @Override
   public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-    this.renderBackground(guiGraphics, mouseX, mouseY, partialTicks);
+    super.render(guiGraphics, mouseX, mouseY, partialTicks);
     this.setFocused(null);
     RenderSystem.setShaderTexture(0, BOOK_LOCATION);
     int xOffset = (this.width - IMAGE_WIDTH) / 2;
@@ -124,7 +124,6 @@ public class LogBookScreen extends Screen {
           -16777216, false);
     }
     this.updateButtonVisibility();
-    super.render(guiGraphics, mouseX, mouseY, partialTicks);
   }
 
   private DisplayCache getDisplayCache() {

@@ -21,6 +21,7 @@
     " d "
   ],
   "result": {
-    "item": "railcraft:tunnel_bore"
+    "count": 1,
+    "id": "railcraft:tunnel_bore"
   }
 }

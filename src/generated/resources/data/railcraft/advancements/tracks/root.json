@@ -4,9 +4,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:wooden_tie"
-            ]
+            "items": "railcraft:wooden_tie"
           }
         ]
       },
@@ -20,7 +18,8 @@
       "translate": "advancements.railcraft.tracks.root.desc"
     },
     "icon": {
-      "item": "railcraft:reinforced_track"
+      "count": 1,
+      "id": "railcraft:reinforced_track"
     },
     "show_toast": false,
     "title": {

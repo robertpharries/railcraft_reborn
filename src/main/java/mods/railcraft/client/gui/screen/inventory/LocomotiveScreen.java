@@ -9,7 +9,6 @@ import mods.railcraft.client.gui.widget.button.ButtonTexture;
 import mods.railcraft.client.gui.widget.button.MultiButton;
 import mods.railcraft.client.gui.widget.button.RailcraftButton;
 import mods.railcraft.client.gui.widget.button.ToggleButton;
-import mods.railcraft.network.PacketHandler;
 import mods.railcraft.network.to_server.SetLocomotiveMessage;
 import mods.railcraft.world.entity.vehicle.locomotive.Locomotive;
 import mods.railcraft.world.entity.vehicle.locomotive.Locomotive.Speed;

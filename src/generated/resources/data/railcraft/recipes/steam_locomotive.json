@@ -21,6 +21,7 @@
     "cdd"
   ],
   "result": {
-    "item": "railcraft:steam_locomotive"
+    "count": 1,
+    "id": "railcraft:steam_locomotive"
   }
 }

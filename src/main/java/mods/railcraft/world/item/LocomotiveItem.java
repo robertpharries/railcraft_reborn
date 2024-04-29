@@ -38,6 +38,14 @@ public class LocomotiveItem extends CartItem implements Filter {
           .append(" ")
           .append(Component.literal(owner.getName()).withStyle(ChatFormatting.GRAY)));
     }
+    var color = stack.get(RailcraftDataComponents.LOCOMOTIVE_COLOR);
+    if (color != null) {
+      color.addToTooltip(context, tooltip::add, adv);
+    }
+    var whistlePitch = stack.get(RailcraftDataComponents.LOCOMOTIVE_WHISTLE_PITCH);
+    if (whistlePitch != null) {
+      whistlePitch.addToTooltip(context, tooltip::add, adv);
+    }
   }
 
   public static void setItemColorData(ItemStack stack, DyeColor primaryColor,

@@ -7,5 +7,8 @@
   "ingredient": {
     "item": "railcraft:deepslate_tin_ore"
   },
-  "result": "railcraft:tin_ingot"
+  "result": {
+    "count": 1,
+    "id": "railcraft:tin_ingot"
+  }
 }

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:radio_circuit"
-            ]
+            "items": "railcraft:radio_circuit"
           }
         ]
       },

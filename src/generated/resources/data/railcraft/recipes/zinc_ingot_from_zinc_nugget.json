@@ -12,6 +12,7 @@
     "aaa"
   ],
   "result": {
-    "item": "railcraft:zinc_ingot"
+    "count": 1,
+    "id": "railcraft:zinc_ingot"
   }
 }

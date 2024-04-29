@@ -2,7 +2,7 @@
   "type": "railcraft:rolling",
   "key": {
     "a": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     }
   },
   "pattern": [
@@ -11,6 +11,6 @@
   ],
   "result": {
     "count": 4,
-    "item": "railcraft:copper_plate"
+    "id": "railcraft:copper_plate"
   }
 }

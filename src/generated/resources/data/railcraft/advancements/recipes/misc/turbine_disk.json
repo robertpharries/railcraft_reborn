@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:turbine_blade"
-            ]
+            "items": "railcraft:turbine_blade"
           }
         ]
       },

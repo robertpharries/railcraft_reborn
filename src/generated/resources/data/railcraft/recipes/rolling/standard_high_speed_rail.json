@@ -8,7 +8,7 @@
       "item": "minecraft:blaze_powder"
     },
     "c": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     }
   },
   "pattern": [
@@ -18,6 +18,6 @@
   ],
   "result": {
     "count": 8,
-    "item": "railcraft:high_speed_rail"
+    "id": "railcraft:high_speed_rail"
   }
 }

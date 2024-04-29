@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:raw_materials/iron"
+        "tag": "c:raw_materials/iron"
       }
     },
     {
@@ -24,7 +24,7 @@
   ],
   "type": "railcraft:crusher",
   "ingredient": {
-    "tag": "forge:raw_materials/iron"
+    "tag": "c:raw_materials/iron"
   },
   "outputs": [
     {

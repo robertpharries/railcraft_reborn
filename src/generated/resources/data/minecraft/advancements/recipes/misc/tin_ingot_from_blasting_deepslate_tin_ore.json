@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:deepslate_tin_ore"
-            ]
+            "items": "railcraft:deepslate_tin_ore"
           }
         ]
       },

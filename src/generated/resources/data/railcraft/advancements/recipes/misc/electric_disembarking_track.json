@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:disembarking_track_kit"
-            ]
+            "items": "railcraft:disembarking_track_kit"
           }
         ]
       },

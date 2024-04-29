@@ -28,6 +28,7 @@
     }
   ],
   "result": {
-    "item": "railcraft:standard_rail"
+    "count": 1,
+    "id": "railcraft:standard_rail"
   }
 }

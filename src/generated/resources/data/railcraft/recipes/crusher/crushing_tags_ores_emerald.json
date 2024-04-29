@@ -4,13 +4,13 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/emerald"
+        "tag": "c:ores/emerald"
       }
     }
   ],
   "type": "railcraft:crusher",
   "ingredient": {
-    "tag": "forge:ores/emerald"
+    "tag": "c:ores/emerald"
   },
   "outputs": [
     {

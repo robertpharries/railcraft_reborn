@@ -18,6 +18,7 @@
     "aba"
   ],
   "result": {
-    "item": "railcraft:steam_turbine"
+    "count": 1,
+    "id": "railcraft:steam_turbine"
   }
 }

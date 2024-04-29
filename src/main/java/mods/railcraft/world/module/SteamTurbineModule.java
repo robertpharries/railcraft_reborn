@@ -1,5 +1,6 @@
 package mods.railcraft.world.module;
 
+import java.util.concurrent.atomic.AtomicReference;
 import mods.railcraft.api.charge.Charge;
 import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.tags.RailcraftTags;
@@ -120,8 +121,15 @@ public class SteamTurbineModule extends ChargeModule<SteamTurbineBlockEntity> {
 
   public ItemStack useRotor(ItemStack stack) {
     var random = this.provider.level().getRandom();
-    return random.nextInt(ROTOR_DAMAGE_CHANCE) == 0
-        && stack.hurt(1, random, null) ? ItemStack.EMPTY : stack;
+    if (random.nextInt(ROTOR_DAMAGE_CHANCE) == 0) {
+      var result = new AtomicReference<>(stack);
+      stack.hurtAndBreak(1, random, null, () -> {
+        result.set(ItemStack.EMPTY);
+      });
+      return result.get();
+    } else {
+      return stack;
+    }
   }
 
   public class FluidHandler implements IFluidHandler {

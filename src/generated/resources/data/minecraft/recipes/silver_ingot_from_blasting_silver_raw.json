@@ -7,5 +7,8 @@
   "ingredient": {
     "item": "railcraft:silver_raw"
   },
-  "result": "railcraft:silver_ingot"
+  "result": {
+    "count": 1,
+    "id": "railcraft:silver_ingot"
+  }
 }

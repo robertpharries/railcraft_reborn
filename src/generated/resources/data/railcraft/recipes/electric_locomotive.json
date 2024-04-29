@@ -32,6 +32,7 @@
     "efe"
   ],
   "result": {
-    "item": "railcraft:electric_locomotive"
+    "count": 1,
+    "id": "railcraft:electric_locomotive"
   }
 }

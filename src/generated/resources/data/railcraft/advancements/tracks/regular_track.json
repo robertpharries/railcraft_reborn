@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:rail"
-            ]
+            "items": "minecraft:rail"
           }
         ]
       },
@@ -20,7 +18,8 @@
       "translate": "advancements.railcraft.tracks.regular_track.desc"
     },
     "icon": {
-      "item": "minecraft:rail"
+      "count": 1,
+      "id": "minecraft:rail"
     },
     "title": {
       "translate": "advancements.railcraft.tracks.regular_track.name"

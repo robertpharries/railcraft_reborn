@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:slag"
-            ]
+            "items": "railcraft:slag"
           }
         ]
       },

@@ -4,7 +4,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.UnknownNullability;
 import org.joml.Vector2d;
 import org.slf4j.Logger;
 import com.mojang.authlib.GameProfile;

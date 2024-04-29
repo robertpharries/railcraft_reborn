@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:steel_sword"
-            ]
+            "items": "railcraft:steel_sword"
           }
         ]
       },

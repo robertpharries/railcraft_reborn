@@ -11,7 +11,8 @@
     },
     "frame": "goal",
     "icon": {
-      "item": "railcraft:buffer_stop_track_kit"
+      "count": 1,
+      "id": "railcraft:buffer_stop_track_kit"
     },
     "title": {
       "translate": "advancements.railcraft.tracks.track_kit.name"

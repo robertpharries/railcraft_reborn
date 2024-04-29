@@ -18,10 +18,11 @@
       "tag": "forge:storage_blocks/steel"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     }
   ],
   "result": {
-    "item": "railcraft:launcher_track_kit"
+    "count": 1,
+    "id": "railcraft:launcher_track_kit"
   }
 }

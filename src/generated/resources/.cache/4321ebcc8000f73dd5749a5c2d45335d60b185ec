@@ -1,8 +1,10 @@
-// 1.20.4	2024-03-24T10:15:17.97861	Tags for minecraft:block mod id railcraft
-9732f1964281f5d5e6f3d067e648bb4bfc5cbafb data/forge/tags/blocks/enderman_place_on_blacklist.json
-e36857f35c1bac4bde5a8450008b92cf82656216 data/forge/tags/blocks/ore_rates/dense.json
-8ce5fa4b4f1c2619e124ef387b086d72f9c26f04 data/forge/tags/blocks/ore_rates/singular.json
-c31435450cdbffad0151b7e26a9cc131bf672a75 data/forge/tags/blocks/ores.json
+// 1.20.5	2024-04-29T14:53:36.509713	Tags for minecraft:block mod id railcraft
+e36857f35c1bac4bde5a8450008b92cf82656216 data/c/tags/blocks/ore_rates/dense.json
+8ce5fa4b4f1c2619e124ef387b086d72f9c26f04 data/c/tags/blocks/ore_rates/singular.json
+c31435450cdbffad0151b7e26a9cc131bf672a75 data/c/tags/blocks/ores.json
+ab8a6f7d61afc254cc8f018a4e9182ccac386840 data/c/tags/blocks/ores_in_ground/deepslate.json
+cba1c5a31aa2960efa0703b2e57f8390f53d4ce6 data/c/tags/blocks/ores_in_ground/netherrack.json
+679d265c52f455f2a0f0f9afcfb254016b47f407 data/c/tags/blocks/ores_in_ground/stone.json
 8c50a9944556e96063fbc340f5ad0cc8db547ff3 data/forge/tags/blocks/ores/lead.json
 83ceb2d2883c80859eebd5d5bb21fc2bfb849cf9 data/forge/tags/blocks/ores/nickel.json
 35a98a11222809a20225372b2d7129082cbbc2b8 data/forge/tags/blocks/ores/salt.json
@@ -10,9 +12,6 @@ c31435450cdbffad0151b7e26a9cc131bf672a75 data/forge/tags/blocks/ores.json
 7094cc9c85699e7afa6c283f7a769bab75eeeaff data/forge/tags/blocks/ores/sulfur.json
 0fbe7a7a55102f803486517de1004a189959f607 data/forge/tags/blocks/ores/tin.json
 e04f5a6285f9ec10108641e77582345991282073 data/forge/tags/blocks/ores/zinc.json
-ab8a6f7d61afc254cc8f018a4e9182ccac386840 data/forge/tags/blocks/ores_in_ground/deepslate.json
-cba1c5a31aa2960efa0703b2e57f8390f53d4ce6 data/forge/tags/blocks/ores_in_ground/netherrack.json
-679d265c52f455f2a0f0f9afcfb254016b47f407 data/forge/tags/blocks/ores_in_ground/stone.json
 aefbbbc5abb467f81217a20784fffded5a4cc0df data/minecraft/tags/blocks/anvil.json
 491830ad886621c3a078a87ab488fd45839ad64d data/minecraft/tags/blocks/climbable.json
 5f095a79961790ef28559752e75223a6097fb997 data/minecraft/tags/blocks/mineable/axe.json
@@ -21,11 +20,12 @@ ea0a3114efcdba729838f7e3dbb1f04d6c470a43 data/minecraft/tags/blocks/mineable/pic
 e28c7fdf089f8fc76f9e5565d74f0293e412cfbc data/minecraft/tags/blocks/needs_iron_tool.json
 b896f8308935dbcc1d849f150ffc664342a4e4fc data/minecraft/tags/blocks/needs_stone_tool.json
 e1d606686d8d1ae939af83da8c931c49c2e9df5e data/minecraft/tags/blocks/rails.json
+9732f1964281f5d5e6f3d067e648bb4bfc5cbafb data/neoforge/tags/blocks/enderman_place_on_blacklist.json
 4276d58b0cb375037387fa9b749ae6b1e09d33c9 data/railcraft/tags/blocks/abandoned_track.json
 9b21abe5b3e3997560ef95937505d9a8112afa92 data/railcraft/tags/blocks/abyssal.json
 5d37cf39d46349a6645d3f076a92aa2e94b9624e data/railcraft/tags/blocks/aspect_emitter.json
 192386fbb9d76dd115cb27c418ef2656209a93c4 data/railcraft/tags/blocks/aspect_receiver.json
-7e5c073993b497f00165a2cd8588c86b92c42e32 data/railcraft/tags/blocks/ballast.json
+ad0202d7341644707fc7a1e289e26c7893bb25c3 data/railcraft/tags/blocks/ballast.json
 ce3776760cd245b3be24a2863b4f4ab016e5b8ff data/railcraft/tags/blocks/detector.json
 592e64113a8afc0a5dafcdbf62ae4c012d67b168 data/railcraft/tags/blocks/electric_track.json
 6f70aa0939666b437b1f94030c02681a1a80eedf data/railcraft/tags/blocks/high_speed_electric_track.json
@@ -45,6 +45,6 @@ cef2fe722cdf4386365bd961d925fa5aeb2e244e data/railcraft/tags/blocks/signal.json
 4f443f634d9e8f3e783a576b578de32d8d9b802c data/railcraft/tags/blocks/strap_iron_track.json
 3a7becb38c8d1c2314b0c3b33165fbb0a8abea1e data/railcraft/tags/blocks/strengthened_glass.json
 aef9e91cc72b4b67ad79db18ed826e6241996595 data/railcraft/tags/blocks/switch_track_actuator.json
-3f1a7a25bf7baceefa1e6bb43d8b280e028a0c72 data/railcraft/tags/blocks/track_undercutter_invalid_ballast.json
-9f117aa7ef45206fa45743cadd173969d541e3a8 data/railcraft/tags/blocks/tunnel_bore_mineable_blocks.json
+857a88edcb53ad2838d5471af89c751576924a82 data/railcraft/tags/blocks/track_undercutter_invalid_ballast.json
+0879147814dea955a8722bc98cc0ff7fbc534f53 data/railcraft/tags/blocks/tunnel_bore_mineable_blocks.json
 95e99dc7b62d8ff0bfb141e709584ea0c7dc59f0 data/railcraft/tags/blocks/tunnel_bore_replaceable_blocks.json

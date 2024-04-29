@@ -12,11 +12,11 @@
       "item": "railcraft:advanced_rail"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     }
   ],
   "result": {
     "count": 16,
-    "item": "railcraft:control_track_kit"
+    "id": "railcraft:control_track_kit"
   }
 }

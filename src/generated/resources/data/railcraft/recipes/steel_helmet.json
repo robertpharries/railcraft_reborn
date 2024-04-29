@@ -11,6 +11,7 @@
     "a a"
   ],
   "result": {
-    "item": "railcraft:steel_helmet"
+    "count": 1,
+    "id": "railcraft:steel_helmet"
   }
 }

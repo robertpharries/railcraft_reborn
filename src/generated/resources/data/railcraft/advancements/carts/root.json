@@ -4,9 +4,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:iron_crowbar"
-            ]
+            "items": "railcraft:iron_crowbar"
           }
         ]
       },
@@ -20,8 +18,8 @@
       "translate": "advancements.railcraft.carts.root.desc"
     },
     "icon": {
-      "item": "railcraft:diamond_crowbar",
-      "nbt": "{Damage:0}"
+      "count": 1,
+      "id": "railcraft:diamond_crowbar"
     },
     "title": {
       "translate": "advancements.railcraft.carts.root.name"

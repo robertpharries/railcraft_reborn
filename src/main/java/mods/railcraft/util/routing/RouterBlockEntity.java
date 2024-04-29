@@ -15,8 +15,6 @@ import mods.railcraft.gui.button.ButtonState;
 import mods.railcraft.util.container.ForwardingContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.MenuProvider;

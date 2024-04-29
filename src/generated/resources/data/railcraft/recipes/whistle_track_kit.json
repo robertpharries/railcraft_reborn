@@ -9,20 +9,20 @@
       "item": "railcraft:track_parts"
     },
     {
-      "tag": "forge:dyes/yellow"
+      "tag": "c:dyes/yellow"
     },
     {
-      "tag": "forge:dyes/black"
+      "tag": "c:dyes/black"
     },
     {
       "item": "minecraft:note_block"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     }
   ],
   "result": {
     "count": 8,
-    "item": "railcraft:whistle_track_kit"
+    "id": "railcraft:whistle_track_kit"
   }
 }

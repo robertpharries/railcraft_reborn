@@ -4,13 +4,13 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/diamond"
+        "tag": "c:ores/diamond"
       }
     }
   ],
   "type": "railcraft:crusher",
   "ingredient": {
-    "tag": "forge:ores/diamond"
+    "tag": "c:ores/diamond"
   },
   "outputs": [
     {

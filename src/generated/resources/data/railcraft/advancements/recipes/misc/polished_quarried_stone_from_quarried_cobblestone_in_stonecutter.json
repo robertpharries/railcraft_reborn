@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:quarried_cobblestone"
-            ]
+            "items": "railcraft:quarried_cobblestone"
           }
         ]
       },

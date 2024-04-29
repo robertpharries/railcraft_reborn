@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:storage_blocks/raw_iron"
+        "tag": "c:storage_blocks/raw_iron"
       }
     },
     {
@@ -17,7 +17,7 @@
   ],
   "type": "railcraft:crusher",
   "ingredient": {
-    "tag": "forge:storage_blocks/raw_iron"
+    "tag": "c:storage_blocks/raw_iron"
   },
   "outputs": [
     {

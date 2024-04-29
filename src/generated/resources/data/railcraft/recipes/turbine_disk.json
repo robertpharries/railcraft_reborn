@@ -15,6 +15,7 @@
     "aaa"
   ],
   "result": {
-    "item": "railcraft:turbine_disk"
+    "count": 1,
+    "id": "railcraft:turbine_disk"
   }
 }

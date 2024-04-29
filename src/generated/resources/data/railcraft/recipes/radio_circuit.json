@@ -3,19 +3,19 @@
   "category": "misc",
   "key": {
     "B": {
-      "tag": "forge:slimeballs"
+      "tag": "c:slimeballs"
     },
     "G": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     "L": {
-      "tag": "forge:gems/lapis"
+      "tag": "c:gems/lapis"
     },
     "R": {
       "item": "minecraft:repeater"
     },
     "S": {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     },
     "W": {
       "item": "minecraft:blue_wool"
@@ -27,6 +27,7 @@
     "WSL"
   ],
   "result": {
-    "item": "railcraft:radio_circuit"
+    "count": 1,
+    "id": "railcraft:radio_circuit"
   }
 }

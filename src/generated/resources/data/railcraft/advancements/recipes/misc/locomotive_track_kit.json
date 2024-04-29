@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:track_parts"
-            ]
+            "items": "railcraft:track_parts"
           }
         ]
       },

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:black_post"
-            ]
+            "items": "railcraft:black_post"
           }
         ]
       },

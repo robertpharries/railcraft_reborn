@@ -5,7 +5,8 @@
     "item": "minecraft:iron_shovel"
   },
   "result": {
-    "item": "railcraft:steel_ingot"
+    "count": 1,
+    "id": "railcraft:steel_ingot"
   },
   "slagOutput": 1
 }

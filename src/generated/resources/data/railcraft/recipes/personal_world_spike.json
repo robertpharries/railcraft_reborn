@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "d": {
-      "tag": "forge:gems/emerald"
+      "tag": "c:gems/emerald"
     },
     "g": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     "o": {
       "item": "minecraft:obsidian"
@@ -21,6 +21,7 @@
     "gog"
   ],
   "result": {
-    "item": "railcraft:personal_world_spike"
+    "count": 1,
+    "id": "railcraft:personal_world_spike"
   }
 }

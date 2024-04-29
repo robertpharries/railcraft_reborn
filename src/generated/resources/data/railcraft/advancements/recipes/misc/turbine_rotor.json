@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:turbine_disk"
-            ]
+            "items": "railcraft:turbine_disk"
           }
         ]
       },

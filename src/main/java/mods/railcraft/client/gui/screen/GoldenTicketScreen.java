@@ -4,7 +4,6 @@ import mods.railcraft.Translations;
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.client.gui.widget.button.ButtonTexture;
 import mods.railcraft.client.gui.widget.button.RailcraftButton;
-import mods.railcraft.network.PacketHandler;
 import mods.railcraft.network.to_server.EditTicketMessage;
 import mods.railcraft.world.item.TicketItem;
 import net.minecraft.ChatFormatting;

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:nickel_raw"
-            ]
+            "items": "railcraft:nickel_raw"
           }
         ]
       },

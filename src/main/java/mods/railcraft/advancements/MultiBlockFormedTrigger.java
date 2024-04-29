@@ -11,7 +11,6 @@ import net.minecraft.advancements.critereon.NbtPredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class MultiBlockFormedTrigger extends

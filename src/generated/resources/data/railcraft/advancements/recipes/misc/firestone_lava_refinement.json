@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:cut_firestone"
-            ]
+            "items": "railcraft:cut_firestone"
           }
         ]
       },

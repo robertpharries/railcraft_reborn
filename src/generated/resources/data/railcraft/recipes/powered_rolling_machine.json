@@ -21,6 +21,7 @@
     "ada"
   ],
   "result": {
-    "item": "railcraft:powered_rolling_machine"
+    "count": 1,
+    "id": "railcraft:powered_rolling_machine"
   }
 }

@@ -7,7 +7,7 @@
   },
   "result": {
     "count": 3,
-    "item": "railcraft:steel_ingot"
+    "id": "railcraft:steel_ingot"
   },
   "slagOutput": 3
 }

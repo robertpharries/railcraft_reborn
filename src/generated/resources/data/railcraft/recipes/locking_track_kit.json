@@ -15,11 +15,11 @@
       "item": "minecraft:sticky_piston"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     }
   ],
   "result": {
     "count": 4,
-    "item": "railcraft:locking_track_kit"
+    "id": "railcraft:locking_track_kit"
   }
 }

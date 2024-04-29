@@ -12,6 +12,7 @@
     "aaa"
   ],
   "result": {
-    "item": "railcraft:brass_ingot"
+    "count": 1,
+    "id": "railcraft:brass_ingot"
   }
 }

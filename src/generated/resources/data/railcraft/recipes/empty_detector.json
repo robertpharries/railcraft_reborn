@@ -15,6 +15,7 @@
     "aaa"
   ],
   "result": {
-    "item": "railcraft:empty_detector"
+    "count": 1,
+    "id": "railcraft:empty_detector"
   }
 }

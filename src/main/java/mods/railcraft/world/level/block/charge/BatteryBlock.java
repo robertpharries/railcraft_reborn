@@ -3,7 +3,6 @@ package mods.railcraft.world.level.block.charge;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import org.jetbrains.annotations.Nullable;
 import mods.railcraft.Translations;
 import mods.railcraft.api.charge.Charge;
 import mods.railcraft.api.charge.ChargeStorage;

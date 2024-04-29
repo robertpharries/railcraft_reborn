@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:lead_ingot"
-            ]
+            "items": "railcraft:lead_ingot"
           }
         ]
       },

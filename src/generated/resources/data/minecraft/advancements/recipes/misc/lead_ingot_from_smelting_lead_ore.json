@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:lead_ore"
-            ]
+            "items": "railcraft:lead_ore"
           }
         ]
       },

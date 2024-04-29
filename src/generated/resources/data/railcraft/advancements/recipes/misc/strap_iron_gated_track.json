@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:gated_track_kit"
-            ]
+            "items": "railcraft:gated_track_kit"
           }
         ]
       },

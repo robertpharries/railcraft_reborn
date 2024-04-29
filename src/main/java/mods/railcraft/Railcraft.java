@@ -98,13 +98,10 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.common.brewing.BrewingRecipeRegistry;
 import net.neoforged.neoforge.common.world.chunk.RegisterTicketControllersEvent;
 import net.neoforged.neoforge.common.world.chunk.TicketController;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -144,7 +141,6 @@ public class Railcraft {
     RailcraftConfig.registerConfig(modContainer);
 
     var modEventBus = modContainer.getEventBus();
-    modEventBus.addListener(this::handleBrewingSetup);
     modEventBus.addListener(this::handleRegisterCapabilities);
     modEventBus.addListener(this::buildContents);
     modEventBus.addListener(this::handleGatherData);
@@ -185,11 +181,6 @@ public class Railcraft {
   }
 
   // Mod Events
-  private void handleBrewingSetup(RegisterBrewingRecipesEvent event) {
-    event.getBuilder().addRecipe(
-        new BrewingRecipe(Potions.AWKWARD, RailcraftItems.CREOSOTE_BOTTLE.get(), RailcraftPotions.CREOSOTE));
-  }
-
   private void handleRegisterCapabilities(RegisterCapabilitiesEvent event) {
     for (var entityType : BuiltInRegistries.ENTITY_TYPE) {
       event.registerEntity(RollingStock.CAPABILITY, entityType,
@@ -341,7 +332,13 @@ public class Railcraft {
     event.register(CHUNK_CONTROLLER);
   }
 
-  // Forge Events
+  // NeoForge Events
+  @SubscribeEvent
+  public void handleBrewingSetup(RegisterBrewingRecipesEvent event) {
+    event.getBuilder().addRecipe(
+        new BrewingRecipe(Potions.AWKWARD, RailcraftItems.CREOSOTE_BOTTLE.get(), RailcraftPotions.CREOSOTE));
+  }
+
   @SubscribeEvent
   public void handleServerAboutToStart(ServerAboutToStartEvent event) {
     ComponentWorkshop.addVillageStructures(event.getServer().registryAccess());

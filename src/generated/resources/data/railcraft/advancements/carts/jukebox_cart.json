@@ -11,7 +11,8 @@
       "translate": "advancements.railcraft.carts.jukebox_cart.desc"
     },
     "icon": {
-      "item": "minecraft:minecart"
+      "count": 1,
+      "id": "minecraft:minecart"
     },
     "title": {
       "translate": "advancements.railcraft.carts.jukebox_cart.name"

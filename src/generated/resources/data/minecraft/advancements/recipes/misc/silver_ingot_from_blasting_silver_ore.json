@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:silver_ore"
-            ]
+            "items": "railcraft:silver_ore"
           }
         ]
       },

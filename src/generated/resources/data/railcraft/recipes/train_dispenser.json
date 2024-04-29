@@ -18,6 +18,7 @@
     "aba"
   ],
   "result": {
-    "item": "railcraft:train_dispenser"
+    "count": 1,
+    "id": "railcraft:train_dispenser"
   }
 }

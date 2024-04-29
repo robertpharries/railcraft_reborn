@@ -12,6 +12,7 @@
     "a a"
   ],
   "result": {
-    "item": "railcraft:overalls"
+    "count": 1,
+    "id": "railcraft:overalls"
   }
 }

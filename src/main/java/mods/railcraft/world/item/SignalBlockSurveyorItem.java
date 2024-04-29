@@ -6,10 +6,8 @@ import mods.railcraft.Translations;
 import mods.railcraft.api.signal.entity.MonitoringSignalEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 
 @SuppressWarnings("rawtypes")
 public class SignalBlockSurveyorItem

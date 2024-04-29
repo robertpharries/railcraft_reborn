@@ -1,7 +1,6 @@
 package mods.railcraft.world.item;
 
 import java.util.List;
-import org.jetbrains.annotations.Nullable;
 import mods.railcraft.Translations;
 import mods.railcraft.world.level.block.RailcraftBlocks;
 import net.minecraft.ChatFormatting;
@@ -9,7 +8,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.GameRules;

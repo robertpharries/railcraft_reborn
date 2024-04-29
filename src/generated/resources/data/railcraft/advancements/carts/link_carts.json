@@ -11,8 +11,8 @@
       "translate": "advancements.railcraft.carts.link_carts.desc"
     },
     "icon": {
-      "item": "railcraft:steel_crowbar",
-      "nbt": "{Damage:0}"
+      "count": 1,
+      "id": "railcraft:steel_crowbar"
     },
     "title": {
       "translate": "advancements.railcraft.carts.link_carts.name"

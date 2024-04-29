@@ -5,7 +5,6 @@ import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.client.gui.screen.IngameWindowScreen;
 import mods.railcraft.client.gui.widget.button.ButtonTexture;
 import mods.railcraft.client.gui.widget.button.MultiButton;
-import mods.railcraft.network.PacketHandler;
 import mods.railcraft.network.to_server.SetItemManipulatorMessage;
 import mods.railcraft.world.inventory.ItemManipulatorMenu;
 import mods.railcraft.world.level.block.entity.manipulator.ItemManipulatorBlockEntity;

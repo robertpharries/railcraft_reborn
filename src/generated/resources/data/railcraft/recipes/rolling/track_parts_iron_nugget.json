@@ -2,13 +2,14 @@
   "type": "railcraft:rolling",
   "key": {
     "a": {
-      "tag": "forge:nuggets/iron"
+      "tag": "c:nuggets/iron"
     }
   },
   "pattern": [
     "aa"
   ],
   "result": {
-    "item": "railcraft:track_parts"
+    "count": 1,
+    "id": "railcraft:track_parts"
   }
 }

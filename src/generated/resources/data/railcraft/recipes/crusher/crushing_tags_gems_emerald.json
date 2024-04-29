@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:gems/emerald"
+        "tag": "c:gems/emerald"
       }
     },
     {
@@ -17,7 +17,7 @@
   ],
   "type": "railcraft:crusher",
   "ingredient": {
-    "tag": "forge:gems/emerald"
+    "tag": "c:gems/emerald"
   },
   "outputs": [
     {

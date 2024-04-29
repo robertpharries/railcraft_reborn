@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:electric_rail"
-            ]
+            "items": "railcraft:electric_rail"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:stone_railbed"
-            ]
+            "items": "railcraft:stone_railbed"
           }
         ]
       },

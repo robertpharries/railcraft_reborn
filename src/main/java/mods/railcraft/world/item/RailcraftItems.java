@@ -281,19 +281,23 @@ public class RailcraftItems {
 
   public static final DeferredItem<ArmorItem> STEEL_BOOTS =
       deferredRegister.registerItem("steel_boots", properties ->
-          new ArmorItem(RailcraftArmorMaterial.STEEL, ArmorItem.Type.BOOTS, properties));
+          new ArmorItem(RailcraftArmorMaterials.STEEL, ArmorItem.Type.BOOTS,
+              properties.durability(25)));
 
   public static final DeferredItem<ArmorItem> STEEL_CHESTPLATE =
       deferredRegister.registerItem("steel_chestplate", properties ->
-          new ArmorItem(RailcraftArmorMaterial.STEEL, ArmorItem.Type.CHESTPLATE, properties));
+          new ArmorItem(RailcraftArmorMaterials.STEEL, ArmorItem.Type.CHESTPLATE,
+              properties.durability(25)));
 
   public static final DeferredItem<ArmorItem> STEEL_HELMET =
       deferredRegister.registerItem("steel_helmet", properties ->
-          new ArmorItem(RailcraftArmorMaterial.STEEL, ArmorItem.Type.HELMET, properties));
+          new ArmorItem(RailcraftArmorMaterials.STEEL, ArmorItem.Type.HELMET,
+              properties.durability(25)));
 
   public static final DeferredItem<ArmorItem> STEEL_LEGGINGS =
       deferredRegister.registerItem("steel_leggings", properties ->
-          new ArmorItem(RailcraftArmorMaterial.STEEL, ArmorItem.Type.LEGGINGS, properties));
+          new ArmorItem(RailcraftArmorMaterials.STEEL, ArmorItem.Type.LEGGINGS,
+              properties.durability(25)));
 
   public static final DeferredItem<TunnelBoreHeadItem> IRON_TUNNEL_BORE_HEAD =
       deferredRegister.registerItem("iron_tunnel_bore_head", properties ->
@@ -531,11 +535,13 @@ public class RailcraftItems {
 
   public static final DeferredItem<RoutingTableBookItem> ROUTING_TABLE_BOOK =
       deferredRegister.registerItem("routing_table_book", properties ->
-          new RoutingTableBookItem(properties.component(RailcraftDataComponents.ROUTING_TABLE_BOOK,
+          new RoutingTableBookItem(properties
+              .component(RailcraftDataComponents.ROUTING_TABLE_BOOK,
                   RoutingTableBookContent.EMPTY)));
 
   public static final DeferredItem<OverallsItem> OVERALLS =
-      deferredRegister.registerItem("overalls", OverallsItem::new);
+      deferredRegister.registerItem("overalls", properties ->
+          new OverallsItem(RailcraftArmorMaterials.OVERALLS, ArmorItem.Type.LEGGINGS, properties));
 
   public static final DeferredItem<FirestoneOreBlockItem> FIRESTONE_ORE =
       deferredRegister.registerItem("firestone_ore", FirestoneOreBlockItem::new);
@@ -957,19 +963,23 @@ public class RailcraftItems {
 
   public static final DeferredItem<CrowbarItem> IRON_CROWBAR =
       deferredRegister.registerItem("iron_crowbar", properties ->
-          new CrowbarItem(2.5F, -2.8F, Tiers.IRON, properties));
+          new CrowbarItem(Tiers.IRON, properties
+              .attributes(CrowbarItem.createAttributes(Tiers.IRON, 2.5F, -2.8F))));
 
   public static final DeferredItem<CrowbarItem> STEEL_CROWBAR =
       deferredRegister.registerItem("steel_crowbar", properties ->
-          new CrowbarItem(2.5F, -2.7F, RailcraftItemTier.STEEL, properties));
+          new CrowbarItem(RailcraftItemTier.STEEL, properties
+              .attributes(CrowbarItem.createAttributes(RailcraftItemTier.STEEL, 2.5F, -2.7F))));
 
   public static final DeferredItem<CrowbarItem> DIAMOND_CROWBAR =
       deferredRegister.registerItem("diamond_crowbar", properties ->
-          new CrowbarItem(2.5F, -2.4F, Tiers.DIAMOND, properties));
+          new CrowbarItem(Tiers.DIAMOND, properties
+              .attributes(CrowbarItem.createAttributes(Tiers.DIAMOND, 2.5F, -2.4F))));
 
   public static final DeferredItem<SeasonsCrowbarItem> SEASONS_CROWBAR =
       deferredRegister.registerItem("seasons_crowbar", properties ->
-          new SeasonsCrowbarItem(properties
+          new SeasonsCrowbarItem(Tiers.DIAMOND, properties
+              .attributes(CrowbarItem.createAttributes(Tiers.DIAMOND, 2.5F, -2.4F))
               .component(RailcraftDataComponents.SEASON, SeasonComponent.DEFAULT)));
 
   public static final DeferredItem<Item> TRACK_PARTS = registerBasic("track_parts");
@@ -1182,7 +1192,8 @@ public class RailcraftItems {
 
   public static final DeferredItem<GogglesItem> GOGGLES =
       deferredRegister.registerItem("goggles", properties ->
-          new GogglesItem(properties
+          new GogglesItem(RailcraftArmorMaterials.GOGGLES, ArmorItem.Type.HELMET, properties
+              .durability(20)
               .component(RailcraftDataComponents.AURA, AuraComponent.NONE)));
 
   public static final DeferredItem<BlockItem> MANUAL_ROLLING_MACHINE =

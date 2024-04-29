@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:lead_block"
-            ]
+            "items": "railcraft:lead_block"
           }
         ]
       },

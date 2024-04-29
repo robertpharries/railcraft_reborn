@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:one_way_track_kit"
-            ]
+            "items": "railcraft:one_way_track_kit"
           }
         ]
       },

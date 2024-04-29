@@ -9,17 +9,17 @@
       "item": "railcraft:track_parts"
     },
     {
-      "tag": "forge:dyes/yellow"
+      "tag": "c:dyes/yellow"
     },
     {
-      "tag": "forge:dyes/black"
+      "tag": "c:dyes/black"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     }
   ],
   "result": {
     "count": 4,
-    "item": "railcraft:throttle_track_kit"
+    "id": "railcraft:throttle_track_kit"
   }
 }

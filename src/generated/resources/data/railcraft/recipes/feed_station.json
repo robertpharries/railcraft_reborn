@@ -18,6 +18,7 @@
     "aba"
   ],
   "result": {
-    "item": "railcraft:feed_station"
+    "count": 1,
+    "id": "railcraft:feed_station"
   }
 }

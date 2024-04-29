@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:nickel_electrode"
-            ]
+            "items": "railcraft:nickel_electrode"
           }
         ]
       },
@@ -23,9 +21,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:zinc_electrode"
-            ]
+            "items": "railcraft:zinc_electrode"
           }
         ]
       },

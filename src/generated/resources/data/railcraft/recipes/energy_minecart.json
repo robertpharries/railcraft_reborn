@@ -18,6 +18,7 @@
     "aba"
   ],
   "result": {
-    "item": "railcraft:energy_minecart"
+    "count": 1,
+    "id": "railcraft:energy_minecart"
   }
 }

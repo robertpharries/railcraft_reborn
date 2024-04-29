@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:high_speed_track"
-            ]
+            "items": "railcraft:high_speed_track"
           }
         ]
       },
@@ -20,7 +18,8 @@
     },
     "frame": "challenge",
     "icon": {
-      "item": "railcraft:high_speed_track"
+      "count": 1,
+      "id": "railcraft:high_speed_track"
     },
     "title": {
       "translate": "advancements.railcraft.tracks.high_speed_track.name"

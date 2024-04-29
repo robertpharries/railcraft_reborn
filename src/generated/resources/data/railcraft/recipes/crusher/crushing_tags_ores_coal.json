@@ -4,13 +4,13 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/coal"
+        "tag": "c:ores/coal"
       }
     }
   ],
   "type": "railcraft:crusher",
   "ingredient": {
-    "tag": "forge:ores/coal"
+    "tag": "c:ores/coal"
   },
   "outputs": [
     {

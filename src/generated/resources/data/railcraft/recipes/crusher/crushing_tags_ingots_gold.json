@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/gold"
+        "tag": "c:ingots/gold"
       }
     },
     {
@@ -17,7 +17,7 @@
   ],
   "type": "railcraft:crusher",
   "ingredient": {
-    "tag": "forge:ingots/gold"
+    "tag": "c:ingots/gold"
   },
   "outputs": [
     {

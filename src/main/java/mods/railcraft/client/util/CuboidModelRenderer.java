@@ -2,7 +2,6 @@ package mods.railcraft.client.util;
 
 import java.util.Arrays;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import com.mojang.blaze3d.vertex.PoseStack;

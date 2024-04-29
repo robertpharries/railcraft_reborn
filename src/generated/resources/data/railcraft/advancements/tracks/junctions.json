@@ -12,8 +12,8 @@
     },
     "frame": "goal",
     "icon": {
-      "item": "railcraft:iron_spike_maul",
-      "nbt": "{Damage:0}"
+      "count": 1,
+      "id": "railcraft:iron_spike_maul"
     },
     "title": {
       "translate": "advancements.railcraft.tracks.junctions.name"

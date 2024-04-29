@@ -10,6 +10,7 @@
     "aaa"
   ],
   "result": {
-    "item": "railcraft:turbine_rotor"
+    "count": 1,
+    "id": "railcraft:turbine_rotor"
   }
 }

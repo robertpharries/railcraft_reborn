@@ -12,11 +12,11 @@
       "tag": "forge:plates/steel"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     }
   ],
   "result": {
     "count": 4,
-    "item": "railcraft:dumping_track_kit"
+    "id": "railcraft:dumping_track_kit"
   }
 }

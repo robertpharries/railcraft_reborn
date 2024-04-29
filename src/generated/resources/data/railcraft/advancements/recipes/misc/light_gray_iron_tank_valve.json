@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:white_iron_tank_valve"
-            ]
+            "items": "railcraft:white_iron_tank_valve"
           }
         ]
       },

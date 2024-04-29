@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:wooden_rail"
-            ]
+            "items": "railcraft:wooden_rail"
           }
         ]
       },
@@ -23,9 +21,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:wooden_railbed"
-            ]
+            "items": "railcraft:wooden_railbed"
           }
         ]
       },

@@ -4,7 +4,6 @@ import mods.railcraft.util.LevelUtil;
 import mods.railcraft.world.level.block.entity.manipulator.FluidManipulatorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;

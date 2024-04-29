@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:manual_rolling_machine"
-            ]
+            "items": "railcraft:manual_rolling_machine"
           }
         ]
       },
@@ -21,7 +19,8 @@
     },
     "frame": "goal",
     "icon": {
-      "item": "railcraft:manual_rolling_machine"
+      "count": 1,
+      "id": "railcraft:manual_rolling_machine"
     },
     "title": {
       "translate": "advancements.railcraft.tracks.manual_rolling_machine.name"

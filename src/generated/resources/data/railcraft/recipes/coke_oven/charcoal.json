@@ -7,6 +7,7 @@
     "tag": "minecraft:logs"
   },
   "result": {
-    "item": "minecraft:charcoal"
+    "count": 1,
+    "id": "minecraft:charcoal"
   }
 }

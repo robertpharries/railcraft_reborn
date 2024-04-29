@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:blast_furnace_bricks"
-            ]
+            "items": "railcraft:blast_furnace_bricks"
           }
         ]
       },

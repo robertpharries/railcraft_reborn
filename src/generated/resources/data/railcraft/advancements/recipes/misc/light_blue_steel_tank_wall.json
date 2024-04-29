@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:white_steel_tank_wall"
-            ]
+            "items": "railcraft:white_steel_tank_wall"
           }
         ]
       },

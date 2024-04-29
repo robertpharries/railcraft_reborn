@@ -34,8 +34,9 @@ public class PatchouliBookCrafting extends ShapelessRecipe {
 
   public static ItemStack makeGuideBook() {
     var book = new ItemStack(guide_book());
-    var tag = book.getOrCreateTag();
-    tag.putString(NBT_KEY, NBT_VAL);
+    //FIXME
+    //var tag = book.getOrCreateTag();
+    //tag.putString(NBT_KEY, NBT_VAL);
     return book;
   }
 

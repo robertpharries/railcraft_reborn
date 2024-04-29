@@ -12,6 +12,7 @@
     "aaa"
   ],
   "result": {
-    "item": "railcraft:bronze_block"
+    "count": 1,
+    "id": "railcraft:bronze_block"
   }
 }

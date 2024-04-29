@@ -15,6 +15,7 @@
     "aaa"
   ],
   "result": {
-    "item": "railcraft:steel_tunnel_bore_head"
+    "count": 1,
+    "id": "railcraft:steel_tunnel_bore_head"
   }
 }

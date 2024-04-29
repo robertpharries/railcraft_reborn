@@ -12,6 +12,7 @@
     "aaa"
   ],
   "result": {
-    "item": "railcraft:nickel_block"
+    "count": 1,
+    "id": "railcraft:nickel_block"
   }
 }

@@ -6,13 +6,13 @@
       "item": "minecraft:compass"
     },
     "b": {
-      "tag": "forge:glass_panes"
+      "tag": "c:glass_panes"
     },
     "c": {
       "item": "minecraft:stone_button"
     },
     "d": {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     }
   },
   "pattern": [
@@ -21,6 +21,7 @@
     " d "
   ],
   "result": {
-    "item": "railcraft:signal_block_surveyor"
+    "count": 1,
+    "id": "railcraft:signal_block_surveyor"
   }
 }

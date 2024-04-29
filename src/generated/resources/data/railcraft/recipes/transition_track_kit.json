@@ -15,14 +15,14 @@
       "item": "railcraft:advanced_rail"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     }
   ],
   "result": {
     "count": 8,
-    "item": "railcraft:transition_track_kit"
+    "id": "railcraft:transition_track_kit"
   }
 }

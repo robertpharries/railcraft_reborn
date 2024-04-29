@@ -4,7 +4,6 @@ import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.world.item.GogglesItem;
 import mods.railcraft.world.item.component.AuraComponent;
 import mods.railcraft.world.item.component.RailcraftDataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;

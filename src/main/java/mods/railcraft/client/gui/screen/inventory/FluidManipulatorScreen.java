@@ -2,7 +2,6 @@ package mods.railcraft.client.gui.screen.inventory;
 
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.client.gui.screen.inventory.widget.FluidGaugeRenderer;
-import mods.railcraft.network.PacketHandler;
 import mods.railcraft.network.to_server.SetFluidManipulatorMessage;
 import mods.railcraft.world.inventory.FluidManipulatorMenu;
 import net.minecraft.network.chat.Component;

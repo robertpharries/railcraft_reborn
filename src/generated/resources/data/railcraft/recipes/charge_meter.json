@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "a": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     "b": {
       "item": "minecraft:stone_button"
@@ -21,6 +21,7 @@
     " d "
   ],
   "result": {
-    "item": "railcraft:charge_meter"
+    "count": 1,
+    "id": "railcraft:charge_meter"
   }
 }

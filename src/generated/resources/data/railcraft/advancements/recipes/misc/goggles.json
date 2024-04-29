@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:receiver_circuit"
-            ]
+            "items": "railcraft:receiver_circuit"
           }
         ]
       },
@@ -17,7 +15,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:ingots/steel"
+            "items": "#forge:ingots/steel"
           }
         ]
       },

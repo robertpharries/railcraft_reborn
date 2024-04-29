@@ -15,6 +15,7 @@
     "aaa"
   ],
   "result": {
-    "item": "railcraft:item_detector"
+    "count": 1,
+    "id": "railcraft:item_detector"
   }
 }

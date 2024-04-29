@@ -5,7 +5,6 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 import mods.railcraft.api.signal.SignalAspect;
-import mods.railcraft.network.PacketHandler;
 import mods.railcraft.network.to_server.SetAnalogSignalControllerBoxMessage;
 import mods.railcraft.world.level.block.entity.signal.AnalogSignalControllerBoxBlockEntity;
 import net.minecraft.client.gui.GuiGraphics;

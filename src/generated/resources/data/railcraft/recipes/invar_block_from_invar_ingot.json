@@ -12,6 +12,7 @@
     "aaa"
   ],
   "result": {
-    "item": "railcraft:invar_block"
+    "count": 1,
+    "id": "railcraft:invar_block"
   }
 }

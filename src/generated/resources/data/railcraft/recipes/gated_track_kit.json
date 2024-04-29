@@ -9,17 +9,17 @@
       "item": "railcraft:track_parts"
     },
     {
-      "tag": "forge:fence_gates"
+      "tag": "c:fence_gates"
     },
     {
       "item": "railcraft:advanced_rail"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     }
   ],
   "result": {
     "count": 4,
-    "item": "railcraft:gated_track_kit"
+    "id": "railcraft:gated_track_kit"
   }
 }

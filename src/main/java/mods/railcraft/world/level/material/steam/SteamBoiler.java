@@ -2,7 +2,6 @@ package mods.railcraft.world.level.material.steam;
 
 import java.util.List;
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.UnknownNullability;
 import com.google.common.primitives.Floats;
 import mods.railcraft.RailcraftConfig;
 import mods.railcraft.api.core.CompoundTagKeys;

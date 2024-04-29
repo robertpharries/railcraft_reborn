@@ -12,6 +12,7 @@
     "aaa"
   ],
   "result": {
-    "item": "railcraft:tin_block"
+    "count": 1,
+    "id": "railcraft:tin_block"
   }
 }

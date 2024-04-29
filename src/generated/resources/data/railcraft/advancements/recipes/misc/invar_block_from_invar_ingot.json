@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:invar_ingot"
-            ]
+            "items": "railcraft:invar_ingot"
           }
         ]
       },

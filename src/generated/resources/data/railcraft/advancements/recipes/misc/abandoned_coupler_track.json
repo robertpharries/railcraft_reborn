@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:coupler_track_kit"
-            ]
+            "items": "railcraft:coupler_track_kit"
           }
         ]
       },

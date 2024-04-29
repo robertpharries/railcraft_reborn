@@ -6,10 +6,11 @@
       "item": "minecraft:writable_book"
     },
     {
-      "tag": "forge:dyes/blue"
+      "tag": "c:dyes/blue"
     }
   ],
   "result": {
-    "item": "railcraft:routing_table_book"
+    "count": 1,
+    "id": "railcraft:routing_table_book"
   }
 }

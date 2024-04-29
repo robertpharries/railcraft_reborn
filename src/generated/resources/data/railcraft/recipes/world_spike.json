@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "d": {
-      "tag": "forge:gems/diamond"
+      "tag": "c:gems/diamond"
     },
     "g": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     "o": {
       "item": "minecraft:obsidian"
@@ -21,6 +21,7 @@
     "gog"
   ],
   "result": {
-    "item": "railcraft:world_spike"
+    "count": 1,
+    "id": "railcraft:world_spike"
   }
 }

@@ -1,8 +1,6 @@
 package mods.railcraft.api.item;
 
 import org.apache.commons.lang3.NotImplementedException;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
 /**

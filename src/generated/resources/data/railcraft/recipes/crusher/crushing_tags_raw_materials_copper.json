@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:raw_materials/copper"
+        "tag": "c:raw_materials/copper"
       }
     },
     {
@@ -24,7 +24,7 @@
   ],
   "type": "railcraft:crusher",
   "ingredient": {
-    "tag": "forge:raw_materials/copper"
+    "tag": "c:raw_materials/copper"
   },
   "outputs": [
     {

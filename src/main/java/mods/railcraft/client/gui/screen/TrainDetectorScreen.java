@@ -2,7 +2,6 @@ package mods.railcraft.client.gui.screen;
 
 import mods.railcraft.Translations;
 import mods.railcraft.client.util.GuiUtil;
-import mods.railcraft.network.PacketHandler;
 import mods.railcraft.network.to_server.SetTrainDetectorMessage;
 import mods.railcraft.world.level.block.entity.detector.TrainDetectorBlockEntity;
 import net.minecraft.client.gui.GuiGraphics;

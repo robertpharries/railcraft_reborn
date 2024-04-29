@@ -6,7 +6,7 @@
       "tag": "minecraft:planks"
     },
     "b": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "c": {
       "item": "minecraft:slime_ball"
@@ -19,6 +19,6 @@
   ],
   "result": {
     "count": 6,
-    "item": "railcraft:water_tank_siding"
+    "id": "railcraft:water_tank_siding"
   }
 }

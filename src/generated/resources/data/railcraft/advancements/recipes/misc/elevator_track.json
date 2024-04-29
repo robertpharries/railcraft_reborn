@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:advanced_rail"
-            ]
+            "items": "railcraft:advanced_rail"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:standard_rail"
-            ]
+            "items": "railcraft:standard_rail"
           }
         ]
       },

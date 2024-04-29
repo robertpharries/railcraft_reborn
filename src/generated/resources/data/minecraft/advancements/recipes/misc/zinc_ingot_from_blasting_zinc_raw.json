@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:zinc_raw"
-            ]
+            "items": "railcraft:zinc_raw"
           }
         ]
       },

@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "a": {
-      "tag": "forge:glass"
+      "tag": "c:glass_blocks"
     },
     "b": {
       "tag": "forge:ingots/brass"
@@ -22,6 +22,6 @@
   ],
   "result": {
     "count": 6,
-    "item": "railcraft:white_strengthened_glass"
+    "id": "railcraft:white_strengthened_glass"
   }
 }

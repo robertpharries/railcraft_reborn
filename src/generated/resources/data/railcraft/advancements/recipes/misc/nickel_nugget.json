@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:nickel_ingot"
-            ]
+            "items": "railcraft:nickel_ingot"
           }
         ]
       },

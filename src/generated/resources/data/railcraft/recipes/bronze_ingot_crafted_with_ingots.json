@@ -6,7 +6,7 @@
       "tag": "forge:ingots/tin"
     },
     "b": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     }
   },
   "pattern": [
@@ -15,6 +15,6 @@
   ],
   "result": {
     "count": 4,
-    "item": "railcraft:bronze_ingot"
+    "id": "railcraft:bronze_ingot"
   }
 }

@@ -12,11 +12,11 @@
       "item": "minecraft:lead"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     }
   ],
   "result": {
     "count": 4,
-    "item": "railcraft:coupler_track_kit"
+    "id": "railcraft:coupler_track_kit"
   }
 }

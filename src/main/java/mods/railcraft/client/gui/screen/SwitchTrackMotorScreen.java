@@ -8,7 +8,6 @@ import mods.railcraft.api.signal.SignalAspect;
 import mods.railcraft.client.gui.widget.button.ButtonTexture;
 import mods.railcraft.client.gui.widget.button.MultiButton;
 import mods.railcraft.client.gui.widget.button.ToggleButton;
-import mods.railcraft.network.PacketHandler;
 import mods.railcraft.network.to_server.SetSwitchTrackMotorMessage;
 import mods.railcraft.world.level.block.entity.LockableSwitchTrackActuatorBlockEntity;
 import mods.railcraft.world.level.block.entity.SwitchTrackMotorBlockEntity;

@@ -15,6 +15,7 @@
     "aaa"
   ],
   "result": {
-    "item": "railcraft:villager_detector"
+    "count": 1,
+    "id": "railcraft:villager_detector"
   }
 }

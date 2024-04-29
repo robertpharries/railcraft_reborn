@@ -3,7 +3,6 @@ package mods.railcraft.client.gui.screen.inventory.detector;
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.client.gui.screen.IngameWindowScreen;
 import mods.railcraft.client.gui.screen.inventory.RailcraftMenuScreen;
-import mods.railcraft.network.PacketHandler;
 import mods.railcraft.network.to_server.SetItemDetectorMessage;
 import mods.railcraft.world.inventory.detector.ItemDetectorMenu;
 import mods.railcraft.world.level.block.entity.detector.ItemDetectorBlockEntity;

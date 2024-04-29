@@ -15,6 +15,7 @@
     "aaa"
   ],
   "result": {
-    "item": "railcraft:routing_detector"
+    "count": 1,
+    "id": "railcraft:routing_detector"
   }
 }

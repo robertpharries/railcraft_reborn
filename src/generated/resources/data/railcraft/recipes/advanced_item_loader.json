@@ -21,6 +21,7 @@
     "ada"
   ],
   "result": {
-    "item": "railcraft:advanced_item_loader"
+    "count": 1,
+    "id": "railcraft:advanced_item_loader"
   }
 }

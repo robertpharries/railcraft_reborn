@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:white_strengthened_glass"
-            ]
+            "items": "railcraft:white_strengthened_glass"
           }
         ]
       },

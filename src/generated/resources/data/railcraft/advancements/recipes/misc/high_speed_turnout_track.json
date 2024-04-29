@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:high_speed_rail"
-            ]
+            "items": "railcraft:high_speed_rail"
           }
         ]
       },

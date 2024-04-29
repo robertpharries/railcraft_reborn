@@ -1,16 +1,10 @@
 package mods.railcraft.world.item.component;
 
-import java.util.function.UnaryOperator;
 import com.mojang.serialization.Codec;
 import mods.railcraft.api.core.RailcraftConstants;
-import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.util.ExtraCodecs;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.common.util.NeoForgeExtraCodecs;
-import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.SimpleFluidContent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;

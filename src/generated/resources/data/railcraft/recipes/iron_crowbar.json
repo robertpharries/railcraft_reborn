@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "a": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "b": {
-      "tag": "forge:dyes/red"
+      "tag": "c:dyes/red"
     }
   },
   "pattern": [
@@ -15,6 +15,7 @@
     "ab "
   ],
   "result": {
-    "item": "railcraft:iron_crowbar"
+    "count": 1,
+    "id": "railcraft:iron_crowbar"
   }
 }

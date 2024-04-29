@@ -1,5 +1,6 @@
 package mods.railcraft.world.item;
 
+import java.util.List;
 import java.util.function.Predicate;
 import mods.railcraft.client.ScreenFactories;
 import mods.railcraft.world.item.component.RailcraftDataComponents;
@@ -9,6 +10,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 public class RoutingTableBookItem extends Item {
@@ -26,11 +28,20 @@ public class RoutingTableBookItem extends Item {
     var content = stack.get(RailcraftDataComponents.ROUTING_TABLE_BOOK);
     if (content != null) {
       var title = content.title();
-      if (title.isPresent()) {
-        name = name.copy().append(" - " + title);
+      if (title.isPresent() && !title.get().isEmpty()) {
+        name = name.copy().append(" - " + title.get());
       }
     }
     return name;
+  }
+
+  @Override
+  public void appendHoverText(ItemStack stack, TooltipContext context,
+      List<Component> list, TooltipFlag flag) {
+    var content = stack.get(RailcraftDataComponents.ROUTING_TABLE_BOOK);
+    if (content != null) {
+      content.addToTooltip(context, list::add, flag);
+    }
   }
 
   @Override

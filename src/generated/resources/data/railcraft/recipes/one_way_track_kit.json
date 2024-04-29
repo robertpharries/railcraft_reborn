@@ -15,11 +15,11 @@
       "item": "minecraft:piston"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     }
   ],
   "result": {
     "count": 8,
-    "item": "railcraft:one_way_track_kit"
+    "id": "railcraft:one_way_track_kit"
   }
 }

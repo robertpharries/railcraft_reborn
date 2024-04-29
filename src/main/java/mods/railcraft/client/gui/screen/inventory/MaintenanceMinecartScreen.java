@@ -5,7 +5,6 @@ import mods.railcraft.Translations;
 import mods.railcraft.client.gui.screen.IngameWindowScreen;
 import mods.railcraft.client.gui.widget.button.ButtonTexture;
 import mods.railcraft.client.gui.widget.button.MultiButton;
-import mods.railcraft.network.PacketHandler;
 import mods.railcraft.network.to_server.SetMaintenanceMinecartMessage;
 import mods.railcraft.world.entity.vehicle.MaintenanceMinecart;
 import mods.railcraft.world.entity.vehicle.MaintenancePatternMinecart;

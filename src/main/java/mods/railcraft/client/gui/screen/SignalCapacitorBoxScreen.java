@@ -4,7 +4,6 @@ import mods.railcraft.Translations;
 import mods.railcraft.client.gui.widget.button.ButtonTexture;
 import mods.railcraft.client.gui.widget.button.MultiButton;
 import mods.railcraft.client.util.GuiUtil;
-import mods.railcraft.network.PacketHandler;
 import mods.railcraft.network.to_server.SetSignalCapacitorBoxMessage;
 import mods.railcraft.world.level.block.entity.signal.SignalCapacitorBoxBlockEntity;
 import net.minecraft.SharedConstants;

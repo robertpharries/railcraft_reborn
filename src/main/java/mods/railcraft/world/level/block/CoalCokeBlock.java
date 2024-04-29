@@ -1,7 +1,6 @@
 package mods.railcraft.world.level.block;
 
 import java.util.List;
-import org.jetbrains.annotations.Nullable;
 import mods.railcraft.Translations;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;

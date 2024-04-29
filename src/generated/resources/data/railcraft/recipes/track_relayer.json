@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "a": {
-      "tag": "forge:dyes/yellow"
+      "tag": "c:dyes/yellow"
     },
     "b": {
       "item": "minecraft:redstone_lamp"
@@ -27,6 +27,7 @@
     "efe"
   ],
   "result": {
-    "item": "railcraft:track_relayer"
+    "count": 1,
+    "id": "railcraft:track_relayer"
   }
 }

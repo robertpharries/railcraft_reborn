@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:booster_track_kit"
-            ]
+            "items": "railcraft:booster_track_kit"
           }
         ]
       },

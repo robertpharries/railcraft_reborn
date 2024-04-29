@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:charge_motor"
-            ]
+            "items": "railcraft:charge_motor"
           }
         ]
       },

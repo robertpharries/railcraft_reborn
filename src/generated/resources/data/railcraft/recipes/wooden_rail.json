@@ -6,11 +6,11 @@
       "item": "railcraft:wooden_tie"
     },
     {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     }
   ],
   "result": {
     "count": 6,
-    "item": "railcraft:wooden_rail"
+    "id": "railcraft:wooden_rail"
   }
 }

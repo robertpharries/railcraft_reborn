@@ -6,13 +6,13 @@
       "item": "minecraft:glass_pane"
     },
     "b": {
-      "tag": "forge:dyes/lime"
+      "tag": "c:dyes/lime"
     },
     "c": {
-      "tag": "forge:dyes/yellow"
+      "tag": "c:dyes/yellow"
     },
     "d": {
-      "tag": "forge:dyes/red"
+      "tag": "c:dyes/red"
     },
     "e": {
       "item": "minecraft:glowstone_dust"
@@ -27,6 +27,7 @@
     "adf"
   ],
   "result": {
-    "item": "railcraft:signal_lamp"
+    "count": 1,
+    "id": "railcraft:signal_lamp"
   }
 }

@@ -2,10 +2,11 @@
   "type": "railcraft:blasting",
   "experience": 0.0,
   "ingredient": {
-    "tag": "forge:ingots/iron"
+    "tag": "c:ingots/iron"
   },
   "result": {
-    "item": "railcraft:steel_ingot"
+    "count": 1,
+    "id": "railcraft:steel_ingot"
   },
   "slagOutput": 1
 }

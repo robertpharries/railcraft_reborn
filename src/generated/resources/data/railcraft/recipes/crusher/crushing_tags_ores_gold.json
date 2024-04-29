@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/gold"
+        "tag": "c:ores/gold"
       }
     },
     {
@@ -17,7 +17,7 @@
   ],
   "type": "railcraft:crusher",
   "ingredient": {
-    "tag": "forge:ores/gold"
+    "tag": "c:ores/gold"
   },
   "outputs": [
     {

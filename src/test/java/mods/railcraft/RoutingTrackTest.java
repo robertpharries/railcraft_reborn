@@ -10,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
@@ -29,7 +30,7 @@ public class RoutingTrackTest {
     final var dest = "HOME";
     if (helper.getBlockEntity(ROUTING_TRACK_POS) instanceof RoutingTrackBlockEntity routingTrack) {
       var goldenTicket = new ItemStack(RailcraftItems.GOLDEN_TICKET.get());
-      TicketItem.setTicketData(goldenTicket, dest, helper.makeMockPlayer().getGameProfile());
+      TicketItem.setTicketData(goldenTicket, dest, helper.makeMockPlayer(GameType.CREATIVE).getGameProfile());
       routingTrack.setItem(0, goldenTicket);
     }
     var train = helper.spawn(RailcraftEntityTypes.CREATIVE_LOCOMOTIVE.get(), SPAWN_POINT);
@@ -51,7 +52,8 @@ public class RoutingTrackTest {
     final var dest = "HOME";
     if (helper.getBlockEntity(ROUTING_TRACK_POS) instanceof RoutingTrackBlockEntity routingTrack) {
       var goldenTicket = new ItemStack(RailcraftItems.GOLDEN_TICKET.get());
-      TicketItem.setTicketData(goldenTicket, dest, helper.makeMockPlayer().getGameProfile());
+      TicketItem.setTicketData(goldenTicket, dest,
+          helper.makeMockPlayer(GameType.CREATIVE).getGameProfile());
       routingTrack.setItem(0, goldenTicket);
     }
     var train = helper.spawn(RailcraftEntityTypes.CREATIVE_LOCOMOTIVE.get(), SPAWN_POINT);

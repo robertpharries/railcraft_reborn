@@ -21,6 +21,7 @@
     " d "
   ],
   "result": {
-    "item": "railcraft:charge_motor"
+    "count": 1,
+    "id": "railcraft:charge_motor"
   }
 }

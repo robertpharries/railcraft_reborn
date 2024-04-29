@@ -6,7 +6,6 @@ import mods.railcraft.Translations;
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.client.gui.widget.button.ButtonTexture;
 import mods.railcraft.client.gui.widget.button.MultiButton;
-import mods.railcraft.network.PacketHandler;
 import mods.railcraft.network.to_server.SetSwitchTrackRouterMessage;
 import mods.railcraft.util.routing.RoutingLogicException;
 import mods.railcraft.world.inventory.SwitchTrackRouterMenu;

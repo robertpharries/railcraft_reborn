@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:abyssal_bricks"
-            ]
+            "items": "railcraft:abyssal_bricks"
           }
         ]
       },

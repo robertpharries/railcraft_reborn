@@ -5,17 +5,14 @@ import java.util.function.Predicate;
 import org.jetbrains.annotations.Nullable;
 import com.mojang.authlib.GameProfile;
 import mods.railcraft.Translations;
-import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.world.item.component.RailcraftDataComponents;
 import mods.railcraft.world.item.component.TicketComponent;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ResolvableProfile;
-import net.minecraft.world.level.Level;
 
 public class TicketItem extends Item {
 

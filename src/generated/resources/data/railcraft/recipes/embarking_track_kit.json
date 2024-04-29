@@ -15,11 +15,11 @@
       "item": "minecraft:lead"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     }
   ],
   "result": {
     "count": 4,
-    "item": "railcraft:embarking_track_kit"
+    "id": "railcraft:embarking_track_kit"
   }
 }

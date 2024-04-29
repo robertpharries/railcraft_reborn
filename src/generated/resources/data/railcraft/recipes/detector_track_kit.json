@@ -12,11 +12,11 @@
       "item": "minecraft:stone_pressure_plate"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     }
   ],
   "result": {
     "count": 8,
-    "item": "railcraft:detector_track_kit"
+    "id": "railcraft:detector_track_kit"
   }
 }

@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:throttle_track_kit"
-            ]
+            "items": "railcraft:throttle_track_kit"
           }
         ]
       },

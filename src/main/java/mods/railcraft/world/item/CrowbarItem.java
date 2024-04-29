@@ -2,7 +2,6 @@ package mods.railcraft.world.item;
 
 import java.util.List;
 import java.util.Set;
-import org.jetbrains.annotations.Nullable;
 import mods.railcraft.Translations;
 import mods.railcraft.api.item.Crowbar;
 import mods.railcraft.tags.RailcraftTags;
@@ -18,7 +17,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.item.DiggerItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
@@ -40,8 +38,8 @@ public class CrowbarItem extends DiggerItem implements Crowbar {
       Set.of(LeverBlock.class, ButtonBlock.class, ChestBlock.class);
   private final Set<Class<? extends Block>> bannedRotations = Set.of(BaseRailBlock.class);
 
-  public CrowbarItem(float attackDamage, float attackSpeed, Tier tier, Properties properties) {
-    super(attackDamage, attackSpeed, tier, RailcraftTags.Blocks.MINEABLE_WITH_CROWBAR, properties);
+  public CrowbarItem(Tier tier, Properties properties) {
+    super(tier, RailcraftTags.Blocks.MINEABLE_WITH_CROWBAR, properties);
   }
 
   @Override

@@ -6,7 +6,6 @@ import com.google.common.collect.ImmutableList;
 import mods.railcraft.api.core.RailcraftConstants;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;

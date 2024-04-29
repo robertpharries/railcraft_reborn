@@ -9,14 +9,14 @@
       "item": "railcraft:track_parts"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     }
   ],
   "result": {
     "count": 8,
-    "item": "railcraft:activator_track_kit"
+    "id": "railcraft:activator_track_kit"
   }
 }

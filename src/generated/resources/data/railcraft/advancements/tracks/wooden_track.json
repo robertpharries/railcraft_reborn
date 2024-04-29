@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:strap_iron_track"
-            ]
+            "items": "railcraft:strap_iron_track"
           }
         ]
       },
@@ -20,7 +18,8 @@
       "translate": "advancements.railcraft.tracks.wooden_track.desc"
     },
     "icon": {
-      "item": "railcraft:strap_iron_track"
+      "count": 1,
+      "id": "railcraft:strap_iron_track"
     },
     "title": {
       "translate": "advancements.railcraft.tracks.wooden_track.name"

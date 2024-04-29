@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "a": {
-      "tag": "forge:glass_panes"
+      "tag": "c:glass_panes"
     },
     "b": {
       "item": "railcraft:receiver_circuit"
@@ -12,7 +12,7 @@
       "tag": "forge:ingots/steel"
     },
     "d": {
-      "tag": "forge:leather"
+      "tag": "c:leather"
     }
   },
   "pattern": [
@@ -21,6 +21,7 @@
     "ddd"
   ],
   "result": {
-    "item": "railcraft:goggles"
+    "count": 1,
+    "id": "railcraft:goggles"
   }
 }

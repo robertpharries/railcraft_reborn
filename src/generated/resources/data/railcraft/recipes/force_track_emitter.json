@@ -12,7 +12,7 @@
       "item": "railcraft:charge_coil"
     },
     "d": {
-      "tag": "forge:storage_blocks/diamond"
+      "tag": "c:storage_blocks/diamond"
     }
   },
   "pattern": [
@@ -21,6 +21,7 @@
     "aba"
   ],
   "result": {
-    "item": "railcraft:force_track_emitter"
+    "count": 1,
+    "id": "railcraft:force_track_emitter"
   }
 }

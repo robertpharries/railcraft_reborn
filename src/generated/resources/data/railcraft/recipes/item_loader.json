@@ -18,6 +18,7 @@
     "aca"
   ],
   "result": {
-    "item": "railcraft:item_loader"
+    "count": 1,
+    "id": "railcraft:item_loader"
   }
 }

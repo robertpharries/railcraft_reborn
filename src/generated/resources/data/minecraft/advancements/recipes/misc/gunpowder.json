@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:dusts/salt"
+            "items": "#forge:dusts/salt"
           }
         ]
       },
@@ -15,7 +15,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:dusts/sulfur"
+            "items": "#forge:dusts/sulfur"
           }
         ]
       },

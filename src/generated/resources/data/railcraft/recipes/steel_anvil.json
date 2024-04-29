@@ -15,6 +15,7 @@
     "bbb"
   ],
   "result": {
-    "item": "railcraft:steel_anvil"
+    "count": 1,
+    "id": "railcraft:steel_anvil"
   }
 }

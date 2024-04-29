@@ -2,13 +2,14 @@
   "type": "railcraft:rolling",
   "key": {
     "a": {
-      "tag": "forge:storage_blocks/copper"
+      "tag": "c:storage_blocks/copper"
     }
   },
   "pattern": [
     "a"
   ],
   "result": {
-    "item": "railcraft:charge_spool_large"
+    "count": 1,
+    "id": "railcraft:charge_spool_large"
   }
 }

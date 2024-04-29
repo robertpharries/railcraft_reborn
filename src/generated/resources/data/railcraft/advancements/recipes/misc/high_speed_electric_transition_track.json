@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:transition_track_kit"
-            ]
+            "items": "railcraft:transition_track_kit"
           }
         ]
       },

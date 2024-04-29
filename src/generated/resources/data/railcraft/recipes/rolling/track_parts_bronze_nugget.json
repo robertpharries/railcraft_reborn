@@ -10,6 +10,7 @@
     "a  "
   ],
   "result": {
-    "item": "railcraft:track_parts"
+    "count": 1,
+    "id": "railcraft:track_parts"
   }
 }

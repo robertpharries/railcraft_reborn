@@ -17,6 +17,7 @@
     "cbc"
   ],
   "result": {
-    "item": "railcraft:signal_tuner"
+    "count": 1,
+    "id": "railcraft:signal_tuner"
   }
 }

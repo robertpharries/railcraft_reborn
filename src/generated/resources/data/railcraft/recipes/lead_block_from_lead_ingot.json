@@ -12,6 +12,7 @@
     "aaa"
   ],
   "result": {
-    "item": "railcraft:lead_block"
+    "count": 1,
+    "id": "railcraft:lead_block"
   }
 }

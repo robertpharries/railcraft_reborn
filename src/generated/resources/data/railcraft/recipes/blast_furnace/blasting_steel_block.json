@@ -3,10 +3,11 @@
   "cookingTime": 3600,
   "experience": 0.0,
   "ingredient": {
-    "tag": "forge:storage_blocks/iron"
+    "tag": "c:storage_blocks/iron"
   },
   "result": {
-    "item": "railcraft:steel_block"
+    "count": 1,
+    "id": "railcraft:steel_block"
   },
   "slagOutput": 9
 }

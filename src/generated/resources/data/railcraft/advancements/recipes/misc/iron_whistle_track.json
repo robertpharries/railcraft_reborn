@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:whistle_track_kit"
-            ]
+            "items": "railcraft:whistle_track_kit"
           }
         ]
       },

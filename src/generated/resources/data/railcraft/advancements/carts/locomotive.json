@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:steam_locomotive"
-            ]
+            "items": "railcraft:steam_locomotive"
           }
         ]
       },
@@ -20,7 +18,8 @@
     },
     "frame": "challenge",
     "icon": {
-      "item": "railcraft:steam_locomotive"
+      "count": 1,
+      "id": "railcraft:steam_locomotive"
     },
     "title": {
       "translate": "advancements.railcraft.carts.locomotive.name"

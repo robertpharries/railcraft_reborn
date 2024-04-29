@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:manual_rolling_machine"
-            ]
+            "items": "railcraft:manual_rolling_machine"
           }
         ]
       },

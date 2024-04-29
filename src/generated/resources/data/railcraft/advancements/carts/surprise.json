@@ -10,7 +10,8 @@
       "translate": "advancements.railcraft.carts.surprise.desc"
     },
     "icon": {
-      "item": "minecraft:minecart"
+      "count": 1,
+      "id": "minecraft:minecart"
     },
     "title": {
       "translate": "advancements.railcraft.carts.surprise.name"

@@ -1,9 +1,7 @@
 package mods.railcraft.world.item;
 
 import java.util.List;
-import org.jetbrains.annotations.Nullable;
 import mods.railcraft.Translations.Tips;
-import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.season.Season;
 import mods.railcraft.world.item.component.RailcraftDataComponents;
 import mods.railcraft.world.item.component.SeasonComponent;
@@ -12,7 +10,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.TooltipFlag;
@@ -20,8 +17,8 @@ import net.minecraft.world.level.Level;
 
 public class SeasonsCrowbarItem extends CrowbarItem {
 
-  public SeasonsCrowbarItem(Properties properties) {
-    super(2.5F, -2.4F, Tiers.DIAMOND, properties);
+  public SeasonsCrowbarItem(Tiers tiers, Properties properties) {
+    super(tiers, properties);
   }
 
   @Override

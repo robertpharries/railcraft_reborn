@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:item_loader"
-            ]
+            "items": "railcraft:item_loader"
           }
         ]
       },

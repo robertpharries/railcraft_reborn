@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:routing_track_kit"
-            ]
+            "items": "railcraft:routing_track_kit"
           }
         ]
       },

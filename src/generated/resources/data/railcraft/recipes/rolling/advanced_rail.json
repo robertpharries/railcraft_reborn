@@ -2,10 +2,10 @@
   "type": "railcraft:rolling",
   "key": {
     "a": {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     },
     "b": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     }
   },
   "pattern": [
@@ -15,6 +15,6 @@
   ],
   "result": {
     "count": 8,
-    "item": "railcraft:advanced_rail"
+    "id": "railcraft:advanced_rail"
   }
 }

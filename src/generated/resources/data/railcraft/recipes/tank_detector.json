@@ -15,6 +15,7 @@
     "aaa"
   ],
   "result": {
-    "item": "railcraft:tank_detector"
+    "count": 1,
+    "id": "railcraft:tank_detector"
   }
 }

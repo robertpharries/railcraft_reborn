@@ -1,7 +1,6 @@
 package mods.railcraft.world.level.block.manipulator;
 
 import java.util.List;
-import org.jetbrains.annotations.Nullable;
 import mods.railcraft.Translations;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
@@ -10,7 +9,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;

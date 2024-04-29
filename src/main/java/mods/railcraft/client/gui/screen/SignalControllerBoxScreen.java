@@ -3,7 +3,6 @@ package mods.railcraft.client.gui.screen;
 import mods.railcraft.Translations;
 import mods.railcraft.api.signal.SignalAspect;
 import mods.railcraft.client.util.GuiUtil;
-import mods.railcraft.network.PacketHandler;
 import mods.railcraft.network.to_server.SetSignalControllerBoxMessage;
 import mods.railcraft.world.level.block.entity.signal.SignalControllerBoxBlockEntity;
 import net.minecraft.client.gui.GuiGraphics;

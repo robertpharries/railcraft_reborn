@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:steel_leggings"
-            ]
+            "items": "railcraft:steel_leggings"
           }
         ]
       },

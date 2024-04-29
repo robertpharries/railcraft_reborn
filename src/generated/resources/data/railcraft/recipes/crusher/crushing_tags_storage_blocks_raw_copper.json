@@ -4,13 +4,13 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:storage_blocks/raw_copper"
+        "tag": "c:storage_blocks/raw_copper"
       }
     }
   ],
   "type": "railcraft:crusher",
   "ingredient": {
-    "tag": "forge:storage_blocks/raw_copper"
+    "tag": "c:storage_blocks/raw_copper"
   },
   "outputs": [
     {

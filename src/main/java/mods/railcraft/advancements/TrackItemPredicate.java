@@ -6,7 +6,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import mods.railcraft.api.track.TrackType;
 import mods.railcraft.api.track.TrackUtil;
 import mods.railcraft.world.level.block.track.TrackTypes;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 
 public record TrackItemPredicate(

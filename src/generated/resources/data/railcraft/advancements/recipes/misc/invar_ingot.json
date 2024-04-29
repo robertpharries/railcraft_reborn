@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "railcraft:invar_block"
-            ]
+            "items": "railcraft:invar_block"
           }
         ]
       },

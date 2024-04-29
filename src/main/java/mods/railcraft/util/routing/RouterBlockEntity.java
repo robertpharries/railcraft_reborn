@@ -13,8 +13,7 @@ import mods.railcraft.client.gui.widget.button.ButtonTexture;
 import mods.railcraft.client.gui.widget.button.TexturePosition;
 import mods.railcraft.gui.button.ButtonState;
 import mods.railcraft.util.container.ForwardingContainer;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.component.DataComponents;
+import mods.railcraft.world.item.component.RailcraftDataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.MenuProvider;
@@ -44,10 +43,10 @@ public interface RouterBlockEntity extends MenuProvider, ForwardingContainer {
 
   default Deque<String> loadPages(ItemStack book) {
     Deque<String> contents = new LinkedList<>();
-    var writableBookContent = book.get(DataComponents.WRITABLE_BOOK_CONTENT);
+    var writableBookContent = book.get(RailcraftDataComponents.ROUTING_TABLE_BOOK);
     if (writableBookContent != null) {
       writableBookContent
-          .getPages(Minecraft.getInstance().isTextFilteringEnabled())
+          .pages()
           .forEach(x -> {
             var page = x.split("\n");
             contents.addAll(Arrays.asList(page));

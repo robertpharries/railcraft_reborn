@@ -12,10 +12,10 @@ import mods.railcraft.util.routing.RouterBlockEntity;
 import mods.railcraft.util.routing.RoutingLogic;
 import mods.railcraft.util.routing.RoutingLogicException;
 import mods.railcraft.world.inventory.SwitchTrackRouterMenu;
+import mods.railcraft.world.item.component.RailcraftDataComponents;
 import mods.railcraft.world.level.block.track.actuator.SwitchTrackActuatorBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -107,7 +107,7 @@ public class SwitchTrackRouterBlockEntity extends LockableSwitchTrackActuatorBlo
   private void refreshLogic() {
     if (this.logic == null && !this.container.getItem(0).isEmpty()) {
       var item = this.container.getItem(0);
-      if (item.has(DataComponents.WRITABLE_BOOK_CONTENT)) {
+      if (item.has(RailcraftDataComponents.ROUTING_TABLE_BOOK)) {
         var content = this.loadPages(item);
         try {
           this.logic = Either.left(RoutingLogic.parseTable(content));

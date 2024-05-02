@@ -16,7 +16,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.FriendlyByteBuf;
@@ -27,7 +26,6 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -81,7 +79,10 @@ public abstract class RailcraftBlockEntity extends BlockEntity
 
   @Override
   public void writeToBuf(RegistryFriendlyByteBuf out) {
-    out.writeNullable(this.owner, FriendlyByteBuf::writeGameProfile);
+    out.writeNullable(this.owner, (friendlyByteBuf, gameProfile) -> {
+      friendlyByteBuf.writeUUID(gameProfile.getId());
+      friendlyByteBuf.writeUtf(gameProfile.getName());
+    });
     out.writeNullable(this.customName, (friendlyByteBuf, component) ->
         ComponentSerialization.STREAM_CODEC.encode((RegistryFriendlyByteBuf) friendlyByteBuf, component));
     this.moduleDispatcher.writeToBuf(out);
@@ -89,7 +90,11 @@ public abstract class RailcraftBlockEntity extends BlockEntity
 
   @Override
   public void readFromBuf(RegistryFriendlyByteBuf in) {
-    this.owner = in.readNullable(FriendlyByteBuf::readGameProfile);
+    this.owner = in.readNullable(friendlyByteBuf -> {
+      var id = friendlyByteBuf.readUUID();
+      var name = friendlyByteBuf.readUtf();
+      return new GameProfile(id, name);
+    });
     this.customName = in.readNullable(friendlyByteBuf ->
         ComponentSerialization.STREAM_CODEC.decode((RegistryFriendlyByteBuf) friendlyByteBuf));
     this.moduleDispatcher.readFromBuf(in);

@@ -6,7 +6,6 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'net.neoforged.gradle.userdev' version "$neo_gradle_version"
-    id 'net.neoforged.gradle.mixin' version "$neo_gradle_version"
     id 'se.bjurr.gitchangelog.git-changelog-gradle-plugin' version '2.1.2'
     id 'me.modmuss50.mod-publish-plugin' version '0.5.1'
     id 'com.diffplug.spotless' version '6.25.0'
@@ -203,10 +202,6 @@ tasks.register('apiJar', Jar) {
 artifacts {
     archives jar
     archives apiJar
-}
-
-mixin {
-    config 'railcraft.mixins.json'
 }
 
 def penultimateTag = { ->

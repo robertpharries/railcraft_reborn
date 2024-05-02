@@ -67,7 +67,6 @@ import mods.railcraft.world.level.block.track.ReinforcedTrackBlock;
 import mods.railcraft.world.level.block.track.StrapIronTrackBlock;
 import mods.railcraft.world.level.block.track.TrackConstants;
 import mods.railcraft.world.level.block.track.TrackTypes;
-import mods.railcraft.world.level.block.track.actuator.SwitchTrackActuatorBlock;
 import mods.railcraft.world.level.block.track.actuator.SwitchTrackLeverBlock;
 import mods.railcraft.world.level.block.track.actuator.SwitchTrackMotorBlock;
 import mods.railcraft.world.level.block.track.actuator.SwitchTrackRouterBlock;
@@ -656,14 +655,14 @@ public class RailcraftBlocks {
           () -> new VillagerDetectorBlock(
               BlockBehaviour.Properties.ofFullCopy(ADVANCED_DETECTOR.get())));
 
-  public static final DeferredBlock<SwitchTrackActuatorBlock> SWITCH_TRACK_LEVER =
+  public static final DeferredBlock<SwitchTrackLeverBlock> SWITCH_TRACK_LEVER =
       deferredRegister.register("switch_track_lever",
           () -> new SwitchTrackLeverBlock(BlockBehaviour.Properties.of()
               .strength(8.0F, 50.0F)
               .sound(SoundType.METAL)
               .noOcclusion()));
 
-  public static final DeferredBlock<SwitchTrackActuatorBlock> SWITCH_TRACK_MOTOR =
+  public static final DeferredBlock<SwitchTrackMotorBlock> SWITCH_TRACK_MOTOR =
       deferredRegister.register("switch_track_motor",
           () -> new SwitchTrackMotorBlock(
               BlockBehaviour.Properties.ofFullCopy(SWITCH_TRACK_LEVER.get())));

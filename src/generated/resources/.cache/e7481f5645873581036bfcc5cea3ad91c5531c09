@@ -1,4 +1,4 @@
-// 1.20.6	2024-05-02T10:11:08.560406	Item Models: railcraft
+// 1.20.6	2024-05-02T10:13:18.527973	Item Models: railcraft
 dbbe28cea0e96f0929204fe4efd5f4923d9f3d43 assets/railcraft/models/item/activator_track_kit.json
 e0d7f6014a1a00e1f619d687db8dd4e18748da57 assets/railcraft/models/item/advanced_rail.json
 c13cd9f012c8ef8f084877066381fd641ce1ba81 assets/railcraft/models/item/bag_of_cement.json
@@ -33,6 +33,7 @@ ba33feb545a6dc5bb83a41717262b460a3027317 assets/railcraft/models/item/charge_ter
 1d36647d55c4e48b9aae466834d4774a8701502c assets/railcraft/models/item/copper_gear.json
 fec950cc3c46f7516c1ccccd410dfe4954fe4cf2 assets/railcraft/models/item/copper_plate.json
 ecf7136385d997fdafee99a1442647d0d776a9cd assets/railcraft/models/item/coupler_track_kit.json
+407e032fcf8321693e8d18f57d17f779ddef525c assets/railcraft/models/item/creative_locomotive.json
 38ef5d9cd09edd8f4ea9d8371eb8c3b2e5bd06c5 assets/railcraft/models/item/creosote_bottle.json
 d6fb06bb3298177bc3fccaebea9c063a9d53dc4b assets/railcraft/models/item/creosote_bucket.json
 a316dff6851bed398cdc0215ee39f4da055e89bf assets/railcraft/models/item/detector_track_kit.json
@@ -41,6 +42,7 @@ a316dff6851bed398cdc0215ee39f4da055e89bf assets/railcraft/models/item/detector_t
 92eb4bd2cf914a7f017f55078356ff400854ca21 assets/railcraft/models/item/diamond_tunnel_bore_head.json
 45c68599a0b64ee792ec7bebb09863245528225b assets/railcraft/models/item/disembarking_track_kit.json
 ab7fa5102406bed3c4aed220e8d0f2fdec0593d4 assets/railcraft/models/item/dumping_track_kit.json
+407e032fcf8321693e8d18f57d17f779ddef525c assets/railcraft/models/item/electric_locomotive.json
 41ee85b2c2ad5f24241b2a839756dfca91e25515 assets/railcraft/models/item/electric_rail.json
 2d1c8a424573c2795b1c8605aff3d9bd61ee69b8 assets/railcraft/models/item/embarking_track_kit.json
 245bf48c8cedd8733bfceca3d1fd28bd7e84a442 assets/railcraft/models/item/ender_dust.json
@@ -102,6 +104,7 @@ ecb4ee05a820232e34d0553943d06583af6a92ed assets/railcraft/models/item/silver_pla
 037c50446cd2caba155a8ab5b29e55a4d1c691ed assets/railcraft/models/item/silver_raw.json
 59d072f529bc0cdc0c4c7e2437c3aa015621464d assets/railcraft/models/item/slag.json
 79fa214e407418545d273fa2bd88be6eed08e34f assets/railcraft/models/item/standard_rail.json
+fd06387cfbdeed02cd1099da105b94bae7801c2a assets/railcraft/models/item/steam_locomotive.json
 c05b8d44ca4522223a237c4538e9d365876a7e60 assets/railcraft/models/item/steel_axe.json
 7d3777118b6ed39c0b6c3c90f835bdd0e4a29eeb assets/railcraft/models/item/steel_boots.json
 4e255cdafed36bd1b0ed630019a21e48edd22c9e assets/railcraft/models/item/steel_chestplate.json

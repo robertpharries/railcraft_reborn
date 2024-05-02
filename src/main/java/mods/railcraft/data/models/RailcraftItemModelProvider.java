@@ -29,6 +29,14 @@ public class RailcraftItemModelProvider extends ItemModelProvider {
     return basicCustomItem(item, "handheld_rod");
   }
 
+  private ItemModelBuilder locomotiveItem(Item item) {
+    var rl = BuiltInRegistries.ITEM.getKey(item);
+    var path = rl.getPath().replace("creative", "electric");
+    return withExistingParent(rl.getPath(), "item/generated")
+        .texture("layer0", modLoc("item/%s_layer0".formatted(path)))
+        .texture("layer1", modLoc("item/%s_layer1".formatted(path)));
+  }
+
   @Override
   protected void registerModels() {
     this.basicItem(RailcraftItems.SIGNAL_LABEL.get());
@@ -188,5 +196,9 @@ public class RailcraftItemModelProvider extends ItemModelProvider {
     this.basicHandheldRodItem(RailcraftItems.HIGH_SPEED_RAIL.get());
     this.basicHandheldRodItem(RailcraftItems.REINFORCED_RAIL.get());
     this.basicHandheldRodItem(RailcraftItems.REBAR.get());
+
+    this.locomotiveItem(RailcraftItems.STEAM_LOCOMOTIVE.get());
+    this.locomotiveItem(RailcraftItems.ELECTRIC_LOCOMOTIVE.get());
+    this.locomotiveItem(RailcraftItems.CREATIVE_LOCOMOTIVE.get());
   }
 }

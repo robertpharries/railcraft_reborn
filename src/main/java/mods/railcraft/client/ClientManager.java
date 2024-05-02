@@ -67,6 +67,7 @@ import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.level.GrassColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -163,11 +164,11 @@ public class ClientManager {
   }
 
   private static void handleItemColors(RegisterColorHandlersEvent.Item event) {
-    event.register((stack, tintIndex) -> switch (tintIndex) {
-          case 0 -> LocomotiveItem.getColor(stack).primary().getMapColor().col;
-          case 1 -> LocomotiveItem.getColor(stack).secondary().getMapColor().col;
-          default -> 0xFFFFFFFF;
-        },
+    event.register((stack, tintIndex) -> FastColor.ARGB32.opaque(switch (tintIndex) {
+      case 0 -> LocomotiveItem.getColor(stack).primary().getMapColor().col;
+      case 1 -> LocomotiveItem.getColor(stack).secondary().getMapColor().col;
+      default -> 0xFFFFFFFF;
+    }),
         RailcraftItems.CREATIVE_LOCOMOTIVE.get(),
         RailcraftItems.STEAM_LOCOMOTIVE.get(),
         RailcraftItems.ELECTRIC_LOCOMOTIVE.get());

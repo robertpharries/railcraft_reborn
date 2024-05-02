@@ -1,4 +1,4 @@
-// 1.20.5	2024-04-29T14:53:36.512901	Recipes
+// 1.20.6	2024-05-02T10:10:31.676493	Recipes
 6caa58ddfc65a530620e527b5b0010f475215b5a data/minecraft/advancements/recipes/misc/gunpowder.json
 a2bb90ba3405540cd1d5f9ebd56e3e9a414b903b data/minecraft/advancements/recipes/misc/lead_ingot_from_blasting_deepslate_lead_ore.json
 a9fb3f1e0ef2641d91709ce3fda5abfe1aa1d8f7 data/minecraft/advancements/recipes/misc/lead_ingot_from_blasting_lead_ore.json
@@ -859,7 +859,7 @@ b9c410c163b3dbf8d3504d9cf48dd579a37d3a28 data/railcraft/recipes/frame_bronze_pla
 813dca653a0debb324c5d7aae6450739f27714ba data/railcraft/recipes/frame_iron_plate.json
 00704558c4d55a073d8e4f48406c35359738a605 data/railcraft/recipes/frame_steel_plate.json
 13086fa8d64b9752ec87dcad20d7301b32bdef64 data/railcraft/recipes/gated_track_kit.json
-0dbd60ceeb8086ae155cbb7b6115a6ed8b4abbe6 data/railcraft/recipes/goggles.json
+8e320b3d0d3f0af346a1a1f5bd8197d53936447a data/railcraft/recipes/goggles.json
 d7230c06c924b535303213f88f51436cfccbd8c1 data/railcraft/recipes/gold_gear.json
 654b7b8a329aa46ed591ff86308085c822a150b2 data/railcraft/recipes/golden_ticket.json
 842aabdc46407c007a8c1f317887eff6b8f67e0c data/railcraft/recipes/gray_iron_tank_gauge.json

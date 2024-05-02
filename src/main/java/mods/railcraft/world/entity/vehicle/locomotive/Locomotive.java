@@ -42,7 +42,7 @@ import mods.railcraft.world.item.component.RailcraftDataComponents;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -53,6 +53,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.Mth;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.Container;
@@ -702,7 +703,7 @@ public abstract class Locomotive extends RailcraftMinecart implements
 
     tag.putBoolean(CompoundTagKeys.REVERSE, this.isReverse());
     this.getOwner().ifPresent(owner -> tag.put(CompoundTagKeys.OWNER,
-        NbtUtils.writeGameProfile(new CompoundTag(), owner)));
+        ExtraCodecs.GAME_PROFILE.encode(owner, NbtOps.INSTANCE, new CompoundTag()).getOrThrow()));
   }
 
   @Override
@@ -732,7 +733,8 @@ public abstract class Locomotive extends RailcraftMinecart implements
       this.entityData.set(REVERSE, tag.getBoolean(CompoundTagKeys.REVERSE));
     }
     if (tag.contains(CompoundTagKeys.OWNER, Tag.TAG_COMPOUND)) {
-      this.setOwner(NbtUtils.readGameProfile(tag.getCompound(CompoundTagKeys.OWNER)));;
+      this.setOwner(ExtraCodecs.GAME_PROFILE
+          .decode(NbtOps.INSTANCE, tag.getCompound(CompoundTagKeys.OWNER)).getOrThrow().getFirst());
     } else {
       this.setOwner(null);
     }

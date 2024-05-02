@@ -36,7 +36,7 @@ public class TokenRingManager extends SavedData {
       var signalList = entry.getList(CompoundTagKeys.SIGNALS, Tag.TAG_COMPOUND);
       var signalPositions = signalList.stream()
           .map(CompoundTag.class::cast)
-          .map(NbtUtils::readBlockPos)
+          .map(x -> NbtUtils.readBlockPos(x, CompoundTagKeys.POS).orElseThrow())
           .collect(Collectors.toSet());
       tokenRing.loadSignals(signalPositions);
       var cartList = entry.getList(CompoundTagKeys.CARTS, Tag.TAG_COMPOUND);
@@ -56,7 +56,9 @@ public class TokenRingManager extends SavedData {
       tokenData.putUUID(CompoundTagKeys.ID, tokenRing.getId());
       var signalList = new ListTag();
       for (var pos : tokenRing.peers()) {
-        signalList.add(NbtUtils.writeBlockPos(pos));
+        var posTag = new CompoundTag();
+        posTag.put(CompoundTagKeys.POS, NbtUtils.writeBlockPos(pos));
+        signalList.add(posTag);
       }
       tokenData.put(CompoundTagKeys.SIGNALS, signalList);
       var cartList = new ListTag();

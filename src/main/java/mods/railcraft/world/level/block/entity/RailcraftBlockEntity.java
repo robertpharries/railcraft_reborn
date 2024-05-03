@@ -113,12 +113,7 @@ public abstract class RailcraftBlockEntity extends BlockEntity
   public void syncToClient() {
     if (this.level instanceof ServerLevel serverLevel) {
       var packet = this.getUpdatePacket();
-      serverLevel.players()
-          .forEach(player -> {
-            if (player.level().dimension() == serverLevel.dimension()) {
-              player.connection.send(packet);
-            }
-          });
+      serverLevel.players().forEach(player -> player.connection.send(packet));
     }
   }
 
@@ -160,7 +155,7 @@ public abstract class RailcraftBlockEntity extends BlockEntity
     super.saveAdditional(tag, provider);
     if (this.owner != null) {
       tag.put(CompoundTagKeys.OWNER, ExtraCodecs.GAME_PROFILE
-          .encodeStart(NbtOps.INSTANCE, this.owner).result().orElseThrow());
+          .encode(this.owner, NbtOps.INSTANCE, new CompoundTag()).getOrThrow());
     }
     if (this.customName != null) {
       tag.putString(CompoundTagKeys.CUSTOM_NAME,
@@ -175,8 +170,8 @@ public abstract class RailcraftBlockEntity extends BlockEntity
     super.loadAdditional(tag, provider);
     if (tag.contains(CompoundTagKeys.OWNER, Tag.TAG_COMPOUND)) {
       this.owner = ExtraCodecs.GAME_PROFILE
-          .decode(NbtOps.INSTANCE, tag.getCompound(CompoundTagKeys.OWNER))
-          .result().orElseThrow().getFirst();
+          .parse(NbtOps.INSTANCE, tag.getCompound(CompoundTagKeys.OWNER))
+          .getOrThrow();
     }
     if (tag.contains(CompoundTagKeys.CUSTOM_NAME, Tag.TAG_STRING)) {
       this.customName =

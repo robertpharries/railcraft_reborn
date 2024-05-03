@@ -36,13 +36,13 @@ public class FluidGaugeWidget extends Widget {
     var fluidStack = tank.getFluid();
     this.lastSyncedFluidStack = fluidStack.copy();
     data.writeInt(tank.getCapacity());
-    FluidStack.STREAM_CODEC.encode(data, fluidStack);
+    FluidStack.OPTIONAL_STREAM_CODEC.encode(data, fluidStack);
   }
 
   @Override
   public void readFromBuf(RegistryFriendlyByteBuf data) {
     super.readFromBuf(data);
     tank.setCapacity(data.readInt());
-    tank.setFluid(FluidStack.STREAM_CODEC.decode(data));
+    tank.setFluid(FluidStack.OPTIONAL_STREAM_CODEC.decode(data));
   }
 }

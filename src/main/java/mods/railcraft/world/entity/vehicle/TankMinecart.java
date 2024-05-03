@@ -78,7 +78,7 @@ public class TankMinecart extends FilteredMinecart
 
   private void tankChanged() {
     var tag = new CompoundTag();
-    tag.put(CompoundTagKeys.TANK, FluidStack.CODEC
+    tag.put(CompoundTagKeys.TANK, FluidStack.OPTIONAL_CODEC
         .encode(this.tank.getFluid(), NbtOps.INSTANCE, new CompoundTag())
         .getOrThrow());
     this.entityData.set(FLUID_STACK, tag);
@@ -88,7 +88,7 @@ public class TankMinecart extends FilteredMinecart
   public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
     super.onSyncedDataUpdated(key);
     if (key.equals(FLUID_STACK)) {
-      var fluidStack = FluidStack.CODEC
+      var fluidStack = FluidStack.OPTIONAL_CODEC
           .parse(NbtOps.INSTANCE, this.entityData.get(FLUID_STACK).get(CompoundTagKeys.TANK))
           .getOrThrow();
       this.tank.setFluid(fluidStack);

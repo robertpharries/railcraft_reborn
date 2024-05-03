@@ -66,13 +66,13 @@ public class TankManager implements IFluidHandler, INBTSerializable<ListTag> {
 
   public void writePacketData(RegistryFriendlyByteBuf data) {
     for (var tank : this.tanks) {
-      FluidStack.STREAM_CODEC.encode(data, tank.getFluid());
+      FluidStack.OPTIONAL_STREAM_CODEC.encode(data, tank.getFluid());
     }
   }
 
   public void readPacketData(RegistryFriendlyByteBuf data) {
     for (var tank : this.tanks) {
-      tank.setFluid(FluidStack.STREAM_CODEC.decode(data));
+      tank.setFluid(FluidStack.OPTIONAL_STREAM_CODEC.decode(data));
     }
   }
 

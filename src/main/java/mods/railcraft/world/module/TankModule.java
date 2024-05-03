@@ -88,13 +88,13 @@ public class TankModule extends ContainerModule<TankBlockEntity> {
   public void writeToBuf(RegistryFriendlyByteBuf out) {
     super.writeToBuf(out);
     out.writeVarInt(this.tank.getCapacity());
-    FluidStack.STREAM_CODEC.encode(out, this.tank.getFluid());
+    FluidStack.OPTIONAL_STREAM_CODEC.encode(out, this.tank.getFluid());
   }
 
   @Override
   public void readFromBuf(RegistryFriendlyByteBuf in) {
     super.readFromBuf(in);
     this.tank.setCapacity(in.readVarInt());
-    this.tank.setFluid(FluidStack.STREAM_CODEC.decode(in));
+    this.tank.setFluid(FluidStack.OPTIONAL_STREAM_CODEC.decode(in));
   }
 }

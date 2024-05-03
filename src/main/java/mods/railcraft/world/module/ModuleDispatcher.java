@@ -6,6 +6,7 @@ import java.util.Optional;
 import mods.railcraft.api.core.NetworkSerializable;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 
@@ -43,11 +44,8 @@ public class ModuleDispatcher implements NetworkSerializable, INBTSerializable<C
 
   @Override
   public void writeToBuf(RegistryFriendlyByteBuf out) {
-    out.writeVarInt(this.moduleByName.size());
-    this.moduleByName.forEach((s, module) -> {
-      out.writeUtf(s);
-      module.writeToBuf(out);
-    });
+    out.writeMap(this.moduleByName,
+        FriendlyByteBuf::writeUtf, (buf, module) -> module.writeToBuf((RegistryFriendlyByteBuf)buf));
   }
 
   @Override

@@ -293,7 +293,7 @@ public abstract class MultiblockBlockEntity<T extends MultiblockBlockEntity<T, M
   public void readFromBuf(RegistryFriendlyByteBuf in) {
     super.readFromBuf(in);
     this.unresolvedMembership = in.readNullable(buf -> new UnresolvedMembership(
-        new MultiblockPattern.Element(in.readBlockPos(), in.readChar()), in.readBlockPos()));
+        new MultiblockPattern.Element(buf.readBlockPos(), buf.readChar()), buf.readBlockPos()));
   }
 
   /**

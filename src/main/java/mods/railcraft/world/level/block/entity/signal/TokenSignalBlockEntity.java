@@ -2,6 +2,7 @@ package mods.railcraft.world.level.block.entity.signal;
 
 import java.util.Objects;
 import java.util.UUID;
+import org.jetbrains.annotations.Nullable;
 import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.api.signal.SignalAspect;
 import mods.railcraft.api.signal.SimpleSignalController;
@@ -32,6 +33,7 @@ public class TokenSignalBlockEntity extends AbstractSignalBlockEntity
           __ -> this.level.getLightEngine().checkBlock(this.getBlockPos()));
 
   private UUID ringId = UUID.randomUUID();
+  @Nullable
   private Vec3 ringCentroidPos;
 
   private final TimerBag<UUID> cartTimers = new TimerBag<>(8);

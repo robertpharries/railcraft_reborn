@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "a": {
-      "tag": "forge:ingots/lead"
+      "tag": "c:ingots/lead"
     },
     "b": {
       "item": "minecraft:redstone_block"

@@ -6,7 +6,7 @@
       "item": "minecraft:redstone_lamp"
     },
     "b": {
-      "tag": "forge:plates/steel"
+      "tag": "c:plates/steel"
     },
     "c": {
       "item": "railcraft:charge_motor"
@@ -20,7 +20,7 @@
       }
     ],
     "e": {
-      "tag": "forge:gears/steel"
+      "tag": "c:gears/steel"
     },
     "f": {
       "item": "minecraft:minecart"

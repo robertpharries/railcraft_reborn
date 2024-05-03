@@ -2,7 +2,7 @@
   "type": "railcraft:rolling",
   "key": {
     "a": {
-      "tag": "forge:plates/silver"
+      "tag": "c:plates/silver"
     }
   },
   "pattern": [

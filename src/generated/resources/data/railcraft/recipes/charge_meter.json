@@ -12,7 +12,7 @@
       "item": "minecraft:glass_pane"
     },
     "d": {
-      "tag": "forge:ingots/brass"
+      "tag": "c:ingots/brass"
     }
   },
   "pattern": [

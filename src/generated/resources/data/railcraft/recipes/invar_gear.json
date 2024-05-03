@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "a": {
-      "tag": "forge:ingots/invar"
+      "tag": "c:ingots/invar"
     },
     "b": {
       "item": "railcraft:bushing_gear"

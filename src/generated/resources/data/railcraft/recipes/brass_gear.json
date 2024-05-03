@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "a": {
-      "tag": "forge:ingots/brass"
+      "tag": "c:ingots/brass"
     },
     "b": {
       "item": "railcraft:bushing_gear"

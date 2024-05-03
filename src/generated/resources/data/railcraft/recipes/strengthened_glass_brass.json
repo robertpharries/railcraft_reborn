@@ -6,7 +6,7 @@
       "tag": "c:glass_blocks"
     },
     "b": {
-      "tag": "forge:ingots/brass"
+      "tag": "c:ingots/brass"
     },
     "c": {
       "item": "railcraft:saltpeter_dust"

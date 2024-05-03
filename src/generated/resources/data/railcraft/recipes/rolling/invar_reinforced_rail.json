@@ -2,13 +2,13 @@
   "type": "railcraft:rolling",
   "key": {
     "a": {
-      "tag": "forge:ingots/invar"
+      "tag": "c:ingots/invar"
     },
     "b": {
-      "tag": "forge:dusts/obsidian"
+      "tag": "c:dusts/obsidian"
     },
     "c": {
-      "tag": "forge:ingots/invar"
+      "tag": "c:ingots/invar"
     }
   },
   "pattern": [

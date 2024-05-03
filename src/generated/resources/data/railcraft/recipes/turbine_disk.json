@@ -6,7 +6,7 @@
       "item": "railcraft:turbine_blade"
     },
     "b": {
-      "tag": "forge:ingots/steel"
+      "tag": "c:ingots/steel"
     }
   },
   "pattern": [

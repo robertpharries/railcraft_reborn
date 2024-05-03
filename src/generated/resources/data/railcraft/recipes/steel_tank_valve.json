@@ -6,7 +6,7 @@
       "item": "minecraft:iron_bars"
     },
     "b": {
-      "tag": "forge:plates/steel"
+      "tag": "c:plates/steel"
     },
     "c": {
       "item": "minecraft:lever"

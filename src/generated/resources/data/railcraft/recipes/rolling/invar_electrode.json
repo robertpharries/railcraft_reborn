@@ -2,7 +2,7 @@
   "type": "railcraft:rolling",
   "key": {
     "a": {
-      "tag": "forge:plates/invar"
+      "tag": "c:plates/invar"
     }
   },
   "pattern": [

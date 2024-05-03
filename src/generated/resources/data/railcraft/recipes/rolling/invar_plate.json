@@ -2,7 +2,7 @@
   "type": "railcraft:rolling",
   "key": {
     "a": {
-      "tag": "forge:ingots/invar"
+      "tag": "c:ingots/invar"
     }
   },
   "pattern": [

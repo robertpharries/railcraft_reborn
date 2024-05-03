@@ -2,13 +2,13 @@
   "type": "railcraft:rolling",
   "key": {
     "a": {
-      "tag": "forge:ingots/steel"
+      "tag": "c:ingots/steel"
     },
     "b": {
       "tag": "c:ingots/copper"
     },
     "c": {
-      "tag": "forge:ingots/steel"
+      "tag": "c:ingots/steel"
     }
   },
   "pattern": [

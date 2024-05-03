@@ -4,26 +4,26 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/silver"
+        "tag": "c:ingots/silver"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/silver"
+        "tag": "c:dusts/silver"
       }
     }
   ],
   "type": "railcraft:crusher",
   "ingredient": {
-    "tag": "forge:ingots/silver"
+    "tag": "c:ingots/silver"
   },
   "outputs": [
     {
       "probability": 1.0,
       "result": {
-        "tag": "forge:dusts/silver"
+        "tag": "c:dusts/silver"
       }
     }
   ]

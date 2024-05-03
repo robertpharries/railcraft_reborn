@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "a": {
-      "tag": "forge:ingots/brass"
+      "tag": "c:ingots/brass"
     },
     "b": {
-      "tag": "forge:plates/brass"
+      "tag": "c:plates/brass"
     }
   },
   "pattern": [

@@ -9,7 +9,7 @@
       "item": "minecraft:golden_carrot"
     },
     "c": {
-      "tag": "forge:plates/steel"
+      "tag": "c:plates/steel"
     }
   },
   "pattern": [

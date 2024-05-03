@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/lapis"
+        "tag": "c:dusts/lapis"
       }
     }
   ],
@@ -16,7 +16,7 @@
     {
       "probability": 1.0,
       "result": {
-        "tag": "forge:dusts/lapis"
+        "tag": "c:dusts/lapis"
       }
     }
   ]

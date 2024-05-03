@@ -78,8 +78,8 @@ public class RailcraftTags {
     public static final TagKey<Item> SILVER_GEAR = gearsTag("silver");
 
 
-    public static final TagKey<Item> SLAG = forgeTag("slag");
-    public static final TagKey<Item> COAL_COKE = forgeTag("coal_coke");
+    public static final TagKey<Item> SLAG = commonTag("slag");
+    public static final TagKey<Item> COAL_COKE = commonTag("coal_coke");
     public static final TagKey<Item> BRONZE_DUST = dustsTag("bronze");
     public static final TagKey<Item> LAPIS_DUST = dustsTag("lapis");
     public static final TagKey<Item> EMERALD_DUST = dustsTag("emerald");
@@ -144,56 +144,56 @@ public class RailcraftTags {
     public static final TagKey<Item> SILVER_RAW = rawMaterialsTag("silver");
     public static final TagKey<Item> LEAD_RAW = rawMaterialsTag("lead");
 
-    public static final TagKey<Item> TOOLS_SWORDS_STEEL = forgeTag("tools/swords/steel");
-    public static final TagKey<Item> TOOLS_AXES_STEEL = forgeTag("tools/axes/steel");
-    public static final TagKey<Item> TOOLS_PICKAXES_STEEL = forgeTag("tools/pickaxes/steel");
-    public static final TagKey<Item> TOOLS_SHOVELS_STEEL = forgeTag("tools/shovels/steel");
-    public static final TagKey<Item> TOOLS_HOES_STEEL = forgeTag("tools/hoes/steel");
+    public static final TagKey<Item> TOOLS_SWORDS_STEEL = commonTag("tools/swords/steel");
+    public static final TagKey<Item> TOOLS_AXES_STEEL = commonTag("tools/axes/steel");
+    public static final TagKey<Item> TOOLS_PICKAXES_STEEL = commonTag("tools/pickaxes/steel");
+    public static final TagKey<Item> TOOLS_SHOVELS_STEEL = commonTag("tools/shovels/steel");
+    public static final TagKey<Item> TOOLS_HOES_STEEL = commonTag("tools/hoes/steel");
 
-    public static final TagKey<Item> ARMORS_HELMETS_STEEL = forgeTag("armors/helmets/steel");
-    public static final TagKey<Item> ARMORS_CHESTPLATES_STEEL = forgeTag("armors/chestplates/steel");
-    public static final TagKey<Item> ARMORS_LEGGINGS_STEEL = forgeTag("armors/leggings/steel");
-    public static final TagKey<Item> ARMORS_BOOTS_STEEL = forgeTag("armors/boots/steel");
+    public static final TagKey<Item> ARMORS_HELMETS_STEEL = commonTag("armors/helmets/steel");
+    public static final TagKey<Item> ARMORS_CHESTPLATES_STEEL = commonTag("armors/chestplates/steel");
+    public static final TagKey<Item> ARMORS_LEGGINGS_STEEL = commonTag("armors/leggings/steel");
+    public static final TagKey<Item> ARMORS_BOOTS_STEEL = commonTag("armors/boots/steel");
 
 
     private static TagKey<Item> tag(String name) {
       return ItemTags.create(RailcraftConstants.rl(name));
     }
 
-    public static TagKey<Item> forgeTag(String name) {
-      return ItemTags.create(new ResourceLocation("forge", name));
+    public static TagKey<Item> commonTag(String name) {
+      return ItemTags.create(new ResourceLocation("c", name));
     }
 
     public static TagKey<Item> oresTag(String name) {
-      return forgeTag("ores/" + name);
+      return commonTag("ores/" + name);
     }
 
     public static TagKey<Item> rawMaterialsTag(String name) {
-      return forgeTag("raw_materials/" + name);
+      return commonTag("raw_materials/" + name);
     }
 
     public static TagKey<Item> ingotsTag(String name) {
-      return forgeTag("ingots/" + name);
+      return commonTag("ingots/" + name);
     }
 
     public static TagKey<Item> nuggetsTag(String name) {
-      return forgeTag("nuggets/" + name);
+      return commonTag("nuggets/" + name);
     }
 
     public static TagKey<Item> platesTag(String name) {
-      return forgeTag("plates/" + name);
+      return commonTag("plates/" + name);
     }
 
     public static TagKey<Item> gearsTag(String name) {
-      return forgeTag("gears/" + name);
+      return commonTag("gears/" + name);
     }
 
     public static TagKey<Item> dustsTag(String name) {
-      return forgeTag("dusts/" + name);
+      return commonTag("dusts/" + name);
     }
 
     public static TagKey<Item> storageBlocksTag(String name) {
-      return forgeTag("storage_blocks/" + name);
+      return commonTag("storage_blocks/" + name);
     }
   }
 
@@ -234,30 +234,30 @@ public class RailcraftTags {
     public static final TagKey<Block> TUNNEL_BORE_REPLACEABLE_BLOCKS =
         tag("tunnel_bore_replaceable_blocks");
 
-    public static final TagKey<Block> LEAD_ORE = forgeTag("ores/lead");
-    public static final TagKey<Block> NICKEL_ORE = forgeTag("ores/nickel");
-    public static final TagKey<Block> SILVER_ORE = forgeTag("ores/silver");
-    public static final TagKey<Block> SULFUR_ORE = forgeTag("ores/sulfur");
-    public static final TagKey<Block> TIN_ORE = forgeTag("ores/tin");
-    public static final TagKey<Block> ZINC_ORE = forgeTag("ores/zinc");
-    public static final TagKey<Block> SALTPETER_ORE = forgeTag("ores/salt");
+    public static final TagKey<Block> LEAD_ORE = commonTag("ores/lead");
+    public static final TagKey<Block> NICKEL_ORE = commonTag("ores/nickel");
+    public static final TagKey<Block> SILVER_ORE = commonTag("ores/silver");
+    public static final TagKey<Block> SULFUR_ORE = commonTag("ores/sulfur");
+    public static final TagKey<Block> TIN_ORE = commonTag("ores/tin");
+    public static final TagKey<Block> ZINC_ORE = commonTag("ores/zinc");
+    public static final TagKey<Block> SALTPETER_ORE = commonTag("ores/salt");
 
     private static TagKey<Block> tag(String name) {
       return BlockTags.create(RailcraftConstants.rl(name));
     }
 
-    private static TagKey<Block> forgeTag(String name) {
-      return BlockTags.create(new ResourceLocation("forge", name));
+    private static TagKey<Block> commonTag(String name) {
+      return BlockTags.create(new ResourceLocation("c", name));
     }
   }
 
   public static class Fluids {
 
-    public static final TagKey<Fluid> STEAM = forgeTag("steam");
-    public static final TagKey<Fluid> CREOSOTE = forgeTag("creosote");
+    public static final TagKey<Fluid> STEAM = commonTag("steam");
+    public static final TagKey<Fluid> CREOSOTE = commonTag("creosote");
 
-    private static TagKey<Fluid> forgeTag(String name) {
-      return FluidTags.create(new ResourceLocation("forge", name));
+    private static TagKey<Fluid> commonTag(String name) {
+      return FluidTags.create(new ResourceLocation("c", name));
     }
   }
 }

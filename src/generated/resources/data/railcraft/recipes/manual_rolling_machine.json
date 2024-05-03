@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "a": {
-      "tag": "forge:gears/bronze"
+      "tag": "c:gears/bronze"
     },
     "b": {
       "item": "minecraft:piston"

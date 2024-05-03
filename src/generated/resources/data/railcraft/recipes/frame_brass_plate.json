@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "a": {
-      "tag": "forge:plates/brass"
+      "tag": "c:plates/brass"
     },
     "b": {
       "item": "railcraft:rebar"

@@ -4,26 +4,26 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/lead"
+        "tag": "c:ingots/lead"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/lead"
+        "tag": "c:dusts/lead"
       }
     }
   ],
   "type": "railcraft:crusher",
   "ingredient": {
-    "tag": "forge:ingots/lead"
+    "tag": "c:ingots/lead"
   },
   "outputs": [
     {
       "probability": 1.0,
       "result": {
-        "tag": "forge:dusts/lead"
+        "tag": "c:dusts/lead"
       }
     }
   ]

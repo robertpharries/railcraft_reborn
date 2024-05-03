@@ -4,26 +4,26 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/nickel"
+        "tag": "c:ingots/nickel"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/nickel"
+        "tag": "c:dusts/nickel"
       }
     }
   ],
   "type": "railcraft:crusher",
   "ingredient": {
-    "tag": "forge:ingots/nickel"
+    "tag": "c:ingots/nickel"
   },
   "outputs": [
     {
       "probability": 1.0,
       "result": {
-        "tag": "forge:dusts/nickel"
+        "tag": "c:dusts/nickel"
       }
     }
   ]

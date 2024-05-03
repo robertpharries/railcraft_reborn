@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "a": {
-      "tag": "forge:plates/bronze"
+      "tag": "c:plates/bronze"
     },
     "b": {
       "item": "railcraft:rebar"

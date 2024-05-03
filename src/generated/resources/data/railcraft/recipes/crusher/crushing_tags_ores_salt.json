@@ -4,13 +4,13 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/salt"
+        "tag": "c:ores/salt"
       }
     }
   ],
   "type": "railcraft:crusher",
   "ingredient": {
-    "tag": "forge:ores/salt"
+    "tag": "c:ores/salt"
   },
   "outputs": [
     {

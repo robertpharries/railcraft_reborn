@@ -4,26 +4,26 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/steel"
+        "tag": "c:ingots/steel"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/steel"
+        "tag": "c:dusts/steel"
       }
     }
   ],
   "type": "railcraft:crusher",
   "ingredient": {
-    "tag": "forge:ingots/steel"
+    "tag": "c:ingots/steel"
   },
   "outputs": [
     {
       "probability": 1.0,
       "result": {
-        "tag": "forge:dusts/steel"
+        "tag": "c:dusts/steel"
       }
     }
   ]

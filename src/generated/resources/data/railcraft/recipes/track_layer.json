@@ -12,7 +12,7 @@
       "item": "minecraft:anvil"
     },
     "d": {
-      "tag": "forge:storage_blocks/steel"
+      "tag": "c:storage_blocks/steel"
     },
     "e": {
       "item": "minecraft:dispenser"

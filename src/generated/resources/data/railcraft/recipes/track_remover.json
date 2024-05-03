@@ -12,7 +12,7 @@
       "item": "minecraft:sticky_piston"
     },
     "d": {
-      "tag": "forge:storage_blocks/steel"
+      "tag": "c:storage_blocks/steel"
     },
     "e": {
       "tag": "railcraft:crowbar"

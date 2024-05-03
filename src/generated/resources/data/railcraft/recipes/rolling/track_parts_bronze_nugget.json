@@ -2,7 +2,7 @@
   "type": "railcraft:rolling",
   "key": {
     "a": {
-      "tag": "forge:nuggets/bronze"
+      "tag": "c:nuggets/bronze"
     }
   },
   "pattern": [

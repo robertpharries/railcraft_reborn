@@ -11,7 +11,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/copper"
+        "tag": "c:dusts/copper"
       }
     }
   ],
@@ -23,7 +23,7 @@
     {
       "probability": 1.0,
       "result": {
-        "tag": "forge:dusts/copper"
+        "tag": "c:dusts/copper"
       }
     }
   ]

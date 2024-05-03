@@ -6,7 +6,7 @@
       "item": "railcraft:charge_spool_small"
     },
     "b": {
-      "tag": "forge:plates/iron"
+      "tag": "c:plates/iron"
     }
   },
   "pattern": [

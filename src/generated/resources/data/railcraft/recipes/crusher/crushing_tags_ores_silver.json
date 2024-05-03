@@ -4,40 +4,40 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/silver"
+        "tag": "c:ores/silver"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/silver"
+        "tag": "c:dusts/silver"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/lead"
+        "tag": "c:dusts/lead"
       }
     }
   ],
   "type": "railcraft:crusher",
   "ingredient": {
-    "tag": "forge:ores/silver"
+    "tag": "c:ores/silver"
   },
   "outputs": [
     {
       "count": 2,
       "probability": 1.0,
       "result": {
-        "tag": "forge:dusts/silver"
+        "tag": "c:dusts/silver"
       }
     },
     {
       "probability": 0.1,
       "result": {
-        "tag": "forge:dusts/lead"
+        "tag": "c:dusts/lead"
       }
     }
   ]

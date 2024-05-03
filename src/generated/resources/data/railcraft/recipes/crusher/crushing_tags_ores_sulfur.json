@@ -4,13 +4,13 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/sulfur"
+        "tag": "c:ores/sulfur"
       }
     }
   ],
   "type": "railcraft:crusher",
   "ingredient": {
-    "tag": "forge:ores/sulfur"
+    "tag": "c:ores/sulfur"
   },
   "outputs": [
     {

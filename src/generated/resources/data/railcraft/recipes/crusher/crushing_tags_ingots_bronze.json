@@ -4,26 +4,26 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/bronze"
+        "tag": "c:ingots/bronze"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/bronze"
+        "tag": "c:dusts/bronze"
       }
     }
   ],
   "type": "railcraft:crusher",
   "ingredient": {
-    "tag": "forge:ingots/bronze"
+    "tag": "c:ingots/bronze"
   },
   "outputs": [
     {
       "probability": 1.0,
       "result": {
-        "tag": "forge:dusts/bronze"
+        "tag": "c:dusts/bronze"
       }
     }
   ]

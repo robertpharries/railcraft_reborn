@@ -16,6 +16,7 @@ import java.util.Optional;
 import org.apache.commons.lang3.NotImplementedException;
 import org.jetbrains.annotations.Nullable;
 import mods.railcraft.api.core.BlockEntityLike;
+import mods.railcraft.api.core.CompoundTagKeys;
 import mods.railcraft.api.core.NetworkSerializable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -140,23 +141,24 @@ public abstract class AbstractSignalNetwork<T extends BlockEntityLike>
 
   @Override
   public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-    var tag = new CompoundTag();
     var peersTag = new ListTag();
     for (var peer : this.peers) {
-      peersTag.add(NbtUtils.writeBlockPos(peer));
+      var posTag = new CompoundTag();
+      posTag.put(CompoundTagKeys.POS, NbtUtils.writeBlockPos(peer));
+      peersTag.add(posTag);
     }
-    tag.put("peers", peersTag);
+    var tag = new CompoundTag();
+    tag.put(CompoundTagKeys.PEER_POS, peersTag);
     return tag;
   }
 
   @Override
   public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
-    var peersTag = tag.getList("peers", Tag.TAG_COMPOUND);
-    for (var peerTag : peersTag) {
-      throw new NotImplementedException();
-      //FIXME
-      //this.peers.add(NbtUtils.readBlockPos((CompoundTag) peerTag));
-    }
+    var peersTag = tag.getList(CompoundTagKeys.PEER_POS, Tag.TAG_COMPOUND);
+    peersTag.stream()
+        .map(CompoundTag.class::cast)
+        .map(posTag -> NbtUtils.readBlockPos(posTag, CompoundTagKeys.POS).orElseThrow())
+        .forEach(this.peers::add);
   }
 
   @Override

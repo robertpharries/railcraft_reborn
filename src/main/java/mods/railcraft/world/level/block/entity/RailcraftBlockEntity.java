@@ -54,14 +54,14 @@ public abstract class RailcraftBlockEntity extends BlockEntity
 
   @Override
   public final CompoundTag getUpdateTag(HolderLookup.Provider provider) {
-    var nbt = super.getUpdateTag(provider);
+    var tag = super.getUpdateTag(provider);
     var packetBuffer = new RegistryFriendlyByteBuf(
         new FriendlyByteBuf(Unpooled.buffer()), level.registryAccess());
     this.writeToBuf(packetBuffer);
     byte[] syncData = new byte[packetBuffer.readableBytes()];
     packetBuffer.readBytes(syncData);
-    nbt.putByteArray(CompoundTagKeys.SYNC, syncData);
-    return nbt;
+    tag.putByteArray(CompoundTagKeys.SYNC, syncData);
+    return tag;
   }
 
   @Override
@@ -139,7 +139,6 @@ public abstract class RailcraftBlockEntity extends BlockEntity
   }
 
   @Override
-  @NotNull
   public final Optional<GameProfile> getOwner() {
     return Optional.ofNullable(this.owner);
   }
@@ -149,8 +148,8 @@ public abstract class RailcraftBlockEntity extends BlockEntity
   }
 
   public final boolean isOwnerOrOperator(@NotNull GameProfile gameProfile) {
-    return this.isOwner(gameProfile) || (!this.level.isClientSide()
-        && ((ServerLevel) this.level).getServer().getPlayerList().isOp(gameProfile));
+    return this.isOwner(gameProfile) || (this.level instanceof ServerLevel serverLevel
+        && serverLevel.getServer().getPlayerList().isOp(gameProfile));
   }
 
   @Override
@@ -182,18 +181,6 @@ public abstract class RailcraftBlockEntity extends BlockEntity
     }
 
     this.moduleDispatcher.deserializeNBT(provider, tag.getCompound(CompoundTagKeys.MODULES));
-  }
-
-  public final int getX() {
-    return this.getBlockPos().getX();
-  }
-
-  public final int getY() {
-    return this.getBlockPos().getY();
-  }
-
-  public final int getZ() {
-    return this.getBlockPos().getZ();
   }
 
   @Override

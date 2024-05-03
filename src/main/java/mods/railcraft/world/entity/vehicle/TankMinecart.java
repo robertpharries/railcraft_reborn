@@ -16,6 +16,7 @@ import mods.railcraft.world.item.component.RailcraftDataComponents;
 import mods.railcraft.world.level.material.StandardTank;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -40,8 +41,8 @@ public class TankMinecart extends FilteredMinecart
 
   // Can't use FluidStack directly because its equals method doesn't consider amount so will never
   // sync if the amount is changed.
-  private static final EntityDataAccessor<FluidStack> FLUID_STACK =
-      SynchedEntityData.defineId(TankMinecart.class, RailcraftDataSerializers.FLUID_STACK);
+  private static final EntityDataAccessor<CompoundTag> FLUID_STACK =
+      SynchedEntityData.defineId(TankMinecart.class, EntityDataSerializers.COMPOUND_TAG);
   private static final EntityDataAccessor<Boolean> FILLING =
       SynchedEntityData.defineId(TankMinecart.class, EntityDataSerializers.BOOLEAN);
   public static final int SLOT_INPUT = 0;
@@ -72,23 +73,26 @@ public class TankMinecart extends FilteredMinecart
   @Override
   protected void defineSynchedData(SynchedEntityData.Builder builder) {
     super.defineSynchedData(builder);
-    builder.define(FLUID_STACK, FluidStack.EMPTY);
+    builder.define(FLUID_STACK, new CompoundTag());
     builder.define(FILLING, false);
   }
 
   private void tankChanged() {
-    this.entityData.set(FLUID_STACK, this.tank.getFluid());
+    var tag = new CompoundTag();
+    tag.put(CompoundTagKeys.TANK, FluidStack.CODEC
+        .encode(this.tank.getFluid(), NbtOps.INSTANCE, new CompoundTag())
+        .getOrThrow());
+    this.entityData.set(FLUID_STACK, tag);
   }
 
   @Override
   public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
     super.onSyncedDataUpdated(key);
-
-    if (!this.level().isClientSide()) {
-      return;
-    }
     if (key.equals(FLUID_STACK)) {
-      this.tank.setFluid(this.entityData.get(FLUID_STACK));
+      var fluidStack = FluidStack.CODEC
+          .parse(NbtOps.INSTANCE, this.entityData.get(FLUID_STACK).get(CompoundTagKeys.TANK))
+          .getOrThrow();
+      this.tank.setFluid(fluidStack);
     }
   }
 

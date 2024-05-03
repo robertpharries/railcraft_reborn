@@ -114,8 +114,12 @@ public abstract class RailcraftBlockEntity extends BlockEntity
   public void syncToClient() {
     if (this.level instanceof ServerLevel serverLevel) {
       var packet = this.getUpdatePacket();
-      PacketDistributor.sendToPlayersTrackingChunk(serverLevel,
-          level.getChunk(this.getBlockPos()).getPos(), packet);
+      serverLevel.players()
+          .forEach(player -> {
+            if (player.level().dimension() == serverLevel.dimension()) {
+              player.connection.send(packet);
+            }
+          });
     }
   }
 

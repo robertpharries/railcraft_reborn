@@ -204,7 +204,7 @@ public class TankMinecart extends FilteredMinecart
   public boolean canPassFluidRequests(FluidStack fluid) {
     return this.getFilterFluid()
         .map(filter -> filter.isFluidEqual(fluid))
-        .orElseGet(() -> this.tank.isEmpty() && tank.getFluid().isFluidEqual(fluid));
+        .orElseGet(() -> this.tank.isEmpty() || this.tank.getFluid().isFluidEqual(fluid));
   }
 
   @Override

@@ -94,7 +94,7 @@ public class RailcraftTags {
     public static final TagKey<Item> LEAD_DUST = dustsTag("lead");
     public static final TagKey<Item> SILVER_DUST = dustsTag("silver");
     public static final TagKey<Item> TIN_DUST = dustsTag("tin");
-    public static final TagKey<Item> SALTPETER_DUST = dustsTag("salt");
+    public static final TagKey<Item> SALTPETER_DUST = dustsTag("saltpeter");
     public static final TagKey<Item> COAL_DUST = dustsTag("coal");
     public static final TagKey<Item> COAL_COKE_DUST = dustsTag("coal_coke");
     public static final TagKey<Item> CHARCOAL_DUST = dustsTag("charcoal");

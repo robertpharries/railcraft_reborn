@@ -5,7 +5,7 @@ e36857f35c1bac4bde5a8450008b92cf82656216 data/forge/tags/blocks/ore_rates/dense.
 c31435450cdbffad0151b7e26a9cc131bf672a75 data/forge/tags/blocks/ores.json
 8c50a9944556e96063fbc340f5ad0cc8db547ff3 data/forge/tags/blocks/ores/lead.json
 83ceb2d2883c80859eebd5d5bb21fc2bfb849cf9 data/forge/tags/blocks/ores/nickel.json
-35a98a11222809a20225372b2d7129082cbbc2b8 data/forge/tags/blocks/ores/salt.json
+35a98a11222809a20225372b2d7129082cbbc2b8 data/forge/tags/blocks/ores/saltpeter.json
 8570ce0086d3cce7d0bfa04d10c388cbcd4d4e04 data/forge/tags/blocks/ores/silver.json
 7094cc9c85699e7afa6c283f7a769bab75eeeaff data/forge/tags/blocks/ores/sulfur.json
 0fbe7a7a55102f803486517de1004a189959f607 data/forge/tags/blocks/ores/tin.json

@@ -59,6 +59,6 @@ public class TankRenderer implements BlockEntityRenderer<TankBlockEntity> {
 
   @Override
   public AABB getRenderBoundingBox(TankBlockEntity blockEntity) {
-    return INFINITE_EXTENT_AABB;
+    return AABB.INFINITE;
   }
 }

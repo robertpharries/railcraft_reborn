@@ -47,7 +47,7 @@ public class LevelUtil {
     BlockSnapshot snapshot = BlockSnapshot.create(level.dimension(), level, pos);
     boolean result = level.setBlockAndUpdate(pos, blockState);
     if (EventHooks.onBlockPlace(entity, snapshot, Direction.UP)) {
-      snapshot.restore(true, false);
+      snapshot.restore(Block.UPDATE_CLIENTS);
       return false;
     }
     return result;

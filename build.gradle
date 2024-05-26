@@ -132,13 +132,6 @@ dependencies {
 
 }
 
-test {
-    useJUnitPlatform()
-    testLogging {
-        events 'passed', 'skipped', 'failed'
-    }
-}
-
 spotless {
   java {
     target 'src/*/java/**/*.java'

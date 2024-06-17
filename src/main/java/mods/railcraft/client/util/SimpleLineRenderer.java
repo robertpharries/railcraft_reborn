@@ -25,15 +25,13 @@ class SimpleLineRenderer implements LineRenderer {
       int ny = i == 1 ? 1 : 0;
       int nz = i == 2 ? 1 : 0;
       this.consumer
-          .vertex(matrix, x0, y0, z0)
-          .color(red, green, blue, alpha)
-          .normal(poseStack.last(), nx, ny, nz)
-          .endVertex();
+          .addVertex(matrix, x0, y0, z0)
+          .setColor(red, green, blue, alpha)
+          .setNormal(poseStack.last(), nx, ny, nz);
       this.consumer
-          .vertex(matrix, x1, y1, z1)
-          .color(red, green, blue, alpha)
-          .normal(poseStack.last(), nx, ny, nz)
-          .endVertex();
+          .addVertex(matrix, x1, y1, z1)
+          .setColor(red, green, blue, alpha)
+          .setNormal(poseStack.last(), nx, ny, nz);
     }
     poseStack.popPose();
   }

@@ -15,15 +15,15 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 
-public class CrusherRecipe implements Recipe<Container> {
+public class CrusherRecipe implements Recipe<SingleRecipeInput> {
   private final Ingredient ingredient;
   private final List<CrusherOutput> probabilityOutputs;
   private final int processTime;
@@ -40,12 +40,12 @@ public class CrusherRecipe implements Recipe<Container> {
   }
 
   @Override
-  public boolean matches(Container inventory, Level level) {
+  public boolean matches(SingleRecipeInput inventory, Level level) {
     return this.ingredient.test(inventory.getItem(0));
   }
 
   @Override
-  public ItemStack assemble(Container inventory, HolderLookup.Provider provider) {
+  public ItemStack assemble(SingleRecipeInput inventory, HolderLookup.Provider provider) {
     return this.getResultItem(provider).copy();
   }
 

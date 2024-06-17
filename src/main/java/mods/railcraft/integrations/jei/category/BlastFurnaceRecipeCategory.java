@@ -89,7 +89,7 @@ public class BlastFurnaceRecipeCategory implements IRecipeCategory<BlastFurnaceR
     var ingredients = recipe.getIngredients();
     builder
         .addSlot(RecipeIngredientRole.INPUT, 1, 1)
-        .addIngredients(ingredients.get(0));
+        .addIngredients(ingredients.getFirst());
     builder
         .addSlot(RecipeIngredientRole.OUTPUT, 61, 5)
         .addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));

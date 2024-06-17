@@ -8,6 +8,7 @@ import mods.railcraft.api.track.TrackUtil;
 import mods.railcraft.world.level.block.track.TrackBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +24,6 @@ import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.fluids.IFluidBlock;
 
 public class OutfittedTrackBlock extends TrackBlock {
 
@@ -42,11 +42,13 @@ public class OutfittedTrackBlock extends TrackBlock {
   protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState state,
       Level level, BlockPos pos, Player player, InteractionHand hand,
       BlockHitResult rayTraceResult) {
-    if (itemStack.getItem() instanceof Crowbar crowbar
-        && crowbar.canWhack(player, hand, itemStack, pos)
-        && this.crowbarWhack(state, level, pos, player, hand, itemStack)) {
-      crowbar.onWhack(player, hand, itemStack, pos);
-      return ItemInteractionResult.sidedSuccess(level.isClientSide());
+    if (player instanceof ServerPlayer serverPlayer) {
+      if (itemStack.getItem() instanceof Crowbar crowbar
+          && crowbar.canWhack(player, hand, itemStack, pos)
+          && this.crowbarWhack(state, level, pos, player, hand, itemStack)) {
+        crowbar.onWhack(serverPlayer, hand, itemStack, pos);
+        return ItemInteractionResult.sidedSuccess(level.isClientSide());
+      }
     }
     return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
   }
@@ -67,7 +69,7 @@ public class OutfittedTrackBlock extends TrackBlock {
         .map(pos::relative)
         .map(level::getBlockState)
         .map(BlockState::getBlock)
-        .anyMatch(block -> block instanceof IFluidBlock || block instanceof LiquidBlock)) {
+        .anyMatch(block -> block instanceof LiquidBlock)) {
       Block.dropResources(newState, level, pos);
     }
     return result;

@@ -7,6 +7,7 @@
 package mods.railcraft.api.item;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
@@ -34,7 +35,7 @@ public interface Crowbar {
    * @param crowbar the crowbar
    * @param pos the block
    */
-  void onWhack(Player player, InteractionHand hand, ItemStack crowbar, BlockPos pos);
+  void onWhack(ServerPlayer player, InteractionHand hand, ItemStack crowbar, BlockPos pos);
 
   /**
    * Controls whether you can link a cart.
@@ -52,7 +53,7 @@ public interface Crowbar {
    * @param crowbar the crowbar
    * @param cart the cart
    */
-  void onLink(Player player, InteractionHand hand, ItemStack crowbar, AbstractMinecart cart);
+  void onLink(ServerPlayer player, InteractionHand hand, ItemStack crowbar, AbstractMinecart cart);
 
   /**
    * Controls whether you can boost a cart.
@@ -70,5 +71,5 @@ public interface Crowbar {
    * @param crowbar the crowbar
    * @param cart the cart
    */
-  void onBoost(Player player, InteractionHand hand, ItemStack crowbar, AbstractMinecart cart);
+  void onBoost(ServerPlayer player, InteractionHand hand, ItemStack crowbar, AbstractMinecart cart);
 }

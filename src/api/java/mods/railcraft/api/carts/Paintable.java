@@ -10,12 +10,12 @@ import net.minecraft.world.item.DyeColor;
 
 public interface Paintable {
 
-  default float[] getPrimaryColor() {
-    return getPrimaryDyeColor().getTextureDiffuseColors();
+  default int getPrimaryColor() {
+    return getPrimaryDyeColor().getTextureDiffuseColor();
   }
 
-  default float[] getSecondaryColor() {
-    return getSecondaryDyeColor().getTextureDiffuseColors();
+  default int getSecondaryColor() {
+    return getSecondaryDyeColor().getTextureDiffuseColor();
   }
 
   DyeColor getPrimaryDyeColor();

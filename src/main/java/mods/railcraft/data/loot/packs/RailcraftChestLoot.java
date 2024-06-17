@@ -17,7 +17,7 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-public class RailcraftChestLoot implements LootTableSubProvider {
+public record RailcraftChestLoot(HolderLookup.Provider provider) implements LootTableSubProvider {
 
   // If you change the name, remember to regenerate the chest inside the structure
   // /setblock x y z minecraft:chest[facing=south]{LootTable:"railcraft:chests/component_workshop"}
@@ -29,9 +29,8 @@ public class RailcraftChestLoot implements LootTableSubProvider {
       ResourceKey.create(Registries.LOOT_TABLE, RailcraftConstants.rl("chests/simple_dungeon"));
 
   @Override
-  public void generate(HolderLookup.Provider provider,
-      BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
-    consumer.accept(COMPONENT_WORKSHOP, LootTable.lootTable()
+  public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> biConsumer) {
+    biConsumer.accept(COMPONENT_WORKSHOP, LootTable.lootTable()
         .withPool(LootPool.lootPool()
             .name("railcraft_tools")
             .setRolls(ConstantValue.exactly(1))
@@ -84,7 +83,7 @@ public class RailcraftChestLoot implements LootTableSubProvider {
         )
     );
 
-    consumer.accept(ABANDONED_MINESHAFT, LootTable.lootTable()
+    biConsumer.accept(ABANDONED_MINESHAFT, LootTable.lootTable()
         .withPool(LootPool.lootPool()
             .name("railcraft_tools")
             .setRolls(ConstantValue.exactly(1))
@@ -120,7 +119,7 @@ public class RailcraftChestLoot implements LootTableSubProvider {
                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(16, 32))))
         )
     );
-    consumer.accept(SIMPLE_DUNGEON, LootTable.lootTable()
+    biConsumer.accept(SIMPLE_DUNGEON, LootTable.lootTable()
         .withPool(LootPool.lootPool()
             .name("railcraft_general")
             .setRolls(UniformGenerator.between(0, 1))

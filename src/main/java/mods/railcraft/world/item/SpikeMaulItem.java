@@ -42,10 +42,10 @@ public class SpikeMaulItem extends TieredItem {
     super(tier, properties.durability(tier.getUses()));
     float attackDamageWithBonus = attackDamage + tier.getAttackDamageBonus();
     this.defaultModifiers = ItemAttributeModifiers.builder()
-        .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID,
-            "Weapon modifier", attackDamageWithBonus, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-        .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID,
-            "Weapon modifier", attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+        .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID,
+            attackDamageWithBonus, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+        .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID,
+            attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
         .build();
   }
 
@@ -120,8 +120,8 @@ public class SpikeMaulItem extends TieredItem {
       RailcraftCriteriaTriggers.SPIKE_MAUL_USE.value().trigger(
           (ServerPlayer) player, heldStack, serverLevel, blockPos);
 
-      heldStack.hurtAndBreak(1, player.getRandom(), player,
-          () -> player.broadcastBreakEvent(LivingEntity.getSlotForHand(hand)));
+      heldStack.hurtAndBreak(1, serverLevel, player,
+          item -> player.onEquippedItemBroken(item, LivingEntity.getSlotForHand(hand)));
     }
     return InteractionResult.sidedSuccess(level.isClientSide());
   }

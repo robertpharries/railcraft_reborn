@@ -5,10 +5,10 @@ import mods.railcraft.world.item.RailcraftItems;
 import mods.railcraft.world.item.component.RailcraftDataComponents;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -24,11 +24,11 @@ public class TicketDuplicateRecipe extends CustomRecipe {
   }
 
   @Override
-  public boolean matches(CraftingContainer container, Level level) {
+  public boolean matches(CraftingInput craftingInput, Level level) {
     int numBlank = 0;
     int numSource = 0;
-    for (int slot = 0; slot < container.getContainerSize(); slot++) {
-      var stack = container.getItem(slot);
+    for (int slot = 0; slot < craftingInput.size(); slot++) {
+      var stack = craftingInput.getItem(slot);
       if (!stack.isEmpty()) {
         if (numSource == 0 && SOURCE.test(stack)) {
           numSource++;
@@ -43,9 +43,9 @@ public class TicketDuplicateRecipe extends CustomRecipe {
   }
 
   @Override
-  public ItemStack assemble(CraftingContainer container, HolderLookup.Provider provider) {
-    var source = IntStream.range(0, container.getContainerSize())
-        .mapToObj(container::getItem)
+  public ItemStack assemble(CraftingInput craftingInput, HolderLookup.Provider provider) {
+    var source = IntStream.range(0, craftingInput.size())
+        .mapToObj(craftingInput::getItem)
         .filter(TicketDuplicateRecipe.SOURCE)
         .findFirst()
         .orElse(ItemStack.EMPTY);

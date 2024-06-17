@@ -1,6 +1,7 @@
 package mods.railcraft.client.gui.screen.inventory.widget;
 
 import java.util.List;
+import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
@@ -36,9 +37,8 @@ public class AnalogGaugeRenderer extends WidgetRenderer<AnalogGaugeWidget> {
     float angle = (120 * value + 30) * Mth.DEG_TO_RAD;
 
     var tesselator = Tesselator.getInstance();
-    var builder = tesselator.getBuilder();
 
-    builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+    var buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 
     float cosA = Mth.cos(angle);
     float sinA = Mth.sin(angle);
@@ -68,24 +68,20 @@ public class AnalogGaugeRenderer extends WidgetRenderer<AnalogGaugeWidget> {
     float by = gy + this.widget.h;
 
     var matrix = guiGraphics.pose().last().pose();
-    builder
-        .vertex(matrix, bx - baseOffset, by, z)
-        .color(red, green, blue, alpha)
-        .endVertex();
-    builder
-        .vertex(matrix, bx + baseOffset, by, z)
-        .color(red, green, blue, alpha)
-        .endVertex();
-    builder
-        .vertex(matrix, bx - glx + gwx, by - (gly + gwy), z)
-        .color(red, green, blue, alpha)
-        .endVertex();
-    builder
-        .vertex(matrix, bx - glx - gwx, by - (gly - gwy), z)
-        .color(red, green, blue, alpha)
-        .endVertex();
+    buffer
+        .addVertex(matrix, bx - baseOffset, by, z)
+        .setColor(red, green, blue, alpha);
+    buffer
+        .addVertex(matrix, bx + baseOffset, by, z)
+        .setColor(red, green, blue, alpha);
+    buffer
+        .addVertex(matrix, bx - glx + gwx, by - (gly + gwy), z)
+        .setColor(red, green, blue, alpha);
+    buffer
+        .addVertex(matrix, bx - glx - gwx, by - (gly - gwy), z)
+        .setColor(red, green, blue, alpha);
 
-    tesselator.end();
+    BufferUploader.drawWithShader(buffer.buildOrThrow());
 
     guiGraphics.blit(widgetLocation, centreX + this.widget.ox, centreY + this.widget.oy, this.widget.ou,
         this.widget.ov, 4, 3);

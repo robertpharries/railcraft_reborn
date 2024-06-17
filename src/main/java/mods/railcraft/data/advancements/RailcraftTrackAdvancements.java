@@ -29,7 +29,7 @@ class RailcraftTrackAdvancements implements AdvancementProvider.AdvancementGener
             RailcraftItems.REINFORCED_TRACK.get(),
             Component.translatable(Translations.Advancement.Tracks.ROOT),
             Component.translatable(Translations.Advancement.Tracks.ROOT_DESC),
-            new ResourceLocation("textures/gui/advancements/backgrounds/stone.png"),
+            ResourceLocation.withDefaultNamespace("textures/gui/advancements/backgrounds/stone.png"),
             AdvancementType.TASK,
             false, false, false)
         .addCriterion("inv_changed",

@@ -7,6 +7,7 @@ import mods.railcraft.world.entity.FirestoneItemEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -75,15 +76,15 @@ public class FirestoneItem extends Item {
   public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId,
       boolean isSelected) {
     if (this.spawnsFire
-        && !level.isClientSide()
+        && level instanceof ServerLevel serverLevel
         && level.getGameRules().getBoolean(GameRules.RULE_DOFIRETICK)
         && entity instanceof Player player
         && level.getRandom().nextInt(12) % 4 == 0) {
-      trySpawnFire(player.level(), player.blockPosition(), stack, player);
+      trySpawnFire(serverLevel, player.blockPosition(), stack, player);
     }
   }
 
-  public static boolean trySpawnFire(Level level, BlockPos pos, ItemStack stack, Entity entity) {
+  public static boolean trySpawnFire(ServerLevel level, BlockPos pos, ItemStack stack, Entity entity) {
     boolean spawnedFire = false;
     for (int i = 0; i < stack.getCount(); i++) {
       spawnedFire |= spawnFire(level, pos);
@@ -91,7 +92,7 @@ public class FirestoneItem extends Item {
     if (spawnedFire && stack.isDamageableItem()
         && stack.getDamageValue() < stack.getMaxDamage() - 1) {
       if (entity instanceof Player player) {
-        stack.hurtAndBreak(1, level.getRandom(), player, () -> {});
+        stack.hurtAndBreak(1, level, player, __ -> {});
       }
     }
     return spawnedFire;

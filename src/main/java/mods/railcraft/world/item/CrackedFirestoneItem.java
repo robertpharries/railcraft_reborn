@@ -1,7 +1,9 @@
 package mods.railcraft.world.item;
 
 import java.util.concurrent.atomic.AtomicReference;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.common.CommonHooks;
 
 public class CrackedFirestoneItem extends RefinedFirestoneItem {
 
@@ -22,8 +24,10 @@ public class CrackedFirestoneItem extends RefinedFirestoneItem {
       return RailcraftItems.RAW_FIRESTONE.get().getDefaultInstance();
     }
     var newStack = new AtomicReference<>(itemStack.copyWithCount(1));
-    newStack.get().hurtAndBreak(1, random, null,
-        () -> newStack.set(ItemStack.EMPTY));
+    if (CommonHooks.getCraftingPlayer() instanceof ServerPlayer serverPlayer) {
+      newStack.get().hurtAndBreak(1, serverPlayer.serverLevel(), serverPlayer,
+          __ -> newStack.set(ItemStack.EMPTY));
+    }
     return newStack.get();
   }
 }

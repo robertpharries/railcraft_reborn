@@ -23,7 +23,7 @@ public class CokeOvenEmiRecipe extends BasicEmiRecipe {
     super(RailcraftEmiPlugin.COKING_CATEGORY, recipe.id(),
         CokeOvenRecipeCategory.WIDTH, CokeOvenRecipeCategory.HEIGHT);
     this.recipe = recipe.value();
-    this.inputs.add(EmiIngredient.of(this.recipe.getIngredients().get(0)));
+    this.inputs.add(EmiIngredient.of(this.recipe.getIngredients().getFirst()));
     var level = Minecraft.getInstance().level;
     this.outputs.add(EmiStack.of(this.recipe.getResultItem(level.registryAccess())));
   }
@@ -43,8 +43,8 @@ public class CokeOvenEmiRecipe extends BasicEmiRecipe {
     });
     widgets.addAnimatedTexture(EmiTexture.FULL_FLAME, 1, 3, 10_000, false, true, true);
 
-    widgets.addSlot(this.inputs.get(0), 0, 19);
-    widgets.addSlot(this.outputs.get(0), 42, 15).large(true).recipeContext(this);
+    widgets.addSlot(this.inputs.getFirst(), 0, 19);
+    widgets.addSlot(this.outputs.getFirst(), 42, 15).large(true).recipeContext(this);
 
     var fluid = NeoForgeEmiStack.of(recipe.getCreosote());
     widgets.addTank(fluid, 74, 0, 50, 49, 10_000)

@@ -17,7 +17,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -26,9 +25,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.neoforged.neoforge.common.CommonHooks;
 
 public class RefinedFirestoneItem extends FirestoneItem {
 
@@ -75,7 +76,10 @@ public class RefinedFirestoneItem extends FirestoneItem {
     }
     newStack.setCount(1);
     var res = new AtomicReference<>(newStack);
-    newStack.hurtAndBreak(1, random, null, () -> res.set(ItemStack.EMPTY));
+    if (CommonHooks.getCraftingPlayer() instanceof ServerPlayer serverPlayer) {
+      newStack.hurtAndBreak(1, serverPlayer.serverLevel(), serverPlayer,
+          __ -> res.set(ItemStack.EMPTY));
+    }
     return res.get();
   }
 
@@ -117,16 +121,16 @@ public class RefinedFirestoneItem extends FirestoneItem {
     if (player.mayUseItemAt(pos, side, stack)) {
       if (!blockState.is(Blocks.STONE)) {
         var drops = Block.getDrops(blockState, serverLevel, pos, level.getBlockEntity(pos));
-        if (drops.size() == 1 && !drops.get(0).isEmpty()
-            && drops.get(0).getItem() instanceof BlockItem) {
-          var cooked = cookedItem(level, drops.get(0));
+        if (drops.size() == 1 && !drops.getFirst().isEmpty()
+            && drops.getFirst().getItem() instanceof BlockItem) {
+          var cooked = cookedItem(level, drops.getFirst());
           if (cooked.getItem() instanceof BlockItem) {
             var newState = ContainerTools.getBlockStateFromStack(cooked, level, pos);
             if (newState != null) {
               level.setBlockAndUpdate(pos, newState);
               level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.AMBIENT, 1,
                   random.nextFloat() * 0.4F + 0.8F);
-              stack.hurtAndBreak(1, random, serverPlayer, () -> {});
+              stack.hurtAndBreak(1, serverLevel, serverPlayer, __ -> {});
               return InteractionResult.SUCCESS;
             }
           }
@@ -139,7 +143,7 @@ public class RefinedFirestoneItem extends FirestoneItem {
         level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.AMBIENT, 1,
             random.nextFloat() * 0.4F + 0.8F);
         level.setBlockAndUpdate(pos, Blocks.FIRE.defaultBlockState());
-        stack.hurtAndBreak(1, random, serverPlayer, () -> {});
+        stack.hurtAndBreak(1, serverLevel, serverPlayer, __ -> {});
       }
     }
     return InteractionResult.sidedSuccess(level.isClientSide());
@@ -148,7 +152,7 @@ public class RefinedFirestoneItem extends FirestoneItem {
   @NotNull
   private ItemStack cookedItem(Level level, ItemStack ingredient) {
     return level.getRecipeManager()
-        .getRecipeFor(RecipeType.SMELTING, new SimpleContainer(ingredient), level)
+        .getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(ingredient), level)
         .map(x -> x.value().getResultItem(level.registryAccess()))
         .orElse(ItemStack.EMPTY);
   }
@@ -157,10 +161,10 @@ public class RefinedFirestoneItem extends FirestoneItem {
   public InteractionResult interactLivingEntity(ItemStack itemStack, Player player,
       LivingEntity livingEntity, InteractionHand hand) {
     var level = player.level();
-    if (!level.isClientSide() && !livingEntity.fireImmune()) {
+    if (level instanceof ServerLevel serverLevel && !livingEntity.fireImmune()) {
       livingEntity.igniteForSeconds(5);
-      itemStack.hurtAndBreak(1, player.getRandom(), player,
-          () -> player.broadcastBreakEvent(LivingEntity.getSlotForHand(hand)));
+      itemStack.hurtAndBreak(1, serverLevel, player,
+          item -> player.onEquippedItemBroken(item, LivingEntity.getSlotForHand(hand)));
       level.playSound(null, livingEntity.blockPosition(), SoundEvents.FIRECHARGE_USE,
           SoundSource.AMBIENT, 1, player.getRandom().nextFloat() * 0.4F + 0.8F);
       player.swing(hand);

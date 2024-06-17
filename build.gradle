@@ -117,19 +117,18 @@ dependencies {
     testImplementation platform("org.junit:junit-bom:$jupiter_version")
     testImplementation 'org.junit.jupiter:junit-jupiter'
 
-    compileOnly "mezz.jei:jei-1.20.4-common-api:$jei_version"
-    compileOnly "mezz.jei:jei-1.20.4-neoforge-api:$jei_version"
-    //localRuntime "mezz.jei:jei-$minecraft_version-neoforge:$jei_version"
+    compileOnly "mezz.jei:jei-$minecraft_version-common-api:$jei_version"
+    compileOnly "mezz.jei:jei-$minecraft_version-neoforge-api:$jei_version"
+    localRuntime "mezz.jei:jei-$minecraft_version-neoforge:$jei_version"
 
     compileOnly "dev.emi:emi-neoforge:$emi_version+$minecraft_version:api"
-    localRuntime "dev.emi:emi-neoforge:$emi_version+$minecraft_version"
+    //localRuntime "dev.emi:emi-neoforge:$emi_version+$minecraft_version"
 
     compileOnly "vazkii.patchouli:Patchouli:$patchouli_version:api"
     //localRuntime "vazkii.patchouli:Patchouli:$patchouli_version"
 
     compileOnly "curse.maven:jade-api-324717:$jade_id_api"
     //localRuntime "curse.maven:jade-324717:$jade_id"
-
 }
 
 spotless {
@@ -178,6 +177,13 @@ tasks.register('generatePackageInfos', Task) {
 
 tasks.withType(JavaCompile).configureEach {
     options.compilerArgs.addAll(['-Xmaxerrs', '100000'])
+}
+
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
 }
 
 tasks.withType(ProcessResources).configureEach {

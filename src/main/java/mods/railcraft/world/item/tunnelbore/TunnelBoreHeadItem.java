@@ -9,13 +9,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TieredItem;
-import net.neoforged.neoforge.common.ToolAction;
-import net.neoforged.neoforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.ItemAbility;
 
 public class TunnelBoreHeadItem extends TieredItem implements TunnelBoreHead {
 
-  private static final Set<ToolAction> TOOL_ACTIONS =
-      Set.of(ToolActions.AXE_DIG, ToolActions.PICKAXE_DIG, ToolActions.SHOVEL_DIG);
+  private static final Set<ItemAbility> TOOL_ACTIONS =
+      Set.of(ItemAbilities.AXE_DIG, ItemAbilities.PICKAXE_DIG, ItemAbilities.SHOVEL_DIG);
   private final ResourceLocation textureLocation;
 
   public TunnelBoreHeadItem(Tier tier, String tierName, Properties properties) {
@@ -31,8 +31,8 @@ public class TunnelBoreHeadItem extends TieredItem implements TunnelBoreHead {
   }
 
   @Override
-  public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
-    return TOOL_ACTIONS.contains(toolAction);
+  public boolean canPerformAction(ItemStack stack, ItemAbility itemAbility) {
+    return TOOL_ACTIONS.contains(itemAbility);
   }
 
   @Override

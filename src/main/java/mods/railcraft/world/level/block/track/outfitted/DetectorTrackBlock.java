@@ -106,22 +106,22 @@ public class DetectorTrackBlock extends OutfittedTrackBlock {
   public int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos) {
     if (hasAnalogOutputSignal(blockState)) {
       var carts = EntitySearcher.findMinecarts().at(pos).upTo(-0.2F).list(level);
-      if (!carts.isEmpty() && carts.get(0).getComparatorLevel() > -1) {
-        return carts.get(0).getComparatorLevel();
+      if (!carts.isEmpty() && carts.getFirst().getComparatorLevel() > -1) {
+        return carts.getFirst().getComparatorLevel();
       }
 
       var commandCarts = EntitySearcher.find(MinecartCommandBlock.class)
           .at(pos).upTo(-0.2F).list(level);
 
       if (!commandCarts.isEmpty()) {
-        return commandCarts.get(0).getCommandBlock().getSuccessCount();
+        return commandCarts.getFirst().getCommandBlock().getSuccessCount();
       }
 
       var chestCarts = EntitySearcher.findMinecarts()
           .at(pos).upTo(-0.2F).and(EntitySelector.CONTAINER_ENTITY_SELECTOR).list(level);
 
       if (!chestCarts.isEmpty()) {
-        return AbstractContainerMenu.getRedstoneSignalFromContainer((Container) chestCarts.get(0));
+        return AbstractContainerMenu.getRedstoneSignalFromContainer((Container) chestCarts.getFirst());
       }
     }
     return 0;

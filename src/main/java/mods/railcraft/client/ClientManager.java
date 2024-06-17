@@ -231,7 +231,8 @@ public class ClientManager {
   @SubscribeEvent
   static void handleRenderWorldLast(RenderLevelStageEvent event) {
     if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_ENTITIES) {
-      shuntingAuraRenderer.render(event.getPoseStack(), event.getCamera(), event.getPartialTick());
+      shuntingAuraRenderer.render(event.getPoseStack(), event.getCamera(),
+          event.getPartialTick().getGameTimeDeltaPartialTick(false));
     }
   }
 
@@ -243,7 +244,7 @@ public class ClientManager {
   @SuppressWarnings("unused")
   @SubscribeEvent
   static void handleClientLoggedIn(ClientPlayerNetworkEvent.LoggingIn event) {
-    var modInfo = ModList.get().getModFileById(RailcraftConstants.ID).getMods().get(0);
+    var modInfo = ModList.get().getModFileById(RailcraftConstants.ID).getMods().getFirst();
     var result = VersionChecker.getResult(modInfo);
     var versionStatus = result.status();
 

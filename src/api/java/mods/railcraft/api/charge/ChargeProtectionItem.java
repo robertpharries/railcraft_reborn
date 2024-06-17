@@ -7,6 +7,7 @@
 package mods.railcraft.api.charge;
 
 import java.util.concurrent.atomic.AtomicReference;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
@@ -34,11 +35,11 @@ public interface ChargeProtectionItem {
    * @param attackDamage damage to be done to the owner
    * @return A ZapResult object with the resulting stack and damage prevented.
    */
-  default ZapResult zap(ItemStack stack, LivingEntity owner, float attackDamage) {
+  default ZapResult zap(ItemStack stack, ServerLevel level, LivingEntity owner,
+      float attackDamage) {
     AtomicReference<ItemStack> resultStack = new AtomicReference<>(stack);
     if (owner.getRandom().nextInt(150) == 0) {
-      stack.hurtAndBreak(1, owner.getRandom(), owner,
-          () -> resultStack.set(ItemStack.EMPTY));
+      stack.hurtAndBreak(1, level, owner, __ -> resultStack.set(ItemStack.EMPTY));
     }
     return new ZapResult(resultStack.get(), attackDamage);
   }

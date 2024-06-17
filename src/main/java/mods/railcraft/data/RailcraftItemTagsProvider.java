@@ -202,6 +202,13 @@ public class RailcraftItemTagsProvider extends ItemTagsProvider {
         .add(RailcraftItems.IRON_CROWBAR.get())
         .add(RailcraftItems.DIAMOND_CROWBAR.get());
 
+    this.tag(RailcraftTags.Items.ENCHANTMENTS)
+        .add(RailcraftItems.SEASONS_CROWBAR.get())
+        .add(RailcraftItems.IRON_SPIKE_MAUL.get())
+        .add(RailcraftItems.STEEL_SPIKE_MAUL.get())
+        .add(RailcraftItems.DIAMOND_SPIKE_MAUL.get())
+        .addTag(RailcraftTags.Items.CROWBAR);
+
     this.tag(RailcraftTags.Items.TRACK_KIT)
         .add(RailcraftItems.ACTIVATOR_TRACK_KIT.get())
         .add(RailcraftItems.BOOSTER_TRACK_KIT.get())

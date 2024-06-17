@@ -23,7 +23,7 @@ public class RollingRecipeCategory implements IRecipeCategory<RollingRecipe> {
   private static final int HEIGHT = 54;
 
   private static final ResourceLocation CRAFTING_TABLE =
-      new ResourceLocation("textures/gui/container/crafting_table.png");
+      ResourceLocation.withDefaultNamespace("textures/gui/container/crafting_table.png");
 
   private final IDrawable background, icon;
   private final ICraftingGridHelper craftingGridHelper;

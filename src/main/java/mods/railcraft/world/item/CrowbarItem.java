@@ -9,7 +9,10 @@ import mods.railcraft.util.LevelUtil;
 import mods.railcraft.world.item.enchantment.RailcraftEnchantments;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -77,13 +80,13 @@ public class CrowbarItem extends DiggerItem implements Crowbar {
       return InteractionResult.PASS;
     }
 
-    if (!level.isClientSide()) {
+    if (level instanceof ServerLevel serverLevel) {
       var newBlockState = blockState.rotate(level, pos, Rotation.CLOCKWISE_90);
       if (newBlockState != blockState) {
         level.setBlockAndUpdate(pos, newBlockState);
         player.swing(hand);
-        stack.hurtAndBreak(1, player.getRandom(), player,
-            () -> player.broadcastBreakEvent(LivingEntity.getSlotForHand(hand)));
+        stack.hurtAndBreak(1, serverLevel, player,
+            item -> player.onEquippedItemBroken(item, LivingEntity.getSlotForHand(hand)));
         return InteractionResult.SUCCESS;
       }
     }
@@ -96,8 +99,10 @@ public class CrowbarItem extends DiggerItem implements Crowbar {
       LivingEntity entityLiving) {
     if (!level.isClientSide()
         && entityLiving instanceof Player player && !player.isShiftKeyDown()) {
-      int enchantLevel =
-          stack.getEnchantmentLevel(RailcraftEnchantments.DESTRUCTION.get()) * 2 + 1;
+      var destructionEnchantment = level.registryAccess()
+          .registryOrThrow(Registries.ENCHANTMENT)
+          .getHolderOrThrow(RailcraftEnchantments.DESTRUCTION);
+      int enchantLevel = stack.getEnchantmentLevel(destructionEnchantment) * 2 + 1;
       if (enchantLevel > 1) {
         checkBlock(level, enchantLevel, pos, player);
       }
@@ -111,8 +116,10 @@ public class CrowbarItem extends DiggerItem implements Crowbar {
    */
   @Override
   public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-    stack.hurtAndBreak(2, target.getRandom(), attacker,
-        () -> attacker.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+    if (attacker instanceof ServerPlayer player) {
+      stack.hurtAndBreak(2, player.serverLevel(), attacker,
+          item -> attacker.onEquippedItemBroken(item, EquipmentSlot.MAINHAND));
+    }
     return true;
   }
 
@@ -122,9 +129,9 @@ public class CrowbarItem extends DiggerItem implements Crowbar {
   }
 
   @Override
-  public void onWhack(Player player, InteractionHand hand, ItemStack crowbar, BlockPos pos) {
-    crowbar.hurtAndBreak(1, player.getRandom(), player,
-        () -> player.broadcastBreakEvent(LivingEntity.getSlotForHand(hand)));
+  public void onWhack(ServerPlayer player, InteractionHand hand, ItemStack crowbar, BlockPos pos) {
+    crowbar.hurtAndBreak(1, player.serverLevel(), player,
+        item -> player.onEquippedItemBroken(item, LivingEntity.getSlotForHand(hand)));
     player.swing(hand);
   }
 
@@ -135,10 +142,10 @@ public class CrowbarItem extends DiggerItem implements Crowbar {
   }
 
   @Override
-  public void onLink(Player player, InteractionHand hand, ItemStack crowbar,
+  public void onLink(ServerPlayer player, InteractionHand hand, ItemStack crowbar,
       AbstractMinecart cart) {
-    crowbar.hurtAndBreak(1, player.getRandom(), player,
-        () -> player.broadcastBreakEvent(LivingEntity.getSlotForHand(hand)));
+    crowbar.hurtAndBreak(1, player.serverLevel(), player,
+        item -> player.onEquippedItemBroken(item, LivingEntity.getSlotForHand(hand)));
     player.swing(hand);
   }
 
@@ -149,10 +156,10 @@ public class CrowbarItem extends DiggerItem implements Crowbar {
   }
 
   @Override
-  public void onBoost(Player player, InteractionHand hand, ItemStack crowbar,
+  public void onBoost(ServerPlayer player, InteractionHand hand, ItemStack crowbar,
       AbstractMinecart cart) {
-    crowbar.hurtAndBreak(BOOST_DAMAGE, player.getRandom(), player,
-        () -> player.broadcastBreakEvent(LivingEntity.getSlotForHand(hand)));
+    crowbar.hurtAndBreak(BOOST_DAMAGE, player.serverLevel(), player,
+        item -> player.onEquippedItemBroken(item, LivingEntity.getSlotForHand(hand)));
     player.swing(hand);
   }
 

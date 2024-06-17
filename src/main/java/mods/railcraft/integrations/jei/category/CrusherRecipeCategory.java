@@ -72,7 +72,7 @@ public class CrusherRecipeCategory implements IRecipeCategory<CrusherRecipe> {
 
     builder
         .addSlot(RecipeIngredientRole.INPUT, 19, 19)
-        .addIngredients(ingredients.get(0));
+        .addIngredients(ingredients.getFirst());
 
     var outputs = recipe.getProbabilityOutputs();
     for (int y = 0; y < 3; y++) {

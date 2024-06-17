@@ -104,9 +104,9 @@ public abstract class CreosoteFluid extends FlowingFluid {
       public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
         consumer.accept(new IClientFluidTypeExtensions() {
           private static final ResourceLocation STILL_TEXTURE =
-              new ResourceLocation("block/water_still");
+              ResourceLocation.withDefaultNamespace("block/water_still");
           private static final ResourceLocation FLOW_TEXURE =
-              new ResourceLocation("block/water_flow");
+              ResourceLocation.withDefaultNamespace("block/water_flow");
 
           @Override
           public int getTintColor() {

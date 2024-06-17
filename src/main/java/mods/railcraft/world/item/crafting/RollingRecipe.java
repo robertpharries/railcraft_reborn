@@ -10,8 +10,8 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -19,7 +19,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipePattern;
 import net.minecraft.world.level.Level;
 
-public class RollingRecipe implements Recipe<CraftingContainer> {
+public class RollingRecipe implements Recipe<CraftingInput> {
 
   private final ShapedRecipePattern pattern;
   private final ItemStack result;
@@ -49,12 +49,12 @@ public class RollingRecipe implements Recipe<CraftingContainer> {
   }
 
   @Override
-  public boolean matches(CraftingContainer inventory, Level level) {
+  public boolean matches(CraftingInput inventory, Level level) {
     return this.pattern.matches(inventory);
   }
 
   @Override
-  public ItemStack assemble(CraftingContainer inventory, HolderLookup.Provider provider) {
+  public ItemStack assemble(CraftingInput inventory, HolderLookup.Provider provider) {
     return this.getResultItem(provider).copy();
   }
 

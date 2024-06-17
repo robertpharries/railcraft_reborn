@@ -4,7 +4,6 @@ import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.world.level.levelgen.structure.GeodeStructure;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.data.worldgen.Structures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -18,9 +17,9 @@ public class RailcraftStructures {
 
   public static void bootstrap(BootstrapContext<Structure> context) {
     var holdergetter = context.lookup(Registries.BIOME);
-
-    context.register(GEODE, new GeodeStructure(Structures
-        .structure(holdergetter.getOrThrow(BiomeTags.IS_DEEP_OCEAN),
-            GenerationStep.Decoration.SURFACE_STRUCTURES, TerrainAdjustment.NONE)));
+    context.register(GEODE, new GeodeStructure(
+        new Structure.StructureSettings.Builder(holdergetter.getOrThrow(BiomeTags.IS_DEEP_OCEAN))
+            .generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
+            .terrainAdapation(TerrainAdjustment.NONE).build()));
   }
 }

@@ -11,7 +11,6 @@ import mods.railcraft.world.entity.npc.RailcraftVillagerProfession;
 import mods.railcraft.world.entity.vehicle.MaintenanceMinecart;
 import mods.railcraft.world.item.RailcraftItems;
 import mods.railcraft.world.item.alchemy.RailcraftPotions;
-import mods.railcraft.world.item.enchantment.RailcraftEnchantments;
 import mods.railcraft.world.level.block.RailcraftBlocks;
 import mods.railcraft.world.level.block.entity.manipulator.ManipulatorBlockEntity;
 import mods.railcraft.world.level.block.entity.track.CouplerTrackBlockEntity;
@@ -979,15 +978,15 @@ public class RailcraftLanguageProvider extends LanguageProvider {
   }
 
   private void enchantmentTranslations() {
-    this.addEnchantment(RailcraftEnchantments.WRECKING, "Wrecking");
-    this.addEnchantment(RailcraftEnchantments.DESTRUCTION, "Destruction");
-    this.addEnchantment(RailcraftEnchantments.IMPLOSION, "Implosion");
-    this.addEnchantment(RailcraftEnchantments.SMACK, "Smack");
+    this.add(Translations.Enchantment.WRECKING, "Wrecking");
+    this.add(Translations.Enchantment.DESTRUCTION, "Destruction");
+    this.add(Translations.Enchantment.IMPLOSION, "Implosion");
+    this.add(Translations.Enchantment.SMACK, "Smack");
 
-    this.add(Translations.EnchantmentDescriptions.WRECKING, "Increases attack damage.");
-    this.add(Translations.EnchantmentDescriptions.DESTRUCTION, "Deconstructs blocks in a wider area.");
-    this.add(Translations.EnchantmentDescriptions.IMPLOSION, "Increases damage against creepers.");
-    this.add(Translations.EnchantmentDescriptions.SMACK, "Increases the boost applied to trains.");
+    this.add(Translations.Enchantment.WRECKING_DESC, "Increases attack damage.");
+    this.add(Translations.Enchantment.DESTRUCTION_DESC, "Deconstructs blocks in a wider area.");
+    this.add(Translations.Enchantment.IMPLOSION_DESC, "Increases damage against creepers.");
+    this.add(Translations.Enchantment.SMACK_DESC, "Increases the boost applied to trains.");
   }
 
   private void advancementTranslations() {

@@ -14,6 +14,7 @@ import mods.railcraft.world.entity.vehicle.TrackRemover;
 import mods.railcraft.world.entity.vehicle.TunnelBore;
 import mods.railcraft.world.item.enchantment.RailcraftEnchantments;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -99,7 +100,7 @@ public class CrowbarHandler {
     crowbar.onLink(player, hand, stack, cart);
   }
 
-  private static void boostCart(Player player, InteractionHand hand, ItemStack stack,
+  private static void boostCart(ServerPlayer player, InteractionHand hand, ItemStack stack,
       AbstractMinecart cart, Crowbar crowbar) {
     player.causeFoodExhaustion(.25F);
 
@@ -111,7 +112,10 @@ public class CrowbarHandler {
     } else if (cart instanceof TrackRemover trackRemover) {
       trackRemover.setMode(trackRemover.mode().next());
     } else {
-      int lvl = stack.getEnchantmentLevel(RailcraftEnchantments.SMACK.get());
+      var smackEnchantment = player.level().registryAccess()
+          .registryOrThrow(Registries.ENCHANTMENT)
+          .getHolderOrThrow(RailcraftEnchantments.SMACK);
+      int lvl = stack.getEnchantmentLevel(smackEnchantment);
       if (lvl == 0) {
         MinecartUtil.smackCart(cart, player, SMACK_VELOCITY);
       }

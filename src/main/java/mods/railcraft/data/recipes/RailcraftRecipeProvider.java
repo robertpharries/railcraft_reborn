@@ -164,7 +164,7 @@ public class RailcraftRecipeProvider extends RecipeProvider implements IConditio
         .unlockedBy(getHasName(railType), has(railType))
         .unlockedBy(getHasName(railBedType), has(railBedType))
         .save(recipeOutput,
-            new ResourceLocation(result.equals(Items.RAIL) ? "minecraft" : RailcraftConstants.ID,
+            ResourceLocation.fromNamespaceAndPath(result.equals(Items.RAIL) ? "minecraft" : RailcraftConstants.ID,
                 RecipeBuilder.getDefaultRecipeId(result).getPath()));
   }
 

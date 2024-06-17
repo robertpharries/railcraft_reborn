@@ -3,6 +3,8 @@ package mods.railcraft.data.loot.packs;
 import java.util.Set;
 import mods.railcraft.world.item.RailcraftItems;
 import mods.railcraft.world.level.block.RailcraftBlocks;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.DyeColor;
@@ -18,8 +20,8 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class RailcraftBlockLoot extends BlockLootSubProvider {
 
-  public RailcraftBlockLoot() {
-    super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+  public RailcraftBlockLoot(HolderLookup.Provider provider) {
+    super(Set.of(), FeatureFlags.REGISTRY.allFlags(), provider);
   }
 
   @Override
@@ -394,11 +396,12 @@ public class RailcraftBlockLoot extends BlockLootSubProvider {
   }
 
   protected LootTable.Builder createOreDrop(Block block, Item item, int min, int max) {
+    var enchantment = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
     return createSilkTouchDispatchTable(block, this.applyExplosionDecay(block,
         LootItem
             .lootTableItem(item)
             .apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max)))
-            .apply(ApplyBonusCount.addOreBonusCount(Enchantments.FORTUNE))));
+            .apply(ApplyBonusCount.addOreBonusCount(enchantment.getOrThrow(Enchantments.FORTUNE)))));
   }
 
   @Override

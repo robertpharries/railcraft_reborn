@@ -36,9 +36,8 @@ public class ElectricLocomotiveRenderer extends DefaultLocomotiveRenderer {
 
   @Override
   public void renderBody(Locomotive cart, float time, PoseStack poseStack,
-      MultiBufferSource renderTypeBuffer, int packedLight, float red, float green, float blue,
-      float alpha) {
-    super.renderBody(cart, time, poseStack, renderTypeBuffer, packedLight, red, green, blue, alpha);
+      MultiBufferSource renderTypeBuffer, int packedLight, int color) {
+    super.renderBody(cart, time, poseStack, renderTypeBuffer, packedLight, color);
     poseStack.pushPose();
     poseStack.scale(-1, -1, 1);
     poseStack.translate(0.05F, 0, 0);
@@ -50,8 +49,7 @@ public class ElectricLocomotiveRenderer extends DefaultLocomotiveRenderer {
         : renderTypeBuffer.getBuffer(this.lampModel.renderType(this.lampTextureOff));
 
     this.lampModel.renderToBuffer(poseStack, vertexBuilder,
-        bright ? RenderUtil.FULL_LIGHT : packedLight, OverlayTexture.NO_OVERLAY,
-        red, green, blue, alpha);
+        bright ? RenderUtil.FULL_LIGHT : packedLight, OverlayTexture.NO_OVERLAY, color);
     poseStack.popPose();
   }
 }

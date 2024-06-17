@@ -4,9 +4,9 @@ import java.util.stream.IntStream;
 import mods.railcraft.world.item.RailcraftItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -24,22 +24,33 @@ public class RotorRepairRecipe extends CustomRecipe {
   }
 
   @Override
-  public boolean matches(CraftingContainer container, Level level) {
-    return container.hasAnyMatching(ROTOR) && container.hasAnyMatching(BLADE);
+  public boolean matches(CraftingInput craftingInput, Level level) {
+    boolean containsRotor = false;
+    boolean containsBlade = false;
+    for (int i = 0; i < craftingInput.size(); i++) {
+      var stack = craftingInput.getItem(i);
+      if (!containsRotor && ROTOR.test(stack)) {
+        containsRotor = true;
+      }
+      if (!containsBlade && BLADE.test(stack)) {
+        containsBlade = true;
+      }
+    }
+    return containsRotor && containsBlade;
   }
 
   @Override
-  public ItemStack assemble(CraftingContainer container, HolderLookup.Provider provider) {
-    var rotor = IntStream.range(0, container.getContainerSize())
-        .mapToObj(container::getItem)
+  public ItemStack assemble(CraftingInput craftingInput, HolderLookup.Provider provider) {
+    var rotor = IntStream.range(0, craftingInput.size())
+        .mapToObj(craftingInput::getItem)
         .filter(ROTOR)
         .findFirst()
         .orElse(ItemStack.EMPTY);
     if(rotor.isEmpty()) {
       return ItemStack.EMPTY;
     }
-    var numBlades = IntStream.range(0, container.getContainerSize())
-        .mapToObj(container::getItem)
+    var numBlades = IntStream.range(0, craftingInput.size())
+        .mapToObj(craftingInput::getItem)
         .filter(BLADE)
         .count();
 

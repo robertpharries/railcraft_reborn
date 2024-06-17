@@ -1,13 +1,12 @@
 package mods.railcraft.world.item.crafting;
 
-import java.util.stream.IntStream;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -24,16 +23,19 @@ public abstract class CartDisassemblyRecipe extends CustomRecipe {
   }
 
   @Override
-  public boolean matches(CraftingContainer container, Level level) {
-    var items = IntStream.range(0, container.getContainerSize())
-        .mapToObj(container::getItem)
-        .filter(x -> !x.isEmpty())
-        .count();
-    return items == 1 && container.hasAnyMatching(x -> x.is(this.ingredient));
+  public boolean matches(CraftingInput craftingInput, Level level) {
+    boolean ingredientsMatch = false;
+    for (int i = 0; i < craftingInput.size(); i++) {
+      var stack = craftingInput.getItem(i);
+      if (!ingredientsMatch && stack.is(this.ingredient)) {
+        ingredientsMatch = true;
+      }
+    }
+    return craftingInput.ingredientCount() == 1 && ingredientsMatch;
   }
 
   @Override
-  public ItemStack assemble(CraftingContainer container, HolderLookup.Provider provider) {
+  public ItemStack assemble(CraftingInput craftingInput, HolderLookup.Provider provider) {
     return this.getResultItem(provider).copy();
   }
 
@@ -55,10 +57,10 @@ public abstract class CartDisassemblyRecipe extends CustomRecipe {
   }
 
   @Override
-  public NonNullList<ItemStack> getRemainingItems(CraftingContainer container) {
-    var grid = NonNullList.withSize(container.getContainerSize(), ItemStack.EMPTY);
-    for (int i = 0; i < container.getContainerSize(); i++) {
-      var itemStack = container.getItem(i);
+  public NonNullList<ItemStack> getRemainingItems(CraftingInput craftingInput) {
+    var grid = NonNullList.withSize(craftingInput.size(), ItemStack.EMPTY);
+    for (int i = 0; i < craftingInput.size(); i++) {
+      var itemStack = craftingInput.getItem(i);
       if (itemStack.is(this.ingredient)) {
         grid.set(i, new ItemStack(Items.MINECART));
       }

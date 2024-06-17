@@ -16,7 +16,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 public class ComponentWorkshop {
 
   private static final ResourceKey<StructureProcessorList> EMPTY_PROCESSOR_LIST_KEY =
-      ResourceKey.create(Registries.PROCESSOR_LIST, new ResourceLocation("empty"));
+      ResourceKey.create(Registries.PROCESSOR_LIST, ResourceLocation.withDefaultNamespace("empty"));
 
   /**
    * Adds the building to the targeted pool. We will call this in addNewVillageBuilding method
@@ -55,11 +55,11 @@ public class ComponentWorkshop {
     var processorListRegistry = registryAccess.registry(Registries.PROCESSOR_LIST).orElseThrow();
 
     addBuildingToPool(templatePoolRegistry, processorListRegistry,
-        new ResourceLocation("village/plains/houses"),
+        ResourceLocation.withDefaultNamespace("village/plains/houses"),
         RailcraftConstants.rl("component_workshop_cartman"), 3);
 
     addBuildingToPool(templatePoolRegistry, processorListRegistry,
-        new ResourceLocation("village/plains/houses"),
+        ResourceLocation.withDefaultNamespace("village/plains/houses"),
         RailcraftConstants.rl("component_workshop_trackman"), 5);
   }
 }

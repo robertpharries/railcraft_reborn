@@ -23,7 +23,7 @@ public class RollingResultSlot extends ResultSlot {
   public void onTake(Player player, ItemStack stack) {
     this.checkTakeAchievements(stack);
     var recipeRemainingItems = player.level().getRecipeManager()
-        .getRemainingItemsFor(RailcraftRecipeTypes.ROLLING.get(), this.craftSlots, player.level());
+        .getRemainingItemsFor(RailcraftRecipeTypes.ROLLING.get(), this.craftSlots.asCraftInput(), player.level());
     for (int i = 0; i < recipeRemainingItems.size(); ++i) {
       var itemstack = this.craftSlots.getItem(i);
       var itemstack1 = recipeRemainingItems.get(i);

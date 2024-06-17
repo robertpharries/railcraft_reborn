@@ -3,18 +3,16 @@ name: Railcraft CI
 on:
   push:
     branches:
-    - 1.20.x
+    - 1.21.x
   pull_request:
     branches:
-    - 1.20.x
+    - 1.21.x
   workflow_dispatch:
 
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    outputs:
-      output1: ${{ steps.artifact-upload-step.outputs.artifact-url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,27 +39,7 @@ jobs:
         run: ./gradlew runGameTestServer
 
       - name: Upload Artifact
-        id: artifact-upload-step
         uses: actions/upload-artifact@v4
         with:
-          name: Railcraft-1.20.x-GitHub
+          name: Railcraft-1.21.x-GitHub
           path: build/libs
-
-  publish:
-    if: github.event_name == 'pull_request'
-    name: Pull request artifacts
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - uses: actions/github-script@v7
-        env:
-          URL: ${{needs.build.outputs.output1}}
-        with:
-          script: |
-            const { URL } = process.env
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '[Click here](' + URL + ') to download the latest build'
-            })

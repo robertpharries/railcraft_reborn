@@ -19,86 +19,74 @@ public class RailcraftDataComponents {
   }
 
   public static final DeferredHolder<DataComponentType<?>, DataComponentType<LocomotiveColorComponent>> LOCOMOTIVE_COLOR =
-      deferredRegister.register("locomotive_color", () ->
-          DataComponentType.<LocomotiveColorComponent>builder()
+      deferredRegister.registerComponentType("locomotive_color", builder ->
+          builder
               .persistent(LocomotiveColorComponent.CODEC)
-              .networkSynchronized(LocomotiveColorComponent.STREAM_CODEC)
-              .build());
+              .networkSynchronized(LocomotiveColorComponent.STREAM_CODEC));
 
   public static final DeferredHolder<DataComponentType<?>, DataComponentType<LocomotiveLockComponent>> LOCOMOTIVE_LOCK =
-      deferredRegister.register("locomotive_lock", () ->
-          DataComponentType.<LocomotiveLockComponent>builder()
+      deferredRegister.registerComponentType("locomotive_lock", builder ->
+          builder
               .persistent(LocomotiveLockComponent.CODEC)
-              .networkSynchronized(LocomotiveLockComponent.STREAM_CODEC)
-              .build());
+              .networkSynchronized(LocomotiveLockComponent.STREAM_CODEC));
 
   public static final DeferredHolder<DataComponentType<?>, DataComponentType<LocomotiveWhistlePitchComponent>> LOCOMOTIVE_WHISTLE_PITCH =
-      deferredRegister.register("locomotive_whistle_pitch", () ->
-          DataComponentType.<LocomotiveWhistlePitchComponent>builder()
+      deferredRegister.registerComponentType("locomotive_whistle_pitch", builder ->
+          builder
               .persistent(LocomotiveWhistlePitchComponent.CODEC)
-              .networkSynchronized(LocomotiveWhistlePitchComponent.STREAM_CODEC)
-              .build());
+              .networkSynchronized(LocomotiveWhistlePitchComponent.STREAM_CODEC));
 
   public static final DeferredHolder<DataComponentType<?>, DataComponentType<LocomotiveOwnerComponent>> LOCOMOTIVE_OWNER =
-      deferredRegister.register("locomotive_owner", () ->
-          DataComponentType.<LocomotiveOwnerComponent>builder()
+      deferredRegister.registerComponentType("locomotive_owner", builder ->
+          builder
               .persistent(LocomotiveOwnerComponent.CODEC)
-              .networkSynchronized(LocomotiveOwnerComponent.STREAM_CODEC)
-              .build());
+              .networkSynchronized(LocomotiveOwnerComponent.STREAM_CODEC));
 
   public static final DeferredHolder<DataComponentType<?>, DataComponentType<LocomotiveEnergyComponent>> LOCOMOTIVE_ENERGY =
-      deferredRegister.register("locomotive_energy", () ->
-          DataComponentType.<LocomotiveEnergyComponent>builder()
+      deferredRegister.registerComponentType("locomotive_energy", builder ->
+          builder
               .persistent(LocomotiveEnergyComponent.CODEC)
-              .networkSynchronized(LocomotiveEnergyComponent.STREAM_CODEC)
-              .build());
+              .networkSynchronized(LocomotiveEnergyComponent.STREAM_CODEC));
 
   public static final DeferredHolder<DataComponentType<?>, DataComponentType<TicketComponent>> TICKET =
-      deferredRegister.register("ticket", () ->
-          DataComponentType.<TicketComponent>builder()
+      deferredRegister.registerComponentType("ticket", builder ->
+          builder
               .persistent(TicketComponent.CODEC)
-              .networkSynchronized(TicketComponent.STREAM_CODEC)
-              .build());
+              .networkSynchronized(TicketComponent.STREAM_CODEC));
 
   public static final DeferredHolder<DataComponentType<?>, DataComponentType<AuraComponent>> AURA =
-      deferredRegister.register("aura", () ->
-          DataComponentType.<AuraComponent>builder()
+      deferredRegister.registerComponentType("aura", builder ->
+          builder
               .persistent(AuraComponent.CODEC)
-              .networkSynchronized(AuraComponent.STREAM_CODEC)
-              .build());
+              .networkSynchronized(AuraComponent.STREAM_CODEC));
 
   public static final DeferredHolder<DataComponentType<?>, DataComponentType<PairToolComponent>> PAIR_TOOL =
-      deferredRegister.register("pair_tool", () ->
-          DataComponentType.<PairToolComponent>builder()
+      deferredRegister.registerComponentType("pair_tool", builder ->
+          builder
               .persistent(PairToolComponent.CODEC)
-              .networkSynchronized(PairToolComponent.STREAM_CODEC)
-              .build());
+              .networkSynchronized(PairToolComponent.STREAM_CODEC));
 
   public static final DeferredHolder<DataComponentType<?>, DataComponentType<SeasonComponent>> SEASON =
-      deferredRegister.register("season", () ->
-          DataComponentType.<SeasonComponent>builder()
+      deferredRegister.registerComponentType("season", builder ->
+          builder
               .persistent(SeasonComponent.CODEC)
-              .networkSynchronized(SeasonComponent.STREAM_CODEC)
-              .build());
+              .networkSynchronized(SeasonComponent.STREAM_CODEC));
 
   public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> CLICK_TO_CRAFT =
-      deferredRegister.register("click_to_craft", () ->
-          DataComponentType.<Boolean>builder()
+      deferredRegister.registerComponentType("click_to_craft", builder ->
+          builder
               .persistent(Codec.BOOL)
-              .networkSynchronized(ByteBufCodecs.BOOL)
-              .build());
+              .networkSynchronized(ByteBufCodecs.BOOL));
 
   public static final DeferredHolder<DataComponentType<?>, DataComponentType<RoutingTableBookContent>> ROUTING_TABLE_BOOK =
-      deferredRegister.register("routing_table_book", () ->
-          DataComponentType.<RoutingTableBookContent>builder()
+      deferredRegister.registerComponentType("routing_table_book", builder ->
+          builder
               .persistent(RoutingTableBookContent.CODEC)
-              .networkSynchronized(RoutingTableBookContent.STREAM_CODEC)
-              .build());
+              .networkSynchronized(RoutingTableBookContent.STREAM_CODEC));
 
   public static final DeferredHolder<DataComponentType<?>, DataComponentType<SimpleFluidContent>> FLUID =
-      deferredRegister.register("simple_fluid_content", () ->
-          DataComponentType.<SimpleFluidContent>builder()
+      deferredRegister.registerComponentType("simple_fluid_content", builder ->
+          builder
               .persistent(SimpleFluidContent.CODEC)
-              .networkSynchronized(SimpleFluidContent.STREAM_CODEC)
-              .build());
+              .networkSynchronized(SimpleFluidContent.STREAM_CODEC));
 }

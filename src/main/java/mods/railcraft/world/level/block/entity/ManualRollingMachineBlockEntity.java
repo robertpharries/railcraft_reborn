@@ -104,7 +104,7 @@ public class ManualRollingMachineBlockEntity extends RailcraftBlockEntity implem
 
   public Optional<RecipeHolder<RollingRecipe>> getRecipe() {
     return this.level.getRecipeManager()
-        .getRecipeFor(RailcraftRecipeTypes.ROLLING.get(), this.craftMatrix, this.level);
+        .getRecipeFor(RailcraftRecipeTypes.ROLLING.get(), this.craftMatrix.asCraftInput(), this.level);
   }
 
   public static void serverTick(Level level, BlockPos blockPos, BlockState blockState,
@@ -124,7 +124,7 @@ public class ManualRollingMachineBlockEntity extends RailcraftBlockEntity implem
       var recipe = blockEntity.currentRecipe.get();
       if (blockEntity.progress >= recipe.value().getProcessTime()) {
         blockEntity.isWorking = false;
-        var result = recipe.value().assemble(blockEntity.craftMatrix, level.registryAccess());
+        var result = recipe.value().assemble(blockEntity.craftMatrix.asCraftInput(), level.registryAccess());
         if (blockEntity.invResult.canFit(result)) {
           blockEntity.craftMatrix.getItems().forEach(x -> x.shrink(1));
           blockEntity.invResult.insert(result);

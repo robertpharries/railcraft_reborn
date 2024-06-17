@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 
 public class TunnelBoreRenderer extends EntityRenderer<TunnelBore> {
@@ -70,8 +71,8 @@ public class TunnelBoreRenderer extends EntityRenderer<TunnelBore> {
     var textureLocation = getTextureLocation(bore);
     var vertexBuilder = renderTypeBuffer.getBuffer(this.modelTunnelBore.renderType(textureLocation));
     this.modelTunnelBore.renderToBuffer(matrixStack, vertexBuilder, packedLight,
-        OverlayTexture.NO_OVERLAY, colorIntensity, colorIntensity, colorIntensity,
-        ghostTrain ? 0.8F : 1);
+        OverlayTexture.NO_OVERLAY, FastColor.ARGB32.colorFromFloat(ghostTrain ? 0.8F : 1,
+        colorIntensity, colorIntensity, colorIntensity));
     matrixStack.popPose();
   }
 

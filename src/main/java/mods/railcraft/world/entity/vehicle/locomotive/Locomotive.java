@@ -203,8 +203,8 @@ public abstract class Locomotive extends RailcraftMinecart implements
       if (this.whistleDelay <= 0) {
         this.whistlePitch = this.getNewWhistlePitch();
         this.whistle();
-        itemStack.hurtAndBreak(1, player.getRandom(), (ServerPlayer) player,
-            () -> player.broadcastBreakEvent(LivingEntity.getSlotForHand(hand)));
+        itemStack.hurtAndBreak(1, (ServerLevel) this.level(), (ServerPlayer) player,
+            item -> player.onEquippedItemBroken(item, LivingEntity.getSlotForHand(hand)));
       }
       return InteractionResult.sidedSuccess(this.level().isClientSide());
     }
@@ -590,11 +590,11 @@ public abstract class Locomotive extends RailcraftMinecart implements
   protected abstract int retrieveFuel();
 
   private int getDamageToRoadKill(LivingEntity entity) {
-    if (entity instanceof Player) {
-      var pants = entity.getItemBySlot(EquipmentSlot.LEGS);
+    if (entity instanceof ServerPlayer player) {
+      var pants = player.getItemBySlot(EquipmentSlot.LEGS);
       if (pants.is(RailcraftItems.OVERALLS.get())) {
-        pants.hurtAndBreak(5, entity.getRandom(), entity,
-            () -> entity.broadcastBreakEvent(EquipmentSlot.LEGS));
+        pants.hurtAndBreak(5, player.serverLevel(), player,
+            item -> player.onEquippedItemBroken(item, EquipmentSlot.LEGS));
         return 4;
       }
     }

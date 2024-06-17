@@ -9,6 +9,7 @@ import mods.railcraft.data.worldgen.RailcraftStructures;
 import mods.railcraft.data.worldgen.features.RailcraftOreFeatures;
 import mods.railcraft.data.worldgen.placements.RailcraftOrePlacements;
 import mods.railcraft.world.damagesource.RailcraftDamageType;
+import mods.railcraft.world.item.enchantment.RailcraftEnchantments;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -24,7 +25,8 @@ public class RailcraftDatapackProvider extends DatapackBuiltinEntriesProvider {
       .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, RailcraftBiomeModifiers::bootstrap)
       .add(Registries.DAMAGE_TYPE, RailcraftDamageType::bootstrap)
       .add(Registries.STRUCTURE, RailcraftStructures::bootstrap)
-      .add(Registries.STRUCTURE_SET, RailcraftStructureSets::bootstrap);
+      .add(Registries.STRUCTURE_SET, RailcraftStructureSets::bootstrap)
+      .add(Registries.ENCHANTMENT, RailcraftEnchantments::bootstrap);
 
   public RailcraftDatapackProvider(PackOutput output,
       CompletableFuture<HolderLookup.Provider> lookupProvider) {

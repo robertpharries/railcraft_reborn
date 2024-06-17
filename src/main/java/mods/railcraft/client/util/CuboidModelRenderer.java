@@ -271,32 +271,32 @@ public class CuboidModelRenderer {
       float x3, float y3, float z3,
       float x4, float y4, float z4) {
     if (faceDisplay.front) {
-      buffer.vertex(matrix, x1, y1, z1).color(red, green, blue, alpha).uv(minU, maxV)
-          .overlayCoords(overlay).uv2(light)
-          .normal(pose, normal.x(), normal.y(), normal.z()).endVertex();
-      buffer.vertex(matrix, x2, y2, z2).color(red, green, blue, alpha).uv(minU, minV)
-          .overlayCoords(overlay).uv2(light)
-          .normal(pose, normal.x(), normal.y(), normal.z()).endVertex();
-      buffer.vertex(matrix, x3, y3, z3).color(red, green, blue, alpha).uv(maxU, minV)
-          .overlayCoords(overlay).uv2(light)
-          .normal(pose, normal.x(), normal.y(), normal.z()).endVertex();
-      buffer.vertex(matrix, x4, y4, z4).color(red, green, blue, alpha).uv(maxU, maxV)
-          .overlayCoords(overlay).uv2(light)
-          .normal(pose, normal.x(), normal.y(), normal.z()).endVertex();
+      buffer.addVertex(matrix, x1, y1, z1).setColor(red, green, blue, alpha).setUv(minU, maxV)
+          .setOverlay(overlay).setLight(light)
+          .setNormal(pose, normal.x(), normal.y(), normal.z());
+      buffer.addVertex(matrix, x2, y2, z2).setColor(red, green, blue, alpha).setUv(minU, minV)
+          .setOverlay(overlay).setLight(light)
+          .setNormal(pose, normal.x(), normal.y(), normal.z());
+      buffer.addVertex(matrix, x3, y3, z3).setColor(red, green, blue, alpha).setUv(maxU, minV)
+          .setOverlay(overlay).setLight(light)
+          .setNormal(pose, normal.x(), normal.y(), normal.z());
+      buffer.addVertex(matrix, x4, y4, z4).setColor(red, green, blue, alpha).setUv(maxU, maxV)
+          .setOverlay(overlay).setLight(light)
+          .setNormal(pose, normal.x(), normal.y(), normal.z());
     }
     if (faceDisplay.back) {
-      buffer.vertex(matrix, x4, y4, z4).color(red, green, blue, alpha).uv(maxU, maxV)
-          .overlayCoords(overlay).uv2(light)
-          .normal(pose, 0, -1, 0).endVertex();
-      buffer.vertex(matrix, x3, y3, z3).color(red, green, blue, alpha).uv(maxU, minV)
-          .overlayCoords(overlay).uv2(light)
-          .normal(pose, 0, -1, 0).endVertex();
-      buffer.vertex(matrix, x2, y2, z2).color(red, green, blue, alpha).uv(minU, minV)
-          .overlayCoords(overlay).uv2(light)
-          .normal(pose, 0, -1, 0).endVertex();
-      buffer.vertex(matrix, x1, y1, z1).color(red, green, blue, alpha).uv(minU, maxV)
-          .overlayCoords(overlay).uv2(light)
-          .normal(pose, 0, -1, 0).endVertex();
+      buffer.addVertex(matrix, x4, y4, z4).setColor(red, green, blue, alpha).setUv(maxU, maxV)
+          .setOverlay(overlay).setLight(light)
+          .setNormal(pose, 0, -1, 0);
+      buffer.addVertex(matrix, x3, y3, z3).setColor(red, green, blue, alpha).setUv(maxU, minV)
+          .setOverlay(overlay).setLight(light)
+          .setNormal(pose, 0, -1, 0);
+      buffer.addVertex(matrix, x2, y2, z2).setColor(red, green, blue, alpha).setUv(minU, minV)
+          .setOverlay(overlay).setLight(light)
+          .setNormal(pose, 0, -1, 0);
+      buffer.addVertex(matrix, x1, y1, z1).setColor(red, green, blue, alpha).setUv(minU, maxV)
+          .setOverlay(overlay).setLight(light)
+          .setNormal(pose, 0, -1, 0);
     }
   }
 

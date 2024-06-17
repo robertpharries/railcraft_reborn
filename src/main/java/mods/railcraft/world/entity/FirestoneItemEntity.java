@@ -9,6 +9,7 @@ import mods.railcraft.world.level.block.RitualBlock;
 import mods.railcraft.world.level.block.entity.RitualBlockEntity;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -39,14 +40,14 @@ public class FirestoneItemEntity extends ItemEntity {
   @Override
   public void tick() {
     super.tick();
-    if (this.level().isClientSide()) {
+    if (!(this.level() instanceof ServerLevel serverLevel)) {
       return;
     }
     if (++this.clock % 4 == 0
         && this.getItem().getItem() instanceof FirestoneItem item
         && item.spawnsFire()
         && this.level().getGameRules().getBoolean(GameRules.RULE_DOFIRETICK)) {
-      FirestoneItem.trySpawnFire(this.level(), this.blockPosition(), getItem(), this.getOwner());
+      FirestoneItem.trySpawnFire(serverLevel, this.blockPosition(), getItem(), this.getOwner());
     }
   }
 

@@ -18,8 +18,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RailShape;
-import net.neoforged.neoforge.common.IPlantable;
 import net.neoforged.neoforge.common.IShearable;
+import net.neoforged.neoforge.common.SpecialPlantable;
 
 public class TrackLayer extends MaintenancePatternMinecart {
 
@@ -98,7 +98,7 @@ public class TrackLayer extends MaintenancePatternMinecart {
     var state = this.level().getBlockState(pos);
     var block = state.getBlock();
     return (state.isAir() ||
-        block instanceof IPlantable ||
+        block instanceof SpecialPlantable ||
         block instanceof IShearable ||
         state.is(RailcraftTags.Blocks.TUNNEL_BORE_REPLACEABLE_BLOCKS));
   }

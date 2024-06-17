@@ -92,7 +92,7 @@ public class RailcraftConfig {
             .comment(
                 "Add entity names to exclude them from explosions caused by high speed collisions")
             .defineList("ignoredEntities", defaultEntities,
-                obj -> ResourceLocation.isValidResourceLocation(obj.toString()));
+                obj -> ResourceLocation.tryParse(obj.toString()) != null);
       }
       builder.pop();
 
@@ -108,7 +108,7 @@ public class RailcraftConfig {
       this.cargoBlacklist = builder
           .comment("List of items that the cargo loader will ignore")
           .defineList("cargoBlacklist", ArrayList::new,
-              obj -> ResourceLocation.isValidResourceLocation(obj.toString()));
+              obj -> ResourceLocation.tryParse(obj.toString()) != null);
 
       this.locomotiveDamageMobs = builder
           .comment(

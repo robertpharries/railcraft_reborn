@@ -108,13 +108,13 @@ public class RailcraftBlockModelProvider extends BlockStateProvider {
   private static final String CUTOUT = "cutout";
 
   private static final ResourceLocation FLAT_TEMPLATE =
-      new ResourceLocation("rail_flat");
+      ResourceLocation.withDefaultNamespace("rail_flat");
   private static final ResourceLocation CORNER_TEMPLATE =
-      new ResourceLocation("rail_curved");
+      ResourceLocation.withDefaultNamespace("rail_curved");
   private static final ResourceLocation RAISED_NE_TEMPLATE =
-      new ResourceLocation("template_rail_raised_ne");
+      ResourceLocation.withDefaultNamespace("template_rail_raised_ne");
   private static final ResourceLocation RAISED_SW_TEMPLATE =
-      new ResourceLocation("template_rail_raised_sw");
+      ResourceLocation.withDefaultNamespace("template_rail_raised_sw");
 
   private StraightTrackModelSet activatorTrackModels;
   private StraightTrackModelSet activeActivatorTrackModels;

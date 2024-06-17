@@ -22,10 +22,8 @@ public abstract class ContentsMinecartRenderer<T extends AbstractMinecart>
 
   @Override
   public void renderBody(T cart, float partialTicks, PoseStack poseStack,
-      MultiBufferSource renderTypeBuffer, int packedLight,
-      float red, float green, float blue, float alpha) {
-    super.renderBody(cart, partialTicks, poseStack, renderTypeBuffer, packedLight,
-        red, green, blue, alpha);
+      MultiBufferSource renderTypeBuffer, int packedLight, int color) {
+    super.renderBody(cart, partialTicks, poseStack, renderTypeBuffer, packedLight, color);
     poseStack.pushPose();
     var displayOffset = cart.getDisplayOffset();
     var scale = 0.75F;
@@ -36,15 +34,13 @@ public abstract class ContentsMinecartRenderer<T extends AbstractMinecart>
       poseStack.translate(-0.5F, (displayOffset - 8.0F) / 16.0F, -0.5F);
     }
 
-    this.renderContents(cart, partialTicks, poseStack, renderTypeBuffer, packedLight, red, green,
-        blue, alpha);
+    this.renderContents(cart, partialTicks, poseStack, renderTypeBuffer, packedLight, color);
     poseStack.popPose();
   }
 
   @SuppressWarnings("deprecation")
   protected void renderContents(T cart, float partialTicks, PoseStack poseStack,
-      MultiBufferSource bufferSource, int packedLight,
-      float red, float green, float blue, float alpha) {
+      MultiBufferSource bufferSource, int packedLight, int color) {
     var blockstate = cart.getDisplayBlockState();
     if (blockstate.getRenderShape() != RenderShape.INVISIBLE) {
       poseStack.mulPose(Axis.YP.rotationDegrees(90.0F));

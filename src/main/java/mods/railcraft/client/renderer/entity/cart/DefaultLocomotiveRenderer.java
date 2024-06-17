@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 
 public class DefaultLocomotiveRenderer extends LocomotiveRenderer<Locomotive> {
 
@@ -16,7 +17,6 @@ public class DefaultLocomotiveRenderer extends LocomotiveRenderer<Locomotive> {
   private final EntityModel<? super Locomotive> model;
   private final EntityModel<? super Locomotive> snowLayer;
   private final ResourceLocation[] textures;
-  private final float[][] color = new float[3][];
 
   public DefaultLocomotiveRenderer(EntityRendererProvider.Context context, String modelTag,
       EntityModel<? super Locomotive> model,
@@ -37,33 +37,35 @@ public class DefaultLocomotiveRenderer extends LocomotiveRenderer<Locomotive> {
     this.model = model;
     this.snowLayer = snowLayer;
     this.textures = textures;
-    this.color[2] = new float[] {1.0F, 1.0F, 1.0F};
   }
 
   @Override
   public void renderBody(Locomotive cart, float time, PoseStack poseStack,
-      MultiBufferSource renderTypeBuffer, int packedLight, float red, float green, float blue,
-      float alpha) {
+      MultiBufferSource renderTypeBuffer, int packedLight, int color) {
     poseStack.pushPose();
 
     poseStack.scale(-1, -1, 1);
 
-    this.color[0] = this.getPrimaryColor(cart);
-    this.color[1] = this.getSecondaryColor(cart);
+    var alpha = FastColor.ARGB32.alpha(color);
+    var primaryColor = this.getPrimaryColor(cart);
+    var secondaryColor = this.getSecondaryColor(cart);
 
     for (int pass = 0; pass < 3; pass++) {
-      float[] color = this.color[pass];
+      var selectedColor = FastColor.ARGB32.color(alpha, switch (pass) {
+        case 0 -> primaryColor;
+        case 1 -> secondaryColor;
+        default -> 1;
+      });
       this.model.setupAnim(cart, 0, 0, -0.1F, 0, 0);
       var vertexBuilder = renderTypeBuffer.getBuffer(this.model.renderType(this.textures[pass]));
-      this.model.renderToBuffer(poseStack, vertexBuilder, packedLight, OverlayTexture.NO_OVERLAY,
-          color[0], color[1], color[2], alpha);
+      this.model.renderToBuffer(poseStack, vertexBuilder, packedLight, OverlayTexture.NO_OVERLAY, selectedColor);
     }
 
     if (Seasons.isPolarExpress(cart)) {
       this.snowLayer.setupAnim(cart, 0, 0, -0.1F, 0, 0);
       var vertexBuilder = renderTypeBuffer.getBuffer(this.snowLayer.renderType(this.textures[3]));
       this.snowLayer.renderToBuffer(poseStack, vertexBuilder, packedLight,
-          OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+          OverlayTexture.NO_OVERLAY, FastColor.ARGB32.color(1, 1, 1, 1));
     }
     poseStack.popPose();
   }

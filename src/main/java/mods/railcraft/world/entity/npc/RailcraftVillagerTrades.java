@@ -16,11 +16,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
-import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -28,11 +26,11 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 public class RailcraftVillagerTrades {
 
   public static void addTradeForTrackman(Int2ObjectMap<List<VillagerTrades.ItemListing>> trades) {
-    BiFunction<ItemStack, RandomSource, ItemStack> enchanter = (stack, rand) -> {
-      EnchantmentHelper.enchantItem(FeatureFlags.DEFAULT_FLAGS, rand, stack,
+    /*BiFunction<ItemStack, RandomSource, ItemStack> enchanter = (stack, rand) -> {
+      EnchantmentHelper.enchantItem(rand, stack,
           15 + rand.nextInt(16), true);
       return stack;
-    };
+    };*/
 
     trades.get(1)
         .add(new GenericTrade(new Offer(Items.EMERALD), new Offer(Items.COAL, 16, 24)));
@@ -51,7 +49,7 @@ public class RailcraftVillagerTrades {
         .add(new TrackKitTrade());
     trades.get(3)
         .add(new GenericTrade(new Offer(RailcraftItems.STEEL_CROWBAR.get()),
-            new Offer(Items.EMERALD, 24, 52)).setEnchanter(enchanter).setUse(t -> 3));
+            new Offer(Items.EMERALD, 24, 52))/*.setEnchanter(enchanter)*/.setUse(t -> 3));
     trades.get(3)
         .add(new GenericTrade(new Offer(RailcraftItems.WHISTLE_TUNER.get()),
             new Offer(Items.EMERALD, 1, 2)));
@@ -66,7 +64,7 @@ public class RailcraftVillagerTrades {
             new Offer(Items.EMERALD, 4, 8)));
     trades.get(3)
         .add(new GenericTrade(new Offer(RailcraftItems.OVERALLS.get()),
-            new Offer(Items.EMERALD, 19, 32)).setEnchanter(enchanter).setUse(t -> 3));
+            new Offer(Items.EMERALD, 19, 32))/*.setEnchanter(enchanter)*/.setUse(t -> 3));
   }
 
   public static void addTradeForCartman(Int2ObjectMap<List<VillagerTrades.ItemListing>> trades) {

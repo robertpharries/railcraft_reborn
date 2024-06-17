@@ -61,7 +61,7 @@ public class ManualRollingMachineMenu extends RailcraftMenu {
   public void slotsChanged(Container container) {
     this.craftResult.setItem(0, this.blockEntity.getRecipe()
         .map(RecipeHolder::value)
-        .map(r -> r.assemble(this.craftMatrix, this.blockEntity.level().registryAccess()))
+        .map(r -> r.assemble(this.craftMatrix.asCraftInput(), this.blockEntity.level().registryAccess()))
         .orElse(ItemStack.EMPTY));
   }
 

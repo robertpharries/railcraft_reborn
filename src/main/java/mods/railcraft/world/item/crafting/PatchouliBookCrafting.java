@@ -27,7 +27,7 @@ public class PatchouliBookCrafting extends ShapelessRecipe {
   private static Item guide_book() {
     if (GUIDE_BOOK == null) {
       GUIDE_BOOK = BuiltInRegistries.ITEM
-          .get(new ResourceLocation(PatchouliAPI.MOD_ID, "guide_book"));
+          .get(ResourceLocation.fromNamespaceAndPath(PatchouliAPI.MOD_ID, "guide_book"));
     }
     return GUIDE_BOOK;
   }

@@ -676,7 +676,7 @@ public class ChargeNetworkImpl implements Charge.Network {
 
     @Override
     public void zap(Entity entity, Charge.DamageOrigin origin, float damage) {
-      if (entity.level().isClientSide()) {
+      if (!(entity.level() instanceof ServerLevel level)) {
         return;
       }
       // logical server
@@ -699,7 +699,8 @@ public class ChargeNetworkImpl implements Charge.Network {
           for (var entry : protections.entrySet()) {
             if (remainingDamage > 0.1F) {
               var result = entry.getValue()
-                  .zap(livingEntity.getItemBySlot(entry.getKey()), livingEntity, remainingDamage);
+                  .zap(livingEntity.getItemBySlot(entry.getKey()), level,
+                      livingEntity, remainingDamage);
               livingEntity.setItemSlot(entry.getKey(), result.stack());
               remainingDamage -= result.damagePrevented();
             } else {

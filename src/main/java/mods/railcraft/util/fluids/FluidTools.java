@@ -26,7 +26,6 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.FluidUtil;
-import net.neoforged.neoforge.fluids.IFluidBlock;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
 public final class FluidTools {
@@ -211,9 +210,6 @@ public final class FluidTools {
   public static boolean isFullFluidBlock(BlockState state, Level level, BlockPos pos) {
     if (state.getBlock() instanceof LiquidBlock) {
       return state.getValue(LiquidBlock.LEVEL) == 0;
-    }
-    if (state.getBlock() instanceof IFluidBlock fluidBlock) {
-      return Math.abs(fluidBlock.getFilledPercentage(level, pos)) == 1.0;
     }
     return false;
   }

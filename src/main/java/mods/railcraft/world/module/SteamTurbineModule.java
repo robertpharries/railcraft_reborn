@@ -11,6 +11,7 @@ import mods.railcraft.world.level.material.StandardTank;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -67,7 +68,7 @@ public class SteamTurbineModule extends ChargeModule<SteamTurbineBlockEntity> {
           this.energy += CHARGE_OUTPUT;
           this.steamTank.internalDrain(STEAM_USAGE, IFluidHandler.FluidAction.EXECUTE);
           this.waterTank.internalFill(new FluidStack(Fluids.WATER, 2), IFluidHandler.FluidAction.EXECUTE);
-          this.rotorContainer.setItem(0, useRotor(rotorStack));
+          this.rotorContainer.setItem(0, useRotor((ServerLevel) this.provider.level(), rotorStack));
         }
       }
     }
@@ -119,13 +120,11 @@ public class SteamTurbineModule extends ChargeModule<SteamTurbineBlockEntity> {
     this.operatingRatio = tag.getFloat(CompoundTagKeys.OPERATING_RATIO);
   }
 
-  public ItemStack useRotor(ItemStack stack) {
-    var random = this.provider.level().getRandom();
+  private static ItemStack useRotor(ServerLevel level, ItemStack stack) {
+    var random = level.getRandom();
     if (random.nextInt(ROTOR_DAMAGE_CHANCE) == 0) {
       var result = new AtomicReference<>(stack);
-      stack.hurtAndBreak(1, random, null, () -> {
-        result.set(ItemStack.EMPTY);
-      });
+      stack.hurtAndBreak(1, level, null, item -> result.set(ItemStack.EMPTY));
       return result.get();
     } else {
       return stack;

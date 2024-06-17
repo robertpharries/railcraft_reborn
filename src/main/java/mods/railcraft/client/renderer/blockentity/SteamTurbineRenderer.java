@@ -98,25 +98,21 @@ public class SteamTurbineRenderer implements BlockEntityRenderer<SteamTurbineBlo
     int alphaOne = 255;
 
     vertexBuffer
-        .vertex(matrix, -rx * baseOffset, 0, -rz * baseOffset)
-        .color(red, green, blue, alphaOne)
-        .uv2(packedLight)
-        .endVertex();
+        .addVertex(matrix, -rx * baseOffset, 0, -rz * baseOffset)
+        .setColor(red, green, blue, alphaOne)
+        .setLight(packedLight);
     vertexBuffer
-        .vertex(matrix, rx * baseOffset, 0, rz * baseOffset)
-        .color(red, green, blue, alphaOne)
-        .uv2(packedLight)
-        .endVertex();
+        .addVertex(matrix, rx * baseOffset, 0, rz * baseOffset)
+        .setColor(red, green, blue, alphaOne)
+        .setLight(packedLight);
     vertexBuffer
-        .vertex(matrix, -rx * glx + rx * gwx, gly + gwy, -rz * glx + rz * gwx)
-        .color(red, green, blue, alphaOne)
-        .uv2(packedLight)
-        .endVertex();
+        .addVertex(matrix, -rx * glx + rx * gwx, gly + gwy, -rz * glx + rz * gwx)
+        .setColor(red, green, blue, alphaOne)
+        .setLight(packedLight);
     vertexBuffer
-        .vertex(matrix, -rx * glx - rx * gwx, gly - gwy, -rz * glx - rz * gwx)
-        .color(red, green, blue, alphaOne)
-        .uv2(packedLight)
-        .endVertex();
+        .addVertex(matrix, -rx * glx - rx * gwx, gly - gwy, -rz * glx - rz * gwx)
+        .setColor(red, green, blue, alphaOne)
+        .setLight(packedLight);
     poseStack.popPose();
   }
 }

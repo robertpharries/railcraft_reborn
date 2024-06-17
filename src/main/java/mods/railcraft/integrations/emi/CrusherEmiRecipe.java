@@ -23,7 +23,7 @@ public class CrusherEmiRecipe extends BasicEmiRecipe {
     super(RailcraftEmiPlugin.CRUSHING_CATEGORY, recipe.id(),
         CrusherRecipeCategory.WIDTH, CrusherRecipeCategory.HEIGHT);
     this.recipe = recipe.value();
-    this.inputs.add(EmiIngredient.of(this.recipe.getIngredients().get(0)));
+    this.inputs.add(EmiIngredient.of(this.recipe.getIngredients().getFirst()));
     this.recipe.getProbabilityOutputs().stream()
         .map(CrusherRecipe.CrusherOutput::getOutput)
         .map(EmiStack::of)
@@ -39,7 +39,7 @@ public class CrusherEmiRecipe extends BasicEmiRecipe {
         1000 * this.recipe.getProcessTime() / SharedConstants.TICKS_PER_SECOND,
         true, false, false);
 
-    widgets.addSlot(this.inputs.get(0), 18, 18);
+    widgets.addSlot(this.inputs.getFirst(), 18, 18);
 
     var outputs = recipe.getProbabilityOutputs();
     for (int y = 0; y < 3; y++) {

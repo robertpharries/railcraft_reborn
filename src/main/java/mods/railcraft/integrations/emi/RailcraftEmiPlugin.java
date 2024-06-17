@@ -11,9 +11,9 @@ import dev.emi.emi.api.stack.EmiStack;
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.world.item.crafting.RailcraftRecipeTypes;
 import mods.railcraft.world.level.block.RailcraftBlocks;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 
 @EmiEntrypoint
@@ -63,7 +63,7 @@ public class RailcraftEmiPlugin implements EmiPlugin {
     registerRecipe(registry, RailcraftRecipeTypes.BLASTING.get(), BlastFurnaceEmiRecipe::new);
   }
 
-  private <C extends Container, T extends Recipe<C>> void registerRecipe(
+  private <C extends RecipeInput, T extends Recipe<C>> void registerRecipe(
       EmiRegistry registry, RecipeType<T> recipeType,
       Function<RecipeHolder<T>, EmiRecipe> emiRecipeFunction) {
     var manager = registry.getRecipeManager();

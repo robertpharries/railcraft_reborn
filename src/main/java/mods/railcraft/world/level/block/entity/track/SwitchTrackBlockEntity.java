@@ -131,7 +131,7 @@ public abstract class SwitchTrackBlockEntity extends BlockEntity {
   private AbstractMinecart getBestCartForVisualState(
       List<AbstractMinecart> cartsOnTrack) {
     if (!cartsOnTrack.isEmpty()) {
-      return cartsOnTrack.get(0);
+      return cartsOnTrack.getFirst();
     } else {
       AbstractMinecart closestCart = null;
       List<UUID> allCarts = new ArrayList<>();

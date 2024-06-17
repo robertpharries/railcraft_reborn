@@ -12,15 +12,15 @@ public abstract class LocomotiveRenderer<T extends Locomotive>
     super(context);
   }
 
-  protected float[] getPrimaryColor(T loco) {
+  protected int getPrimaryColor(T loco) {
     return Seasons.isGhostTrain(loco)
-        ? DyeColor.LIGHT_GRAY.getTextureDiffuseColors()
+        ? DyeColor.LIGHT_GRAY.getTextureDiffuseColor()
         : loco.getPrimaryColor();
   }
 
-  protected float[] getSecondaryColor(T loco) {
+  protected int getSecondaryColor(T loco) {
     return Seasons.isGhostTrain(loco)
-        ? DyeColor.LIGHT_GRAY.getTextureDiffuseColors()
+        ? DyeColor.LIGHT_GRAY.getTextureDiffuseColor()
         : loco.getSecondaryColor();
   }
 }

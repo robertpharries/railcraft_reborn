@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 
 public abstract class StandardMinecartRenderer<T extends AbstractMinecart>
@@ -17,7 +18,7 @@ public abstract class StandardMinecartRenderer<T extends AbstractMinecart>
       RailcraftConstants.rl("textures/carts/cart_snow.png");
 
   public static final ResourceLocation MINECART_TEXTURE_LOCATION =
-      new ResourceLocation("textures/entity/minecart.png");
+      ResourceLocation.withDefaultNamespace("textures/entity/minecart.png");
 
   public StandardMinecartRenderer(EntityRendererProvider.Context context) {
     super(context);
@@ -25,8 +26,7 @@ public abstract class StandardMinecartRenderer<T extends AbstractMinecart>
 
   @Override
   protected void renderBody(T cart, float partialTicks, PoseStack poseStack,
-      MultiBufferSource bufferSource, int packedLight,
-      float red, float green, float blue, float alpha) {
+      MultiBufferSource bufferSource, int packedLight, int color) {
     poseStack.pushPose();
     poseStack.scale(-1, -1, 1);
     var bodyModel = this.getBodyModel(cart);
@@ -34,14 +34,14 @@ public abstract class StandardMinecartRenderer<T extends AbstractMinecart>
         bufferSource.getBuffer(bodyModel.renderType(this.getTextureLocation(cart)));
     bodyModel.setupAnim(cart, 0, 0, -0.1F, 0, 0);
     bodyModel.renderToBuffer(poseStack, bodyVertexConsumer, packedLight,
-        OverlayTexture.NO_OVERLAY, red, green, blue, alpha);
+        OverlayTexture.NO_OVERLAY, color);
 
     if (Seasons.isPolarExpress(cart)) {
       var snowModel = this.getSnowModel(cart);
       var snowVertexConsumer = bufferSource.getBuffer(snowModel.renderType(SNOW_TEXTURE_LOCATION));
       snowModel.setupAnim(cart, 0, 0, -0.1F, 0, 0);
       snowModel.renderToBuffer(poseStack, snowVertexConsumer, packedLight,
-          OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+          OverlayTexture.NO_OVERLAY, FastColor.ARGB32.color(1, 1, 1, 1));
     }
     poseStack.popPose();
   }

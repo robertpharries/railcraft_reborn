@@ -30,7 +30,7 @@ class RailcraftCartAdvancements implements AdvancementProvider.AdvancementGenera
             RailcraftItems.DIAMOND_CROWBAR.get(),
             Component.translatable(Translations.Advancement.Carts.ROOT),
             Component.translatable(Translations.Advancement.Carts.ROOT_DESC),
-            new ResourceLocation("textures/gui/advancements/backgrounds/stone.png"),
+            ResourceLocation.withDefaultNamespace("textures/gui/advancements/backgrounds/stone.png"),
             AdvancementType.TASK,
             true, false, false)
         .addCriterion("inv_changed",

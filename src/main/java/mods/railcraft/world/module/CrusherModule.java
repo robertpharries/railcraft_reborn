@@ -17,9 +17,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
@@ -154,7 +154,7 @@ public class CrusherModule extends CrafterModule<CrusherBlockEntity> {
 
     if (hasSpace) {
       outputs.forEach(outputContainer::insert);
-      inputContainer.extract(recipe.getIngredients().get(0));
+      inputContainer.extract(recipe.getIngredients().getFirst());
       provider.getLevel().playSound(null, provider.blockPos(),
           SoundEvents.IRON_GOLEM_DEATH, SoundSource.BLOCKS, 1,
           provider.getLevel().getRandom().nextFloat() * 0.25F + 0.7F);
@@ -165,7 +165,7 @@ public class CrusherModule extends CrafterModule<CrusherBlockEntity> {
   private boolean isRecipeValid() {
     return currentRecipe
         .map(RecipeHolder::value)
-        .map(r -> r.getIngredients().get(0))
+        .map(r -> r.getIngredients().getFirst())
         .map(r -> r.test(inputContainer.getItem(currentSlot)))
         .orElse(false);
   }
@@ -173,7 +173,7 @@ public class CrusherModule extends CrafterModule<CrusherBlockEntity> {
   private Optional<RecipeHolder<CrusherRecipe>> getRecipe(ItemStack itemStack) {
     return provider.getLevel().getRecipeManager()
         .getRecipeFor(RailcraftRecipeTypes.CRUSHING.get(),
-            new SimpleContainer(itemStack), provider.getLevel());
+            new SingleRecipeInput(itemStack), provider.getLevel());
   }
 
   @Override

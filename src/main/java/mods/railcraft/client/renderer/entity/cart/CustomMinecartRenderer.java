@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.phys.Vec3;
@@ -118,14 +119,15 @@ public abstract class CustomMinecartRenderer<T extends AbstractMinecart>
     float colorIntensity = ghostTrain ? 0.5F : 1.0F;
 
     this.renderBody(cart, partialTicks, poseStack, bufferSource, packedLight,
-        colorIntensity, colorIntensity, colorIntensity, ghostTrain ? 0.8F : 1.0F);
+        FastColor.ARGB32.colorFromFloat(ghostTrain ? 0.8F : 1.0F,
+            colorIntensity, colorIntensity, colorIntensity));
 
     if (ghostTrain) {
       poseStack.pushPose();
       float scale = 1.1F;
       poseStack.scale(scale, scale, scale);
       this.renderBody(cart, partialTicks, poseStack, bufferSource, packedLight,
-          1.0F, 1.0F, 1.0F, 0.4F);
+          FastColor.ARGB32.colorFromFloat(0.4F, 1.0F, 1.0F, 1.0F));
       poseStack.popPose();
     }
 
@@ -133,6 +135,5 @@ public abstract class CustomMinecartRenderer<T extends AbstractMinecart>
   }
 
   protected abstract void renderBody(T cart, float partialTicks, PoseStack poseStack,
-      MultiBufferSource bufferSource, int packedLight,
-      float red, float green, float blue, float alpha);
+      MultiBufferSource bufferSource, int packedLight, int color);
 }

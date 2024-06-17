@@ -5,6 +5,7 @@ import mods.railcraft.Translations;
 import mods.railcraft.world.level.block.RailcraftBlocks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -22,11 +23,11 @@ public class FirestoneOreBlockItem extends BlockItem {
   @Override
   public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId,
       boolean isSelected) {
-    if (!level.isClientSide()
+    if (level instanceof ServerLevel serverLevel
         && level.getGameRules().getBoolean(GameRules.RULE_DOFIRETICK)
         && entity instanceof Player player
         && level.getRandom().nextInt(12) % 4 == 0) {
-      FirestoneItem.trySpawnFire(player.level(), player.blockPosition(), stack, player);
+      FirestoneItem.trySpawnFire(serverLevel, player.blockPosition(), stack, player);
     }
   }
 

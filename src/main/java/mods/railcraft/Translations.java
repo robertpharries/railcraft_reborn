@@ -618,11 +618,15 @@ public class Translations {
     public static final String CHANGE_AURA = makeKey("key", "change_aura");
   }
 
-  public static class EnchantmentDescriptions {
-    public static final String DESTRUCTION = makeKey("enchantment", "destruction.desc");
-    public static final String IMPLOSION = makeKey("enchantment", "implosion.desc");
-    public static final String SMACK = makeKey("enchantment", "smack.desc");
-    public static final String WRECKING = makeKey("enchantment", "wrecking.desc");
+  public static class Enchantment {
+    public static final String DESTRUCTION = makeKey("enchantment", "destruction");
+    public static final String IMPLOSION = makeKey("enchantment", "implosion");
+    public static final String SMACK = makeKey("enchantment", "smack");
+    public static final String WRECKING = makeKey("enchantment", "wrecking");
+    public static final String DESTRUCTION_DESC = makeKey("enchantment", "destruction.desc");
+    public static final String IMPLOSION_DESC = makeKey("enchantment", "implosion.desc");
+    public static final String SMACK_DESC = makeKey("enchantment", "smack.desc");
+    public static final String WRECKING_DESC = makeKey("enchantment", "wrecking.desc");
   }
 
   public static String makeKey(String type, String name) {

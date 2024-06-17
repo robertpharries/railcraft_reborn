@@ -128,7 +128,7 @@ public class RailcraftTags {
     public static final TagKey<Item> STRAP_IRON_TRACK = tag("strap_iron_track");
 
     public static final TagKey<Item> TRACK_KIT = tag("track_kit");
-
+    public static final TagKey<Item> ENCHANTMENTS = tag("enchantments");
 
     public static final TagKey<Item> LEAD_ORE = oresTag("lead");
     public static final TagKey<Item> NICKEL_ORE = oresTag("nickel");
@@ -161,7 +161,7 @@ public class RailcraftTags {
     }
 
     public static TagKey<Item> commonTag(String name) {
-      return ItemTags.create(new ResourceLocation("c", name));
+      return ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", name));
     }
 
     public static TagKey<Item> oresTag(String name) {
@@ -247,7 +247,7 @@ public class RailcraftTags {
     }
 
     private static TagKey<Block> commonTag(String name) {
-      return BlockTags.create(new ResourceLocation("c", name));
+      return BlockTags.create(ResourceLocation.fromNamespaceAndPath("c", name));
     }
   }
 
@@ -257,7 +257,7 @@ public class RailcraftTags {
     public static final TagKey<Fluid> CREOSOTE = commonTag("creosote");
 
     private static TagKey<Fluid> commonTag(String name) {
-      return FluidTags.create(new ResourceLocation("c", name));
+      return FluidTags.create(ResourceLocation.fromNamespaceAndPath("c", name));
     }
   }
 }

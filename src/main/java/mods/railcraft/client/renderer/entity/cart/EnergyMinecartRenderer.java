@@ -46,8 +46,7 @@ public class EnergyMinecartRenderer extends ContentsMinecartRenderer<EnergyMinec
 
   @Override
   protected void renderContents(EnergyMinecart cart, float partialTicks, PoseStack poseStack,
-      MultiBufferSource bufferSource, int packedLight, float red, float green, float blue,
-      float alpha) {
+      MultiBufferSource bufferSource, int packedLight, int color) {
     var minecraft = Minecraft.getInstance();
 
     CuboidModel.Face frameFace = FRAME_MODEL.new Face()

@@ -52,7 +52,6 @@ import mods.railcraft.world.item.alchemy.RailcraftPotions;
 import mods.railcraft.world.item.component.RailcraftDataComponents;
 import mods.railcraft.world.item.crafting.RailcraftRecipeSerializers;
 import mods.railcraft.world.item.crafting.RailcraftRecipeTypes;
-import mods.railcraft.world.item.enchantment.RailcraftEnchantments;
 import mods.railcraft.world.level.block.RailcraftBlocks;
 import mods.railcraft.world.level.block.entity.BlastFurnaceBlockEntity;
 import mods.railcraft.world.level.block.entity.CokeOvenBlockEntity;
@@ -87,7 +86,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -95,6 +93,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -164,7 +163,6 @@ public class Railcraft {
     RailcraftFluidTypes.register(modEventBus);
     RailcraftMenuTypes.register(modEventBus);
     RailcraftSoundEvents.register(modEventBus);
-    RailcraftEnchantments.register(modEventBus);
     RailcraftParticleTypes.register(modEventBus);
     RailcraftRecipeSerializers.register(modEventBus);
     RailcraftRecipeTypes.register(modEventBus);
@@ -424,7 +422,7 @@ public class Railcraft {
       for (var entityItem : event.getDrops()) {
         var drop = entityItem.getItem();
         var cooked = recipeManager
-            .getRecipeFor(RecipeType.SMELTING, new SimpleContainer(drop), level)
+            .getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(drop), level)
             .map(x -> x.value().getResultItem(registryAccess))
             .orElse(ItemStack.EMPTY);
         if (!cooked.isEmpty() && level.getRandom().nextBoolean()) {

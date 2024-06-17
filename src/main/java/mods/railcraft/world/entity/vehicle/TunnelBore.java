@@ -28,6 +28,7 @@ import mods.railcraft.world.item.RailcraftItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -271,7 +272,7 @@ public class TunnelBore extends RailcraftMinecart implements Linkable {
       part.tick();
     }
 
-    if (!this.level().isClientSide()) {
+    if (this.level() instanceof ServerLevel serverLevel) {
 
       updateFuel();
 
@@ -372,8 +373,8 @@ public class TunnelBore extends RailcraftMinecart implements Linkable {
 
         var head = getItem(0);
         if (!head.isEmpty()) {
-          head.hurtAndBreak(entities.size(), this.random,
-              MinecartUtil.getFakePlayer(this), () -> {});
+          head.hurtAndBreak(entities.size(), serverLevel,
+              MinecartUtil.getFakePlayer(this), __ -> {});
         }
       }
 
@@ -724,7 +725,7 @@ public class TunnelBore extends RailcraftMinecart implements Linkable {
       targetState
           .getDrops(new LootParams.Builder((ServerLevel) this.level())
               .withParameter(LootContextParams.TOOL, head)
-              .withParameter(LootContextParams.KILLER_ENTITY, this)
+              .withParameter(LootContextParams.ATTACKING_ENTITY, this)
               .withParameter(LootContextParams.ORIGIN, this.position()))
           .forEach(stack -> {
             if (StackFilter.FUEL.test(stack)) {
@@ -747,7 +748,7 @@ public class TunnelBore extends RailcraftMinecart implements Linkable {
 
     LevelUtil.setAir(this.level(), targetPos);
 
-    head.hurtAndBreak(1, this.random, fakePlayer, () -> {
+    head.hurtAndBreak(1, fakePlayer.serverLevel(), fakePlayer, __ -> {
       this.setItem(0, ItemStack.EMPTY);
     });
 
@@ -772,7 +773,10 @@ public class TunnelBore extends RailcraftMinecart implements Linkable {
       if (tunnelBoreHead != null) {
         double dig = tunnelBoreHead.digModifier();
         hardness /= dig;
-        int e = boreSlot.getEnchantmentLevel(Enchantments.EFFICIENCY);
+        var efficiencyEnchantment = this.level().registryAccess()
+            .registryOrThrow(Registries.ENCHANTMENT)
+            .getHolderOrThrow(Enchantments.EFFICIENCY);
+        int e = boreSlot.getEnchantmentLevel(efficiencyEnchantment);
         hardness /= (e * e * 0.2d + 1);
       }
     }

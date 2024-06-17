@@ -52,12 +52,11 @@ public abstract class MaintenanceMinecartRenderer
 
   @Override
   public void renderContents(MaintenanceMinecart cart, float partialTicks,
-      PoseStack poseStack, MultiBufferSource bufferSource, int packedLight,
-      float red, float green, float blue, float alpha) {
+      PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int color) {
     var maintenanceVertexConsumer =
         bufferSource.getBuffer(this.maintenanceModel.renderType(this.maintenanceTextureLocation));
     this.maintenanceModel.renderToBuffer(poseStack, maintenanceVertexConsumer, packedLight,
-        OverlayTexture.NO_OVERLAY, red, green, blue, alpha);
+        OverlayTexture.NO_OVERLAY, color);
 
     poseStack.pushPose();
     //poseStack.translate(-0.5F, -0.5F, -0.5F);
@@ -74,8 +73,7 @@ public abstract class MaintenanceMinecartRenderer
     var lampVertexConsumer =
         bufferSource.getBuffer(this.lampModel.renderType(textureLocation));
     this.lampModel.renderToBuffer(poseStack, lampVertexConsumer,
-        blinking ? RenderUtil.FULL_LIGHT : packedLight,
-        OverlayTexture.NO_OVERLAY, red, green, blue, alpha);
+        blinking ? RenderUtil.FULL_LIGHT : packedLight, OverlayTexture.NO_OVERLAY, color);
     poseStack.popPose();
   }
 

@@ -3,12 +3,14 @@ package mods.railcraft.world.level.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -69,7 +71,10 @@ public class FirestoneBlock extends Block {
 
   @Override
   public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
-    if (entity instanceof LivingEntity livingEntity && !EnchantmentHelper.hasFrostWalker(livingEntity)) {
+    var enchantment = level.registryAccess()
+        .registryOrThrow(Registries.ENCHANTMENT)
+        .getHolderOrThrow(Enchantments.FROST_WALKER);
+    if (entity instanceof LivingEntity livingEntity && EnchantmentHelper.getEnchantmentLevel(enchantment, livingEntity) == 0) {
       entity.hurt(level.damageSources().hotFloor(), 1.5F);
     }
     super.stepOn(level, pos, state, entity);

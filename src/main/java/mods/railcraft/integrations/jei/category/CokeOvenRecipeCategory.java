@@ -89,7 +89,7 @@ public class CokeOvenRecipeCategory implements IRecipeCategory<CokeOvenRecipe> {
     var ingredients = recipe.getIngredients();
     builder
         .addSlot(RecipeIngredientRole.INPUT, 1, 20)
-        .addIngredients(ingredients.get(0));
+        .addIngredients(ingredients.getFirst());
     builder
         .addSlot(RecipeIngredientRole.OUTPUT, 46, 20)
         .addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));

@@ -5,10 +5,10 @@ import mods.railcraft.world.item.LocomotiveItem;
 import mods.railcraft.world.item.RailcraftItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -21,35 +21,37 @@ public class LocomotivePaintingRecipe extends CustomRecipe {
     super(category);
   }
 
-  private ItemStack getItemStackInRow(CraftingContainer container, int row) {
-    int width = container.getWidth();
+  private ItemStack getItemStackInRow(CraftingInput craftingInput, int row) {
+    int width = craftingInput.width();
     var result = new ArrayList<ItemStack>();
-    for (int i = 0; i < container.getWidth(); i++) {
-      var item = container.getItem(row * width + i);
+    for (int i = 0; i < craftingInput.width(); i++) {
+      var item = craftingInput.getItem(row * width + i);
       if (!item.isEmpty()) {
         result.add(item);
       }
     }
-    return result.size() != 1 ? ItemStack.EMPTY : result.get(0);
+    return result.size() != 1 ? ItemStack.EMPTY : result.getFirst();
   }
 
   @Override
-  public boolean matches(CraftingContainer container, Level level) {
-    var dyePrimary = getItemStackInRow(container, 0);
+  public boolean matches(CraftingInput craftingInput, Level level) {
+    if (craftingInput.height() < 3)
+      return false;
+    var dyePrimary = getItemStackInRow(craftingInput, 0);
     if (!(dyePrimary.getItem() instanceof DyeItem))
       return false;
-    var loco = getItemStackInRow(container, 1);
+    var loco = getItemStackInRow(craftingInput, 1);
     if (!(loco.getItem() instanceof LocomotiveItem))
       return false;
-    var dyeSecondary = getItemStackInRow(container, 2);
+    var dyeSecondary = getItemStackInRow(craftingInput, 2);
     return dyeSecondary.getItem() instanceof DyeItem;
   }
 
   @Override
-  public ItemStack assemble(CraftingContainer container, HolderLookup.Provider provider) {
-    var dyePrimary = getItemStackInRow(container, 0);
-    var loco = getItemStackInRow(container, 1);
-    var dyeSecondary = getItemStackInRow(container, 2);
+  public ItemStack assemble(CraftingInput craftingInput, HolderLookup.Provider provider) {
+    var dyePrimary = getItemStackInRow(craftingInput, 0);
+    var loco = getItemStackInRow(craftingInput, 1);
+    var dyeSecondary = getItemStackInRow(craftingInput, 2);
 
     if (!(dyePrimary.getItem() instanceof DyeItem primaryItem)) {
       return ItemStack.EMPTY;

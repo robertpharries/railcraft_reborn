@@ -24,7 +24,7 @@ public class BlastFurnaceEmiRecipe extends BasicEmiRecipe {
     super(RailcraftEmiPlugin.BLASTING_CATEGORY, recipe.id(),
         BlastFurnaceRecipeCategory.WIDTH, BlastFurnaceRecipeCategory.HEIGHT);
     this.recipe = recipe.value();
-    this.inputs.add(EmiIngredient.of(this.recipe.getIngredients().get(0)));
+    this.inputs.add(EmiIngredient.of(this.recipe.getIngredients().getFirst()));
     var level = Minecraft.getInstance().level;
     this.outputs.add(EmiStack.of(this.recipe.getResultItem(level.registryAccess())));
     if (this.recipe.getSlagOutput() > 0) {
@@ -49,8 +49,8 @@ public class BlastFurnaceEmiRecipe extends BasicEmiRecipe {
     });
     widgets.addAnimatedTexture(EmiTexture.FULL_FLAME, 1, 20, 10_000, false, true, true);
 
-    widgets.addSlot(this.inputs.get(0), 0, 0);
-    widgets.addSlot(this.outputs.get(0), 56, 0).large(true).recipeContext(this);
+    widgets.addSlot(this.inputs.getFirst(), 0, 0);
+    widgets.addSlot(this.outputs.getFirst(), 56, 0).large(true).recipeContext(this);
     if (this.outputs.size() > 1) {
       widgets.addSlot(this.outputs.get(1), 60, 36).recipeContext(this);
     }

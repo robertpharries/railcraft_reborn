@@ -105,7 +105,7 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 @Mod(RailcraftConstants.ID)
 public class Railcraft {
 
-  public static final boolean BETA = true;
+  public static final boolean BETA = false;
   private static final Logger LOGGER = LogUtils.getLogger();
 
   static {

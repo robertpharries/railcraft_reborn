@@ -90,7 +90,6 @@ public class TankMinecartRenderer extends ContentsMinecartRenderer<TankMinecart>
                 FluidRenderer.FluidType.FLOWING);
         fillingFluidModel.setPackedLight(RenderUtil.calculateGlowLight(packedLight, fluidStack));
         fillingFluidModel.setPackedOverlay(OverlayTexture.NO_OVERLAY);
-        builder = renderTypeBuffer.getBuffer(Sheets.cutoutBlockSheet());
         CuboidModelRenderer.render(fillingFluidModel, poseStack, builder,
             RenderUtil.getColorARGB(fluidStack, 1),
             CuboidModelRenderer.FaceDisplay.FRONT, true);

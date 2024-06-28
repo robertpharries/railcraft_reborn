@@ -14,7 +14,7 @@ import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.IServerDataProvider;
 import snownee.jade.api.ITooltip;
-import snownee.jade.api.Identifiers;
+import snownee.jade.api.JadeIds;
 import snownee.jade.api.TooltipPosition;
 import snownee.jade.api.config.IPluginConfig;
 
@@ -29,7 +29,7 @@ class RoutingTrackComponent implements IBlockComponentProvider,
         tooltip.add(Component.translatable(Translations.Tips.ROUTING_TICKET_DEST)
             .append(" ").append(tag.getString(CompoundTagKeys.DESTINATION)));
       }
-      tooltip.remove(Identifiers.UNIVERSAL_ITEM_STORAGE);
+      tooltip.remove(JadeIds.UNIVERSAL_ITEM_STORAGE);
     }
   }
 

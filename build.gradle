@@ -127,8 +127,7 @@ dependencies {
     compileOnly "vazkii.patchouli:Patchouli:$patchouli_version:api"
     //localRuntime "vazkii.patchouli:Patchouli:$patchouli_version"
 
-    compileOnly "curse.maven:jade-api-324717:$jade_id_api"
-    //localRuntime "curse.maven:jade-324717:$jade_id"
+    implementation "curse.maven:jade-api-324717:$jade_id"
 }
 
 spotless {

@@ -21,8 +21,7 @@ public final class HighSpeedTrackUtil {
   private static final int LOOK_AHEAD_DIST = 2;
   private static final float SPEED_SLOPE = 0.45F;
 
-  public static double getMaxSpeed(Level level, @Nullable AbstractMinecart cart,
-      BlockPos pos) {
+  public static double getMaxSpeed(Level level, @Nullable AbstractMinecart cart, BlockPos pos) {
     return TrackUtil.getTrackDirection(level, pos, cart).isAscending()
         ? SPEED_SLOPE
         : speedForNextTrack(level, pos, 0, cart);
@@ -34,8 +33,7 @@ public final class HighSpeedTrackUtil {
     }
   }
 
-  public static boolean isTrackSafeForHighSpeed(Level level, BlockPos pos,
-      AbstractMinecart cart) {
+  public static boolean isTrackSafeForHighSpeed(Level level, BlockPos pos, AbstractMinecart cart) {
     if (!isHighSpeedTrackAt(level, pos)) {
       return false;
     }

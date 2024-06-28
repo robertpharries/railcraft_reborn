@@ -19,6 +19,5 @@ jobs:
           upload_sources: true
           upload_translations: false
           download_translations: false
-          crowdin_branch_name: ${{ env.BRANCH_NAME }}
         env:
           CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}

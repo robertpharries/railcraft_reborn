@@ -1,7 +1,6 @@
 package mods.railcraft.client.renderer.entity.cart;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import mods.railcraft.api.core.RailcraftConstants;
 import mods.railcraft.client.model.CubeModel;
@@ -47,64 +46,55 @@ public class TankMinecartRenderer extends ContentsMinecartRenderer<TankMinecart>
         renderTypeBuffer.getBuffer(this.tankModel.renderType(TANK_TEXTURE_LOCATION));
     this.tankModel.renderToBuffer(poseStack, vertexBuilder, packedLight,
         OverlayTexture.NO_OVERLAY, color);
-    this.renderTank(cart, partialTicks, poseStack, renderTypeBuffer, packedLight);
+    this.renderTank(cart, poseStack, renderTypeBuffer, packedLight);
     if (cart.hasFilter()) {
       this.renderFilterItem(cart, poseStack, renderTypeBuffer, packedLight);
     }
   }
 
-  private void renderTank(TankMinecart cart, float partialTicks, PoseStack poseStack,
+  private void renderTank(TankMinecart cart, PoseStack poseStack,
       MultiBufferSource renderTypeBuffer, int packedLight) {
     var tank = cart.getTankManager();
-    if (tank != null) {
-      var fluidStack = tank.getFluid();
-      float capacity = tank.getCapacity();
-      if (capacity > 0 && fluidStack != null && fluidStack.getAmount() > 0) {
+    var fluidStack = tank.getFluid();
+    float capacity = tank.getCapacity();
+    if (capacity > 0 && fluidStack.getAmount() > 0) {
+      poseStack.pushPose();
+      var level = fluidStack.getAmount() / capacity;
+      var fluidMaxY = fluidStack.getFluidType().isLighterThanAir()
+          ? 1
+          : Math.min(1, level);
+
+      var fluidModel = FluidRenderer.getFluidModel(fluidStack,
+          1 - (RenderUtil.SCALED_PIXEL * 2),
+          fluidMaxY - (RenderUtil.SCALED_PIXEL * 2),
+          1 - (RenderUtil.SCALED_PIXEL * 2),
+          FluidRenderer.FluidType.STILL);
+
+      poseStack.translate(RenderUtil.SCALED_PIXEL, RenderUtil.SCALED_PIXEL,
+          RenderUtil.SCALED_PIXEL);
+      fluidModel.setPackedLight(RenderUtil.calculateGlowLight(packedLight, fluidStack));
+      fluidModel.setPackedOverlay(OverlayTexture.NO_OVERLAY);
+      var builder = renderTypeBuffer.getBuffer(Sheets.cutoutBlockSheet());
+      CuboidModelRenderer.render(fluidModel, poseStack, builder,
+          RenderUtil.getColorARGB(fluidStack, level),
+          CuboidModelRenderer.FaceDisplay.FRONT, true);
+      poseStack.popPose();
+
+      if (cart.isFilling()) {
         poseStack.pushPose();
-        var level = fluidStack.getAmount() / capacity;
-        var fluidMaxY = fluidStack.getFluidType().isLighterThanAir()
-            ? 1
-            : Math.min(1, level);
+        final var size = 0.3F;
+        poseStack.translate(0.5F - size / 2, 0F, 0.5F - size / 2);
 
-        var fluidModel = FluidRenderer.getFluidModel(fluidStack,
-            1 - (RenderUtil.SCALED_PIXEL * 2),
-            fluidMaxY - (RenderUtil.SCALED_PIXEL * 2),
-            1 - (RenderUtil.SCALED_PIXEL * 2),
-            FluidRenderer.FluidType.STILL);
-
-        poseStack.translate(RenderUtil.SCALED_PIXEL, RenderUtil.SCALED_PIXEL,
-            RenderUtil.SCALED_PIXEL);
-
-        if (fluidModel != null) {
-          fluidModel.setPackedLight(RenderUtil.calculateGlowLight(packedLight, fluidStack));
-          fluidModel.setPackedOverlay(OverlayTexture.NO_OVERLAY);
-          var builder = renderTypeBuffer.getBuffer(Sheets.cutoutBlockSheet());
-          CuboidModelRenderer.render(fluidModel, poseStack, builder,
-              RenderUtil.getColorARGB(fluidStack, level),
-              CuboidModelRenderer.FaceDisplay.FRONT, true);
-        }
+        var fillingFluidModel =
+            FluidRenderer.getFluidModel(fluidStack, size, 1 - RenderUtil.SCALED_PIXEL, size,
+                FluidRenderer.FluidType.FLOWING);
+        fillingFluidModel.setPackedLight(RenderUtil.calculateGlowLight(packedLight, fluidStack));
+        fillingFluidModel.setPackedOverlay(OverlayTexture.NO_OVERLAY);
+        builder = renderTypeBuffer.getBuffer(Sheets.cutoutBlockSheet());
+        CuboidModelRenderer.render(fillingFluidModel, poseStack, builder,
+            RenderUtil.getColorARGB(fluidStack, 1),
+            CuboidModelRenderer.FaceDisplay.FRONT, true);
         poseStack.popPose();
-
-        if (cart.isFilling()) {
-          poseStack.pushPose();
-          final var size = 0.3F;
-          poseStack.translate(0.5F - size / 2, 0F, 0.5F - size / 2);
-
-          var fillingFluidModel =
-              FluidRenderer.getFluidModel(fluidStack, size, 1 - RenderUtil.SCALED_PIXEL, size,
-                  FluidRenderer.FluidType.FLOWING);
-          if (fillingFluidModel != null) {
-            fillingFluidModel.setPackedLight(
-                RenderUtil.calculateGlowLight(packedLight, fluidStack));
-            fillingFluidModel.setPackedOverlay(OverlayTexture.NO_OVERLAY);
-            VertexConsumer builder = renderTypeBuffer.getBuffer(Sheets.cutoutBlockSheet());
-            CuboidModelRenderer.render(fillingFluidModel, poseStack, builder,
-                RenderUtil.getColorARGB(fluidStack, 1),
-                CuboidModelRenderer.FaceDisplay.FRONT, true);
-          }
-          poseStack.popPose();
-        }
-
       }
     }
   }

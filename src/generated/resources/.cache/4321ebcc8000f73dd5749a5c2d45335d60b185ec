@@ -1,11 +1,11 @@
-// 1.20.1	2024-05-08T19:39:07.447339	Tags for minecraft:block mod id railcraft
+// 1.20.1	2024-06-30T09:47:46.758867	Tags for minecraft:block mod id railcraft
 9732f1964281f5d5e6f3d067e648bb4bfc5cbafb data/forge/tags/blocks/enderman_place_on_blacklist.json
 e36857f35c1bac4bde5a8450008b92cf82656216 data/forge/tags/blocks/ore_rates/dense.json
 8ce5fa4b4f1c2619e124ef387b086d72f9c26f04 data/forge/tags/blocks/ore_rates/singular.json
 c31435450cdbffad0151b7e26a9cc131bf672a75 data/forge/tags/blocks/ores.json
 8c50a9944556e96063fbc340f5ad0cc8db547ff3 data/forge/tags/blocks/ores/lead.json
 83ceb2d2883c80859eebd5d5bb21fc2bfb849cf9 data/forge/tags/blocks/ores/nickel.json
-35a98a11222809a20225372b2d7129082cbbc2b8 data/forge/tags/blocks/ores/saltpeter.json
+35a98a11222809a20225372b2d7129082cbbc2b8 data/forge/tags/blocks/ores/salt.json
 8570ce0086d3cce7d0bfa04d10c388cbcd4d4e04 data/forge/tags/blocks/ores/silver.json
 7094cc9c85699e7afa6c283f7a769bab75eeeaff data/forge/tags/blocks/ores/sulfur.json
 0fbe7a7a55102f803486517de1004a189959f607 data/forge/tags/blocks/ores/tin.json

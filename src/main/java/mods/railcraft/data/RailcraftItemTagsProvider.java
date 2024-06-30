@@ -92,6 +92,20 @@ public class RailcraftItemTagsProvider extends ItemTagsProvider {
         .add(RailcraftItems.NICKEL_BLOCK.get());
     this.tag(RailcraftTags.Items.ZINC_BLOCK)
         .add(RailcraftItems.ZINC_BLOCK.get());
+    this.tag(RailcraftTags.Items.COAL_COKE_BLOCK)
+        .add(RailcraftItems.COAL_COKE_BLOCK.get());
+
+    this.tag(Tags.Items.STORAGE_BLOCKS)
+        .addTag(RailcraftTags.Items.STEEL_BLOCK)
+        .addTag(RailcraftTags.Items.BRONZE_BLOCK)
+        .addTag(RailcraftTags.Items.BRASS_BLOCK)
+        .addTag(RailcraftTags.Items.INVAR_BLOCK)
+        .addTag(RailcraftTags.Items.LEAD_BLOCK)
+        .addTag(RailcraftTags.Items.TIN_BLOCK)
+        .addTag(RailcraftTags.Items.SILVER_BLOCK)
+        .addTag(RailcraftTags.Items.NICKEL_BLOCK)
+        .addTag(RailcraftTags.Items.ZINC_BLOCK)
+        .addTag(RailcraftTags.Items.COAL_COKE_BLOCK);
 
     this.tag(RailcraftTags.Items.STEEL_PLATE)
         .add(RailcraftItems.STEEL_PLATE.get());

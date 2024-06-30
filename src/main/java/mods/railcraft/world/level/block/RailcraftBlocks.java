@@ -489,7 +489,7 @@ public class RailcraftBlocks {
               .strength(0.8F)
               .sound(SoundType.SAND), UniformInt.of(2, 5)));
 
-  public static final RegistryObject<Block> COKE_BLOCK =
+  public static final RegistryObject<Block> COAL_COKE_BLOCK =
       deferredRegister.register("coal_coke_block",
           () -> new CoalCokeBlock(5, 300, BlockBehaviour.Properties.of()
               .mapColor(MapColor.COLOR_BLACK)

@@ -61,7 +61,7 @@ public class RailcraftBlockLoot extends BlockLootSubProvider {
     this.dropSelf(RailcraftBlocks.SILVER_BLOCK.get());
     this.dropSelf(RailcraftBlocks.TIN_BLOCK.get());
     this.dropSelf(RailcraftBlocks.ZINC_BLOCK.get());
-    this.dropSelf(RailcraftBlocks.COKE_BLOCK.get());
+    this.dropSelf(RailcraftBlocks.COAL_COKE_BLOCK.get());
     this.dropSelf(RailcraftBlocks.STEEL_ANVIL.get());
     this.dropSelf(RailcraftBlocks.CHIPPED_STEEL_ANVIL.get());
     this.dropSelf(RailcraftBlocks.DAMAGED_STEEL_ANVIL.get());

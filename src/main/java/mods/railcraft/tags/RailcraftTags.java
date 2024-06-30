@@ -50,6 +50,7 @@ public class RailcraftTags {
     public static final TagKey<Item> INVAR_BLOCK = storageBlocksTag("invar");
     public static final TagKey<Item> ZINC_BLOCK = storageBlocksTag("zinc");
     public static final TagKey<Item> BRASS_BLOCK = storageBlocksTag("brass");
+    public static final TagKey<Item> COAL_COKE_BLOCK = storageBlocksTag("coal_coke");
 
     public static final TagKey<Item> STEEL_PLATE = platesTag("steel");
     public static final TagKey<Item> IRON_PLATE = platesTag("iron");

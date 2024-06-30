@@ -1,4 +1,4 @@
-// 1.20.1	2023-10-15T12:32:29.201918	Tags for minecraft:item mod id railcraft
+// 1.20.1	2024-06-30T09:55:16.1588	Tags for minecraft:item mod id railcraft
 f0feda62604edc32e6dcc0eb8d52c2defbf8a4d2 data/forge/tags/items/armors/boots.json
 e4b5c3cfded4b9b76efeda37728f26dc89261239 data/forge/tags/items/armors/boots/steel.json
 32b89e811b184ba832d5a6e71cadeca8e34dff42 data/forge/tags/items/armors/chestplates.json
@@ -48,7 +48,7 @@ e36857f35c1bac4bde5a8450008b92cf82656216 data/forge/tags/items/ore_rates/dense.j
 c31435450cdbffad0151b7e26a9cc131bf672a75 data/forge/tags/items/ores.json
 8c50a9944556e96063fbc340f5ad0cc8db547ff3 data/forge/tags/items/ores/lead.json
 83ceb2d2883c80859eebd5d5bb21fc2bfb849cf9 data/forge/tags/items/ores/nickel.json
-35a98a11222809a20225372b2d7129082cbbc2b8 data/forge/tags/items/ores/saltpeter.json
+35a98a11222809a20225372b2d7129082cbbc2b8 data/forge/tags/items/ores/salt.json
 8570ce0086d3cce7d0bfa04d10c388cbcd4d4e04 data/forge/tags/items/ores/silver.json
 7094cc9c85699e7afa6c283f7a769bab75eeeaff data/forge/tags/items/ores/sulfur.json
 0fbe7a7a55102f803486517de1004a189959f607 data/forge/tags/items/ores/tin.json
@@ -74,8 +74,10 @@ aff7016ddb8fcd0b4eab937ab3cd56340f084a30 data/forge/tags/items/raw_materials/sil
 ac5c7196c250262e53b9cac65eb85f65fb3d4236 data/forge/tags/items/raw_materials/tin.json
 283191211029190cffef9a23ea90717adb634bc5 data/forge/tags/items/raw_materials/zinc.json
 bdd9768ed490a4880c63c90017aafd2209f24042 data/forge/tags/items/slag.json
+a5a4656030ac3f51e504713ffb89647826de195b data/forge/tags/items/storage_blocks.json
 d8a0afa9468fa132e645cb46a5cafa2846bc640e data/forge/tags/items/storage_blocks/brass.json
 6ec964a4c8a1091ef58477715200410dc4973e43 data/forge/tags/items/storage_blocks/bronze.json
+88a35852be6132218740d926ae33db2476aca646 data/forge/tags/items/storage_blocks/coal_coke.json
 669fbe41c4cd7a363bf95870b313586076ca664a data/forge/tags/items/storage_blocks/invar.json
 1a2ed8e10dae63c2a48a02b0fb4b7914b084815a data/forge/tags/items/storage_blocks/lead.json
 7ebd68764ff31f69c1b0c74e352fc848dba351bc data/forge/tags/items/storage_blocks/nickel.json

@@ -256,7 +256,7 @@ public class RailcraftBlockModelProvider extends BlockStateProvider {
     this.simpleBlock(RailcraftBlocks.SILVER_BLOCK.get());
     this.simpleBlock(RailcraftBlocks.TIN_BLOCK.get());
     this.simpleBlock(RailcraftBlocks.ZINC_BLOCK.get());
-    this.simpleBlock(RailcraftBlocks.COKE_BLOCK.get());
+    this.simpleBlock(RailcraftBlocks.COAL_COKE_BLOCK.get());
     this.simpleBlock(RailcraftBlocks.CRUSHED_OBSIDIAN.get());
 
     this.simpleBlock(RailcraftBlocks.LEAD_ORE.get());

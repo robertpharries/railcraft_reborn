@@ -1629,7 +1629,7 @@ public class RailcraftRecipeProvider extends RecipeProvider {
 
 
     nineBlockStorageRecipes(consumer, RailcraftItems.COAL_COKE.get(),
-        RailcraftItems.COKE_BLOCK.get(), "coke_block_from_coal_coke");
+        RailcraftItems.COAL_COKE_BLOCK.get(), "coal_coke_block_from_coal_coke");
   }
 
   private static void nineBlockStorageRecipes(Consumer<FinishedRecipe> consumer,

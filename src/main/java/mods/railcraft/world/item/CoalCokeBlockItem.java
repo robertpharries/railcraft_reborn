@@ -15,7 +15,7 @@ import net.minecraft.world.level.Level;
 public class CoalCokeBlockItem extends BlockItem {
 
   public CoalCokeBlockItem(Properties properties) {
-    super(RailcraftBlocks.COKE_BLOCK.get(), properties);
+    super(RailcraftBlocks.COAL_COKE_BLOCK.get(), properties);
   }
 
   @Override

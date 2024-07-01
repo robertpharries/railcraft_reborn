@@ -82,7 +82,7 @@ public class RailcraftLanguageProvider extends LanguageProvider {
     this.addBlock(RailcraftBlocks.SILVER_BLOCK, "Block of Silver");
     this.addBlock(RailcraftBlocks.TIN_BLOCK, "Block of Tin");
     this.addBlock(RailcraftBlocks.ZINC_BLOCK, "Block of Zinc");
-    this.addBlock(RailcraftBlocks.COKE_BLOCK, "Block of Coal Coke");
+    this.addBlock(RailcraftBlocks.COAL_COKE_BLOCK, "Block of Coal Coke");
     this.addBlock(RailcraftBlocks.LEAD_ORE, "Lead Ore");
     this.addBlock(RailcraftBlocks.DEEPSLATE_LEAD_ORE, "Deepslate Lead Ore");
     this.addBlock(RailcraftBlocks.NICKEL_ORE, "Nickel Ore");

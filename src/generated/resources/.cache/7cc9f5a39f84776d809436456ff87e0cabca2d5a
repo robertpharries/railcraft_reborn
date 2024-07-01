@@ -1,4 +1,4 @@
-// 1.21	2024-06-28T11:07:59.196333	Tags for minecraft:item mod id railcraft
+// 1.21	2024-07-01T13:49:24.403326	Tags for minecraft:item mod id railcraft
 e4b5c3cfded4b9b76efeda37728f26dc89261239 data/c/tags/item/armors/boots/steel.json
 5251495abc7cf69ab447d425014c585ffd3ee618 data/c/tags/item/armors/chestplates/steel.json
 e17d210ae3b04c5e5696fab17c38c94dcb437f75 data/c/tags/item/armors/helmets/steel.json
@@ -70,8 +70,10 @@ aff7016ddb8fcd0b4eab937ab3cd56340f084a30 data/c/tags/item/raw_materials/silver.j
 ac5c7196c250262e53b9cac65eb85f65fb3d4236 data/c/tags/item/raw_materials/tin.json
 283191211029190cffef9a23ea90717adb634bc5 data/c/tags/item/raw_materials/zinc.json
 bdd9768ed490a4880c63c90017aafd2209f24042 data/c/tags/item/slag.json
+67856768109d4bcf426f81c0f98c7b887a842e48 data/c/tags/item/storage_blocks.json
 d8a0afa9468fa132e645cb46a5cafa2846bc640e data/c/tags/item/storage_blocks/brass.json
 6ec964a4c8a1091ef58477715200410dc4973e43 data/c/tags/item/storage_blocks/bronze.json
+88a35852be6132218740d926ae33db2476aca646 data/c/tags/item/storage_blocks/coal_coke.json
 669fbe41c4cd7a363bf95870b313586076ca664a data/c/tags/item/storage_blocks/invar.json
 1a2ed8e10dae63c2a48a02b0fb4b7914b084815a data/c/tags/item/storage_blocks/lead.json
 7ebd68764ff31f69c1b0c74e352fc848dba351bc data/c/tags/item/storage_blocks/nickel.json

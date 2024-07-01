@@ -61,7 +61,7 @@ public class RailcraftCreativeModeTabs {
 
             output.accept(RailcraftItems.CRUSHED_OBSIDIAN.get());
             output.accept(RailcraftItems.COAL_COKE.get());
-            output.accept(RailcraftItems.COKE_BLOCK.get());
+            output.accept(RailcraftItems.COAL_COKE_BLOCK.get());
 
             output.accept(RailcraftItems.SULFUR_ORE.get());
             output.accept(RailcraftItems.DEEPSLATE_SULFUR_ORE.get());

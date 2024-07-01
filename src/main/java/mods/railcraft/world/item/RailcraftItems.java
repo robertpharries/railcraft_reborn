@@ -247,8 +247,8 @@ public class RailcraftItems {
   public static final DeferredItem<BlockItem> SALTPETER_ORE =
       blockItem(RailcraftBlocks.SALTPETER_ORE);
 
-  public static final DeferredItem<BlockItem> COKE_BLOCK =
-      blockItem(RailcraftBlocks.COKE_BLOCK);
+  public static final DeferredItem<BlockItem> COAL_COKE_BLOCK =
+      blockItem(RailcraftBlocks.COAL_COKE_BLOCK);
 
   public static final DeferredItem<ShearsItem> STEEL_SHEARS =
       deferredRegister.registerItem("steel_shears", properties ->

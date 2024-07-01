@@ -1,4 +1,4 @@
-// 1.21	2024-06-27T22:15:21.331634	Recipes
+// 1.21	2024-07-01T13:49:24.398124	Recipes
 880902358e9080f4dacc6209cc212af527fd250d data/minecraft/advancement/recipes/misc/gunpowder.json
 a2bb90ba3405540cd1d5f9ebd56e3e9a414b903b data/minecraft/advancement/recipes/misc/lead_ingot_from_blasting_deepslate_lead_ore.json
 a9fb3f1e0ef2641d91709ce3fda5abfe1aa1d8f7 data/minecraft/advancement/recipes/misc/lead_ingot_from_blasting_lead_ore.json
@@ -184,7 +184,7 @@ ce967b2d6e979337f8b30100fd86675d98ec8a0e data/railcraft/advancement/recipes/misc
 19d1fbd701000eee2241b42e9d6b8a5540932f8e data/railcraft/advancement/recipes/misc/chiseled_abyssal_stone.json
 412e829e95d58fc18d4138dd123d3cec3162edd9 data/railcraft/advancement/recipes/misc/chiseled_quarried_stone.json
 36f436eb4dc81005b7cc50df6113e27e32a4ec61 data/railcraft/advancement/recipes/misc/coal_coke.json
-a6dfc55615c149add5520a6c60381c24a8641e9b data/railcraft/advancement/recipes/misc/coke_block_from_coal_coke.json
+ccb74dffd37671015d70227f121177676658f31e data/railcraft/advancement/recipes/misc/coal_coke_block_from_coal_coke.json
 251caae25861eb3739ae73367af8634e4198f170 data/railcraft/advancement/recipes/misc/coke_oven_bricks.json
 e0bdfc2d29cb1335fbcc452d347ad01e0327e982 data/railcraft/advancement/recipes/misc/control_track_kit.json
 11c3da1f719ff9f01ef8758a993fc7027341d166 data/railcraft/advancement/recipes/misc/controller_circuit.json
@@ -703,7 +703,7 @@ d0a914347403c0010f14c584ec3679d413ebdb32 data/railcraft/recipe/chest_minecart_di
 b59e4b1b4a5bb184bf89204a1684aec499a216b1 data/railcraft/recipe/chiseled_abyssal_stone.json
 3ace60c46d2f1c7aeaa8aa7988db956a771ef757 data/railcraft/recipe/chiseled_quarried_stone.json
 543ab09e06cd3ca3ddcea704a4607ca9b023d939 data/railcraft/recipe/coal_coke.json
-d60e0f80376af3afce0f2db841de826105169801 data/railcraft/recipe/coke_block_from_coal_coke.json
+d60e0f80376af3afce0f2db841de826105169801 data/railcraft/recipe/coal_coke_block_from_coal_coke.json
 90d60daf105ef95cb1ccabb4df23a66a07c6c9f8 data/railcraft/recipe/coke_oven/charcoal.json
 54ae13dcb30dcfb8dc8cc49f3b7469282e4979e2 data/railcraft/recipe/coke_oven/coal_coke.json
 5aaf6553637c0c8b4a69f056cdc9de68989530bb data/railcraft/recipe/coke_oven/coal_coke_block.json

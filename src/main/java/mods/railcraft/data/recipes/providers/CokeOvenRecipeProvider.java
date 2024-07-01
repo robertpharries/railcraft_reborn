@@ -34,7 +34,7 @@ public class CokeOvenRecipeProvider extends RecipeProvider {
         .save(recipeOutput);
 
     CokeOvenRecipeBuilder
-        .coking(RailcraftItems.COKE_BLOCK.get(), Ingredient.of(Items.COAL_BLOCK), 0,
+        .coking(RailcraftItems.COAL_COKE_BLOCK.get(), Ingredient.of(Items.COAL_BLOCK), 0,
             CokeOvenRecipeBuilder.DEFAULT_COOKING_TIME * 9, 5000)
         .unlockedBy(getHasName(Items.COAL_BLOCK), has(Items.COAL_BLOCK))
         .save(recipeOutput);

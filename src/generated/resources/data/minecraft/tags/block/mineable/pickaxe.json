@@ -48,7 +48,6 @@
     "#c:ores/sulfur",
     "#c:ores/tin",
     "#c:ores/zinc",
-    "#c:ores/salt",
     "#railcraft:post",
     "#railcraft:strengthened_glass",
     "#railcraft:iron_tank_gauge",
@@ -66,6 +65,7 @@
     "railcraft:quarried_brick_stairs",
     "railcraft:quarried_paver_stairs",
     "railcraft:quarried_brick_slab",
-    "railcraft:quarried_paver_slab"
+    "railcraft:quarried_paver_slab",
+    "railcraft:saltpeter_ore"
   ]
 }

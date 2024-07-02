@@ -1,10 +1,10 @@
-// 1.21	2024-07-02T18:07:07.082402	Tags for minecraft:block mod id railcraft
+// 1.21	2024-07-02T19:01:44.721426	Tags for minecraft:block mod id railcraft
 e36857f35c1bac4bde5a8450008b92cf82656216 data/c/tags/block/ore_rates/dense.json
 8ce5fa4b4f1c2619e124ef387b086d72f9c26f04 data/c/tags/block/ore_rates/singular.json
-23f1d22b1d31ea603f8252de7ca7b206d333e103 data/c/tags/block/ores.json
+135cfb50a5296d7842d36234ec1033fc2e454af4 data/c/tags/block/ores.json
 8c50a9944556e96063fbc340f5ad0cc8db547ff3 data/c/tags/block/ores/lead.json
 83ceb2d2883c80859eebd5d5bb21fc2bfb849cf9 data/c/tags/block/ores/nickel.json
-35a98a11222809a20225372b2d7129082cbbc2b8 data/c/tags/block/ores/salt.json
+35a98a11222809a20225372b2d7129082cbbc2b8 data/c/tags/block/ores/saltpeter.json
 8570ce0086d3cce7d0bfa04d10c388cbcd4d4e04 data/c/tags/block/ores/silver.json
 7094cc9c85699e7afa6c283f7a769bab75eeeaff data/c/tags/block/ores/sulfur.json
 0fbe7a7a55102f803486517de1004a189959f607 data/c/tags/block/ores/tin.json
@@ -15,10 +15,10 @@ cba1c5a31aa2960efa0703b2e57f8390f53d4ce6 data/c/tags/block/ores_in_ground/nether
 aefbbbc5abb467f81217a20784fffded5a4cc0df data/minecraft/tags/block/anvil.json
 491830ad886621c3a078a87ab488fd45839ad64d data/minecraft/tags/block/climbable.json
 5f095a79961790ef28559752e75223a6097fb997 data/minecraft/tags/block/mineable/axe.json
-e9c07c52bb496a689d423b261648dfe159ce0c68 data/minecraft/tags/block/mineable/pickaxe.json
+0afafdb3d0b78648e8eee4f7ec89955a04f2c100 data/minecraft/tags/block/mineable/pickaxe.json
 332c14b52b24decc1c1cc905d2e32eb330f9df78 data/minecraft/tags/block/needs_diamond_tool.json
 e28c7fdf089f8fc76f9e5565d74f0293e412cfbc data/minecraft/tags/block/needs_iron_tool.json
-a5d8768cbe3803182d3deba432e1730e02221de9 data/minecraft/tags/block/needs_stone_tool.json
+c30869003ceb032258a6270536518d6ba3a4b44c data/minecraft/tags/block/needs_stone_tool.json
 e1d606686d8d1ae939af83da8c931c49c2e9df5e data/minecraft/tags/block/rails.json
 9732f1964281f5d5e6f3d067e648bb4bfc5cbafb data/neoforge/tags/block/enderman_place_on_blacklist.json
 4276d58b0cb375037387fa9b749ae6b1e09d33c9 data/railcraft/tags/block/abandoned_track.json

@@ -1,4 +1,4 @@
-// 1.21	2024-07-01T13:49:24.398124	Recipes
+// 1.21	2024-07-02T19:01:44.722826	Recipes
 880902358e9080f4dacc6209cc212af527fd250d data/minecraft/advancement/recipes/misc/gunpowder.json
 a2bb90ba3405540cd1d5f9ebd56e3e9a414b903b data/minecraft/advancement/recipes/misc/lead_ingot_from_blasting_deepslate_lead_ore.json
 a9fb3f1e0ef2641d91709ce3fda5abfe1aa1d8f7 data/minecraft/advancement/recipes/misc/lead_ingot_from_blasting_lead_ore.json
@@ -781,7 +781,7 @@ fef25201fcbb19e0725aaf5cdb776c087ba17ee2 data/railcraft/recipe/crusher/crushing_
 415a251070f29d7acd50050a4b87eb00c8283937 data/railcraft/recipe/crusher/crushing_tags_ores_nickel.json
 409d6477239687baba297d7330cc05da228b6120 data/railcraft/recipe/crusher/crushing_tags_ores_quartz.json
 3fe6bc9ad41503cd5662591a47dbabcf0c101e8e data/railcraft/recipe/crusher/crushing_tags_ores_redstone.json
-5f7c4732913d3417941f359707647a44c4f60d53 data/railcraft/recipe/crusher/crushing_tags_ores_salt.json
+d532a5a30afb2bb575315e4846509ebce4fba98b data/railcraft/recipe/crusher/crushing_tags_ores_saltpeter.json
 847693cce54277c858ae6e97540d8718c4bd18a2 data/railcraft/recipe/crusher/crushing_tags_ores_silver.json
 cf259ca3a353cd276a6b6bee5cfdb1973f49ceab data/railcraft/recipe/crusher/crushing_tags_ores_sulfur.json
 45fd2b398e5984057f4b0b29657e6456a4e37f7d data/railcraft/recipe/crusher/crushing_tags_quarried.json

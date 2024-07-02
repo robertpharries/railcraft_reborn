@@ -1,4 +1,4 @@
-// 1.21	2024-07-01T13:49:24.403326	Tags for minecraft:item mod id railcraft
+// 1.21	2024-07-02T19:01:44.727962	Tags for minecraft:item mod id railcraft
 e4b5c3cfded4b9b76efeda37728f26dc89261239 data/c/tags/item/armors/boots/steel.json
 5251495abc7cf69ab447d425014c585ffd3ee618 data/c/tags/item/armors/chestplates/steel.json
 e17d210ae3b04c5e5696fab17c38c94dcb437f75 data/c/tags/item/armors/helmets/steel.json
@@ -41,10 +41,10 @@ d7508b44d29858b83d1e638039e714f27c55ed4d data/c/tags/item/nuggets/tin.json
 03a440b41fdd236f8c6f52f1e0f73424f859282b data/c/tags/item/nuggets/zinc.json
 e36857f35c1bac4bde5a8450008b92cf82656216 data/c/tags/item/ore_rates/dense.json
 8ce5fa4b4f1c2619e124ef387b086d72f9c26f04 data/c/tags/item/ore_rates/singular.json
-23f1d22b1d31ea603f8252de7ca7b206d333e103 data/c/tags/item/ores.json
+135cfb50a5296d7842d36234ec1033fc2e454af4 data/c/tags/item/ores.json
 8c50a9944556e96063fbc340f5ad0cc8db547ff3 data/c/tags/item/ores/lead.json
 83ceb2d2883c80859eebd5d5bb21fc2bfb849cf9 data/c/tags/item/ores/nickel.json
-35a98a11222809a20225372b2d7129082cbbc2b8 data/c/tags/item/ores/salt.json
+35a98a11222809a20225372b2d7129082cbbc2b8 data/c/tags/item/ores/saltpeter.json
 8570ce0086d3cce7d0bfa04d10c388cbcd4d4e04 data/c/tags/item/ores/silver.json
 7094cc9c85699e7afa6c283f7a769bab75eeeaff data/c/tags/item/ores/sulfur.json
 0fbe7a7a55102f803486517de1004a189959f607 data/c/tags/item/ores/tin.json

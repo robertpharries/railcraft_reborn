@@ -256,6 +256,7 @@ public class RailcraftBlockTagsProvider extends BlockTagsProvider {
             RailcraftTags.Blocks.SULFUR_ORE,
             RailcraftTags.Blocks.TIN_ORE,
             RailcraftTags.Blocks.ZINC_ORE,
+            RailcraftTags.Blocks.SALTPETER_ORE,
             RailcraftTags.Blocks.POST,
             RailcraftTags.Blocks.STRENGTHENED_GLASS,
             RailcraftTags.Blocks.IRON_TANK_GAUGE,
@@ -273,8 +274,7 @@ public class RailcraftBlockTagsProvider extends BlockTagsProvider {
         .add(RailcraftBlocks.QUARRIED_BRICK_STAIRS.get())
         .add(RailcraftBlocks.QUARRIED_PAVER_STAIRS.get())
         .add(RailcraftBlocks.QUARRIED_BRICK_SLAB.get())
-        .add(RailcraftBlocks.QUARRIED_PAVER_SLAB.get())
-        .add(RailcraftBlocks.SALTPETER_ORE.get());
+        .add(RailcraftBlocks.QUARRIED_PAVER_SLAB.get());
 
     this.tag(BlockTags.NEEDS_DIAMOND_TOOL)
         .add(RailcraftBlocks.FIRESTONE_ORE.get())

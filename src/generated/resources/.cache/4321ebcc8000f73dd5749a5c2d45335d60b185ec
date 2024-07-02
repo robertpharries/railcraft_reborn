@@ -1,11 +1,11 @@
-// 1.20.1	2024-07-01T17:25:30.149087	Tags for minecraft:block mod id railcraft
+// 1.20.1	2024-07-02T18:29:38.982525	Tags for minecraft:block mod id railcraft
 9732f1964281f5d5e6f3d067e648bb4bfc5cbafb data/forge/tags/blocks/enderman_place_on_blacklist.json
 e36857f35c1bac4bde5a8450008b92cf82656216 data/forge/tags/blocks/ore_rates/dense.json
 8ce5fa4b4f1c2619e124ef387b086d72f9c26f04 data/forge/tags/blocks/ore_rates/singular.json
-c31435450cdbffad0151b7e26a9cc131bf672a75 data/forge/tags/blocks/ores.json
+fa98655e67381fc33f8aff33d36629bd937280a6 data/forge/tags/blocks/ores.json
 8c50a9944556e96063fbc340f5ad0cc8db547ff3 data/forge/tags/blocks/ores/lead.json
 83ceb2d2883c80859eebd5d5bb21fc2bfb849cf9 data/forge/tags/blocks/ores/nickel.json
-35a98a11222809a20225372b2d7129082cbbc2b8 data/forge/tags/blocks/ores/salt.json
+35a98a11222809a20225372b2d7129082cbbc2b8 data/forge/tags/blocks/ores/saltpeter.json
 8570ce0086d3cce7d0bfa04d10c388cbcd4d4e04 data/forge/tags/blocks/ores/silver.json
 7094cc9c85699e7afa6c283f7a769bab75eeeaff data/forge/tags/blocks/ores/sulfur.json
 0fbe7a7a55102f803486517de1004a189959f607 data/forge/tags/blocks/ores/tin.json
@@ -16,10 +16,10 @@ cba1c5a31aa2960efa0703b2e57f8390f53d4ce6 data/forge/tags/blocks/ores_in_ground/n
 aefbbbc5abb467f81217a20784fffded5a4cc0df data/minecraft/tags/blocks/anvil.json
 491830ad886621c3a078a87ab488fd45839ad64d data/minecraft/tags/blocks/climbable.json
 5f095a79961790ef28559752e75223a6097fb997 data/minecraft/tags/blocks/mineable/axe.json
-0753d13cfcc255b60000c89fd44b6077897744b2 data/minecraft/tags/blocks/mineable/pickaxe.json
+a196638b5813c61d659d954c3d0b3b32ecce61a2 data/minecraft/tags/blocks/mineable/pickaxe.json
 332c14b52b24decc1c1cc905d2e32eb330f9df78 data/minecraft/tags/blocks/needs_diamond_tool.json
 e28c7fdf089f8fc76f9e5565d74f0293e412cfbc data/minecraft/tags/blocks/needs_iron_tool.json
-b896f8308935dbcc1d849f150ffc664342a4e4fc data/minecraft/tags/blocks/needs_stone_tool.json
+a6ee9b4fd2bed4758113462791f814c2f4a710bb data/minecraft/tags/blocks/needs_stone_tool.json
 e1d606686d8d1ae939af83da8c931c49c2e9df5e data/minecraft/tags/blocks/rails.json
 4276d58b0cb375037387fa9b749ae6b1e09d33c9 data/railcraft/tags/blocks/abandoned_track.json
 9b21abe5b3e3997560ef95937505d9a8112afa92 data/railcraft/tags/blocks/abyssal.json

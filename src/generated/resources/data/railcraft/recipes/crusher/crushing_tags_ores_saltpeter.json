@@ -5,12 +5,12 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ores/salt"
+        "tag": "forge:ores/saltpeter"
       }
     }
   ],
   "ingredient": {
-    "tag": "forge:ores/salt"
+    "tag": "forge:ores/saltpeter"
   },
   "outputs": [
     {

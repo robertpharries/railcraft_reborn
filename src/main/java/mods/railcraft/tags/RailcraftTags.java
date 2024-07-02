@@ -137,7 +137,7 @@ public class RailcraftTags {
     public static final TagKey<Item> SULFUR_ORE = oresTag("sulfur");
     public static final TagKey<Item> TIN_ORE = oresTag("tin");
     public static final TagKey<Item> ZINC_ORE = oresTag("zinc");
-    public static final TagKey<Item> SALTPETER_ORE = oresTag("salt");
+    public static final TagKey<Item> SALTPETER_ORE = oresTag("saltpeter");
 
     public static final TagKey<Item> TIN_RAW = rawMaterialsTag("tin");
     public static final TagKey<Item> ZINC_RAW = rawMaterialsTag("zinc");
@@ -241,7 +241,7 @@ public class RailcraftTags {
     public static final TagKey<Block> SULFUR_ORE = forgeTag("ores/sulfur");
     public static final TagKey<Block> TIN_ORE = forgeTag("ores/tin");
     public static final TagKey<Block> ZINC_ORE = forgeTag("ores/zinc");
-    public static final TagKey<Block> SALTPETER_ORE = forgeTag("ores/salt");
+    public static final TagKey<Block> SALTPETER_ORE = forgeTag("ores/saltpeter");
 
     private static TagKey<Block> tag(String name) {
       return BlockTags.create(RailcraftConstants.rl(name));

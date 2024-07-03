@@ -35,7 +35,7 @@ public record SetLocomotiveMessage(
     var player = context.player();
     var entity = player.level().getEntity(message.entityId);
     if (entity instanceof Locomotive locomotive && locomotive.canControl(player)) {
-      locomotive.applyAction(player, false, loco -> {
+      Locomotive.applyAction(player, locomotive, false, loco -> {
         loco.setMode(message.mode);
         loco.setSpeed(message.speed);
         loco.setReverse(message.reverse);

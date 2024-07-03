@@ -52,6 +52,7 @@ import mods.railcraft.client.renderer.ShuntingAuraRenderer;
 import mods.railcraft.client.renderer.blockentity.RailcraftBlockEntityRenderers;
 import mods.railcraft.client.renderer.entity.RailcraftEntityRenderers;
 import mods.railcraft.integrations.patchouli.Patchouli;
+import mods.railcraft.network.to_server.SetLocomotiveByKeyMessage;
 import mods.railcraft.particle.RailcraftParticleTypes;
 import mods.railcraft.world.inventory.RailcraftMenuTypes;
 import mods.railcraft.world.item.GogglesItem;
@@ -63,11 +64,13 @@ import mods.railcraft.world.level.block.RailcraftBlocks;
 import mods.railcraft.world.level.block.track.ForceTrackBlock;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FastColor;
+import net.minecraft.world.entity.vehicle.Minecart;
 import net.minecraft.world.level.GrassColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -87,11 +90,12 @@ import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 import vazkii.patchouli.api.PatchouliAPI;
 
 public class ClientManager {
 
-  private static ShuntingAuraRenderer shuntingAuraRenderer;
+  private static final ShuntingAuraRenderer shuntingAuraRenderer = new ShuntingAuraRenderer();
 
   public static void init(IEventBus modEventBus) {
     modEventBus.addListener(ClientManager::handleRegisterMenuScreens);
@@ -104,7 +108,6 @@ public class ClientManager {
     modEventBus.addListener(ClientManager::handleKeyRegister);
     NeoForge.EVENT_BUS.register(ClientManager.class);
 
-    shuntingAuraRenderer = new ShuntingAuraRenderer();
     SignalUtil._setTuningAuraHandler(new TuningAuraHandlerImpl());
   }
 
@@ -214,7 +217,12 @@ public class ClientManager {
   }
 
   private static void handleKeyRegister(RegisterKeyMappingsEvent event) {
-    event.register(KeyBinding.CHANGE_AURA_KEY);
+    event.register(KeyBinding.CHANGE_AURA.getKeyMapping());
+    event.register(KeyBinding.REVERSE.getKeyMapping());
+    event.register(KeyBinding.FASTER.getKeyMapping());
+    event.register(KeyBinding.SLOWER.getKeyMapping());
+    event.register(KeyBinding.MODE_CHANGE.getKeyMapping());
+    event.register(KeyBinding.WHISTLE.getKeyMapping());
   }
 
   // ================================================================================
@@ -300,8 +308,40 @@ public class ClientManager {
 
   @SubscribeEvent
   static void handleKeyInput(InputEvent.Key event) {
-    if (KeyBinding.CHANGE_AURA_KEY.consumeClick()) {
-      GogglesItem.changeAuraByKey(Minecraft.getInstance().player);
+    var player = Minecraft.getInstance().player;
+    if (player == null) {
+      return;
+    }
+    if (Minecraft.getInstance().screen instanceof ChatScreen) {
+      return;
+    }
+
+    if (KeyBinding.CHANGE_AURA.consumeClick()) {
+      GogglesItem.changeAuraByKey(player);
+    }
+    // Locomotive Keybindings
+    if (!(player.getVehicle() instanceof Minecart)) {
+      return;
+    }
+    if (KeyBinding.REVERSE.consumeClick()) {
+      PacketDistributor.sendToServer(
+          new SetLocomotiveByKeyMessage(SetLocomotiveByKeyMessage.LocomotiveKeyBinding.REVERSE));
+    }
+    if (KeyBinding.FASTER.consumeClick()) {
+      PacketDistributor.sendToServer(
+          new SetLocomotiveByKeyMessage(SetLocomotiveByKeyMessage.LocomotiveKeyBinding.FASTER));
+    }
+    if (KeyBinding.SLOWER.consumeClick()) {
+      PacketDistributor.sendToServer(
+          new SetLocomotiveByKeyMessage(SetLocomotiveByKeyMessage.LocomotiveKeyBinding.SLOWER));
+    }
+    if (KeyBinding.MODE_CHANGE.consumeClick()) {
+      PacketDistributor.sendToServer(
+          new SetLocomotiveByKeyMessage(SetLocomotiveByKeyMessage.LocomotiveKeyBinding.MODE_CHANGE));
+    }
+    if (KeyBinding.WHISTLE.consumeClick()) {
+      PacketDistributor.sendToServer(
+          new SetLocomotiveByKeyMessage(SetLocomotiveByKeyMessage.LocomotiveKeyBinding.WHISTLE));
     }
   }
 }

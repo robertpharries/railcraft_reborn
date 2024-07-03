@@ -45,7 +45,7 @@ public class ShuntingAuraRenderer {
         var bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
         for (var linkedCart : this.linkedCarts) {
           var entity = level.getEntity(linkedCart.entityId());
-          if (!(entity instanceof AbstractMinecart cart) || linkedCart.trainId() == null) {
+          if (!(entity instanceof AbstractMinecart cart) || linkedCart.trainId().isEmpty()) {
             continue;
           }
 

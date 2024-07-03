@@ -14,6 +14,7 @@ import mods.railcraft.network.to_server.SetFluidManipulatorMessage;
 import mods.railcraft.network.to_server.SetItemDetectorMessage;
 import mods.railcraft.network.to_server.SetItemManipulatorMessage;
 import mods.railcraft.network.to_server.SetLauncherTrackMessage;
+import mods.railcraft.network.to_server.SetLocomotiveByKeyMessage;
 import mods.railcraft.network.to_server.SetLocomotiveMessage;
 import mods.railcraft.network.to_server.SetMaintenanceMinecartMessage;
 import mods.railcraft.network.to_server.SetRoutingDetectorMessage;
@@ -59,6 +60,8 @@ public final class PacketHandler {
         SetItemManipulatorMessage.STREAM_CODEC, SetItemManipulatorMessage::handle);
     registrar.playToServer(SetLauncherTrackMessage.TYPE,
         SetLauncherTrackMessage.STREAM_CODEC, SetLauncherTrackMessage::handle);
+    registrar.playToServer(SetLocomotiveByKeyMessage.TYPE,
+        SetLocomotiveByKeyMessage.STREAM_CODEC, SetLocomotiveByKeyMessage::handle);
     registrar.playToServer(SetLocomotiveMessage.TYPE,
         SetLocomotiveMessage.STREAM_CODEC, SetLocomotiveMessage::handle);
     registrar.playToServer(SetMaintenanceMinecartMessage.TYPE,

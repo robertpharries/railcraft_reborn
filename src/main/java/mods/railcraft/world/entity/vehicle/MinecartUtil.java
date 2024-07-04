@@ -3,6 +3,8 @@ package mods.railcraft.world.entity.vehicle;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import mods.railcraft.RailcraftConfig;
 import org.jetbrains.annotations.Nullable;
 import mods.railcraft.api.core.RailcraftFakePlayer;
 import mods.railcraft.api.track.TrackUtil;
@@ -55,6 +57,9 @@ public final class MinecartUtil {
   }
 
   public static void explodeCart(AbstractMinecart cart) {
+    if (!RailcraftConfig.COMMON.explosionsEnabled.get()) {
+      return;
+    }
     if (!cart.isAlive()) {
       return;
     }

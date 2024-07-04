@@ -225,6 +225,7 @@ public class RailcraftConfig {
   public static class Common {
 
     public final BooleanValue seasonsEnabled;
+    public final BooleanValue explosionsEnabled;
     public final IntValue christmas;
     public final IntValue halloween;
     public final IntValue harvest;
@@ -236,6 +237,10 @@ public class RailcraftConfig {
       this.seasonsEnabled = builder
           .comment("Enable season-based item & train effects?")
           .define("seasonsEnabled", true);
+
+      this.explosionsEnabled = builder
+              .comment("Enable explosions?")
+              .define("explosionsEnabled", true);
 
       this.christmas = builder
           .comment("Controls whether Christmas mode is (0) enabled, (1) forced, or (2) disabled")

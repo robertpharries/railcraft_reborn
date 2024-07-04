@@ -676,8 +676,10 @@ public abstract class Locomotive extends RailcraftMinecart implements
   }
 
   public void explode() {
-    MinecartUtil.explodeCart(this);
-    this.remove(RemovalReason.KILLED);
+    if(RailcraftConfig.COMMON.explosionsEnabled.get()) {
+      MinecartUtil.explodeCart(this);
+      this.remove(RemovalReason.KILLED);
+    }
   }
 
   public double getDrag() {

@@ -44,6 +44,7 @@ public class RailcraftConfig {
   public static class Server {
 
     public final DoubleValue highSpeedTrackMaxSpeed;
+    public final BooleanValue highSpeedTrackExplosions;
     public final ConfigValue<List<? extends String>> highSpeedTrackIgnoredEntities;
     public final DoubleValue strapIronTrackMaxSpeed;
     public final BooleanValue chestAllowFluids;
@@ -80,6 +81,11 @@ public class RailcraftConfig {
                 "Change to limit max speed on high speed rails, useful if your computer can't keep up with chunk loading",
                 "iron tracks operate at 0.4 blocks per tick")
             .defineInRange("maxSpeed", 1.0D, 0.6D, 1.2D);
+
+        this.highSpeedTrackExplosions = builder
+            .comment(
+                "Change to disable high speed related explosions, depending on your preferred playstyle.")
+            .define("highSpeedTrackExplosions", true);
 
         final var defaultEntities = List.of(
             "minecraft:bat", "minecraft:blaze", "minecraft:cave_spider",

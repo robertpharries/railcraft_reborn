@@ -29,7 +29,8 @@ public final class HighSpeedTrackUtil {
   }
 
   public static void checkSafetyAndExplode(Level level, BlockPos pos, AbstractMinecart cart) {
-    if (!isTrackSafeForHighSpeed(level, pos, cart)) {
+    if (RailcraftConfig.SERVER.highSpeedTrackExplosions.get()
+        && !isTrackSafeForHighSpeed(level, pos, cart)) {
       MinecartUtil.explodeCart(cart);
     }
   }
